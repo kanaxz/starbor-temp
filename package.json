@@ -1,0 +1,24 @@
+{
+  "name": "star-citizen-universe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanaxz/star-citizen-universe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kanaxz/star-citizen-universe/issues"
+  },
+  "homepage": "https://github.com/kanaxz/star-citizen-universe#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "mongodb": "^5.0.1"
+  }
+}
