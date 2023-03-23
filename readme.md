@@ -3,6 +3,6 @@
 
 Everything you need for star citizen
 
-## autorz 
-Sacha Perret
+## Authors 
+Sacha Perret  
 Cedric Dessalles
