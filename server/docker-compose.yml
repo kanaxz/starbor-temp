@@ -1,0 +1,23 @@
+version: '3'
+services:
+  server:
+    build: .
+    command: tail -f /dev/null
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      DATABASE_URL: postgres://todoapp@postgres/todos
+    working_dir: /app
+  mongodb:
+    image: mongo:4.2.18 # Version used on our MongoAtlas cluster
+    ports:
+      - 27018:27017
+    volumes:
+      - mongodata:/data/db
+volumes:
+  mongodata:

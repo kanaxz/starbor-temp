@@ -1,0 +1,1 @@
+{"version":3,"file":"main.bundle.js","mappings":";AACAA,QAAQC,IAAI","sources":["webpack://star-citizen-universe-client/./src/index.js"],"sourcesContent":["\nconsole.log('hello')"],"names":["console","log"],"sourceRoot":""}

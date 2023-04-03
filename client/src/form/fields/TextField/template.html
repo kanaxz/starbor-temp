@@ -1,0 +1,8 @@
+<form-field-wrapper :field="this">
+  <input 
+    :name="this.@name"
+    :type="this.@type || 'text'"
+    :value="this.@value"
+    :on:change="console.log('ok')">
+  </input>
+</form-field-wrapper>
