@@ -1,1 +1,2 @@
 require('./routes')
+require('./components')

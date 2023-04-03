@@ -1,0 +1,10 @@
+<self>
+  <h3>Search</h3>
+  <div class="filters" :v:for="filter of this.filters">
+    <div class="filter">
+      <app-editable-text :value="filter.@name"></app-editable-text>
+      <app-editable-text :value="filter.@functionName"></app-editable-text>
+      <app-editable-text :value="filter.@value"></app-editable-text>
+    </div>
+  </div>
+</self>

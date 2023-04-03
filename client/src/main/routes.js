@@ -1,14 +1,17 @@
 const navigator = require('@app/navigator')
 
-navigator.route('/', (req, res) => {
-  res.page(import('./Home'))
+navigator.route(/\/$/, (req, res) => {
+  res.page(import('./pages/Home'))
 })
 
 navigator.route('/not-found', (req, res) => {
-  res.page(import('./NotFound'))
+  res.page(import('./pages/NotFound'))
 })
 
-navigator.use((req, res) => {
-  console.log('here')
-  res.redirect('/not-found')
+navigator.route('/market', (req, res) => {
+  res.page(import('./pages/Market'))
+})
+
+navigator.use((req, res) => {  
+  navigator.navigate('/not-found')
 })

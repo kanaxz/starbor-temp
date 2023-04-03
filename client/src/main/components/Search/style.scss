@@ -1,0 +1,14 @@
+app-search {
+  .filters {
+    display: flex;
+    flex-direction: row;
+    background-color: darken(#e1e1e1, 0.5);
+    padding:5px;
+    .filter {
+      display: flex;
+      flex-direction: row;
+      width: fit-content;
+      border: 1px solid #e1e1e1;
+    }
+  }
+}

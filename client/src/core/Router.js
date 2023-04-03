@@ -1,7 +1,9 @@
-
-module.exports = class Router {
+const Eventable = require('@shared/core/Eventable')
+const mixer = require('@shared/core/mixer')
+module.exports = class Router extends mixer.extends([Eventable()]) {
 
   constructor() {
+    super()
     this.routes = []
   }
 

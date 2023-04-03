@@ -18,10 +18,6 @@ module.exports = class Main extends Layout {
       }
     ]
   }
-  toggleMenu() {
-    console.log('toggle menu', this.open)
-    this.open = !this.open
-  }
 }
   .define({
     name: 'app-layout-main',
