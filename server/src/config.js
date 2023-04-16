@@ -8,6 +8,6 @@ module.exports = {
   },
   mongo: {
     url: 'mongodb://mongodb:27017/star-citizen-universe',
-    db: 'sandbox'
+    db: 'star-citizen-universe'
   },
 }

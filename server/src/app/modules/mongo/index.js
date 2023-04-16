@@ -7,6 +7,11 @@ module.exports = {
       useUnifiedTopology: true
     })
 
-    return client
+    const db = client.database(config.mongo.db)
+
+    return {
+      client,
+      db
+    }
   }
 }
