@@ -1,0 +1,9 @@
+<self :style.background-image="`url(${this.location.image})`">
+  <header>
+    <label>{{this.location.@name}}</label>
+    <app-affiliation-little :affiliation="this.location?.affiliation"></app-affiliation-little>
+  </header>
+  <div class="content">
+    {{this.location.description}}
+  </div>
+</self>

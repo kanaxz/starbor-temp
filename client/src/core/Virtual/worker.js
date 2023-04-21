@@ -16,6 +16,7 @@ workers.push({
         if (!node.v) {
           node.v = {}
         }
+        
 
         node.v[virtualName] = virtual
         node.removeAttribute(attr.name)

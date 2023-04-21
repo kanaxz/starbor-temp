@@ -12,25 +12,29 @@ module.exports = class Link extends Virtual {
     })
 
     this.on('propertyChanged:href', () => {
-      this.el.href = this.href
+      this.updateHref()
     })
 
+  }
+
+  async initialize() {
+    await super.initialize()
+    this.navigator = this.scope.variables.navigator
+    this.navigator.on('change', () => {
+      this.updateActive()
+    })
+
+    this.updateActive()
+    this.updateHref()
+  }
+
+  updateHref() {
+    this.el.href = this.href
   }
 
   updateActive() {
     const isActive = this.href === this.navigator.url
     this.el.classList[isActive ? 'add' : 'remove']('active')
-  }
-
-  async initialized() {
-    await super.initialized()
-    this.navigator = this.scope.variables.navigator
-    this.navigator.on('change', () => {
-      console.log('change')
-      this.updateActive()
-    })
-
-    this.updateActive()
   }
 }
   .define({

@@ -18,5 +18,6 @@ module.exports = class Virtual extends mixer.extends([Base()]) {
   constructor(_el) {
     super()
     this._el = _el
+    //console.log('Virtual',this.constructor.name)
   }
 }

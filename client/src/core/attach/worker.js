@@ -3,7 +3,7 @@ const { set } = require('../utils')
 const as = (node, { this: thisArg }) => {
   const as = node.getAttribute("as")
   if (!as) { return }
-
+  //console.log('as',thisArg, as, node)
   set(thisArg, as, node)
 }
 

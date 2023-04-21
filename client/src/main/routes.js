@@ -12,6 +12,10 @@ navigator.route('/market', (req, res) => {
   res.page(import('./pages/Market'))
 })
 
-navigator.use((req, res) => {  
+navigator.route('/models-tree', (req, res) => {
+  res.page(import('./pages/ModelsTree'))
+})
+
+navigator.use((req, res) => {
   navigator.navigate('/not-found')
 })

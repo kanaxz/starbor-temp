@@ -85,11 +85,22 @@ module.exports = {
     return buildBase(base, dependencies)
   },
   is(object, mixinOrClass) {
-    if (object instanceof mixinOrClass) {
-      return true
+    if (!object) { return false }
+    const dependencies = object.constructor?.dependencies
+
+    if (dependencies) {
+      const hasMixin = dependencies?.find((d) => d.mixin === mixinOrClass.mixin)
+      if (hasMixin) {
+        return true
+      }
     }
 
-    const hasMixin = object.constructor.dependencies?.find((d) => d.mixin === mixinOrClass)
-    return hasMixin
+    try {
+      if (object instanceof mixinOrClass) {
+        return true
+      }
+    } catch (e) { }
+
+    return false
   }
 }

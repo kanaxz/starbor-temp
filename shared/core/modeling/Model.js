@@ -1,8 +1,12 @@
 const mixer = require('../mixer')
-const Propertiable = require('../Propertiable')
+const Object = require('./Object')
+const Identifiable = require('./mixins/Identifiable')
+const Loadable = require('./mixins/Loadable')
+const SingleInstance = require('./mixins/SingleInstance')
 
-module.exports = class Model extends mixer.extends([Propertiable()]) {
+module.exports = class Model extends mixer.extends(Object, [Loadable(), Identifiable(), SingleInstance()]) {
 
-}.properties({
-  _id: 'string',
-})
+}
+  .identities({
+    main: ['_id']
+  })

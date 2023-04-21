@@ -1,5 +1,7 @@
 const { workers } = require('../renderer')
 const utils = require('../utils')
+const mixer = require('@shared/core/mixer')
+const Holdable = require('@shared/core/Holdable')
 
 const { get, createFunction, dashToCamel } = utils
 
@@ -43,8 +45,8 @@ const PREFIX = ':'
 
 const processFunctionString = (string) => {
   let sanitized = string
-  const paths = string.match(/([\w$@.]+)/g)
-    .filter((p) => p.indexOf('@') !== -1)
+  const paths = string.match(/([\w?@.]+)/g)
+  //.filter((p) => p.indexOf('@') !== -1)
   paths
     .forEach((p) => {
       sanitized = sanitized.replace(p, p.replace(/@/g, ''))
@@ -62,6 +64,7 @@ class BindingFunction {
     this.variables = variables
     this.callback = callback
     this.listeners = []
+    this.holdables = []
     const { sanitized, paths } = processFunctionString(functionString)
     this.paths = paths
     const vars = {
@@ -80,13 +83,19 @@ class BindingFunction {
   }
 
   update(trigger = true) {
-    this.listeners.forEach((l) => l.remove())
+    this.destroy()
     this.listeners = []
+    this.holdables = []
     this.paths.forEach((path) => {
       const segments = path.split('.')
       let value = this.variables
       segments.forEach((segment) => {
-        const propertyName = segment.replace('@', '')
+        if (!value) { return }
+        if (mixer.is(value, Holdable)) {
+          this.holdables.push(value)
+          value.hold(this)
+        }
+        const propertyName = segment.replace(/[@?]+/g, '')
         if (segment.startsWith('@')) {
           const listener = value.on(`propertyChanged:${propertyName}`, () => {
             this.update()
@@ -98,7 +107,6 @@ class BindingFunction {
     })
 
     if (trigger) {
-      
       const value = this.getValue()
       this.callback(value)
     }
@@ -106,6 +114,7 @@ class BindingFunction {
 
   destroy() {
     this.listeners.forEach((l) => l.remove())
+    this.holdables.forEach((h) => h.release(this))
   }
 }
 
@@ -122,7 +131,7 @@ class BindingExpression {
 
   update() {
     let value = this.expression
-    this.functions.forEach((p) => p.destroy())
+    this.destroy()
     this.functions = this.expression.match(expressionRegex)
       .map((path) => {
 
@@ -137,6 +146,10 @@ class BindingExpression {
 
     this.expression.match(expressionRegex)
     this.callback(value)
+  }
+
+  destroy() {
+    this.functions.forEach((p) => p.destroy())
   }
 }
 

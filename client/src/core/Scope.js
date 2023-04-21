@@ -10,9 +10,10 @@ module.exports = class Scope {
     }
   }
 
-  child() {
+  child(options = {}) {
     return new Scope({
       parent: this,
+      ...options
     })
   }
 }

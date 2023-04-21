@@ -1,3 +1,4 @@
+require('../../shared/core/modeling')
 const Module = require('./core/Module')
 const { join } = require('path')
 
@@ -9,6 +10,7 @@ const process = async () => {
   })
 
   app.load()
+  console.log('processing')
   await app.process()
   app.object.onReady.trigger()
 }

@@ -1,0 +1,68 @@
+{
+  "id": "2744",
+  "age": null,
+  "appearance": "CUSTOM",
+  "axial_tilt": null,
+  "code": "STANTON.STATION.SCANHUB",
+  "description": "Part of the Imperial Cartography Center, this research station is categorized as a Deep Space Scanning and AstroGraphical Station, one of the many turn-key facilities the UEE places in systems to casually sweep for jump points. ",
+  "designation": "ICC ScanHub Stanton",
+  "distance": "0.00050000",
+  "fairchanceact": null,
+  "habitable": "1",
+  "info_url": null,
+  "latitude": "-2.00000000",
+  "longitude": "145.26949000",
+  "name": null,
+  "orbit_period": null,
+  "parent_id": "1695",
+  "sensor_danger": "3",
+  "sensor_economy": "3",
+  "sensor_population": "2",
+  "shader_data": {
+    "orbitalMin": 1,
+    "orbitalMax": 5,
+    "orbitalFactor": 1,
+    "radius": 0.01
+  },
+  "show_label": "1",
+  "show_orbitlines": null,
+  "size": null,
+  "subtype_id": "49",
+  "time_modified": "2015-10-10 00:07:07",
+  "type": "MANMADE",
+  "subtype": {
+    "id": "49",
+    "name": "Probe",
+    "type": "MANMADE"
+  },
+  "affiliation": [],
+  "population": [],
+  "media": [
+    {
+      "id": "559375",
+      "cover_data": null,
+      "depot": "LOCAL_MEDIA",
+      "depot_status": "R",
+      "derived_data": null,
+      "distant_id": null,
+      "distant_source": null,
+      "publish_end": null,
+      "publish_start": null,
+      "purpose": "full",
+      "slug": "afrlkpdjwl5nm",
+      "source_duration": null,
+      "source_extension": "dae",
+      "source_name": "StationStorage",
+      "status": "P",
+      "tag_string": "tag.starmap",
+      "time_modified": "2015-10-10 15:40:52",
+      "type": "D",
+      "source_url": "/media/afrlkpdjwl5nmr/source/StationStorage.dae",
+      "source_stream": {
+        "progressive": "/media/afrlkpdjwl5nmr/source/StationStorage.dae"
+      },
+      "membership.id": "12961",
+      "membership.slot": "model"
+    }
+  ]
+}

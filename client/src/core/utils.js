@@ -66,8 +66,8 @@ const getElementFromTemplate = (template) => {
     var result = str2DOMElement(clearInnerHTML);
     return result;
   } else if (template instanceof HTMLTemplateElement) {
-    var clone = document.importNode(template.content, true);
-    return clone.childNodes.find((child) => child.nodeType === Node.ELEMENT_NODE)
+    var clone = document.importNode(template.content, true)
+    return [...clone.childNodes].find((child) => child.nodeType === Node.ELEMENT_NODE)
   } else if (typeof template === "string") {
     return str2DOMElement(template)
   } else if (template instanceof HTMLElement) {

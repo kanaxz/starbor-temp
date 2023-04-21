@@ -33,6 +33,7 @@ module.exports = class Router extends mixer.extends([Eventable()]) {
     const inner = async (index) => {
       if (index < routesToProcess.length) {
         const route = routesToProcess[index]
+        
         await route.process(req, res, async () => {
           await inner(index + 1)
         })

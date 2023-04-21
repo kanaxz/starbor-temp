@@ -1,11 +1,16 @@
+require('@shared/core')
 const navigator = require('./navigator')
 const pageMiddleware = require('@core/page/middleware')
 
 require('@core')
 require('./auth')
 require('./form')
-require('./style.scss')
+require('./locations')
 require('./main')
+require('./affiliation')
+
+require('./style.scss')
+
 
 
 

@@ -1,0 +1,28 @@
+app-locations-page {
+  width: 100%;
+  overflow: auto;
+  .filter {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    app-type-selector{
+    }
+    label {
+    }
+    input {
+    }
+  }
+
+  .locations {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    .location {
+      display: block;
+      margin: 15px;
+      app-location-card {
+      }
+    }
+  }
+}

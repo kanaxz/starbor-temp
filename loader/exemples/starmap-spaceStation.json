@@ -1,0 +1,68 @@
+{
+  "id": "2742",
+  "age": null,
+  "appearance": "CUSTOM",
+  "axial_tilt": null,
+  "code": "STANTON.STATION.GUNDO",
+  "description": "Formerly Covalex’s prime shipping hub for the system, Gundo suffered a catastrophic accident that resulted in an explosion and the deaths of all the employees aboard the station. Covalex has since moved their operations to Orison directly.",
+  "designation": "Covalex Hub Gundo",
+  "distance": "0.00500000",
+  "fairchanceact": null,
+  "habitable": "1",
+  "info_url": null,
+  "latitude": "-3.00000000",
+  "longitude": "50.00000000",
+  "name": null,
+  "orbit_period": null,
+  "parent_id": "1695",
+  "sensor_danger": "5",
+  "sensor_economy": "1",
+  "sensor_population": "1",
+  "shader_data": {
+    "orbitalMin": 1,
+    "orbitalMax": 5,
+    "orbitalFactor": 1,
+    "radius": 0.01
+  },
+  "show_label": "1",
+  "show_orbitlines": null,
+  "size": "0.25000000",
+  "subtype_id": "44",
+  "time_modified": "2015-10-10 00:06:55",
+  "type": "MANMADE",
+  "subtype": {
+    "id": "44",
+    "name": "Space Station",
+    "type": "MANMADE"
+  },
+  "affiliation": [],
+  "population": [],
+  "media": [
+    {
+      "id": "559372",
+      "cover_data": null,
+      "depot": "LOCAL_MEDIA",
+      "depot_status": "R",
+      "derived_data": null,
+      "distant_id": null,
+      "distant_source": null,
+      "publish_end": null,
+      "publish_start": null,
+      "purpose": "full",
+      "slug": "et0gvwd7ihhug",
+      "source_duration": null,
+      "source_extension": "dae",
+      "source_name": "StationCharlie",
+      "status": "P",
+      "tag_string": "tag.starmap",
+      "time_modified": "2015-10-10 15:40:52",
+      "type": "D",
+      "source_url": "/media/et0gvwd7ihhugr/source/StationCharlie.dae",
+      "source_stream": {
+        "progressive": "/media/et0gvwd7ihhugr/source/StationCharlie.dae"
+      },
+      "membership.id": "12959",
+      "membership.slot": "model"
+    }
+  ]
+}

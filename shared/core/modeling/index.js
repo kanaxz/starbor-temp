@@ -1,0 +1,2 @@
+global.THIS = {}
+require('./objects')

@@ -1,6 +1,7 @@
 const navigator = require('@app/navigator')
 const service = require('./service')
 
+return
 navigator.route('/login', (req, res) => {
   if (service.me) {
     return navigator.navigate('/')

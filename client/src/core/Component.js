@@ -20,7 +20,7 @@ module.exports = class Component extends mixer.extends(temp, [Base()]) {
 
   event(name, arg) {
     var event = new CustomEvent(name, {
-      bubbles: true,
+      bubbles: false,
       'detail': arg
     });
     return this.dispatchEvent(event);

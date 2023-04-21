@@ -1,0 +1,52 @@
+{
+  "id": "2752",
+  "age": null,
+  "appearance": "DEFAULT",
+  "axial_tilt": null,
+  "code": "STANTON.MOONS.CALLIOPE",
+  "description": "Named after the ancient Greek muse who inspires eloquence to supposedly remind those gazing upon the moon from microTech to 'strive for pure expression of thought.'",
+  "designation": "Stanton 4a",
+  "distance": "0.00025890",
+  "fairchanceact": null,
+  "habitable": null,
+  "info_url": null,
+  "latitude": "4.00000000",
+  "longitude": "78.00000000",
+  "name": "Calliope",
+  "orbit_period": null,
+  "parent_id": "1692",
+  "sensor_danger": "3",
+  "sensor_economy": "3",
+  "sensor_population": "1",
+  "shader_data": {
+    "orbitalMin": 1,
+    "orbitalMax": 5,
+    "orbitalFactor": 1,
+    "highlight": {
+      "color1": "rgb(255,255,255)",
+      "color2": "rgb(255,255,255)",
+      "alpha": 1,
+      "atmosphere1": 0.5,
+      "atmosphere2": 0.5,
+      "atmosphere3": 0.5,
+      "scaleMin": 1,
+      "scaleMax": 1,
+      "scalePeriod": 1
+    },
+    "radius": 0.01
+  },
+  "show_label": null,
+  "show_orbitlines": null,
+  "size": "0.60000000",
+  "subtype_id": "52",
+  "time_modified": "2015-10-09 19:04:08",
+  "type": "SATELLITE",
+  "subtype": {
+    "id": "52",
+    "name": "Planetary Moon",
+    "type": "SATELLITE"
+  },
+  "affiliation": [],
+  "population": [],
+  "children": []
+}

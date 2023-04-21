@@ -1,0 +1,11 @@
+<self>
+  <template as="modelTemplate">
+    <div class="model">
+      <label>{{model.options.name}}</label>
+      <div class="childs" :v:for="model of model.childs" :v.for.template="this.modelTemplate"></div>
+    </div>
+  </template>
+
+  <div class="root childs" :v:for="model of models" :v.for.template="this.modelTemplate">
+  </div>
+</self>

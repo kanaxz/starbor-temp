@@ -15,6 +15,16 @@ module.exports = class Main extends Layout {
         label: 'Market',
         class: 'fa-solid fa-shop',
         url: '/market',
+      },
+      {
+        label: 'Models tree',
+        class: 'fa-solid fa-shop',
+        url: '/models-tree',
+      },
+      {
+        label: 'Locations',
+        class: 'fa-solid fa-shop',
+        url: '/locations',
       }
     ]
   }

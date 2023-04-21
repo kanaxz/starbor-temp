@@ -57,17 +57,20 @@ class Module {
   }
 
   async processIndex() {
+    
     const { dependancies, construct } = this.index
     const root = this.getRoot()
     this.dependancies = dependancies.map((dependancyName) => root.getModule(dependancyName))
-    for(const dependancy of this.dependancies){
+    for (const dependancy of this.dependancies) {
       await dependancy.process()
     }
+    
     const params = this.dependancies.reduce((acc, dependancy) => {
       acc[dependancy.name] = dependancy.object
       return acc
     }, {})
     this.object = await construct(params)
+    console.log(`Module ${this.name} processed`)
   }
 
   async processModules() {

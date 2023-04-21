@@ -11,6 +11,14 @@ module.exports = mixer.mixin([Bindeable(), Propertiable()], (base) => {
       return this
     }
 
+    static variables(variables) {
+      this._variables = {
+        ...(this._variables || {}),
+        ...variables
+      }
+      return this
+    }
+
 
     get definition() {
       return this.constructor.definition;
@@ -36,10 +44,10 @@ module.exports = mixer.mixin([Bindeable(), Propertiable()], (base) => {
     async attach(scope) {
       if (mixer.is(scope, Base))
         scope = scope.scope
-
       this.scope = new Scope({
         parent: scope,
         source: this,
+        variables: this.constructor._variables
       })
       await this.initialize()
     }

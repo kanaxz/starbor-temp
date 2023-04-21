@@ -72,14 +72,21 @@ const renderContent = async (node, scope) => {
   }
 }
 
-const destroy = (node) => {
-  workers.forEach((w) => w.destroy && w.destroy())
-  if (node.destructor) {
-    node.destructor();
-  } else if (node.childNodes) {
+const destroyContent = (node) => {
+  if (node.childNodes) {
     node.childNodes.forEach(destroy)
   }
 }
+
+const destroy = (node) => {
+  workers.forEach((w) => w.destroy && w.destroy(node))
+  if (node.destructor) {
+    node.destructor();
+  } else {
+    destroyContent(node)
+  }
+}
+
 
 module.exports = {
   workers,
@@ -87,5 +94,6 @@ module.exports = {
   process,
   renderContent,
   destroy,
+  destroyContent,
 }
 

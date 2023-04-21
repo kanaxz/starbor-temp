@@ -1,0 +1,10 @@
+<self ::class="{{this.@editing ? 'editing' : ''}}">
+  <span
+    :on:click="this.edit()">
+      {{this.@value}}
+  </span>
+  <input 
+    as="input"
+    :on:blur="this.editing = false"
+    :value="this.@value">
+</self>

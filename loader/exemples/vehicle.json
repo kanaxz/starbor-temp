@@ -1,0 +1,4994 @@
+{
+  "EntityClassDefinition.XIAN_Scout": {
+    "Category": "Default",
+    "Icon": "Default.bmp",
+    "Invisible": "0",
+    "BBoxSelection": "0",
+    "entityDensityClass": "b6cc39fd-7c14-4568-b261-197834e51116",
+    "__type": "EntityClassDefinition",
+    "__ref": "8f61dc58-74ca-4dc6-aa95-c3105f10bba4",
+    "__path": "libs/foundry/records/entities/spaceships/xian_scout.xml",
+    "tags": {
+      "Reference": [
+        {
+          "value": "5f12dd31-4ff9-41a5-b5e2-916270351ba9"
+        },
+        {
+          "value": "9314b308-b5dd-44ce-8e81-61e1764cbd57"
+        },
+        {
+          "value": "ef734509-be28-47c9-87df-2775db104d38"
+        },
+        {
+          "value": "0db23eec-9038-404c-8761-86b4f076b64b"
+        },
+        {
+          "value": "aee3711f-c5e7-4067-be4e-42a714bf6cab"
+        }
+      ]
+    },
+    "StaticEntityClassData": {
+      "EntityUIDisplayParams": {
+        "displayDescription": "@LOC_UNINITIALIZED",
+        "displayThumbnail": "",
+        "displayImage": "",
+        "displayIcon": "",
+        "sortString": "",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "EntityUIDisplayParams",
+        "trackerProperties": {
+          "SVehicleEntryTrackerParams": {
+            "__type": "SObjectDataBankEntryTrackerParams",
+            "__polymorphicType": "SVehicleEntryTrackerParams"
+          }
+        }
+      },
+      "SurfaceMFXEntityParams": {
+        "customEffect": "Ships_Surface_Effects_S1",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "SurfaceMFXEntityParams"
+      },
+      "CollisionMFXEntityParams": {
+        "customEffect": "Ships_Collision_Effects_S2",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "CollisionMFXEntityParams"
+      },
+      "DefaultEntitlementEntityParams": {
+        "entitlementPolicy": "8a1fdd48-7896-4774-a110-2466190e1a07",
+        "canEntitleThroughWebsite": "1",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "DefaultEntitlementEntityParams"
+      },
+      "WakeMFXEntityParams": {
+        "customEffect": "Ships_Wake_Effects",
+        "emissionSizeScaleToShipRatio": "0.75",
+        "distanceOffSurface": "0.25",
+        "raycastLengthMultiplier": "1",
+        "sizeScaleMultiplier": "0.25",
+        "strengthDistanceFalloffThreshold": "0.5",
+        "velocityToGenerateWake": "5",
+        "velocityToAchieveMaxWakeStrength": "50",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "WakeMFXEntityParams"
+      },
+      "SEntityInsuranceProperties": {
+        "restoreOnClaim": "1",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "SEntityInsuranceProperties",
+        "shipInsuranceParams": {
+          "shipEntityClassName": "XIAN_Scout",
+          "baseWaitTimeMinutes": "5.0625",
+          "mandatoryWaitTimeMinutes": "1.6875",
+          "baseExpeditingFee": "2535",
+          "__type": "ShipInsuranceParams"
+        }
+      },
+      "EAEntityDataParams": {
+        "inclusionMode": "ReadyToInclude",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "EAEntityDataParams",
+        "inclusionParams": {
+          "__type": "EAEntityInclusionParams",
+          "tags": {
+            "__type": "TagList",
+            "tags": {
+              "Reference": [
+                {
+                  "value": "2efe0a5d-9b0f-484f-be7f-a666686bcb5a"
+                },
+                {
+                  "value": "449df0f9-b23e-4fb1-8a8c-966fef87753c"
+                },
+                {
+                  "value": "f07ed549-0968-4475-92bc-344797a30d43"
+                },
+                {
+                  "value": "b1c08b95-96f2-4361-abda-fa0816dfc355"
+                },
+                {
+                  "value": "ee36241a-d51f-4f47-b464-365e801fa0a6"
+                },
+                {
+                  "value": "de58fe96-d9cf-4a17-966f-c4015dffc4d0"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "SEntityDynamicLocationProperties": {
+        "dynamicallyUpdatePersistanceLocation": "1",
+        "__type": "EntityClassStaticDataParams",
+        "__polymorphicType": "SEntityDynamicLocationProperties"
+      }
+    },
+    "Components": {
+      "VehicleComponentParams": {
+        "landingSystem": "c0476092-2f39-4d74-80b2-95a8a9affdf3",
+        "manufacturer": "70ac7035-10a0-4bbb-90b0-9bddf047b504",
+        "vehicleDefinition": "scripts/entities/vehicles/implementations/xml/xian_scout.xml",
+        "modification": "",
+        "allowSoftDestruction": "0",
+        "ignoreHostility": "0",
+        "dogfightEnabled": "1",
+        "unmoveable": "0",
+        "isGravlevVehicle": "0",
+        "incomingDamageModifierToAI": "1",
+        "incomingVehicleDamageModifierFromAI": "1",
+        "emergencyStatusDamageThreshold": "0.1",
+        "crewSize": "1",
+        "vehicleName": "@vehicle_NameXIAN_Scout",
+        "vehicleDescription": "@vehicle_DescXIAN_Scout",
+        "vehicleImagePath": "",
+        "vehicleCareer": "@vehicle_focus_combat",
+        "vehicleCareerRef": "2bf4345e-cf3c-4ecb-91ce-f9daa8ff47f8",
+        "vehicleRole": "@vehicle_class_lightfighter",
+        "vehicleRoleRef": "bf73e515-0e01-409e-84fb-acbef27e1686",
+        "DashboardCanvasConfig": "00000000-0000-0000-0000-000000000000",
+        "inventoryContainerParams": "00000000-0000-0000-0000-000000000000",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "VehicleComponentParams",
+        "maxBoundingBoxSize": {
+          "x": "13.5",
+          "y": "32",
+          "z": "8.75",
+          "__type": "Vec3"
+        },
+        "cargoEntrySize": {
+          "x": "0",
+          "y": "0",
+          "__type": "Vec2"
+        },
+        "aiProperties": {
+          "VehicleAIPropertiesParams": {
+            "__type": "VehicleAIPropertiesParams",
+            "aiTargetingParams": {
+              "shipAttackerScore": "1",
+              "turretAttackerScore": "0.5",
+              "__type": "VehicleAITargetingParams"
+            }
+          }
+        },
+        "objectContainers": {
+          "SVehicleObjectContainerParams": [
+            {
+              "fileName": "objectcontainers\\ships\\xian\\scout\\base_ext_lg.socpak",
+              "guid": "2a972024-e961-4509-8010-ab5d1b9d91ee",
+              "boneName": "hardpoint_lights_ext",
+              "shouldRequestNavMeshRegenerationOnLoad": "0",
+              "__type": "SAttachableObjectContainerData",
+              "__polymorphicType": "SVehicleObjectContainerParams",
+              "Offset": {
+                "__type": "QuatT",
+                "Rotation": {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0",
+                  "__type": "Ang3"
+                },
+                "Position": {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0",
+                  "__type": "Vec3"
+                }
+              }
+            },
+            {
+              "fileName": "objectcontainers\\ships\\xian\\scout\\base_int_all_main.socpak",
+              "guid": "aa7c9d1f-e661-45aa-9e90-8b5457083206",
+              "boneName": "hardpoint_Int_All",
+              "shouldRequestNavMeshRegenerationOnLoad": "0",
+              "__type": "SAttachableObjectContainerData",
+              "__polymorphicType": "SVehicleObjectContainerParams",
+              "Offset": {
+                "__type": "QuatT",
+                "Rotation": {
+                  "x": "6.830189E-06",
+                  "y": "7.430802E-07",
+                  "z": "2.632155E-05",
+                  "__type": "Ang3"
+                },
+                "Position": {
+                  "x": "-8.715024E-07",
+                  "y": "7.613999",
+                  "z": "-2.220999",
+                  "__type": "Vec3"
+                }
+              }
+            }
+          ]
+        },
+        "physicsGrid": {
+          "inheritGravity": "0",
+          "gridType": "Small",
+          "cellSize": "2",
+          "gridPartsOnly": "0",
+          "voxelDataFile": "objects\\spaceships\\ships\\xian\\scout\\vehiclevoxel_xian_scout.vvg",
+          "__type": "SEntityBasePhysicsGridParams",
+          "__polymorphicType": "SVehiclePhysicsGridParams",
+          "gravity": {
+            "x": "0",
+            "y": "0",
+            "z": "-9.81",
+            "__type": "Vec3"
+          },
+          "physicsProxy": {
+            "path": "objects\\spaceships\\ships\\xian\\scout\\scout_local_physics_grid.cgf",
+            "__type": "GlobalResourceBase",
+            "__polymorphicType": "GlobalResourceCGF"
+          }
+        },
+        "shieldSDFParams": {
+          "SDFSetParams": {
+            "setType": "Shield",
+            "isoOverride": "1.8",
+            "surfaceIdName": "shield_human",
+            "__type": "SDFSetParams"
+          }
+        },
+        "experimental": {
+          "delayDestruction": "0",
+          "__type": "SVehicleExperimentalParams"
+        }
+      },
+      "SEntityComponentDefaultLoadoutParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentDefaultLoadoutParams",
+        "loadout": {
+          "$t": "",
+          "SItemPortLoadoutManualParams": {
+            "__type": "SItemPortLoadoutBaseParams",
+            "__polymorphicType": "SItemPortLoadoutManualParams",
+            "InventoryItems": {},
+            "entries": {
+              "SItemPortLoadoutEntryParams": [
+                {
+                  "itemPortName": "hardpoint_seat_access",
+                  "entityClassName": "XIAN_Scout_SCItem_SeatAccess",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_seat_pilot",
+                  "entityClassName": "XIAN_Scout_SCItem_Seat_Pilot",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_dashboard_pilot",
+                  "entityClassName": "XIAN_Scout_SCItem_Dashboard_Pilot",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": {
+                    "$t": "",
+                    "SItemPortLoadoutManualParams": {
+                      "__type": "SItemPortLoadoutBaseParams",
+                      "__polymorphicType": "SItemPortLoadoutManualParams",
+                      "InventoryItems": {},
+                      "entries": {
+                        "SItemPortLoadoutEntryParams": [
+                          {
+                            "itemPortName": "hardpoint_cockpit_radar",
+                            "entityClassName": "RADR_Display",
+                            "__type": "SItemPortLoadoutEntryParams",
+                            "inventoryContainer": "",
+                            "loadout": ""
+                          },
+                          {
+                            "itemPortName": "Display_HUD",
+                            "entityClassName": "Projector_HUD_Generic",
+                            "__type": "SItemPortLoadoutEntryParams",
+                            "inventoryContainer": "",
+                            "loadout": ""
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "itemPortName": "hardpoint_self_destruct_pilot",
+                  "entityClassName": "VHCL_SelfDestruct_10s",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_door",
+                  "entityClassName": "Controller_Door",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_light",
+                  "entityClassName": "Controller_Light",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_comms",
+                  "entityClassName": "Controller_Comms",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_energy",
+                  "entityClassName": "Controller_Energy",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_power_plant",
+                  "entityClassName": "POWR_AMRS_S01_DynaFlux_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_cooler",
+                  "entityClassName": "Controller_Cooler",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_cooler_left",
+                  "entityClassName": "COOL_AEGS_S01_Polar_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_cooler_right",
+                  "entityClassName": "COOL_AEGS_S01_Polar_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_shield",
+                  "entityClassName": "Controller_Shield_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_shield_generator_left",
+                  "entityClassName": "SHLD_GODI_S01_ForceWall_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_shield_generator_right",
+                  "entityClassName": "SHLD_GODI_S01_ForceWall_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_armor",
+                  "entityClassName": "ARMR_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_flight",
+                  "entityClassName": "Controller_Flight_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_radar",
+                  "entityClassName": "RADR_WLOP_S01_Capstan",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_scanner",
+                  "entityClassName": "test_scanner",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_ping",
+                  "entityClassName": "test_ping",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_engine_left_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Main",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_engine_left_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Main",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_engine_right_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Main",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_engine_right_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Main",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_left_front_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_left_front_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_left_rear_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_left_rear_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_right_front_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_right_front_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_right_rear_upper",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_thruster_right_rear_lower",
+                  "entityClassName": "XIAN_Scout_Thruster_Aux_Joint",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_fuel_intake_left",
+                  "entityClassName": "INTK_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_fuel_intake_right",
+                  "entityClassName": "INTK_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_fuel_tank_left",
+                  "entityClassName": "HTNK_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_fuel_tank_right",
+                  "entityClassName": "HTNK_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_quantum_drive",
+                  "entityClassName": "QDRV_RSI_S01_Eos_SCItem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_quantum_fuel_tank",
+                  "entityClassName": "QTNK_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "landingpad_helper",
+                  "entityClassName": "Default_LandingSystem",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_weapon",
+                  "entityClassName": "Controller_Weapon",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_gun_left",
+                  "entityClassName": "Mount_Gimbal_S4",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": {
+                    "$t": "",
+                    "SItemPortLoadoutManualParams": {
+                      "__type": "SItemPortLoadoutBaseParams",
+                      "__polymorphicType": "SItemPortLoadoutManualParams",
+                      "InventoryItems": {},
+                      "entries": {
+                        "SItemPortLoadoutEntryParams": {
+                          "itemPortName": "hardpoint_class_2",
+                          "entityClassName": "KLWE_LaserRepeater_S3",
+                          "__type": "SItemPortLoadoutEntryParams",
+                          "inventoryContainer": "",
+                          "loadout": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "itemPortName": "hardpoint_gun_right",
+                  "entityClassName": "Mount_Gimbal_S4",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": {
+                    "$t": "",
+                    "SItemPortLoadoutManualParams": {
+                      "__type": "SItemPortLoadoutBaseParams",
+                      "__polymorphicType": "SItemPortLoadoutManualParams",
+                      "InventoryItems": {},
+                      "entries": {
+                        "SItemPortLoadoutEntryParams": {
+                          "itemPortName": "hardpoint_class_2",
+                          "entityClassName": "KLWE_LaserRepeater_S3",
+                          "__type": "SItemPortLoadoutEntryParams",
+                          "inventoryContainer": "",
+                          "loadout": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "itemPortName": "hardpoint_countermeasures_left",
+                  "entityClassName": "XIAN_Scout_CML_Flare",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_countermeasures_right",
+                  "entityClassName": "XIAN_Scout_CML_Chaff",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_missile",
+                  "entityClassName": "",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_weapon_regen_pool",
+                  "entityClassName": "WeaponRegenPool_Crew_Dogfighter",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_capacitor_assignment",
+                  "entityClassName": "Controller_CapacitorAssignment",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_paint",
+                  "entityClassName": "",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_controller_fuel",
+                  "entityClassName": "Controller_Fuel",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_fuel_port",
+                  "entityClassName": "DockingTube_Fuel_Ports_XIAN_Scout",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                },
+                {
+                  "itemPortName": "hardpoint_air_traffic_controller",
+                  "entityClassName": "XIAN_Scout_ShipATCDataManager",
+                  "__type": "SItemPortLoadoutEntryParams",
+                  "inventoryContainer": "",
+                  "loadout": ""
+                }
+              ]
+            }
+          }
+        }
+      },
+      "SEntityInteractableParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityInteractableParams",
+        "Interactable": {
+          "__type": "SInteractableParams",
+          "SharedInteractions": {
+            "SSharedInteractionParams": [
+              {
+                "Name": "PowerOn",
+                "RoomTag": "00000000-0000-0000-0000-000000000000",
+                "UsableTag": "00000000-0000-0000-0000-000000000000",
+                "LinkingTag": "00000000-0000-0000-0000-000000000000",
+                "DisplayName": "@ui_interactor_power_on",
+                "DisplayType": "Show",
+                "GenericCursor": "SingleAction",
+                "FocusModeOnly": "0",
+                "Sendable": "0",
+                "Linkable": "1",
+                "LockedByLinks": "0",
+                "RequiresAuthorizedUser": "0",
+                "available": "1",
+                "InheritsConditionDisplaysThroughLinks": "0",
+                "__type": "SSharedInteractionParams",
+                "QueryTags": {},
+                "conditionList": ""
+              },
+              {
+                "Name": "PowerOff",
+                "RoomTag": "00000000-0000-0000-0000-000000000000",
+                "UsableTag": "00000000-0000-0000-0000-000000000000",
+                "LinkingTag": "00000000-0000-0000-0000-000000000000",
+                "DisplayName": "@ui_interactor_power_off",
+                "DisplayType": "Show",
+                "GenericCursor": "SingleAction",
+                "FocusModeOnly": "0",
+                "Sendable": "0",
+                "Linkable": "1",
+                "LockedByLinks": "0",
+                "RequiresAuthorizedUser": "0",
+                "available": "1",
+                "InheritsConditionDisplaysThroughLinks": "0",
+                "__type": "SSharedInteractionParams",
+                "QueryTags": {},
+                "conditionList": ""
+              }
+            ]
+          },
+          "InteractionPoints": {},
+          "interactionTasks": {},
+          "actionHandlerTasks": {},
+          "itemActionTasks": {},
+          "menuTitle": ""
+        }
+      },
+      "SEntityComponentHostilityCompositeParams": {
+        "emptyFaction": "00000000-0000-0000-0000-000000000000",
+        "useOnlyPrimaryChildForHostility": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentHostilityCompositeParams",
+        "wantedLevelHostility": ""
+      },
+      "SEntityComponentCrewManifestParams": {
+        "crewManifest": "00000000-0000-0000-0000-000000000000",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentCrewManifestParams"
+      },
+      "SAttachableComponentParams": {
+        "attachToTileItemPort": "NoConnection",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SAttachableComponentParams",
+        "AttachDef": {
+          "Type": "NOITEM_Vehicle",
+          "SubType": "Vehicle_Spaceship",
+          "Size": "3",
+          "Grade": "1",
+          "Manufacturer": "70ac7035-10a0-4bbb-90b0-9bddf047b504",
+          "inheritParentManufacturer": "0",
+          "Tags": "XIAN_Scout Ship_Dock_Refuel",
+          "RequiredTags": "",
+          "DisplayType": "",
+          "__type": "SItemDefinition",
+          "Localization": {
+            "Name": "@vehicle_NameXIAN_Scout",
+            "ShortName": "@LOC_EMPTY",
+            "Description": "@vehicle_DescXIAN_Scout",
+            "__type": "SCItemLocalization",
+            "displayFeatures": {
+              "LogoSimplifiedWhite": "",
+              "FrontendBackground": "",
+              "History": "@LOC_EMPTY",
+              "Callout1": "@LOC_EMPTY",
+              "Callout2": "@LOC_EMPTY",
+              "Callout3": "@LOC_EMPTY",
+              "UIPriority": "0",
+              "__type": "SCExtendedLocalizationLevelParams",
+              "locationAudioPlayTrigger": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "locationAudioStopTrigger": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            }
+          },
+          "mannequinTags": {
+            "mannequinClassTag": "",
+            "mannequinTypeTag": "",
+            "mannequinBaseTag": "",
+            "__type": "SCItemMannequinTags"
+          },
+          "inventoryOccupancyVolume": {
+            "SMicroCargoUnit": {
+              "microSCU": "1",
+              "__type": "SBaseCargoUnit",
+              "__polymorphicType": "SMicroCargoUnit"
+            }
+          },
+          "inventoryOccupancyDimensions": {
+            "x": "0.15",
+            "y": "0.15",
+            "z": "0.15",
+            "__type": "Vec3"
+          },
+          "inventoryOccupancyDimensionsUIOverride": ""
+        },
+        "entityAttachParams": ""
+      },
+      "SCItemPurchasableParams": {
+        "displayName": "@vehicle_NameXIAN_Scout",
+        "displayType": "@LOC_PLACEHOLDER",
+        "displayThumbnail": "",
+        "allowTryOn": "0",
+        "allowQuickBuy": "0",
+        "tryOnInteractionText": "@shop_ui_item_action_preview",
+        "defaultAttachToPortName": "",
+        "interactionPointTemplate": "aa126546-623d-4a9f-9373-36682cdc01c8",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SCItemPurchasableParams",
+        "Display": "",
+        "disabledLoadoutInteractions": {
+          "DisabledLoadoutInteraction": [
+            {
+              "itemType": "FlightController",
+              "__type": "DisabledLoadoutInteraction",
+              "lockedInteractionNames": {
+                "String": [
+                  {
+                    "value": "EngineOn"
+                  },
+                  {
+                    "value": "EngineOff"
+                  }
+                ]
+              }
+            },
+            {
+              "itemType": "SeatDashboard",
+              "__type": "DisabledLoadoutInteraction",
+              "lockedInteractionNames": {
+                "String": [
+                  {
+                    "value": "FlightReady"
+                  },
+                  {
+                    "value": "Flight_Ready"
+                  }
+                ]
+              }
+            },
+            {
+              "itemType": "Seat",
+              "__type": "DisabledLoadoutInteraction",
+              "lockedInteractionNames": {
+                "String": [
+                  {
+                    "value": "Ejection"
+                  },
+                  {
+                    "value": "ejection"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "SARDataComponentParams": {
+        "dataType": "ShopItem",
+        "rangeMin": "1",
+        "rangeMax": "5",
+        "labelMovementType": "Fixed",
+        "visibleThroughWalls": "1",
+        "labelZOrientationOffset": "0",
+        "title1": "@LOC_EMPTY",
+        "title2": "@LOC_EMPTY",
+        "subtitle1": "@LOC_EMPTY",
+        "subtitle2": "@LOC_EMPTY",
+        "description": "@LOC_EMPTY",
+        "scaleCapDistance": "10",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SARDataComponentParams",
+        "labelAttachOffset": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        },
+        "queryOffset": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        },
+        "labelScale": {
+          "x": "1",
+          "y": "1",
+          "z": "1",
+          "__type": "Vec3"
+        }
+      },
+      "SEntityComponentEffects": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentEffects",
+        "entityEffects": {
+          "__type": "SEntitityEffectSystem_SystemBase",
+          "__polymorphicType": "SEntitityEffectSystem_System",
+          "particleEffects": {
+            "SEntityEffectSystem_ParticleCategory": {
+              "enabled": "1",
+              "allowMultipleTags": "1",
+              "__type": "SEntityEffectSystem_Category",
+              "__polymorphicType": "SEntityEffectSystem_ParticleCategory",
+              "tagEffects": {
+                "SEntityEffectSystem_ParticleTagEffect": [
+                  {
+                    "name": "Contrail (Left Upper)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "1",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b56ebb1c-06e9-4f51-8ed1-bc7258d2dc5b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Contrails\\contrail_generic.contrail.idle_contrail",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "hardpoint_engine_left_upper",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "-2",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "af644870-38bd-4156-8ed6-695410a9b195",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "c076bb86-2c75-4162-9b4f-77bee24bf8e2",
+                          "particleProperty": "alpha",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Contrail (Right Upper)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "1",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b56ebb1c-06e9-4f51-8ed1-bc7258d2dc5b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Contrails\\contrail_generic.contrail.idle_contrail",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "hardpoint_engine_right_upper",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "-2",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "af644870-38bd-4156-8ed6-695410a9b195",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "c076bb86-2c75-4162-9b4f-77bee24bf8e2",
+                          "particleProperty": "alpha",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Contrail (Left Lower)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "1",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b56ebb1c-06e9-4f51-8ed1-bc7258d2dc5b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Contrails\\contrail_generic.contrail.idle_contrail",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "hardpoint_engine_left_lower",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "-2",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "af644870-38bd-4156-8ed6-695410a9b195",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "c076bb86-2c75-4162-9b4f-77bee24bf8e2",
+                          "particleProperty": "alpha",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Contrail (Right Lower)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "1",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b56ebb1c-06e9-4f51-8ed1-bc7258d2dc5b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Contrails\\contrail_generic.contrail.idle_contrail",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "hardpoint_engine_right_lower",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "-2",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "af644870-38bd-4156-8ed6-695410a9b195",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "c076bb86-2c75-4162-9b4f-77bee24bf8e2",
+                          "particleProperty": "alpha",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Contrail (Wingtip Vortex)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b56ebb1c-06e9-4f51-8ed1-bc7258d2dc5b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Contrails\\contrail_generic.contrail.idle_contrail_wing",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "contrail_*",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "af644870-38bd-4156-8ed6-695410a9b195",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "c076bb86-2c75-4162-9b4f-77bee24bf8e2",
+                          "particleProperty": "alpha",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Atmospheric Entry (Front)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "ba91ec38-d173-4672-bfa0-de6ec45096dc",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Atmospheric_Entry\\sdf_atmospheric_entry.Small.small_default",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "8f98a162-5e8e-441b-9104-38af743509aa",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": [
+                        {
+                          "parameterName": "6734810c-a27b-4cc5-9814-d7048fbb02a6",
+                          "particleProperty": "strength",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "8d44e451-70e3-4eaa-91d0-7e0e4cd1f3f3",
+                          "particleProperty": "emissionSize",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {}
+                        },
+                        {
+                          "parameterName": "6734810c-a27b-4cc5-9814-d7048fbb02a6",
+                          "particleProperty": "count",
+                          "__type": "SEntityEffectSystem_PropertyLink",
+                          "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                          "modifiers": {
+                            "SEntityEffectSystem_MultiplierModifier": {
+                              "multiplier": "1.5",
+                              "__type": "SEntityEffectSystem_PropertyModifier",
+                              "__polymorphicType": "SEntityEffectSystem_MultiplierModifier"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel (Starfield)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b91e6b01-c903-4ae1-81e2-84886206c8e2",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_XIAN.Quantum_Drive_XIAN",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "874a42bd-ff59-494f-b295-4f6fbb36b46c",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel - Spooling (Front)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "61d5cb16-dccd-4bab-8aa9-153caae6052b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_spooling_head",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "7",
+                            "z": "-4",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "74cb7817-ec56-4256-ab11-e2129bdc8a2d",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel - Spooling (Trail)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "61d5cb16-dccd-4bab-8aa9-153caae6052b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_spooling_trails",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "contrail_*",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "74cb7817-ec56-4256-ab11-e2129bdc8a2d",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel (Front)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b91e6b01-c903-4ae1-81e2-84886206c8e2",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_head",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "7",
+                            "z": "-4",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "874a42bd-ff59-494f-b295-4f6fbb36b46c",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel (Trail)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "b91e6b01-c903-4ae1-81e2-84886206c8e2",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_trails",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Hosted",
+                        "boneAttachment": "contrail_*",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "874a42bd-ff59-494f-b295-4f6fbb36b46c",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel (Interdicting)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "tag": "d43c12ff-1e92-4e58-bda2-684a93eabf22",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTagEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_interdict_loop",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  }
+                ]
+              },
+              "triggerEffects": {
+                "SEntityEffectSystem_ParticleTriggerEffect": [
+                  {
+                    "name": "Quantum Travel (Start)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "da5af381-1829-42d0-aa5c-4a676502112b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_flash_start",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Quantum Travel (End)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "a98eccbc-3c5c-45d0-a3b0-71bea427c585",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_flash_end",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Quantum Travel (Pinch)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "942ad10d-b091-469b-863c-b9e776fd0846",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.qdrive_pinch",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {
+                      "SEntityEffectSystem_ParticlePropertyLink": {
+                        "parameterName": "48986e79-65f1-4cda-8fc7-51d885db52b8",
+                        "particleProperty": "strength",
+                        "__type": "SEntityEffectSystem_PropertyLink",
+                        "__polymorphicType": "SEntityEffectSystem_ParticlePropertyLink",
+                        "modifiers": {}
+                      }
+                    }
+                  },
+                  {
+                    "name": "Quantum Travel - Trail (End)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "a98eccbc-3c5c-45d0-a3b0-71bea427c585",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_flash_end_trails",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "contrail_*",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Quantum Travel (Interdiction End)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "0f2d05b6-856c-47f4-ae34-31cfa87b7102",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_interdict_flash_end",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Quantum Travel - Front (Interdiction End)",
+                    "enabled": "1",
+                    "primed": "0",
+                    "holographic": "0",
+                    "updateEntityBounds": "0",
+                    "clipToVisArea": "Local",
+                    "gpuVisAreaCullingMode": "Default",
+                    "trigger": "0f2d05b6-856c-47f4-ae34-31cfa87b7102",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_ParticleTriggerEffect",
+                    "particleEffect": {
+                      "path": "Spaceships\\Quantum_Drive\\Quantum_Drive_Generic.all.qdrive_interdict_flash_end_front",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceParticle"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "7",
+                            "z": "-4",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  }
+                ]
+              }
+            }
+          },
+          "materialEffects": "",
+          "soundEffects": {
+            "SEntityEffectSystem_SoundCategory": {
+              "enabled": "1",
+              "allowMultipleTags": "1",
+              "__type": "SEntityEffectSystem_Category",
+              "__polymorphicType": "SEntityEffectSystem_SoundCategory",
+              "tagEffects": {
+                "SEntityEffectSystem_SoundTagEffect": [
+                  {
+                    "name": "Q Drive Sustain",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "1",
+                    "tag": "b91e6b01-c903-4ae1-81e2-84886206c8e2",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTagEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Sustain",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Q Drive Spool",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "1",
+                    "tag": "61d5cb16-dccd-4bab-8aa9-153caae6052b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTagEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Spool",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "ShipExplosion",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "tag": "fb112c65-9c41-417e-89f4-e74d3b29e6de",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTagEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_SSDM_Shared_Explosion_HiTech_Light",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Interdiction",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "tag": "d43c12ff-1e92-4e58-bda2-684a93eabf22",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTagEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Interdiction",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  }
+                ]
+              },
+              "triggerEffects": {
+                "SEntityEffectSystem_SoundTriggerEffect": [
+                  {
+                    "name": "Shield Power Up",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "trigger": "2fea78a9-16ad-4074-9873-426769d025c5",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_SSSG_Shared_Human_Regen",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Flight System Power On",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "trigger": "b0ebfa1f-c6b8-479f-bb34-6f797a0f4a2b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_SSMC_Generic_Cockpit_Control_Power_On",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "Hardpoint_Cockpit_Audio",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Flight System Power Off",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "trigger": "20a3e66c-4ee0-4e3e-9181-4d6ecfeb6619",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_SSMC_Generic_Cockpit_Control_Power_Off",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_BoneAttachment": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "attachmentZone": "Host",
+                        "boneAttachment": "Hardpoint_Cockpit_Audio",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_BoneAttachment",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Q Drive Exit Flash",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "1",
+                    "trigger": "a98eccbc-3c5c-45d0-a3b0-71bea427c585",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Exit",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Q Drive Enter",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "1",
+                    "trigger": "da5af381-1829-42d0-aa5c-4a676502112b",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Enter",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  },
+                  {
+                    "name": "Interdiction",
+                    "enabled": "1",
+                    "multiPosition": "0",
+                    "useDefaultProxy": "0",
+                    "trigger": "0f2d05b6-856c-47f4-ae34-31cfa87b7102",
+                    "__type": "SEntityEffectSystem_Effect",
+                    "__polymorphicType": "SEntityEffectSystem_SoundTriggerEffect",
+                    "soundEffect": {
+                      "audioTrigger": "Play_QDrive_Interdiction_Exit",
+                      "__type": "GlobalResourceBase",
+                      "__polymorphicType": "GlobalResourceAudio"
+                    },
+                    "attachmentSettings": {
+                      "SEntityEffectSystem_Attachment_EntitySlot": {
+                        "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                        "__type": "SEntityEffectSystem_Attachment",
+                        "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                        "offset": {
+                          "__type": "QuatT",
+                          "Rotation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Ang3"
+                          },
+                          "Position": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0",
+                            "__type": "Vec3"
+                          }
+                        }
+                      }
+                    },
+                    "propertyLinks": {}
+                  }
+                ]
+              }
+            }
+          },
+          "audioEnvironmentEffects": {
+            "SEntityEffectSystem_AudioEnvironmentCategory": {
+              "enabled": "1",
+              "allowMultipleTags": "1",
+              "__type": "SEntityEffectSystem_Category",
+              "__polymorphicType": "SEntityEffectSystem_AudioEnvironmentCategory",
+              "tagEffects": {},
+              "triggerEffects": {
+                "SEntityEffectSystem_AudioEnvironmentFeedbackZoneTriggerEffect": {
+                  "name": "Explosion Debris",
+                  "enabled": "1",
+                  "zone": "da4a1ab8-a3ba-496b-a014-8918f26eca1c",
+                  "trigger": "c7d52ac4-2a9e-4951-b660-e3c34387ebb0",
+                  "__type": "SEntityEffectSystem_Effect",
+                  "__polymorphicType": "SEntityEffectSystem_AudioEnvironmentFeedbackZoneTriggerEffect",
+                  "attachmentSettings": {
+                    "SEntityEffectSystem_Attachment_EntitySlot": {
+                      "offsetParameter": "00000000-0000-0000-0000-000000000000",
+                      "__type": "SEntityEffectSystem_Attachment",
+                      "__polymorphicType": "SEntityEffectSystem_Attachment_EntitySlot",
+                      "offset": {
+                        "__type": "QuatT",
+                        "Rotation": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Ang3"
+                        },
+                        "Position": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Vec3"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "lightEffects": "",
+          "uiOwnerEffects": "",
+          "sequencerTags": {}
+        },
+        "staticValues": {},
+        "staticColors": {},
+        "tagsToEnableOnLoad": {},
+        "triggersToEnableOnLoad": {}
+      },
+      "SAtmosphericEffectsComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SAtmosphericEffectsComponentParams",
+        "atmosphericHeatingSettings": {
+          "enable": "1",
+          "controlTag": "ba91ec38-d173-4672-bfa0-de6ec45096dc",
+          "exitTag": "00000000-0000-0000-0000-000000000000",
+          "strengthParameter": "6734810c-a27b-4cc5-9814-d7048fbb02a6",
+          "exitStrengthParameter": "00000000-0000-0000-0000-000000000000",
+          "__type": "SAtmosphericHeatingParams"
+        },
+        "atmosphericEffectTestSettings": {
+          "overrideAtmosphericTrails": "0",
+          "overrideAtmosphericTrailValue": "1",
+          "overrideAtmosphericHeating": "0",
+          "overrideAtmosphericHeatingValue": "1",
+          "__type": "SAtmosphericEffectTestsParams"
+        }
+      },
+      "SSCItemControllableManagerParams": {
+        "defaultMasterMode": "SCM",
+        "masterModeSpoolTime": "6",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SSCItemControllableManagerParams",
+        "controllerParams": ""
+      },
+      "SHealthComponentParams": {
+        "Health": "1",
+        "ClientOnly": "0",
+        "UnlockInteractionsOnDeath": "0",
+        "PushDamageUpPartsHeirarchyWhenDead": "1",
+        "DetachFromItemPortOnDeath": "0",
+        "DetachFromEntityOnDeath": "0",
+        "PropagateExplosionDamageToChildren": "0",
+        "UseDirtShaderForDamage": "0",
+        "DestroyedGeometryTag": "",
+        "ExplodedGeometryTag": "",
+        "DebrisGeometryTag": "",
+        "ExplosionDelayTime": "0",
+        "ExplosionRandomDelayRange": "0",
+        "ExplosionBone": "",
+        "IsSalvagable": "1",
+        "IsRepairable": "1",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SHealthComponentParams",
+        "DamageResistances": {
+          "DamageResistance": {
+            "__type": "DamageResistanceBase",
+            "__polymorphicType": "DamageResistance",
+            "PhysicalResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            },
+            "EnergyResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            },
+            "DistortionResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            },
+            "ThermalResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            },
+            "BiochemicalResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            },
+            "StunResistance": {
+              "Multiplier": "1",
+              "Threshold": "0",
+              "__type": "DamageResistanceEntry"
+            }
+          }
+        },
+        "InitialDamage": "",
+        "HealthLevelStates": {},
+        "DeathExplosionParams": "",
+        "DeathGasComposition": {},
+        "InteractionLocks": {}
+      },
+      "SInteractionLinkParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SInteractionLinkParams",
+        "vehicleItemPortInteractionLinks": {},
+        "linkPlugs": {}
+      },
+      "SObjectDataBankParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SObjectDataBankParams"
+      },
+      "SEntityComponentObjectMetadataParams": {
+        "name": "@LOC_EMPTY",
+        "hasLocalBounds": "1",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentObjectMetadataParams",
+        "metadata": {
+          "SVehicleObjectMetadataParams": {
+            "__type": "SObjectMetadataParams",
+            "__polymorphicType": "SVehicleObjectMetadataParams"
+          }
+        }
+      },
+      "EntityComponentRoomOccupantParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentRoomOccupantParams"
+      },
+      "SSCSignatureSystemParams": {
+        "bindingURLPrefix": "Vehicle",
+        "scanCustomData": "00000000-0000-0000-0000-000000000000",
+        "isOverridden": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SSCSignatureSystemParams",
+        "radarProperties": {
+          "SSCRadarContactProperites": {
+            "contactType": "e873bbe9-295d-4ab9-96e7-c9f9f204b01b",
+            "__type": "SSCRadarContactProperites",
+            "baseSignatureParams": "",
+            "crossSectionParams": {
+              "SSCSignatureSystemSDFCrossSectionParams": {
+                "__type": "SSCSignatureSystemCrossSectionParams",
+                "__polymorphicType": "SSCSignatureSystemSDFCrossSectionParams"
+              }
+            },
+            "scanBounds": ""
+          }
+        },
+        "audioParams": "",
+        "embeddedScanInfo": "",
+        "detectionTags": {},
+        "overriddenSize": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        }
+      },
+      "SSuperGUIDComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SSuperGUIDComponentParams"
+      },
+      "AutopilotParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "AutopilotParams"
+      },
+      "ShipAudioComponentParams": {
+        "vibrationModifierTranslation": "1",
+        "vibrationModifierRotation": "1",
+        "vibrationModifierLift": "1",
+        "vibrationModifierDrag": "1",
+        "expectedCombinedThrusterSize": "12",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "ShipAudioComponentParams",
+        "landedSweetener": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "contactSweetener": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "shipMovementRealisticStart": {
+          "audioTrigger": "Play_SSMS_Spaceship_SimpleProxy_Realistic_Movement_Template_Medium_01",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "shipMovementRealisticStop": {
+          "audioTrigger": "Stop_SSMS_Spaceship_SimpleProxy_Realistic_Movement_Template_Medium_01",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "shipMovementSoundSimStart": {
+          "audioTrigger": "Play_SSMS_Spaceship_SimpleProxy_SoundSim_Movement_Template_Small_03",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "shipMovementSoundSimStop": {
+          "audioTrigger": "Stop_SSMS_Spaceship_SimpleProxy_SoundSim_Movement_Template_Small_03",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "offsetRotation": {
+          "x": "0",
+          "y": "0",
+          "z": "180",
+          "__type": "Ang3"
+        },
+        "offsetTranslation": {
+          "x": "-3",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        },
+        "ifcsOutputsToRtpcs": {
+          "IFCSOutputToRtpcList": [
+            {
+              "ifcsOutput": "Ship_FuelRatio",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "1",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Fuel_Ratio",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SAverageValue": {
+                      "frameCount": "60",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SAverageValue"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Aerodynamics_DragMagnitude",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "1",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Atmospheric_Drag",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "50",
+                        "releaseSlew": "50",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Atmospheric_Drag_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "10",
+                        "releaseSlew": "10",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Planet_Altitude",
+              "defaultValue": "100000",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Atmospheric_Altitude",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Planet_HeightAboveGround",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Atmospheric_Height_Above_Ground",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SSmoothingWithLerp": {
+                      "lerpingFactor": "0.1",
+                      "clampedBelow": "0.001",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SSmoothingWithLerp"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Atmospheric_Wind_Speed_Translational_Non_Normalised",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "1",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Atmospheric_Translational_Wind_Speed_Non_Normalised",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SAverageValue": {
+                      "frameCount": "60",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SAverageValue"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Planet_AtmosphericDensity",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Atmospheric_Density",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SSmoothingWithLerp": {
+                      "lerpingFactor": "0.1",
+                      "clampedBelow": "0.001",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SSmoothingWithLerp"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Translation_Speed_NonNormalized",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Translation_Speed_NonNormalised",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_AfterburnerEnabledScaled",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_AfterburnerEnabled",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.65",
+                        "releaseSlew": "0.65",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_AfterburnerEnabled_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.3",
+                        "releaseSlew": "0.3",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_AfterburnerEnabled_VerySlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.15",
+                        "releaseSlew": "0.15",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Translation_Acceleration_MaxAll",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_Acceleration_MaxAll_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.33",
+                        "releaseSlew": "0.33",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_CruiseDampener",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "1",
+                        "releaseSlew": "0.025",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_CruiseDampener_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "1",
+                        "releaseSlew": "0.005",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_CruiseDampener_Fast",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "1",
+                        "releaseSlew": "0.08",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_Acceleration_MaxAll",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "1",
+                        "releaseSlew": "1",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Translation_CapacitorSurge_MaxAll_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SAudioCapacitor": {
+                        "capacity": "1",
+                        "chargeSpeed": "15",
+                        "dischargeSpeed": "2",
+                        "inputThreshold": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SAudioCapacitor",
+                        "behavior": {
+                          "SSmoothingTimeBased": {
+                            "attackSlew": "0.8",
+                            "releaseSlew": "0.8",
+                            "clampedBelow": "0.001",
+                            "__type": "SRtpcBehaviour",
+                            "__polymorphicType": "SSmoothingTimeBased"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Rotation_Speed_MaxAll",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Rotation_Speed_MaxAll",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "1",
+                        "releaseSlew": "1",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Rotation_Speed_MaxAll_SlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.5",
+                        "releaseSlew": "0.5",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Rotation_Speed_MaxAll_VerySlowLerp",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.3",
+                        "releaseSlew": "0.22",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "Ship_Rotation_Dampener_All",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SSmoothingTimeBased": {
+                        "attackSlew": "0.13",
+                        "releaseSlew": "1",
+                        "clampedBelow": "0.001",
+                        "__type": "SRtpcBehaviour",
+                        "__polymorphicType": "SSmoothingTimeBased"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Atmospheric_StagnationTemperature",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "EnvironmentFeedback_Atmospheric_StagnationTemperature",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SSmoothingTimeBased": {
+                      "attackSlew": "100",
+                      "releaseSlew": "100",
+                      "clampedBelow": "0.001",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SSmoothingTimeBased"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Translation_Speed",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "1",
+              "sendToChildEmitters": "1",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Translation_Speed",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_Translation_Acceleration_UpDownSigned",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_Translation_Acceleration_UpDown_Signed_SlowLerp",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SSmoothingTimeBased": {
+                      "attackSlew": "0.3",
+                      "releaseSlew": "0.3",
+                      "clampedBelow": "0.001",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SSmoothingTimeBased"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "Ship_HoverModeAnimationPosition",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "Ship_VTOLEnabled",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SSmoothingTimeBased": {
+                      "attackSlew": "2",
+                      "releaseSlew": "2",
+                      "clampedBelow": "0.001",
+                      "__type": "SRtpcBehaviour",
+                      "__polymorphicType": "SSmoothingTimeBased"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": [
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  },
+                  {
+                    "__type": "AudioRtpcWithBehaviour",
+                    "rtpc": {
+                      "rtpc": "",
+                      "__type": "AudioRtpc"
+                    },
+                    "behavior": {
+                      "SRtpcBehaviour": {
+                        "__type": "SRtpcBehaviour"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ifcsOutput": "",
+              "defaultValue": "0",
+              "calculateOnlyOnPlayerVehicle": "0",
+              "sendToChildEmitters": "0",
+              "__type": "IFCSOutputToRtpcList",
+              "RTPCs": {
+                "AudioRtpcWithBehaviour": {
+                  "__type": "AudioRtpcWithBehaviour",
+                  "rtpc": {
+                    "rtpc": "",
+                    "__type": "AudioRtpc"
+                  },
+                  "behavior": {
+                    "SRtpcBehaviour": {
+                      "__type": "SRtpcBehaviour"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "shipWideAudioObjects": {
+          "ShipWideAudioObject": [
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            },
+            {
+              "boneName": "",
+              "updatePosition": "0",
+              "__type": "ShipWideAudioObject",
+              "attachOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "attachOffsetRotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "loopStart": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              },
+              "loopStop": {
+                "audioTrigger": "",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceAudio"
+              }
+            }
+          ]
+        },
+        "shipHealthRtpc": {
+          "rtpc": "Ship_Health",
+          "__type": "AudioRtpc"
+        },
+        "thrustersSpoolStateRtpc": {
+          "rtpc": "Ship_Spool_State",
+          "__type": "AudioRtpc"
+        },
+        "thrusterHealthRtpc": {
+          "rtpc": "Thruster_Health_Global_Average",
+          "__type": "AudioRtpc"
+        },
+        "thrustersTemperatureRatioRtpc": {
+          "rtpc": "Ship_Global_Average_Thruster_Temperature",
+          "__type": "AudioRtpc"
+        },
+        "thrustersOverheatRtpc": {
+          "rtpc": "Ship_HasOverheatedThruster",
+          "__type": "AudioRtpc"
+        },
+        "misfireRtpc": {
+          "rtpc": "Ship_ThrusterMisfiring",
+          "__type": "AudioRtpc"
+        },
+        "techLevelRtpc": {
+          "rtpc": "Thruster_Tech_Level",
+          "__type": "AudioRtpc"
+        },
+        "civilianLowRtpc": {
+          "rtpc": "Thruster_Civilian_Low",
+          "__type": "AudioRtpc"
+        },
+        "civilianMedRtpc": {
+          "rtpc": "Thruster_Civilian_Medium",
+          "__type": "AudioRtpc"
+        },
+        "civilianHighRtpc": {
+          "rtpc": "Thruster_Civilian_High",
+          "__type": "AudioRtpc"
+        },
+        "industrialRtpc": {
+          "rtpc": "Thruster_Industrial",
+          "__type": "AudioRtpc"
+        },
+        "militaryRtpc": {
+          "rtpc": "Thruster_Military",
+          "__type": "AudioRtpc"
+        },
+        "racingRtpc": {
+          "rtpc": "Thruster_Racing",
+          "__type": "AudioRtpc"
+        },
+        "stealthRtpc": {
+          "rtpc": "Thruster_Stealth",
+          "__type": "AudioRtpc"
+        },
+        "degradationRtpc": {
+          "rtpc": "Ship_DegradationLevel",
+          "__type": "AudioRtpc"
+        }
+      },
+      "AudioPassByComponentParams": {
+        "chargeMax": "25",
+        "dischargeTime": "4",
+        "chargeThreshold": "0.2",
+        "minChargeForPassByMusicEvent": "10",
+        "normalizedSpeed": "343",
+        "modifier": "1.4",
+        "minTimeBetweenOneShots": "4.5",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "AudioPassByComponentParams",
+        "loopStart": {
+          "audioTrigger": "Play_SSPB_AEGS_Gladius_Loop",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "loopStop": {
+          "audioTrigger": "Stop_SSPB_AEGS_Gladius_Loop",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "oneShot": {
+          "audioTrigger": "Play_SSPB_AEGS_Gladius_PassBy_OneShot",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "timeSinceLastOneShotRtpc": {
+          "rtpc": "Ship_PassBy_Time_Since_Last",
+          "__type": "AudioRtpc"
+        },
+        "shiftRtpc": {
+          "setToAllProxies": "0",
+          "__type": "AudioPassByRtpcParams",
+          "RTPCs": {
+            "AudioRtpcWithBehaviour": {
+              "__type": "AudioRtpcWithBehaviour",
+              "rtpc": {
+                "rtpc": "Ship_PassBy_Shift",
+                "__type": "AudioRtpc"
+              },
+              "behavior": {
+                "SAverageValue": {
+                  "frameCount": "60",
+                  "__type": "SRtpcBehaviour",
+                  "__polymorphicType": "SAverageValue"
+                }
+              }
+            }
+          }
+        },
+        "shiftChargeRtpc": {
+          "setToAllProxies": "0",
+          "__type": "AudioPassByRtpcParams",
+          "RTPCs": {
+            "AudioRtpcWithBehaviour": {
+              "__type": "AudioRtpcWithBehaviour",
+              "rtpc": {
+                "rtpc": "Ship_PassBy_Shift_Charge",
+                "__type": "AudioRtpc"
+              },
+              "behavior": {
+                "SAverageValue": {
+                  "frameCount": "10",
+                  "__type": "SRtpcBehaviour",
+                  "__polymorphicType": "SAverageValue"
+                }
+              }
+            }
+          }
+        },
+        "relativeVelocityRtpc": {
+          "setToAllProxies": "1",
+          "__type": "AudioPassByRtpcParams",
+          "RTPCs": {
+            "AudioRtpcWithBehaviour": {
+              "__type": "AudioRtpcWithBehaviour",
+              "rtpc": {
+                "rtpc": "Ship_Relative_Velocity",
+                "__type": "AudioRtpc"
+              },
+              "behavior": {
+                "SAverageValue": {
+                  "frameCount": "60",
+                  "__type": "SRtpcBehaviour",
+                  "__polymorphicType": "SAverageValue"
+                }
+              }
+            }
+          }
+        },
+        "relativeVelocityAccelerationRtpc": {
+          "setToAllProxies": "1",
+          "__type": "AudioPassByRtpcParams",
+          "RTPCs": {
+            "AudioRtpcWithBehaviour": [
+              {
+                "__type": "AudioRtpcWithBehaviour",
+                "rtpc": {
+                  "rtpc": "Ship_Relative_Velocity_Acceleration_FastLerp",
+                  "__type": "AudioRtpc"
+                },
+                "behavior": {
+                  "SAverageValue": {
+                    "frameCount": "20",
+                    "__type": "SRtpcBehaviour",
+                    "__polymorphicType": "SAverageValue"
+                  }
+                }
+              },
+              {
+                "__type": "AudioRtpcWithBehaviour",
+                "rtpc": {
+                  "rtpc": "Ship_Relative_Velocity_Acceleration",
+                  "__type": "AudioRtpc"
+                },
+                "behavior": {
+                  "SAverageValue": {
+                    "frameCount": "60",
+                    "__type": "SRtpcBehaviour",
+                    "__polymorphicType": "SAverageValue"
+                  }
+                }
+              },
+              {
+                "__type": "AudioRtpcWithBehaviour",
+                "rtpc": {
+                  "rtpc": "Ship_Relative_Velocity_Acceleration_SlowLerp",
+                  "__type": "AudioRtpc"
+                },
+                "behavior": {
+                  "SAverageValue": {
+                    "frameCount": "120",
+                    "__type": "SRtpcBehaviour",
+                    "__polymorphicType": "SAverageValue"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "VehicleLandingUIParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "VehicleLandingUIParams"
+      },
+      "SGeometryResourceParams": {
+        "cacheResources": "0",
+        "rootOverridePaint": "0",
+        "inheritModelTagFromHost": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SGeometryResourceParams",
+        "ModelTag": "",
+        "Geometry": {
+          "Tags": "",
+          "ScaleMultiplier": "1",
+          "__type": "SGeometryNodeParams",
+          "Geometry": {
+            "Slot": "Main",
+            "MaterialAttachments": "",
+            "ProxyCDFPath": "",
+            "ModifiersPath": "",
+            "AttachFlags": "0",
+            "DeformerType": "Standard",
+            "ProtosBShapeExclude": "0",
+            "VisTP": "1",
+            "VisFP": "1",
+            "VisShadow": "1",
+            "VisSecondaryViews": "1",
+            "WrinkleMap": "0",
+            "EnableDecalProjection": "0",
+            "BBoxJoint": "",
+            "BBoxRadius": "0",
+            "Wear": "0",
+            "Dirt": "0",
+            "Interference": "0",
+            "Damage": "0",
+            "VisAreaMode": "AABB_Center",
+            "SunShadowMode": "Upto_400m",
+            "viewDistRatio": "00000000-0000-0000-0000-000000000000",
+            "__type": "SGeometryDataParams",
+            "Geometry": {
+              "path": "Objects\\Spaceships\\Ships\\XIAN\\Scout\\XIAN_Scout.cga",
+              "__type": "GlobalResourceBase",
+              "__polymorphicType": "GlobalResourceGeometry"
+            },
+            "Material": {
+              "path": "",
+              "__type": "GlobalResourceBase",
+              "__polymorphicType": "GlobalResourceMaterial"
+            },
+            "SimulationGeometry": "",
+            "Palette": {
+              "RootRecord": "a5c58bbf-3f4d-4b3c-91e4-283f7a175ffd",
+              "ChildPath": "",
+              "__type": "TintPaletteRef"
+            }
+          },
+          "SubGeometry": {
+            "$t": "",
+            "SGeometryNodeParams": [
+              {
+                "Tags": "Paint_Scout_IAE2951_Grey_White",
+                "ScaleMultiplier": "1",
+                "__type": "SGeometryNodeParams",
+                "Geometry": {
+                  "Slot": "Main",
+                  "MaterialAttachments": "",
+                  "ProxyCDFPath": "",
+                  "ModifiersPath": "",
+                  "AttachFlags": "0",
+                  "DeformerType": "Standard",
+                  "ProtosBShapeExclude": "0",
+                  "VisTP": "1",
+                  "VisFP": "1",
+                  "VisShadow": "1",
+                  "VisSecondaryViews": "1",
+                  "WrinkleMap": "0",
+                  "EnableDecalProjection": "0",
+                  "BBoxJoint": "",
+                  "BBoxRadius": "0",
+                  "Wear": "0",
+                  "Dirt": "0",
+                  "Interference": "0",
+                  "Damage": "0",
+                  "VisAreaMode": "AABB_Center",
+                  "SunShadowMode": "Upto_400m",
+                  "viewDistRatio": "00000000-0000-0000-0000-000000000000",
+                  "__type": "SGeometryDataParams",
+                  "Geometry": {
+                    "path": "Objects\\Spaceships\\Ships\\XIAN\\Scout\\XIAN_Scout.cga",
+                    "__type": "GlobalResourceBase",
+                    "__polymorphicType": "GlobalResourceGeometry"
+                  },
+                  "Material": {
+                    "path": "",
+                    "__type": "GlobalResourceBase",
+                    "__polymorphicType": "GlobalResourceMaterial"
+                  },
+                  "SimulationGeometry": "",
+                  "Palette": {
+                    "RootRecord": "509ea14c-1f5d-454f-b3eb-839c05448f5f",
+                    "ChildPath": "",
+                    "__type": "TintPaletteRef"
+                  }
+                },
+                "SubGeometry": {}
+              },
+              {
+                "Tags": "Paint_Scout_IAE2951_Black_Blue",
+                "ScaleMultiplier": "1",
+                "__type": "SGeometryNodeParams",
+                "Geometry": {
+                  "Slot": "Main",
+                  "MaterialAttachments": "",
+                  "ProxyCDFPath": "",
+                  "ModifiersPath": "",
+                  "AttachFlags": "0",
+                  "DeformerType": "Standard",
+                  "ProtosBShapeExclude": "0",
+                  "VisTP": "1",
+                  "VisFP": "1",
+                  "VisShadow": "1",
+                  "VisSecondaryViews": "1",
+                  "WrinkleMap": "0",
+                  "EnableDecalProjection": "0",
+                  "BBoxJoint": "",
+                  "BBoxRadius": "0",
+                  "Wear": "0",
+                  "Dirt": "0",
+                  "Interference": "0",
+                  "Damage": "0",
+                  "VisAreaMode": "AABB_Center",
+                  "SunShadowMode": "Upto_400m",
+                  "viewDistRatio": "00000000-0000-0000-0000-000000000000",
+                  "__type": "SGeometryDataParams",
+                  "Geometry": {
+                    "path": "Objects\\Spaceships\\Ships\\XIAN\\Scout\\XIAN_Scout.cga",
+                    "__type": "GlobalResourceBase",
+                    "__polymorphicType": "GlobalResourceGeometry"
+                  },
+                  "Material": {
+                    "path": "",
+                    "__type": "GlobalResourceBase",
+                    "__polymorphicType": "GlobalResourceMaterial"
+                  },
+                  "SimulationGeometry": "",
+                  "Palette": {
+                    "RootRecord": "7d051c5b-b649-4873-a6ee-d79644d79dbf",
+                    "ChildPath": "",
+                    "__type": "TintPaletteRef"
+                  }
+                },
+                "SubGeometry": {}
+              }
+            ]
+          }
+        },
+        "Material": {
+          "Tags": "",
+          "__type": "SMaterialNodeParams",
+          "Material": {
+            "path": "",
+            "__type": "GlobalResourceBase",
+            "__polymorphicType": "GlobalResourceMaterial"
+          },
+          "Palette": {
+            "RootRecord": "00000000-0000-0000-0000-000000000000",
+            "ChildPath": "",
+            "__type": "TintPaletteRef"
+          },
+          "materialVariants": {}
+        }
+      },
+      "SAnimationControllerParams": {
+        "AnimationDatabase": "Spaceships\\Ships\\XIAN\\Scout\\XIAN_Scout_Anims.adb",
+        "AnimationController": "Spaceships\\Ships\\XIAN\\Scout\\XIAN_Scout_ControllerDefs.xml",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SAnimationControllerParams",
+        "Tags": {
+          "String": {
+            "value": "XIAN_Scout"
+          }
+        },
+        "ScopeContexts": {
+          "SAnimationScopeContext": {
+            "scopeContext": "Ship",
+            "type": "Self",
+            "__type": "SAnimationScopeContext"
+          }
+        },
+        "AnimationJointControls": "",
+        "AnimationControlActorIKs": {},
+        "AnimationTasks": {},
+        "defaultAnimation": ""
+      },
+      "EntityComponentAudioEnvironmentFeedbackParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentAudioEnvironmentFeedbackParams",
+        "audioObjects": {}
+      },
+      "EMPoolParams": {
+        "overrideEmValue": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EMPoolParams"
+      },
+      "EntityPhysicalAudioParams": {
+        "minimumImpulseContinuous": "10",
+        "minimumImpulseTransient": "5",
+        "minimumVelocityNoImpulse": "100",
+        "slideThreshold": "0.1",
+        "rollThreshold": "0.1",
+        "momentumScale": "1",
+        "useAABBCentre": "0",
+        "oneShotTag": "7f3a1138-ec2c-4dac-9c5a-2598090c79ec",
+        "oneShotCooldown": "0.08",
+        "dragOnly": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityPhysicalAudioParams",
+        "collisionTriggers": {
+          "PhysicalAudioCollisionTrigger": {
+            "oneShotMinPlayTime": "0.12",
+            "attachToObject": "1",
+            "__type": "PhysicalAudioCollisionTrigger",
+            "trigger": {
+              "audioTrigger": "",
+              "__type": "GlobalResourceBase",
+              "__polymorphicType": "GlobalResourceAudio"
+            }
+          }
+        },
+        "slideStartTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "slideStopTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "rollStartTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "rollStopTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "movementStartTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "movementStopTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "pickupTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "pickFromOwnerTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "dropTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "placeTrigger": {
+          "audioTrigger": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceAudio"
+        },
+        "rtpcSlideVelocity": {
+          "rtpc": "PhysicalAudio_Velocity_Vehicles",
+          "__type": "AudioRtpc"
+        },
+        "rtpcMassSelf": {
+          "rtpc": "PhysicalAudio_MassSelf_Vehicles",
+          "__type": "AudioRtpc"
+        },
+        "rtpcMassOther": {
+          "rtpc": "PhysicalAudio_MassOther_Vehicles",
+          "__type": "AudioRtpc"
+        },
+        "rtpcDampening": {
+          "rtpc": "PhysicalAudio_Damping",
+          "__type": "AudioRtpc"
+        },
+        "rtpcRollVelocity": {
+          "rtpc": "PhysicalAudio_RollVelocity",
+          "__type": "AudioRtpc"
+        },
+        "rtpcHealth": {
+          "rtpc": "PhysicalAudio_Health",
+          "__type": "AudioRtpc"
+        },
+        "rtpcMovement": {
+          "rtpc": "PhysicalAudio_Movement",
+          "__type": "AudioRtpc"
+        },
+        "rtpcRotation": {
+          "rtpc": "PhysicalAudio_Rotation",
+          "__type": "AudioRtpc"
+        },
+        "rtpcTimeSinceLastOneshot": {
+          "rtpc": "PhysicalAudio_TimeSinceLastOneshot",
+          "__type": "AudioRtpc"
+        },
+        "rtpcMomentum": {
+          "rtpc": "PhysicalAudio_Momentum",
+          "__type": "AudioRtpc"
+        },
+        "rtpcCarried": {
+          "rtpc": "PhysicalAudio_CarryState",
+          "__type": "AudioRtpc"
+        }
+      },
+      "EntityComponentAudioHitListenerParams": {
+        "calculateOnlyWhenPlayerContained": "0",
+        "hitListenerDefinition": "aeefffe0-ed13-4713-adf5-419777ed22c7",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentAudioHitListenerParams"
+      },
+      "SEntityAudioControllerParams": {
+        "audioControllerEntityType": "Vehicle",
+        "randomSeedCount": "4",
+        "fullLODDistance": "9000",
+        "fullToLowLODDistance": "9050",
+        "offToLowLODDistance": "10000",
+        "offLODDistance": "10050",
+        "occlusionAttenuationScaler": "0.5",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityAudioControllerParams",
+        "tags": {
+          "__type": "TagList",
+          "$t": "",
+          "tags": {}
+        }
+      },
+      "AudioPropagationParams": {
+        "audioEnvironment": "",
+        "physicalOcclusionValueWhenClosed": "1",
+        "physicalEncapsulationValue": "1",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "AudioPropagationParams"
+      },
+      "SItemPortContainerComponentParams": {
+        "PortFlags": "",
+        "PortTags": "XIAN_Scout_Base",
+        "RequiredItemTags": "",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SItemPortContainerComponentParams",
+        "masterController": {
+          "SItemPortMasterControllerParams": {
+            "__type": "SItemPortMasterControllerParams",
+            "Pipes": {
+              "SEnergyPipeDefinition": [
+                {
+                  "Name": "MainPower",
+                  "Klass": "Power",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "MainHeat",
+                  "Klass": "Heat",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "MainFuel",
+                  "Klass": "Fuel",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "IntakeFuel",
+                  "Klass": "Fuel",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "QuantumFuel",
+                  "Klass": "Fuel",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "Shield",
+                  "Klass": "Shield",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "WeaponRegenCrew",
+                  "Klass": "WeaponRegen",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "WeaponRegenTurret",
+                  "Klass": "WeaponRegen",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "WeaponAmmoLoadCrew",
+                  "Klass": "WeaponAmmoLoad",
+                  "__type": "SEnergyPipeDefinition"
+                },
+                {
+                  "Name": "WeaponAmmoLoadTurret",
+                  "Klass": "WeaponAmmoLoad",
+                  "__type": "SEnergyPipeDefinition"
+                }
+              ]
+            }
+          }
+        },
+        "Ports": {
+          "SItemPortDef": [
+            {
+              "Name": "hardpoint_controller_fuel",
+              "DisplayName": "",
+              "PortTags": "",
+              "RequiredPortTags": "",
+              "Flags": "",
+              "MinSize": "1",
+              "MaxSize": "1",
+              "InteractionPointSize": "-1",
+              "DefaultWeaponGroup": "UNDEFINED",
+              "controllableTag": "",
+              "resourceLinkToParent": "0",
+              "useHelperAsInteractionPointName": "0",
+              "__type": "SItemPortDef",
+              "Tags": {},
+              "InteractionPointOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "AttachmentPoints": {},
+              "control": "",
+              "Connections": {},
+              "DisabledPortLinks": {},
+              "Types": {},
+              "Extension": "",
+              "AttachmentImplementation": {
+                "SItemPortDefAttachmentImplementationEntity": {
+                  "usePhysicalAttachment": "0",
+                  "useEntityAttachment": "1",
+                  "useExteriorAttachment": "0",
+                  "usePhysicalParent": "0",
+                  "hangarPort": "0",
+                  "__type": "SItemPortDefAttachmentImplementationBase",
+                  "__polymorphicType": "SItemPortDefAttachmentImplementationEntity",
+                  "constraintParams": {
+                    "damping": "0",
+                    "noSelfCollisions": "1",
+                    "maxPullForce": "0",
+                    "maxBendTorque": "0",
+                    "constrainToLine": "0",
+                    "constrainToPlane": "0",
+                    "constrainFully": "1",
+                    "useWorldConstraintPosition": "0",
+                    "noRotation": "1",
+                    "xMin": "0",
+                    "xMax": "0",
+                    "yzMax": "0",
+                    "constraintHelper": "",
+                    "constraintMaintainOrientation": "0",
+                    "__type": "SAttachmentConstraintParams"
+                  },
+                  "Helper": {
+                    "Tags": "",
+                    "__type": "SItemPortDefHelperNode",
+                    "Helper": {
+                      "Name": "XIAN_Scout",
+                      "ItemOffsetHelperName": "",
+                      "__type": "SItemPortDefHelper",
+                      "Offset": {
+                        "__type": "QuatT",
+                        "Rotation": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Ang3"
+                        },
+                        "Position": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Vec3"
+                        }
+                      },
+                      "SimulationParams": ""
+                    },
+                    "SubHelpers": {}
+                  }
+                }
+              },
+              "linkedItemPorts": {}
+            },
+            {
+              "Name": "hardpoint_fuel_port",
+              "DisplayName": "",
+              "PortTags": "Ship_Dock_Refuel",
+              "RequiredPortTags": "",
+              "Flags": "dockingport1",
+              "MinSize": "1",
+              "MaxSize": "1",
+              "InteractionPointSize": "-1",
+              "DefaultWeaponGroup": "UNDEFINED",
+              "controllableTag": "",
+              "resourceLinkToParent": "0",
+              "useHelperAsInteractionPointName": "0",
+              "__type": "SItemPortDef",
+              "Tags": {},
+              "InteractionPointOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "AttachmentPoints": {},
+              "control": "",
+              "Connections": {},
+              "DisabledPortLinks": {},
+              "Types": {
+                "SItemPortDefTypes": {
+                  "Type": "DockingCollar",
+                  "__type": "SItemPortDefTypes",
+                  "SubTypes": {}
+                }
+              },
+              "Extension": "",
+              "AttachmentImplementation": {
+                "SItemPortDefAttachmentImplementationEntity": {
+                  "usePhysicalAttachment": "0",
+                  "useEntityAttachment": "1",
+                  "useExteriorAttachment": "0",
+                  "usePhysicalParent": "0",
+                  "hangarPort": "0",
+                  "__type": "SItemPortDefAttachmentImplementationBase",
+                  "__polymorphicType": "SItemPortDefAttachmentImplementationEntity",
+                  "constraintParams": {
+                    "damping": "0",
+                    "noSelfCollisions": "1",
+                    "maxPullForce": "0",
+                    "maxBendTorque": "0",
+                    "constrainToLine": "0",
+                    "constrainToPlane": "0",
+                    "constrainFully": "1",
+                    "useWorldConstraintPosition": "0",
+                    "noRotation": "1",
+                    "xMin": "0",
+                    "xMax": "0",
+                    "yzMax": "0",
+                    "constraintHelper": "",
+                    "constraintMaintainOrientation": "0",
+                    "__type": "SAttachmentConstraintParams"
+                  },
+                  "Helper": {
+                    "Tags": "",
+                    "__type": "SItemPortDefHelperNode",
+                    "Helper": {
+                      "Name": "XIAN_Scout",
+                      "ItemOffsetHelperName": "",
+                      "__type": "SItemPortDefHelper",
+                      "Offset": {
+                        "__type": "QuatT",
+                        "Rotation": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Ang3"
+                        },
+                        "Position": {
+                          "x": "0",
+                          "y": "6.37581",
+                          "z": "0.98261",
+                          "__type": "Vec3"
+                        }
+                      },
+                      "SimulationParams": ""
+                    },
+                    "SubHelpers": {}
+                  }
+                }
+              },
+              "linkedItemPorts": {}
+            },
+            {
+              "Name": "hardpoint_air_traffic_controller",
+              "DisplayName": "",
+              "PortTags": "",
+              "RequiredPortTags": "",
+              "Flags": "",
+              "MinSize": "1",
+              "MaxSize": "1",
+              "InteractionPointSize": "-1",
+              "DefaultWeaponGroup": "UNDEFINED",
+              "controllableTag": "",
+              "resourceLinkToParent": "0",
+              "useHelperAsInteractionPointName": "0",
+              "__type": "SItemPortDef",
+              "Tags": {},
+              "InteractionPointOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              },
+              "AttachmentPoints": {},
+              "control": "",
+              "Connections": {},
+              "DisabledPortLinks": {},
+              "Types": {
+                "SItemPortDefTypes": {
+                  "Type": "AirTrafficController",
+                  "__type": "SItemPortDefTypes",
+                  "SubTypes": {}
+                }
+              },
+              "Extension": "",
+              "AttachmentImplementation": {
+                "SItemPortDefAttachmentImplementationEntity": {
+                  "usePhysicalAttachment": "0",
+                  "useEntityAttachment": "1",
+                  "useExteriorAttachment": "0",
+                  "usePhysicalParent": "0",
+                  "hangarPort": "0",
+                  "__type": "SItemPortDefAttachmentImplementationBase",
+                  "__polymorphicType": "SItemPortDefAttachmentImplementationEntity",
+                  "constraintParams": {
+                    "damping": "0",
+                    "noSelfCollisions": "1",
+                    "maxPullForce": "0",
+                    "maxBendTorque": "0",
+                    "constrainToLine": "0",
+                    "constrainToPlane": "0",
+                    "constrainFully": "1",
+                    "useWorldConstraintPosition": "0",
+                    "noRotation": "1",
+                    "xMin": "0",
+                    "xMax": "0",
+                    "yzMax": "0",
+                    "constraintHelper": "",
+                    "constraintMaintainOrientation": "0",
+                    "__type": "SAttachmentConstraintParams"
+                  },
+                  "Helper": {
+                    "Tags": "",
+                    "__type": "SItemPortDefHelperNode",
+                    "Helper": {
+                      "Name": "XIAN_Scout",
+                      "ItemOffsetHelperName": "",
+                      "__type": "SItemPortDefHelper",
+                      "Offset": {
+                        "__type": "QuatT",
+                        "Rotation": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Ang3"
+                        },
+                        "Position": {
+                          "x": "0",
+                          "y": "0",
+                          "z": "0",
+                          "__type": "Vec3"
+                        }
+                      },
+                      "SimulationParams": ""
+                    },
+                    "SubHelpers": {}
+                  }
+                }
+              },
+              "linkedItemPorts": {}
+            }
+          ]
+        },
+        "InternalResourceLinks": {}
+      },
+      "EntityComponentVibrationVehicleParams": {
+        "listensToPhysics": "1",
+        "listensToDamage": "1",
+        "listensToHits": "1",
+        "dragModifier": "1",
+        "liftModifier": "1.25",
+        "masterModeDragModifier": "1",
+        "deactivateWindCheckOnPlanets": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentVibrationVehicleParams",
+        "vibrationTypes": {
+          "VibrationTypeData": [
+            {
+              "maxValue": "120",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "1",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "200",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "300",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "300",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "1",
+              "fallOffTime": "1",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "1",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "200",
+              "fallOffTime": "1.5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "200",
+              "fallOffTime": "5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "250",
+              "fallOffTime": "5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "200",
+              "fallOffTime": "5",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "1",
+              "fallOffTime": "1",
+              "__type": "VibrationTypeData"
+            },
+            {
+              "maxValue": "1",
+              "fallOffTime": "0.2",
+              "__type": "VibrationTypeData"
+            }
+          ]
+        }
+      },
+      "AITargetableComponentParams": {
+        "targetableSettings": "e0616bbe-1ca7-4645-b88f-bdc62740f60f",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "AITargetableComponentParams"
+      },
+      "EntityComponentCommsChannelParams": {
+        "channelJoinType": "AutoJoin",
+        "channelLeaveTimer": "60",
+        "channelForceLeaveRange": "50",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentCommsChannelParams"
+      },
+      "EntityComponentShipCommsChannelParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntityComponentShipCommsChannelParams"
+      },
+      "LegalRegistrationComponentParams": {
+        "doNotTriggerCrimesAgainstThis": "0",
+        "nameplateOverride": "",
+        "serialOverride": "",
+        "serialNumberFormat": "c454d7d8-6e61-4d52-887f-ce3e90ac77e9",
+        "securityNetworkManifest": "00000000-0000-0000-0000-000000000000",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "LegalRegistrationComponentParams"
+      },
+      "RangeEventDispatcherComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "RangeEventDispatcherComponentParams"
+      },
+      "SInteractionStateMachineParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SInteractionStateMachineParams",
+        "StateTypes": {}
+      },
+      "SEntityComponentSequencerParams": {
+        "resetSequence": "null",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentSequencerParams",
+        "sequences": {}
+      },
+      "SurfaceRaindropsComponentParams": {
+        "enable": "1",
+        "inactiveDuration": "25",
+        "maximumSpeed": "200",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SurfaceRaindropsComponentParams",
+        "surfaceParticleRtt": {
+          "cameraFov": "1",
+          "aspectRatio": "1",
+          "sdfTexture": "textures/vfx/sdf_textures/abstract/cells_sdf.dds",
+          "__type": "SurfaceParticleRTTParams",
+          "particleEffect": {
+            "path": "",
+            "__type": "GlobalResourceBase",
+            "__polymorphicType": "GlobalResourceParticle"
+          }
+        },
+        "customEmitters": {
+          "SurfaceRaindrops_Emitter": [
+            {
+              "linkedToSdf": "1",
+              "fadeOutDuration": "10",
+              "enableCloudCondensation": "1",
+              "__type": "SurfaceRaindrops_Emitter",
+              "particleEffect": {
+                "path": "RttEffects\\rtt_water.Rain.Canopy",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceParticle"
+              },
+              "humidityRange": {
+                "minimum": "2",
+                "maximum": "3",
+                "__type": "Range"
+              },
+              "temperatureRange": {
+                "minimum": "270",
+                "maximum": "276",
+                "__type": "Range"
+              }
+            },
+            {
+              "linkedToSdf": "1",
+              "fadeOutDuration": "10",
+              "enableCloudCondensation": "0",
+              "__type": "SurfaceRaindrops_Emitter",
+              "particleEffect": {
+                "path": "RttEffects\\rtt_water.Slush.Canopy",
+                "__type": "GlobalResourceBase",
+                "__polymorphicType": "GlobalResourceParticle"
+              },
+              "humidityRange": {
+                "minimum": "2",
+                "maximum": "3",
+                "__type": "Range"
+              },
+              "temperatureRange": {
+                "minimum": "276",
+                "maximum": "270",
+                "__type": "Range"
+              }
+            }
+          ]
+        },
+        "wipeEffect": {
+          "path": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceParticle"
+        },
+        "acceleration": {
+          "speedMultiplier": "0.1",
+          "maximumInfluenceSpeed": "10",
+          "maximumAcceleration": "10",
+          "helper": "cockpit_glass_int",
+          "__type": "SurfaceRaindrops_Acceleration",
+          "rotationMultiplierSpeedRange": {
+            "minimum": "-0.1",
+            "maximum": "0.1",
+            "__type": "Range"
+          },
+          "rotationMultiplierAxes": {
+            "x": "1",
+            "y": "1",
+            "z": "1",
+            "__type": "Vec3"
+          },
+          "offset": {
+            "__type": "QuatT",
+            "Rotation": {
+              "x": "0",
+              "y": "0",
+              "z": "0",
+              "__type": "Ang3"
+            },
+            "Position": {
+              "x": "160",
+              "y": "0",
+              "z": "0",
+              "__type": "Vec3"
+            }
+          }
+        }
+      },
+      "SubsumptionMissionLinkComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SubsumptionMissionLinkComponentParams"
+      },
+      "VehicleHUDMessagingParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "VehicleHUDMessagingParams"
+      },
+      "UIBindingsVendorEntityComponentParams": {
+        "namespace": "",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "UIBindingsVendorEntityComponentParams"
+      },
+      "CargoControllerParams": {
+        "requiredStateForCargoOccupancy": "null",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "CargoControllerParams"
+      },
+      "RParticleFieldNodeComponentParams": {
+        "enableField": "1",
+        "texture3D": "",
+        "strengthMult": "1",
+        "useTransformHelperFile": "1",
+        "matchSizeFromTexture": "0",
+        "mergeSDFs": "1",
+        "mergedVoxelCountScaleFrac": "1",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "RParticleFieldNodeComponentParams",
+        "size": {
+          "x": "1",
+          "y": "1",
+          "z": "1",
+          "__type": "Vec3"
+        },
+        "posOffset": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        },
+        "rotOffset": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Ang3"
+        },
+        "mergedPaddingFrac": {
+          "x": "0",
+          "y": "0",
+          "z": "0",
+          "__type": "Vec3"
+        },
+        "debugDraw": {
+          "drawBoundingBox": "0",
+          "drawAdvanced": "0",
+          "densityPerMeter": "0",
+          "density": "1",
+          "minMagnitude": "0",
+          "maxMagnitude": "0",
+          "arrowScale": "1",
+          "renderThreshold": "0",
+          "renderTolerance": "0",
+          "renderInverted": "0",
+          "__type": "RParticleFieldNodeDebugParams"
+        }
+      },
+      "EAScoringVehicleComponentParamsDef": {
+        "partDetachedBonus": "50",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EAScoringVehicleComponentParamsDef",
+        "baseComponent": {
+          "totalScore": "1000",
+          "timeSinceLastHitForAssist": "60",
+          "awardKill": "20",
+          "awardKillAssist": "10",
+          "__type": "DataForgeComponentParams",
+          "__polymorphicType": "EAScoringComponentParamsDef"
+        }
+      },
+      "SGreenZoneObedienceComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SGreenZoneObedienceComponentParams"
+      },
+      "SCActorCollisionAvoidanceParams": {
+        "passRadiusAgent": "0.3",
+        "passRadiusObstacleMoving": "0.4",
+        "passRadiusObstacleStatic": "0.5",
+        "alwaysAnObstacle": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SCActorCollisionAvoidanceParams",
+        "offsetAgent": {
+          "x": "0",
+          "y": "0",
+          "__type": "Vec2"
+        },
+        "offsetObstacle": {
+          "x": "0",
+          "y": "0",
+          "__type": "Vec2"
+        }
+      },
+      "ShipStateMonitorComponentParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "ShipStateMonitorComponentParams"
+      },
+      "EntranceDisplayComponentParams": {
+        "entrancesRecord": "00000000-0000-0000-0000-000000000000",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "EntranceDisplayComponentParams"
+      },
+      "UICanvasDecalDescriptorEntityComponentParams": {
+        "canvas": "3e245580-cbca-4aa9-a0d1-02884bcccbbf",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "UICanvasDecalDescriptorEntityComponentParams"
+      },
+      "UIBindingsConsumerEntityComponentParams": {
+        "linkToPort": "0",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "UIBindingsConsumerEntityComponentParams"
+      },
+      "AINavigationDynamicTriggerComponent": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "AINavigationDynamicTriggerComponent",
+        "adapters": {
+          "VehicleNavigationTriggerAdapter": {
+            "isGroundVehicle": "0",
+            "__type": "NavigationTriggerAdapter",
+            "__polymorphicType": "VehicleNavigationTriggerAdapter"
+          }
+        }
+      },
+      "SObservableComponentParams": {
+        "defaultEntityObservablePoint": "null",
+        "defaultAimingObservablePoint": "null",
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SObservableComponentParams",
+        "perceptionTypes": {
+          "Enum": [
+            {
+              "value": "Vehicle"
+            },
+            {
+              "value": "Spaceship"
+            }
+          ]
+        },
+        "observablePoints": {}
+      },
+      "RestrictedAreaHandlerParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "RestrictedAreaHandlerParams"
+      },
+      "SEntityComponentZoneCamerasParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityComponentZoneCamerasParams",
+        "views": {
+          "Reference": {
+            "value": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "QTViews": {}
+      },
+      "SEntityTraversingTreeParams": {
+        "__type": "DataForgeComponentParams",
+        "__polymorphicType": "SEntityTraversingTreeParams",
+        "TraversingNodes": {}
+      }
+    }
+  }
+}

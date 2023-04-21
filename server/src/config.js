@@ -7,7 +7,7 @@ module.exports = {
     port: 8000,
   },
   mongo: {
-    url: 'mongodb://mongodb:27017/star-citizen-universe',
+    url: 'mongodb://127.0.0.1:27018/',
     db: 'star-citizen-universe'
   },
 }

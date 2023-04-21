@@ -11,12 +11,15 @@ module.exports = class Layout extends mixer.extends(Component, [LocalStorageable
   }
 
   async setView(view) {
-    if (this.currentView) {
-      this.container.removeChild(this.currentView)
-      renderer.destroy(this.currentView)
+    const oldView = this.currentView
+    if (oldView) {
+      this.container.removeChild(oldView)
     }
     this.currentView = view
     this.container.appendChild(this.currentView)
     await this.currentView.attach(this)
+    if (oldView) {
+      renderer.destroy(oldView)
+    }
   }
 }

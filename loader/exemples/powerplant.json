@@ -1,0 +1,675 @@
+{
+  "Category": "Default",
+  "Icon": "Default.bmp",
+  "Invisible": "0",
+  "BBoxSelection": "0",
+  "entityDensityClass": "a153bc13-b348-47a4-8bae-1ce22b0b4023",
+  "__type": "EntityClassDefinition",
+  "__ref": "c7c3faeb-1d23-410d-9f75-8b36fd0d58ba",
+  "__path": "libs/foundry/records/entities/scitem/ships/powerplant/powr_acom_s01_lumacore_scitem.xml",
+  "tags": {},
+  "StaticEntityClassData": {
+    "DefaultEntitlementEntityParams": {
+      "entitlementPolicy": "6df1749c-48ea-43e5-bae5-8084d9fe5aca",
+      "canEntitleThroughWebsite": "1",
+      "__type": "EntityClassStaticDataParams",
+      "__polymorphicType": "DefaultEntitlementEntityParams"
+    }
+  },
+  "Components": {
+    "SAttachableComponentParams": {
+      "attachToTileItemPort": "NoConnection",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SAttachableComponentParams",
+      "AttachDef": {
+        "Type": "PowerPlant",
+        "SubType": "Power",
+        "Size": "1",
+        "Grade": "1",
+        "Manufacturer": "5d616e6f-3257-4d19-90c3-11ab974f12e7",
+        "inheritParentManufacturer": "0",
+        "Tags": "",
+        "RequiredTags": "",
+        "DisplayType": "",
+        "__type": "SItemDefinition",
+        "Localization": {
+          "Name": "@item_Name_POWR_ACOM_S01_LumaCore",
+          "ShortName": "@LOC_EMPTY",
+          "Description": "@item_Desc_POWR_ACOM_S01_LumaCore",
+          "__type": "SCItemLocalization",
+          "displayFeatures": {
+            "LogoSimplifiedWhite": "",
+            "FrontendBackground": "",
+            "History": "@LOC_EMPTY",
+            "Callout1": "@LOC_EMPTY",
+            "Callout2": "@LOC_EMPTY",
+            "Callout3": "@LOC_EMPTY",
+            "UIPriority": "0",
+            "__type": "SCExtendedLocalizationLevelParams",
+            "locationAudioPlayTrigger": {
+              "audioTrigger": "",
+              "__type": "GlobalResourceBase",
+              "__polymorphicType": "GlobalResourceAudio"
+            },
+            "locationAudioStopTrigger": {
+              "audioTrigger": "",
+              "__type": "GlobalResourceBase",
+              "__polymorphicType": "GlobalResourceAudio"
+            }
+          }
+        },
+        "mannequinTags": {
+          "mannequinClassTag": "",
+          "mannequinTypeTag": "",
+          "mannequinBaseTag": "",
+          "__type": "SCItemMannequinTags"
+        },
+        "inventoryOccupancyVolume": {
+          "SMicroCargoUnit": {
+            "microSCU": "84000",
+            "__type": "SBaseCargoUnit",
+            "__polymorphicType": "SMicroCargoUnit"
+          }
+        },
+        "inventoryOccupancyDimensions": {
+          "x": "0.2233005",
+          "y": "2.211008",
+          "z": "0.801895",
+          "__type": "Vec3"
+        },
+        "inventoryOccupancyDimensionsUIOverride": {
+          "Vec3": {
+            "x": "0.7",
+            "y": "0.38",
+            "z": "0.38",
+            "__type": "Vec3"
+          }
+        }
+      },
+      "entityAttachParams": ""
+    },
+    "SCItemPowerPlantParams": {
+      "turnOnInteraction": "Interactable.SharedInteractions[0]",
+      "turnOffInteraction": "Interactable.SharedInteractions[1]",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SCItemPowerPlantParams"
+    },
+    "EntityComponentPowerConnection": {
+      "PowerBase": "0",
+      "PowerDraw": "1472.45",
+      "TimeToReachDrawRequest": "8.75",
+      "SafeguardPriority": "100",
+      "DisplayedInPoweredItemList": "1",
+      "IsThrottleable": "1",
+      "IsOverclockable": "1",
+      "OverclockThresholdMin": "0.34",
+      "OverclockThresholdMax": "0.43",
+      "OverpowerPerformance": "0.36",
+      "OverclockPerformance": "0.05",
+      "PowerToEM": "0.634",
+      "DecayRateOfEM": "0.1",
+      "WarningDelayTime": "0.3",
+      "WarningDisplayTime": "8",
+      "MisfireItemTypeLocID": "@item_TypePowerPlant",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "EntityComponentPowerConnection",
+      "MisfireGenerationParams": {
+        "SMisfireGenerationParams": {
+          "maxWindowLength": "390",
+          "minWindowLength": "27",
+          "__type": "SMisfireGenerationParams",
+          "severityFactors": {
+            "degradation": "1.8",
+            "damage": "1.62",
+            "heat": "0.16",
+            "distortion": "0.12",
+            "__type": "SMisfireSeverityFactors"
+          },
+          "minorBand": {
+            "threshold": "0.24",
+            "minorProbability": "1",
+            "majorProbability": "0",
+            "criticalProbability": "0",
+            "__type": "SMisfireBandParams"
+          },
+          "majorBand": {
+            "threshold": "0.36",
+            "minorProbability": "0.44",
+            "majorProbability": "0.54",
+            "criticalProbability": "0",
+            "__type": "SMisfireBandParams"
+          },
+          "criticalBand": {
+            "threshold": "0.6",
+            "minorProbability": "0.315",
+            "majorProbability": "0.4",
+            "criticalProbability": "0.3",
+            "__type": "SMisfireBandParams"
+          }
+        }
+      },
+      "MisfireEvents": {
+        "__type": "SMisfireEvents",
+        "MinorMisfires": {
+          "SMisfireEventParams": {
+            "warningLocId": "@misfire_General_PowerPlant_Minor",
+            "duration": "3",
+            "ageRatioInflicted": "0",
+            "healthRatioInflicted": "0",
+            "__type": "SMisfireEventParams",
+            "ItemParams": {
+              "SPowerPlantMisfireParams": {
+                "reducesPower": "0",
+                "powerReductionRatio": "0",
+                "__type": "SItemMisfireParams",
+                "__polymorphicType": "SPowerPlantMisfireParams"
+              }
+            }
+          }
+        },
+        "MajorMisfires": {
+          "SMisfireEventParams": [
+            {
+              "warningLocId": "@misfire_General_PowerPlant_Major",
+              "duration": "5",
+              "ageRatioInflicted": "0.04",
+              "healthRatioInflicted": "0",
+              "__type": "SMisfireEventParams",
+              "ItemParams": {
+                "SPowerPlantMisfireParams": {
+                  "reducesPower": "1",
+                  "powerReductionRatio": "0.1",
+                  "__type": "SItemMisfireParams",
+                  "__polymorphicType": "SPowerPlantMisfireParams"
+                }
+              }
+            },
+            {
+              "warningLocId": "@misfire_General_PowerPlant_Major",
+              "duration": "5",
+              "ageRatioInflicted": "0.02",
+              "healthRatioInflicted": "0",
+              "__type": "SMisfireEventParams",
+              "ItemParams": {
+                "SPowerPlantMisfireParams": {
+                  "reducesPower": "1",
+                  "powerReductionRatio": "0.2",
+                  "__type": "SItemMisfireParams",
+                  "__polymorphicType": "SPowerPlantMisfireParams"
+                }
+              }
+            }
+          ]
+        },
+        "CriticalMisfires": {
+          "SMisfireEventParams": [
+            {
+              "warningLocId": "@misfire_General_PowerPlant_Critical",
+              "duration": "5",
+              "ageRatioInflicted": "0.02",
+              "healthRatioInflicted": "0.1",
+              "__type": "SMisfireEventParams",
+              "ItemParams": {
+                "SPowerPlantMisfireParams": {
+                  "reducesPower": "1",
+                  "powerReductionRatio": "0.45",
+                  "__type": "SItemMisfireParams",
+                  "__polymorphicType": "SPowerPlantMisfireParams"
+                }
+              }
+            },
+            {
+              "warningLocId": "@misfire_General_PowerPlant_Critical",
+              "duration": "15",
+              "ageRatioInflicted": "0.1",
+              "healthRatioInflicted": "0.02",
+              "__type": "SMisfireEventParams",
+              "ItemParams": {
+                "SPowerPlantMisfireParams": {
+                  "reducesPower": "1",
+                  "powerReductionRatio": "0.15",
+                  "__type": "SItemMisfireParams",
+                  "__polymorphicType": "SPowerPlantMisfireParams"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "EntityComponentHeatConnection": {
+      "TemperatureToIR": "1.75",
+      "StartIRTemperature": "14",
+      "OverpowerHeat": "0.27",
+      "OverclockThresholdMinHeat": "0.05",
+      "OverclockThresholdMaxHeat": "0.306",
+      "ThermalEnergyBase": "12600",
+      "ThermalEnergyDraw": "16500",
+      "ThermalConductivity": "0.05",
+      "SpecificHeatCapacity": "0.5",
+      "Mass": "243",
+      "SurfaceArea": "0.05",
+      "StartCoolingTemperature": "300",
+      "MaxCoolingRate": "285.0509",
+      "MaxTemperature": "700",
+      "OverheatTemperature": "600",
+      "RecoveryTemperature": "670",
+      "MinTemperature": "0",
+      "MisfireMinTemperature": "300",
+      "MisfireMaxTemperature": "900",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "EntityComponentHeatConnection"
+    },
+    "SGeometryResourceParams": {
+      "cacheResources": "0",
+      "rootOverridePaint": "0",
+      "inheritModelTagFromHost": "1",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SGeometryResourceParams",
+      "ModelTag": "",
+      "Geometry": {
+        "Tags": "",
+        "ScaleMultiplier": "1",
+        "__type": "SGeometryNodeParams",
+        "Geometry": {
+          "Slot": "Main",
+          "MaterialAttachments": "",
+          "ProxyCDFPath": "",
+          "ModifiersPath": "",
+          "AttachFlags": "0",
+          "DeformerType": "Standard",
+          "ProtosBShapeExclude": "0",
+          "VisTP": "1",
+          "VisFP": "1",
+          "VisShadow": "1",
+          "VisSecondaryViews": "1",
+          "WrinkleMap": "0",
+          "EnableDecalProjection": "0",
+          "BBoxJoint": "",
+          "BBoxRadius": "0",
+          "Wear": "0",
+          "Dirt": "0",
+          "Interference": "0",
+          "Damage": "0",
+          "VisAreaMode": "AABB_Center",
+          "SunShadowMode": "Upto_400m",
+          "viewDistRatio": "00000000-0000-0000-0000-000000000000",
+          "__type": "SGeometryDataParams",
+          "Geometry": {
+            "path": "Objects/Spaceships/Power_Plants/small_component/acom/powr_acom_s01_pl01.cgf",
+            "__type": "GlobalResourceBase",
+            "__polymorphicType": "GlobalResourceGeometry"
+          },
+          "Material": {
+            "path": "",
+            "__type": "GlobalResourceBase",
+            "__polymorphicType": "GlobalResourceMaterial"
+          },
+          "SimulationGeometry": "",
+          "Palette": {
+            "RootRecord": "00000000-0000-0000-0000-000000000000",
+            "ChildPath": "",
+            "__type": "TintPaletteRef"
+          }
+        },
+        "SubGeometry": {}
+      },
+      "Material": {
+        "Tags": "",
+        "__type": "SMaterialNodeParams",
+        "Material": {
+          "path": "",
+          "__type": "GlobalResourceBase",
+          "__polymorphicType": "GlobalResourceMaterial"
+        },
+        "Palette": {
+          "RootRecord": "00000000-0000-0000-0000-000000000000",
+          "ChildPath": "",
+          "__type": "TintPaletteRef"
+        },
+        "materialVariants": {}
+      }
+    },
+    "SEntityPhysicsControllerParams": {
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SEntityPhysicsControllerParams",
+      "PhysType": {
+        "SEntityRigidPhysicsControllerParams": {
+          "Mass": "243",
+          "maxLoggedCollisions": "1",
+          "Damping": "0.01",
+          "DampingFreefall": "0.05",
+          "PushableByPlayers": "1",
+          "NeverAffectTriggers": "0",
+          "UseManualGridTransition": "0",
+          "BlocksNavigation": "1",
+          "Kinematic": "0",
+          "EnableCrossGridChecks": "0",
+          "Resting": "0",
+          "physicalizeAllSlots": "1",
+          "__type": "SEntityBasePhysicsControllerParams",
+          "__polymorphicType": "SEntityRigidPhysicsControllerParams",
+          "breakableParams": "",
+          "gameCollisionClass": "",
+          "grid": "",
+          "buoyancyParams": "",
+          "temperature": {
+            "enable": "0",
+            "initialTemperature": "-1",
+            "internalTemperatureGeneration": "0",
+            "__type": "EntityTemperature"
+          }
+        }
+      }
+    },
+    "SCItemPurchasableParams": {
+      "displayName": "@item_Name_POWR_ACOM_S01_LumaCore",
+      "displayType": "@item_TypePowerPlant",
+      "displayThumbnail": "",
+      "allowTryOn": "0",
+      "allowQuickBuy": "0",
+      "tryOnInteractionText": "@innerthought_inspect",
+      "defaultAttachToPortName": "",
+      "interactionPointTemplate": "00000000-0000-0000-0000-000000000000",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SCItemPurchasableParams",
+      "Display": "",
+      "disabledLoadoutInteractions": {}
+    },
+    "SARDataComponentParams": {
+      "dataType": "ShopItem",
+      "rangeMin": "1",
+      "rangeMax": "5",
+      "labelMovementType": "FacingPlayer",
+      "visibleThroughWalls": "1",
+      "labelZOrientationOffset": "-90",
+      "title1": "@LOC_EMPTY",
+      "title2": "@LOC_EMPTY",
+      "subtitle1": "@LOC_EMPTY",
+      "subtitle2": "@LOC_EMPTY",
+      "description": "@LOC_EMPTY",
+      "scaleCapDistance": "10",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SARDataComponentParams",
+      "labelAttachOffset": {
+        "x": "0",
+        "y": "0",
+        "z": "0",
+        "__type": "Vec3"
+      },
+      "queryOffset": {
+        "x": "0",
+        "y": "0",
+        "z": "0",
+        "__type": "Vec3"
+      },
+      "labelScale": {
+        "x": "1",
+        "y": "1",
+        "z": "1",
+        "__type": "Vec3"
+      }
+    },
+    "SEntityInteractableParams": {
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SEntityInteractableParams",
+      "Interactable": {
+        "__type": "SInteractableParams",
+        "SharedInteractions": {
+          "SSharedInteractionParams": [
+            {
+              "Name": "EnablePowerPlant",
+              "RoomTag": "00000000-0000-0000-0000-000000000000",
+              "UsableTag": "00000000-0000-0000-0000-000000000000",
+              "LinkingTag": "db4d697d-e5da-4fc9-acf9-1a6918aeb99c",
+              "DisplayName": "@usable_use",
+              "DisplayType": "Show",
+              "GenericCursor": "SingleAction",
+              "FocusModeOnly": "0",
+              "Sendable": "0",
+              "Linkable": "1",
+              "LockedByLinks": "0",
+              "RequiresAuthorizedUser": "0",
+              "available": "1",
+              "InheritsConditionDisplaysThroughLinks": "0",
+              "__type": "SSharedInteractionParams",
+              "QueryTags": {},
+              "conditionList": ""
+            },
+            {
+              "Name": "DisablePowerPlant",
+              "RoomTag": "00000000-0000-0000-0000-000000000000",
+              "UsableTag": "00000000-0000-0000-0000-000000000000",
+              "LinkingTag": "7bcce5df-d25d-455b-a6b1-bf69a1bbd924",
+              "DisplayName": "@usable_use",
+              "DisplayType": "Show",
+              "GenericCursor": "SingleAction",
+              "FocusModeOnly": "0",
+              "Sendable": "0",
+              "Linkable": "1",
+              "LockedByLinks": "0",
+              "RequiresAuthorizedUser": "0",
+              "available": "1",
+              "InheritsConditionDisplaysThroughLinks": "0",
+              "__type": "SSharedInteractionParams",
+              "QueryTags": {},
+              "conditionList": ""
+            }
+          ]
+        },
+        "InteractionPoints": {
+          "SInteractionPointParams": {
+            "FirstInteractionPrimary": "1",
+            "UseHelperLocation": "0",
+            "ShowHighlight": "1",
+            "ApplyToEntireSkeleton": "1",
+            "longRangeIP": "0",
+            "HelperName": "",
+            "TextJustification": "Middle",
+            "TextOrientation": "RotateToPlayer",
+            "TextScale": "1",
+            "Radius": "2.5",
+            "UseHorizontalDistance": "0",
+            "MaxCursorScreenDistance": "2",
+            "ShowInnerThoughtsOffScreen": "0",
+            "OnlySelectableInLookDir": "0",
+            "ShowInteractionTextAtCursorPos": "0",
+            "__type": "SInteractionPointParams",
+            "HighlightBehaviors": {},
+            "AdditionalCollisionBones": {},
+            "Offset": {
+              "__type": "QuatT",
+              "Rotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Ang3"
+              },
+              "Position": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              }
+            },
+            "AngleConstraint": {
+              "angleRange": "181",
+              "__type": "SAngleConstraint",
+              "forwardDirOffset": {
+                "x": "0",
+                "y": "0",
+                "z": "0",
+                "__type": "Vec3"
+              }
+            },
+            "SpherePrimitive": "",
+            "Interactions": {}
+          }
+        },
+        "interactionTasks": {},
+        "actionHandlerTasks": {},
+        "itemActionTasks": {},
+        "menuTitle": ""
+      }
+    },
+    "SHealthComponentParams": {
+      "Health": "1500",
+      "ClientOnly": "0",
+      "UnlockInteractionsOnDeath": "0",
+      "PushDamageUpPartsHeirarchyWhenDead": "1",
+      "DetachFromItemPortOnDeath": "0",
+      "DetachFromEntityOnDeath": "0",
+      "PropagateExplosionDamageToChildren": "0",
+      "UseDirtShaderForDamage": "0",
+      "DestroyedGeometryTag": "",
+      "ExplodedGeometryTag": "",
+      "DebrisGeometryTag": "",
+      "ExplosionDelayTime": "0",
+      "ExplosionRandomDelayRange": "0",
+      "ExplosionBone": "",
+      "IsSalvagable": "1",
+      "IsRepairable": "1",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SHealthComponentParams",
+      "DamageResistances": {
+        "DamageResistance": {
+          "__type": "DamageResistanceBase",
+          "__polymorphicType": "DamageResistance",
+          "PhysicalResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          },
+          "EnergyResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          },
+          "DistortionResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          },
+          "ThermalResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          },
+          "BiochemicalResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          },
+          "StunResistance": {
+            "Multiplier": "1",
+            "Threshold": "0",
+            "__type": "DamageResistanceEntry"
+          }
+        }
+      },
+      "InitialDamage": "",
+      "HealthLevelStates": {},
+      "DeathExplosionParams": "",
+      "DeathGasComposition": {},
+      "InteractionLocks": {}
+    },
+    "SDegradationParams": {
+      "MaxLifetimeHours": "19",
+      "InitialAgeRatio": "0",
+      "BasePowerMultiplier": "0",
+      "DrawPowerMultiplier": "0",
+      "AtmosphereMultiplier": "1",
+      "DegradeOnlyWhenAttached": "1",
+      "StopDegradingWhenAttached": "0",
+      "PortTags": "",
+      "RequiredPortTags": "",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SDegradationParams",
+      "EffectCurve": {
+        "useLUT": "0",
+        "__type": "BezierCurve",
+        "points": {
+          "Vec2": [
+            {
+              "x": "-0.599739",
+              "y": "-0.04465957",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0",
+              "y": "0",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.599739",
+              "y": "0.04465957",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.4339558",
+              "y": "0.02270212",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.6",
+              "y": "0.05",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.7660442",
+              "y": "0.07729788",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.765241",
+              "y": "0.05159574",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.85",
+              "y": "0.2",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.934759",
+              "y": "0.3484043",
+              "__type": "Vec2"
+            },
+            {
+              "x": "0.9174899",
+              "y": "0.5021064",
+              "__type": "Vec2"
+            },
+            {
+              "x": "1",
+              "y": "0.75",
+              "__type": "Vec2"
+            },
+            {
+              "x": "1.08251",
+              "y": "0.9978936",
+              "__type": "Vec2"
+            }
+          ]
+        }
+      }
+    },
+    "SDistortionParams": {
+      "DecayDelay": "5",
+      "DecayRate": "20",
+      "Maximum": "6000",
+      "WarningRatio": "0.75",
+      "RecoveryRatio": "0",
+      "PowerRatioAtMaxDistortion": "0",
+      "PowerChangeOnlyAtMaxDistortion": "1",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "SDistortionParams"
+    },
+    "ItemControlComponentParams": {
+      "turnedOnByDefault": "0",
+      "__type": "DataForgeComponentParams",
+      "__polymorphicType": "ItemControlComponentParams",
+      "throttleParams": ""
+    }
+  }
+}
