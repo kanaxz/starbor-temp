@@ -3,6 +3,7 @@ const navigator = require('./navigator')
 const pageMiddleware = require('@core/page/middleware')
 
 require('@core')
+require('./notifications/List')
 require('./auth')
 require('./form')
 require('./locations')

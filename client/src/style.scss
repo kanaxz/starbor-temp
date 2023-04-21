@@ -8,12 +8,16 @@ ui-presenter {
   margin: 0;
 }
 
+html {
+  color:#555;
+}
+
 * {
   box-sizing: border-box;
   transition-property: all;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
-  color:#555;
+  color:inherit;
 }
 
 label {
