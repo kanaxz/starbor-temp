@@ -11,12 +11,14 @@ module.exports = () => {
       poll: true
     },
     devServer: {
+      /*
       proxy: {
-        "/apis/auth": "http://localhost:1234",
-        '/assets': "http://localhost:1234",
-        '/datas': "http://localhost:1234"
+        "/api": "http://localhost:8000",
       },
-      historyApiFallback: true
+      */
+      historyApiFallback: true,
+      port: 8080,
+      allowedHosts: 'all',
     },
     target: ['web', 'es5'],
     output: {
@@ -26,7 +28,6 @@ module.exports = () => {
     },
     resolve: {
       alias: {
-        '@shared': path('../../shared'),
         '@core': path('../src/core'),
         '@app': path('../src'),
       },

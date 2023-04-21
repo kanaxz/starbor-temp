@@ -1,6 +1,6 @@
 const AppComponent = require('@app/main/AppComponent')
 const template = require('./template.html')
-const Affiliation = require('@shared/models/Affiliation')
+const Affiliation = require('shared/models/Affiliation')
 require('./style.scss')
 
 module.exports = class AffiliationLittle extends AppComponent {

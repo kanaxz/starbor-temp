@@ -1,6 +1,6 @@
 const config = require('@app/config')
 const url = `${config.server.url}/api`
-const models = require('@shared/models')
+const models = require('shared/models')
 
 
 class Collection {

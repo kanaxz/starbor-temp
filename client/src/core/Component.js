@@ -1,4 +1,4 @@
-const mixer = require('@shared/core/mixer')
+const mixer = require('core/mixer')
 const Base = require('./Base')
 
 class temp extends HTMLElement {

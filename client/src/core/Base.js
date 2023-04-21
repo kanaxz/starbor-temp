@@ -1,8 +1,8 @@
 const renderer = require("./renderer")
 const Scope = require("./Scope")
-const Bindeable = require("@shared/core/Bindeable")
-const Propertiable = require("@shared/core/Propertiable")
-const mixer = require('@shared/core/mixer')
+const Bindeable = require("core/Bindeable")
+const Propertiable = require("core/Propertiable")
+const mixer = require('core/mixer')
 
 module.exports = mixer.mixin([Bindeable(), Propertiable()], (base) => {
   return class Base extends base {

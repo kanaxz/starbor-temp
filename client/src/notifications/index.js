@@ -1,6 +1,6 @@
 const Service = require("@core/Service");
-const Propertiable = require("@shared/core/Propertiable");
-const mixer = require("@shared/core/mixer");
+const Propertiable = require("core/Propertiable");
+const mixer = require("core/mixer");
 
 class Notification extends mixer.extends([Propertiable()]) {
   constructor(values) {

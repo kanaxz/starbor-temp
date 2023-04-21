@@ -3,6 +3,7 @@ const plugins = [
   require('./sass'),
   require('./javascript'),
   require('./html'),
+  require('./assets'),
 ]
 
 const { merge } = require('webpack-merge')

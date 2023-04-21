@@ -59,7 +59,6 @@ const isTemplate = (template) => {
   return (template instanceof HTMLScriptElement || template instanceof HTMLTemplateElement || typeof template === "string");
 }
 const getElementFromTemplate = (template) => {
-  console.log()
   if (template instanceof HTMLScriptElement) {
     var clearInnerHTML = template.innerHTML.trim();
 

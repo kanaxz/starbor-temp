@@ -3,7 +3,7 @@ const Main = require('@app/layouts/Main')
 const api = require('@app/api')
 const template = require('./template.html')
 const componentsService = require('@app/main/componentsService')
-const Location = require('@shared/models/locations/Location')
+const Location = require('shared/models/locations/Location')
 
 require('../../components/LocationCard')
 require('./style.scss')

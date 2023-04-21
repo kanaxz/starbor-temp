@@ -1,4 +1,4 @@
-require('@shared/core')
+require('core')
 const navigator = require('./navigator')
 const pageMiddleware = require('@core/page/middleware')
 
@@ -12,6 +12,9 @@ require('./affiliation')
 
 require('./style.scss')
 
+const config = require('./config')
+
+console.log({ config })
 
 
 

@@ -8,12 +8,18 @@ app-system-card {
   header {
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 5px 10px;
     background-color: rgba(255, 255, 255, 0.9);
     color: dimgrey;
     border:1px solid #e1e1e1;
+    img{
+      width:20px;
+      height:20px;
+    }
     label {
       flex: 1;
+      margin-left:10px;
       //color:transparent;
     }
   }
@@ -36,7 +42,7 @@ app-system-card {
 
   &:hover {
     .content {
-      top: 0;
+      //top: 0;
       transition-duration: 0.2s;
     }
   }

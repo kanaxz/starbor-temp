@@ -1,6 +1,6 @@
 const AppComponent = require('@app/main/AppComponent')
 const template = require('./template.html')
-const System = require('@shared/models/locations/System')
+const System = require('shared/models/locations/System')
 require('./style.scss')
 
 module.exports = class SystemCard extends AppComponent {

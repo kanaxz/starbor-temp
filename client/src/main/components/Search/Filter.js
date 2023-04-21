@@ -1,5 +1,5 @@
-const mixer = require('@shared/core/mixer')
-const Propertiable = require('@shared/core/Propertiable')
+const mixer = require('core/mixer')
+const Propertiable = require('core/Propertiable')
 
 module.exports = class Filter extends mixer.extends([Propertiable()]) {
   constructor(values) {
