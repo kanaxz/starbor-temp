@@ -1,4 +1,4 @@
-require('../core/modeling')
+require('core/modeling')
 module.exports = {
   locations: require('./locations'),
   Affiliation: require('./Affiliation'),

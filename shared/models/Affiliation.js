@@ -1,4 +1,4 @@
-const Model = require('../core/modeling/Model')
+const Model = require('core/modeling/Model')
 
 module.exports = class Affiliation extends Model {
 

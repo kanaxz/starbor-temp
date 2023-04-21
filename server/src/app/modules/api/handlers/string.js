@@ -1,4 +1,4 @@
-const { String } = require.main.require('../../shared/core/modeling/objects')
+const { String } = require.main.require('core/modeling/objects')
 
 module.exports = [String, {
   match({ value }, regex) {

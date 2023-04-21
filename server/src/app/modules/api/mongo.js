@@ -1,6 +1,6 @@
 const classesMatch = (c1, c2) => c1 === c2 || c1.prototype instanceof c2
 const handlers = require('./handlers')
-const Model = require.main.require('../../shared/core/modeling/Model')
+const Model = require.main.require('core/modeling/Model')
 
 const makeId = (length = 12) => {
   let result = '';

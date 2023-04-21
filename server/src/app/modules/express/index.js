@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const config = require.main.require('./config')
 const http = require('http')
 const cors = require('cors')
+const { join } = require('path')
 
 module.exports = {
   dependancies: ['app'],
@@ -16,8 +17,9 @@ module.exports = {
     expressApp.use(bodyParser.urlencoded({
       extended: false
     }))
+
     expressApp.use(cors({
-      origin: 'http://localhost:8081',
+      origin: true,
     }))
     expressApp.use(bodyParser.json())
     expressApp.use(cookieParser())
@@ -26,6 +28,10 @@ module.exports = {
       next()
     })
     const server = http.createServer(expressApp)
+
+    expressApp.get('/ping', (req, res) => {
+      res.send('pong')
+    })
 
     app.onReady(() => {
       console.log(`Listening on port ${config.express.port}`)

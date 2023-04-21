@@ -1,4 +1,4 @@
-const models = require('../../../../../shared/models')
+const models = require('shared/models')
 const exp = require('express')
 const { buildPipeline, loadLookups, unloadLookup } = require('./mongo')
 

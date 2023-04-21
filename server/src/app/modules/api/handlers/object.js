@@ -1,4 +1,4 @@
-const Object = require.main.require('../../shared/core/modeling/Object')
+const Object = require.main.require('core/modeling/Object')
 
 module.exports = [Object, {
   is(source, type) {

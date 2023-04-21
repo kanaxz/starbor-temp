@@ -1,4 +1,4 @@
-const mixer = require('../../core/mixer')
+const mixer = require('core/mixer')
 const GameModel = require('../GameModel')
 const Affiliation = require('../Affiliation')
 

@@ -16,3 +16,15 @@ Cedric Dessalles
 
 # TODO
 Hangar/garage
+
+# wsl port forwarding
+
+https://superuser.com/questions/1131874/how-to-access-localhost-of-linux-subsystem-from-windows
+
+express
+netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 `
+    connectport=8000 connectaddress=$($(wsl hostname -I).Trim());
+
+webpack
+netsh interface portproxy add v4tov4 listenport=8080 listenaddress=0.0.0.0 `
+   connectport=8080 connectaddress=$($(wsl hostname -I).Trim());

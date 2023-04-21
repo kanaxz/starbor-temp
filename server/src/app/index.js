@@ -1,4 +1,4 @@
-const event = require.main.require('./core/event')
+const event = require.main.require('core/event')
 
 module.exports = {
   construct() {

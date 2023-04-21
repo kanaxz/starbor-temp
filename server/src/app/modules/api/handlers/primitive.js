@@ -1,4 +1,4 @@
-const { Primitive } = require.main.require('../../shared/core/modeling/objects')
+const { Primitive } = require.main.require('core/modeling/objects')
 
 module.exports = [Primitive, {
   eq({ value }, other) {
