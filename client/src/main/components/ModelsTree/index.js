@@ -7,13 +7,13 @@ console.log(models)
 module.exports = class EditableText extends Component {
 
 }
-  .variables({
-    models:[models.locations.Location],
-  })
-  .properties({
-
-  })
   .define({
     name: 'app-models-tree',
     template,
+  })
+  .variables({
+    models: [models.locations.Location],
+  })
+  .properties({
+
   })

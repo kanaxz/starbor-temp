@@ -9,11 +9,11 @@ module.exports = class AffiliationLittle extends AppComponent {
     this.affiliation = affiliation
   }
 }
-  .registry(Affiliation, 'little')
-  .properties({
-    affiliation: 'any',
-  })
   .define({
     name: 'app-affiliation-little',
     template,
+  })
+  .registry(Affiliation, 'little')
+  .properties({
+    affiliation: 'any',
   })

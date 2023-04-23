@@ -14,26 +14,24 @@ module.exports = class LocationsPage extends Page {
     super()
     //this.on('propertyChanged:typeName',this.b(this.onChange))
   }
-  async onChange() {
-    console.log('changed')
-    this.locations = await api.collections.locations.find([
+  async changed() {
+    console.log(this.typeFilter.getFilters())
+    return
+    this.locations = await api.collections.locations.find(
+      this.typeFilter.filters,
       {
-        is: ['$this', this.typeSelector.current.definition.name]
-      },
-      {
-        match: ['$name', this.name.value]
+        limit: 50,
+        load: {
+          affiliation: true,
+        },
+        type: this.typeSelector.current.definition.name,
       }
-    ], {
-      limit: 50,
-      load: {
-        affiliation: true,
-      }
-    })
+    )
   }
 
   async initialize() {
     await super.initialize()
-    this.onChange()
+    this.changed()
   }
 
   templateCard(location) {
@@ -41,17 +39,14 @@ module.exports = class LocationsPage extends Page {
     return new cardComponent(location)
   }
 
-  typeChanged() {
-    this.onChange()
-  }
 }
-  .variables({
-    Location,
-  })
   .define({
     name: 'app-locations-page',
     template,
     layout: Main,
+  })
+  .variables({
+    Location,
   })
   .properties({
     locations: 'any',

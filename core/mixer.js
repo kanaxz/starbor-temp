@@ -1,57 +1,57 @@
-const findDependencyIndex = (dependency, dependencies, result) => {
-  return dependencies.findIndex((d) => {
-    return d.mixin == dependency.mixin;
-  })
+const Mixin = require('./Mixin')
+const getMixin = (dependency) => {
+  return dependency.mixin || dependency
 }
 
-const processDependency = (result, dependency) => {
-  let existingIndex = -1
-  if (result.base.dependencies) {
-    existingIndex = findDependencyIndex(dependency, result.base.dependencies, result)
+const processDependency = (allDependencies, dependency) => {
+  const index = allDependencies.indexOf(dependency)
+  if (index !== -1) {
+    return null
   }
-  if (existingIndex !== -1) {
-    return
-  }
-  existingIndex = findDependencyIndex(dependency, result.dependencies)
-  if (existingIndex !== -1) {
-    return
-  }
-  if (dependency.mixin.dependencies) {
-    processDependencies(result, dependency.mixin.dependencies)
-  }
-  result.dependencies.push(dependency)
-
+  allDependencies.push(dependency)
+  const dependencies = processDependencies(allDependencies, dependency.mixinDependencies)
+  return [
+    ...dependencies,
+    dependency,
+  ]
 }
 
-const processDependencies = (result, dependenciesTree) => {
-  for (const dependency of dependenciesTree) {
-    processDependency(result, dependency)
-  }
+const processDependencies = (allDependencies, dependenciesTree) => {
+  return dependenciesTree
+    .flatMap((dependency) => processDependency(allDependencies, dependency))
+    .filter((o) => o)
 }
 
 const buildBase = (base, dependenciesTree) => {
-  const result = {
-    dependencies: [],
-    base
-  }
-  processDependencies(result, dependenciesTree)
+  const allDependencies = [...(base.allDependencies || [])]
+  const dependencies = processDependencies(allDependencies, dependenciesTree)
   let currentClass = base
-  for (const dependency of result.dependencies) {
-    currentClass = dependency.mixin.fn(currentClass, ...dependency.args)
+  for (const dependency of dependencies) {
+
+    currentClass = dependency.fn(currentClass)
   }
-  if (base.dependencies) {
-    result.dependencies = [...base.dependencies, ...result.dependencies]
-  }
-  result.base = currentClass
-  result.base.dependencies = result.dependencies
-  return result.base
+  Object.assign(currentClass, {
+    allDependencies,
+    dependencies,
+    dependenciesOwner: null,
+  })
+
+  return currentClass
 }
 
-module.exports = {
+const getDependencies = (dependencies = []) => {
+  if (mixer.base) {
+    dependencies = [mixer.base, ...dependencies]
+  }
+  return dependencies
+}
+
+const mixer = {
+  base: null,
   proxy(...args) {
-    const fn = this.mixin(...args)
-    const type = this.extends([fn()]);
-    type.mixin = fn;
+    const mixin = this.mixin(...args)
+    const type = this.extends([mixin]);
+    type.mixin = mixin;
 
     return new Proxy(type, {
       apply: (target, thisArg, args) => {
@@ -64,43 +64,44 @@ module.exports = {
     })
   },
   mixin(...args) {
+    const fn = args.find((arg) => typeof arg === 'function')
+    const mixinDependencies = getDependencies(args.find((arg) => Array.isArray(arg)))
+    const base = mixer.extends(Mixin, mixinDependencies)
 
-    const mixin = {
-      fn: args[args.length - 1],
-      dependencies: args.length === 2 && args[0] || []
-    }
+    const mixin = fn(base)
 
-    const fn = (...args) => {
-      return {
-        mixin,
-        args
-      }
-    }
-    fn.mixin = mixin
-    return fn
+    Object.assign(mixin, {
+      mixinDependencies,
+      fn,
+      base,
+    })
+    return mixin
   },
   extends(...args) {
     const base = args.length === 2 && args[0] || class { }
-    const dependencies = args[args.length - 1]
+    const dependencies = getDependencies(args[args.length - 1])
     return buildBase(base, dependencies)
   },
   is(object, mixinOrClass) {
     if (!object) { return false }
-    const dependencies = object.constructor?.dependencies
+    const dependencies = object.constructor?.allDependencies
 
     if (dependencies) {
-      const hasMixin = dependencies?.find((d) => d.mixin === mixinOrClass.mixin)
+      const hasMixin = dependencies.find((d) => d === getMixin(mixinOrClass))
       if (hasMixin) {
         return true
       }
     }
+    if (typeof mixinOrClass !== 'function') {
+      return false
+    }
 
-    try {
-      if (object instanceof mixinOrClass) {
-        return true
-      }
-    } catch (e) { }
+    if (object instanceof mixinOrClass) {
+      return true
+    }
 
     return false
   }
 }
+
+module.exports = mixer

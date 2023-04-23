@@ -1,4 +1,4 @@
-const mixer = require("./mixer")
+const mixer = require("../mixer")
 
 module.exports = mixer.mixin((baseClass) => {
   return class Initializeable extends baseClass {

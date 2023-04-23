@@ -1,33 +1,35 @@
 const Service = require("@core/Service");
-const Propertiable = require("core/Propertiable");
-const mixer = require("core/mixer");
+const Propertiable = require("core/mixins/Propertiable")
+const mixer = require("core/mixer")
+const Array = require('core/types/Array')
 
-class Notification extends mixer.extends([Propertiable()]) {
+class Notification extends mixer.extends([Propertiable]) {
   constructor(values) {
     super();
-    Object.assign(this, values);
-    this.initialize();
+    Object.assign(this, values)
+    this.initialize()
   }
   close() {
     if (this.isClosed) {
-      return;
+      return
     }
-    this.isClosed = true;
+    this.isClosed = true
     setTimeout(() => {
-      const index = service.notifications.indexOf(this);
+      const index = service.notifications.indexOf(this)
       if (index === -1) {
-        return;
+        return
       }
-      service.notifications.splice(index, 1);
-      service.notifications = service.notifications;
+      service.notifications.splice(index, 1)
     }, 500);
   }
 }
 
-Notification.properties({
-  isClosed: "number",
-  message: "number",
-});
+Notification
+  .define()
+  .properties({
+    isClosed: "number",
+    message: "number",
+  });
 
 const types = {
   info: {
@@ -41,20 +43,19 @@ Object.entries(types).forEach(([name, type]) => {
 
 const NotificationService = class extends Service {
   constructor() {
-    super();
-    this.on("propertyChanged:notifications", () => {
-      console.log("changed");
-    });
+    super()
+    this.notifications = new Array()
   }
   notify(notification) {
-    notification.type = types[notification.type] || types.info;
-    notification = new Notification(notification);
-    console.log(notification);
-    this.notifications = [...(this.notifications || []), notification];
+    notification.type = types[notification.type] || types.info
+    notification = new Notification(notification)
+    this.notifications.push(notification)
   }
-}.properties({
-  notifications: "any",
-});
+}
+  .define()
+  .properties({
+    notifications: "any",
+  });
 
-const service = new NotificationService();
+const service = new NotificationService()
 module.exports = service;

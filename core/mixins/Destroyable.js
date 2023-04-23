@@ -1,8 +1,8 @@
-const mixer = require('./mixer')
+const mixer = require('../mixer')
 const Eventable = require('./Eventable')
 
 const destroyed = Symbol('destroyed')
-module.exports = mixer.mixin([Eventable()], (base) => {
+module.exports = mixer.mixin([Eventable], (base) => {
   return class Destroyable extends base {
 
     constructor(...args) {

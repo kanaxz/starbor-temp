@@ -1,5 +1,6 @@
 const Primitive = require('./Primitive')
 const Model = require('../Model')
+const Any = require('../Any')
 const utils = require('../utils')
 
 class Bool extends Primitive {
@@ -8,8 +9,17 @@ class Bool extends Primitive {
   }
 }
 
+Bool.define({
+  name: 'bool',
+})
+
+Any.methods({
+  not: [[], Bool]
+})
+
 Primitive.methods({
-  eq: [[THIS], Bool]
+  eq: [[THIS], Bool],
+  neq: [[THIS], Bool]
 })
 
 utils.propertySanitizers.push((property) => {

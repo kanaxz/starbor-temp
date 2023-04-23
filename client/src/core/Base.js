@@ -1,16 +1,11 @@
 const renderer = require("./renderer")
 const Scope = require("./Scope")
-const Bindeable = require("core/Bindeable")
-const Propertiable = require("core/Propertiable")
+const Bindeable = require("core/mixins/Bindeable")
+const Propertiable = require("core/mixins/Propertiable")
 const mixer = require('core/mixer')
 
-module.exports = mixer.mixin([Bindeable(), Propertiable()], (base) => {
+module.exports = mixer.mixin([Bindeable, Propertiable], (base) => {
   return class Base extends base {
-    static define(definition) {
-      this.definition = definition;
-      return this
-    }
-
     static variables(variables) {
       this._variables = {
         ...(this._variables || {}),
@@ -107,7 +102,10 @@ module.exports = mixer.mixin([Bindeable(), Propertiable()], (base) => {
       this.childNodes.forEach(renderer.destroy)
     }
   }
-    .properties({
-      isInitialized: { type: 'any' }
-    })
+
 })
+  .define()
+  .properties({
+    isInitialized: { type: 'any' }
+  })
+

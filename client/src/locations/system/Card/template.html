@@ -1,4 +1,4 @@
-<self :style.background-image="`url(${this.location.image})`">
+<self :style.background-image="`url(${this.location.image || defaultImage })`">
   <header>
     <img src="../../assets/system.png" />
     <label>{{this.location.@name}}</label>

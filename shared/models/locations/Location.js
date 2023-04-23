@@ -6,6 +6,10 @@ class Location extends GameModel {
 
 }
 Location
+  .define({
+    name: 'location',
+    pluralName: 'locations',
+  })
   .properties({
     name: 'string',
     description: 'string',
@@ -16,9 +20,6 @@ Location
     //parent: Location,
     //parents: Branch.of(Location),
   })
-  .define({
-    name: 'location',
-    pluralName: 'locations',
-  })
+
 
 module.exports = Location

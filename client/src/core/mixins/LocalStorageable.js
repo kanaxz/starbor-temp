@@ -1,7 +1,7 @@
-const Propertiable = require("core/Propertiable")
+const Propertiable = require("core/mixins/Propertiable")
 const mixer = require('core/mixer')
 
-module.exports = mixer.mixin([Propertiable()], (base) => {
+module.exports = mixer.mixin([Propertiable], (base) => {
   return class LocalStorageable extends base {
     static localStorage(options) {
       this.localStorageOptions = options

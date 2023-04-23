@@ -1,9 +1,9 @@
 const mixer = require('../mixer')
-const Base = require('./Base')
+const Any = require('./Any')
 
-module.exports = class Object extends mixer.extends([Base()]) {
-  
+module.exports = class Object extends mixer.extends([Any]) {
+
 }
-  .methods({
-    
+  .define({
+    name: 'object',
   })

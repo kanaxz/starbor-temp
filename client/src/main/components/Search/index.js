@@ -12,10 +12,10 @@ module.exports = class Search extends Component {
     ]
   }
 }
-  .properties({
-
-  })
   .define({
     name: 'app-search',
     template,
+  })
+  .properties({
+
   })

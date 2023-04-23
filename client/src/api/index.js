@@ -31,7 +31,6 @@ class Collection {
     })
     const models = modelsJson.map((modelJson) => {
       const model = this.modelClass.build(modelJson)
-      console.log(model)
       model.setLoad(options.load)
       return model
     })

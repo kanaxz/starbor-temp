@@ -16,6 +16,7 @@ module.exports = class Field extends Component {
   }
 
 }
+  .define()
   .properties({
     label: 'string',
     name: 'string',

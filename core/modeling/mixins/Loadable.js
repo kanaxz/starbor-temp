@@ -1,7 +1,7 @@
 const mixer = require('../../mixer')
-const Propertiable = require('../../Propertiable')
+const Propertiable = require('../../mixins/Propertiable')
 
-module.exports = mixer.mixin([Propertiable()], (base) => {
+module.exports = mixer.mixin([Propertiable], (base) => {
   return class Loadable extends base {
     constructor(...args) {
       super(...args)

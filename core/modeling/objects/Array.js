@@ -1,9 +1,9 @@
-const Array = require('../../Array')
+const Array = require('../../types/Array')
 const mixer = require('../../mixer')
 const utils = require('../utils')
-const Base = require('../Base')
+const Any = require('../Any')
 
-class ObjectArray extends mixer.extends(Array, [Base()]) {
+class ObjectArray extends mixer.extends(Array, [Any]) {
   static build(json, property) {
     const result = json.map((object) => {
       return this.template.build(object, property)
@@ -19,6 +19,11 @@ class ObjectArray extends mixer.extends(Array, [Base()]) {
     return result
   }
 }
+
+ObjectArray
+  .define({
+    name: 'array',
+  })
 
 utils.propertySanitizers.push((property) => {
   if (!Array.isArray(property.type)) { return }

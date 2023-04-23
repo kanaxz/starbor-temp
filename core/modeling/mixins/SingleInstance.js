@@ -1,10 +1,10 @@
-const Destroyable = require('../../Destroyable')
+const Destroyable = require('../../mixins/Destroyable')
 const mixer = require('../../mixer')
 const Buildable = require('./Buildable')
 
 const instances = []
 
-module.exports = mixer.mixin([Buildable(), Destroyable()], (base) => {
+module.exports = mixer.mixin([Buildable, Destroyable], (base) => {
   return class SingleInstance extends base {
 
     static build(json, property) {

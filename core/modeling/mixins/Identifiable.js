@@ -1,8 +1,8 @@
 const mixer = require('../../mixer')
-const Propertiable = require('../../Propertiable')
+const Propertiable = require('../../mixins/Propertiable')
 const Buildable = require('./Buildable')
 
-module.exports = mixer.mixin([Propertiable(), Buildable()], (base) => {
+module.exports = mixer.mixin([Propertiable, Buildable], (base) => {
   return class Identifiable extends base {
     static identities(identities) {
       this._identities = {
@@ -15,7 +15,7 @@ module.exports = mixer.mixin([Propertiable(), Buildable()], (base) => {
     identity(identityName = 'main') {
       const identity = this.constructor._identities[identityName]
       let result = identity.reduce((acc, propertyName) => {
-        const property = this.constructor._properties[propertyName]
+        const property = this.constructor.properties.find((p) => p.name === propertyName)
         acc[propertyName] = property.type.toJSON(this[propertyName])
         return acc
       }, {})

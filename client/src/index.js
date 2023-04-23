@@ -9,14 +9,11 @@ require('./form')
 require('./locations')
 require('./main')
 require('./affiliation')
-
 require('./style.scss')
 
 const config = require('./config')
 
 console.log({ config })
-
-
 
 const start = async () => {
   console.log('Starting app')

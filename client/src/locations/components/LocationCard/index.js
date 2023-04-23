@@ -9,13 +9,13 @@ module.exports = class LocationCard extends AppComponent {
     this.location = location
   }
 }
+  .define({
+    name: 'app-location-card',
+    template,
+  })
   .registry(Location, 'card', {
     affiliation: true,
   })
   .properties({
     location: 'any',
-  })
-  .define({
-    name: 'app-location-card',
-    template,
   })

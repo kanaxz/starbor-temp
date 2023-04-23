@@ -11,7 +11,7 @@
         :on:click="this.setCurrent(model)">
         <label>{{model.definition.name}}</label>
       </div>
-      <div class="childs" :v:for="model of model.childs" :v.for.template="this.modelTemplate"></div>
+      <div class="childs" :v:for="model of model.definition.childs" :v.for.template="this.modelTemplate"></div>
     </div>
   </template>
   <div 

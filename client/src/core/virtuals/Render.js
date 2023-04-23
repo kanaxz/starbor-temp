@@ -13,6 +13,11 @@ module.exports = class Render extends Virtual {
     this.on('propertyChanged', this.b(this.update))
   }
 
+  initialize() {
+    this.update()
+    return super.initialize()
+  }
+
   async update() {
     renderer.destroyContent(this.el)
     this.innerHTML = ''

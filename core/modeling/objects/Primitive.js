@@ -1,6 +1,7 @@
-const Base = require('../Base')
+const mixer = require('../../mixer')
+const Any = require('../Any')
 
-module.exports = class Primitive extends Base {
+module.exports = class Primitive extends mixer.extends([Any]) {
   constructor() {
     throw new Error('Cannot instenciate')
   }
@@ -13,6 +14,6 @@ module.exports = class Primitive extends Base {
     return value
   }
 }
-  .methods({
-
+  .define({
+    name: 'primitive',
   })

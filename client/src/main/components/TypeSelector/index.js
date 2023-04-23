@@ -20,12 +20,12 @@ module.exports = class TypeSelector extends Component {
     this.event('change', model)
   }
 }
+  .define({
+    name: 'app-type-selector',
+    template,
+  })
   .properties({
     type: 'any',
     current: 'any',
     open: 'any',
-  })
-  .define({
-    name: 'app-type-selector',
-    template,
   })

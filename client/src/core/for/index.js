@@ -1,25 +1,15 @@
 const Virtual = require('../Virtual')
-const Propertiable = require('core/Propertiable')
+const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
 const renderer = require('../renderer')
-
+const It = require('./It')
 const { getElementFromTemplate } = require('../utils')
-
-
-class It extends mixer.extends([Propertiable()]) {
-  constructor(values) {
-    super()
-    Object.assign(this, values)
-  }
-}
-
-It.properties({
-  index: 'number',
-})
+const handlers = require('./handlers')
 
 module.exports = class For extends Virtual {
   constructor(el, value) {
     super(el)
+    this.iterations = null
     const [name, source] = value.split(/ of /)
     this.el.setAttribute(':v.for.name', `'${name}'`)
     this.el.setAttribute(':v.for.source', `${source}`)
@@ -29,33 +19,47 @@ module.exports = class For extends Virtual {
     this.el.innerHTML = ''
   }
 
-  async initialize(){
+  async initialize() {
     await super.initialize()
     this.onSourceChanged()
   }
 
+  async iteration(object, index) {
+    const scope = this.scope.parent.child()
+    scope.variables[this.name] = object
+    scope.variables.index = index
+
+    const element = getElementFromTemplate(this.template)
+    const it = new It({ index, object, element, scope })
+
+    await renderer.render(it.element, it.scope)
+    this.iterations.push(it)
+    return it
+  }
+
   async onSourceChanged() {
+
+    if (this.handler) {
+      this.handler.destroy()
+      this.handler = null
+    }
     if (this.iterations) {
       this.iterations.forEach((it) => {
-        it.element.remove()
+        it.destroy()
       })
     }
+    this.iterations = []
     if (!this.source) { return }
 
-    this.iterations = this.source.map((object, index) => {
-      const scope = this.scope.parent.child()
-      scope.variables[this.name] = object
-      scope.variables.index = index
-
-      const element = getElementFromTemplate(this.template)
-      const it = new It({ index, object, element, scope })
-      return it
-    })
-
-    for (const it of this.iterations) {
-      //console.log(it.element)
+    const handler = handlers.find((handler) => handler.handle(this.source))
+    if (handler) {
+      this.handler = new handler(this)
+    } else {
+      this.handler = null
+    }
+    for (let i = 0; i < this.source.length; i++) {
+      const it = await this.iteration(this.source[i], i)
       this.el.appendChild(it.element)
-      await renderer.render(it.element, it.scope)
     }
   }
 }

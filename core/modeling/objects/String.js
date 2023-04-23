@@ -10,10 +10,14 @@ class String extends Primitive {
   }
 }
 
-String.methods({
-  match: [[String], Bool],
-  toUpperCase: [[], String]
-})
+String
+  .define({
+    name: 'string',
+  })
+  .methods({
+    match: [[String], Bool],
+    toUpperCase: [[], String]
+  })
 
 Object.methods({
   is: [[String], Bool]

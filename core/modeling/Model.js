@@ -4,9 +4,9 @@ const Identifiable = require('./mixins/Identifiable')
 const Loadable = require('./mixins/Loadable')
 const SingleInstance = require('./mixins/SingleInstance')
 
-module.exports = class Model extends mixer.extends(Object, [Loadable(), Identifiable(), SingleInstance()]) {
+module.exports = class Model extends mixer.extends(Object, [Loadable, Identifiable, SingleInstance]) {
 
 }
-  .identities({
-    main: ['_id']
+  .define({
+    name: 'model',
   })

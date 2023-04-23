@@ -1,4 +1,4 @@
-const mixer = require("./mixer")
+const mixer = require("../mixer")
 const events = Symbol("events")
 
 class Listener {

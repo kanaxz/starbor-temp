@@ -1,6 +1,6 @@
-const Eventable = require('core/Eventable')
+const Eventable = require('core/mixins/Eventable')
 const mixer = require('core/mixer')
-module.exports = class Router extends mixer.extends([Eventable()]) {
+module.exports = class Router extends mixer.extends([Eventable]) {
 
   constructor() {
     super()

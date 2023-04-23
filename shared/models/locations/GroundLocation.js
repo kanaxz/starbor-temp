@@ -7,10 +7,10 @@ class GroundPosition {
 module.exports = class GroundLocation extends EuclideanSpace {
 
 }
-  .properties({
-    position: GroundPosition,
-  })
   .define({
     name: 'groundLocation',
     pluralName: 'groundLocations'
+  })
+  .properties({
+    position: GroundPosition,
   })

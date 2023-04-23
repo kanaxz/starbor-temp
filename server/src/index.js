@@ -1,4 +1,4 @@
-require('core/modeling')
+require('core')
 const Module = require('./core/Module')
 const { join } = require('path')
 

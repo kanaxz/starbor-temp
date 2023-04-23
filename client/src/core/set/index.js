@@ -1,7 +1,7 @@
 const { workers } = require('../renderer')
 const utils = require('../utils')
 const mixer = require('core/mixer')
-const Holdable = require('core/Holdable')
+const Holdable = require('core/mixins/Holdable')
 
 const { get, createFunction, dashToCamel } = utils
 

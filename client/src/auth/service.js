@@ -15,8 +15,10 @@ const AuthService = class extends Service {
     this.me = null
     localStorage.removeItem('me')
   }
-}.properties({
-  me: 'any',
-})
+}
+  .define()
+  .properties({
+    me: 'any',
+  })
 
 module.exports = new AuthService()

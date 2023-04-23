@@ -5,10 +5,10 @@ class temp extends HTMLElement {
 
 }
 
-module.exports = class Component extends mixer.extends(temp, [Base()]) {
+module.exports = class Component extends mixer.extends(temp, [Base]) {
   static define(definition) {
     
-    if (definition.name) {
+    if (definition?.name) {
       customElements.define(definition.name, this)
     }
     return super.define(definition)

@@ -10,11 +10,11 @@ module.exports = class EditableText extends Component {
     })
   }
 }
-  .properties({
-    value: 'any',
-    editing: 'bool',
-  })
   .define({
     name: 'app-editable-text',
     template,
+  })
+  .properties({
+    value: 'any',
+    editing: 'bool',
   })

@@ -1,4 +1,4 @@
-const mixer = require('./mixer')
+const mixer = require('../mixer')
 const Eventable = require('./Eventable')
 const Destroyable = require('./Destroyable')
 
@@ -18,7 +18,7 @@ const loop = () => {
   setTimeout(loop, 5 * 1000)
 }
 
-module.exports = mixer.mixin([Destroyable(), Eventable()], (base) => {
+module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
   return class Holdable extends base {
 
     constructor(...args) {

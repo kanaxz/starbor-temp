@@ -3,7 +3,7 @@ const renderer = require('@core/renderer')
 const LocalStorageable = require('@core/mixins/LocalStorageable')
 const mixer = require('core/mixer')
 
-module.exports = class Layout extends mixer.extends(Component, [LocalStorageable()]) {
+module.exports = class Layout extends mixer.extends(Component, [LocalStorageable]) {
   initialized() {
     if (!this.container)
       throw new Error("Layout '" + this.constructor.name + "' must implement a container");

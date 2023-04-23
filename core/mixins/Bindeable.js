@@ -1,4 +1,4 @@
-const mixer = require("./mixer")
+const mixer = require("../mixer")
 const symbol = Symbol("BindedFunctions")
 
 module.exports = mixer.mixin((baseClass) => {

@@ -9,6 +9,9 @@ module.exports = mixer.mixin((base) => {
         const c = class extends this { }
         Object.defineProperty(c, 'name', { value: `${this.name}<${template.name}>` })
         c.template = template
+        c.define({
+          name: c.name,
+        })
         cache = {
           template,
           base: this,

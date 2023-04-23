@@ -1,13 +1,15 @@
 const mixer = require('core/mixer')
-const Propertiable = require('core/Propertiable')
+const Propertiable = require('core/mixins/Propertiable')
 
-module.exports = class Filter extends mixer.extends([Propertiable()]) {
+module.exports = class Filter extends mixer.extends([Propertiable]) {
   constructor(values) {
     super()
     Object.assign(this, values)
   }
-}.properties({
-  name: 'any',
-  value: 'any',
-  functionName: 'any',
-})
+}
+  .define()
+  .properties({
+    name: 'any',
+    value: 'any',
+    functionName: 'any',
+  })

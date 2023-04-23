@@ -1,6 +1,7 @@
 const models = require('shared/models')
 const exp = require('express')
 const { buildPipeline, loadLookups, unloadLookup } = require('./mongo')
+const mixer = require('core/mixer')
 
 const objectDiff = (paths1, paths2) => {
   return Object.entries(paths1)
@@ -41,9 +42,7 @@ class Collection {
     if (!options.load) {
       options.load = {}
     }
-    console.log({ paths, load: options.load })
     const { load, unload } = merge(paths, options.load)
-    console.log({ load, unload })
     pipeline.push(
       {
         $limit: options.limit || 50
@@ -78,7 +77,6 @@ module.exports = {
         router.post(`/${collectionName}/find`, async (req, res) => {
           const { query, options } = req.body
           const models = await collection.find(query, options)
-          console.log(models.length)
           res.send(models)
         })
       })
@@ -87,11 +85,7 @@ module.exports = {
 
     const locations = await collections.locations.find([
       {
-        is: ['$this', 'location']
-      },
-
-      {
-        eq: ['$affiliation.name', 'UEE']
+        $not: [{ $eq: ['$affiliation.name', 'UEE'] }]
       }
       /**/
     ], {

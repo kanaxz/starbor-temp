@@ -1,8 +1,7 @@
 <self>
   <div class="filter">
-    <app-type-selector as="typeSelector" :type="Location" :on:change="this.typeChanged()"></app-type-selector>
-    <label>Name</label>
-    <input :on:input="this.onChange()" as="name" />
+    <app-type-selector as="typeSelector" :type="Location" :on:change="this.changed()"></app-type-selector>
+    <app-type-filter as="typeFilter" :type="this.typeSelector.current" :on:change="this.changed()"></app-type-filter>
   </div>
   <div class="locations" :v:for="location of this.@locations">
     <a class="location" :v:link="`/location/${location._id}`" :v:child="this.templateCard(location)">
