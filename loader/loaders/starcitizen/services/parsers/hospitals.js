@@ -2,19 +2,27 @@
 const hospitals = {
   A18: {
     name: 'Hospital, Area18',
-    parent: 'AREA18'
+    parent: {
+      _id: 'AREA18',
+    }
   },
   NewBab: {
     name: 'Hospital, New Babbage',
-    parent: 'NEW-BABBAGE'
+    parent: {
+      _id: 'NEW-BABBAGE',
+    }
   },
   Orison: {
     name: 'Hostpital, Orison',
-    parent: 'ORISON',
+    parent: {
+      _id: 'ORISON',
+    },
   },
   MPOH: {
     name: 'Maria Pure of Heart',
-    parent: 'LOREVILLE',
+    parent: {
+      _id: 'LOREVILLE',
+    },
   },
 }
 
@@ -33,13 +41,17 @@ module.exports = ({ db, services, locations }) => {
       '@type': 'healthCare',
       name: `Health care, ${hospital.name}`,
       tier: 1,
-      parent: hospital._id,
+      parent: {
+        _id: hospital._id,
+      },
     })
 
     const shop = await services.save({
       '@type': 'shop',
       name: `Pharmacy, ${hospital.name}`,
-      parent: hospital._id,
+      parent: {
+        _id: hospital._id,
+      },
     })
 
     await services.processInventary(serviceJson, shop)

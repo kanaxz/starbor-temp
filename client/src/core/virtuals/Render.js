@@ -7,7 +7,7 @@ const { getElementFromTemplate } = require('../utils')
 module.exports = class Render extends Virtual {
   constructor(el, value) {
     super(el)
-    const [template, args] = value.split(/ with /)
+    const [args, template] = value.split(/ with /)
     this.el.setAttribute(':v.render.template', `${template}`)
     this.el.setAttribute(':v.render.args', `${args}`)
     this.on('propertyChanged', this.b(this.update))

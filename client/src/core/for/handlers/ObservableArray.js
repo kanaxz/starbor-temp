@@ -1,9 +1,9 @@
 const mixer = require('core/mixer')
 const Bindeable = require('core/mixins/Bindeable')
-const Eventable = require('core/mixins/Eventable')
 
 const Array = require("core/types/Array");
-const renderer = require("../../renderer")
+const renderer = require("../../renderer");
+const Eventable = require('core/mixins/Eventable');
 
 module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, Eventable]) {
   static handle(source) {
@@ -14,8 +14,8 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     super()
     this.repeater = repeater
     this.source = this.repeater.source
-    this.source.on('indexDeleted', this.b(this.onIndexDeleted))
-    this.source.on('indexSet', this.b(this.onIndexSet))
+    this.on(this.source, 'indexDeleted', this.b(this.onIndexDeleted))
+    this.on(this.source, 'indexSet', this.b(this.onIndexSet))
     this.timeout = null
     this.modifs = []
   }
@@ -48,6 +48,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
   insertIt(itToInsert) {
     const { index, element } = itToInsert
     const parent = this.repeater.el
+    if (element === parent.children[index]) { return }
     if (index >= parent.children.length) {
       parent.appendChild(element)
     } else {
@@ -86,6 +87,10 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
 
       } else if (modif.type === 'set') {
         const newIt = this.repeater.iterations.find((it) => it.object === modif.newValue)
+        if (modif.oldValue) {
+          const oldIt = this.repeater.iterations.find((it) => it.object === modif.oldValue)
+          this.removeItIfValueNotUsed(oldIt)
+        }
         if (newIt) {
           newIt.index = modif.index
           this.moveIt(newIt)
@@ -93,14 +98,9 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
           const itToInsert = await this.repeater.iteration(modif.newValue, modif.index)
           this.insertIt(itToInsert)
         }
-        if (modif.oldValue) {
-          const oldIt = this.repeater.iterations.find((it) => it.object === modif.oldValue)
-          this.removeItIfValueNotUsed(oldIt)
-        }
       }
     }
   }
-
 
 }
 

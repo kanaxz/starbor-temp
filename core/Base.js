@@ -11,13 +11,16 @@ const base = mixer.mixin((base) => {
       } else {
         this.dependencies = []
       }
-      const parents = [this.definition?.owner, ...(this.dependencies || [])].filter((p) => p?.definition)
+      const parent = this.definition?.owner
+      const parents = [parent, ...(this.dependencies || [])]
+        .filter((p) => p?.definition)
       parents.forEach((parent) => {
         parent.definition.childs.push(this)
       })
       this.definition = {
         ...definition,
         childs: [],
+        parent,
         parents,
         owner: this,
       }

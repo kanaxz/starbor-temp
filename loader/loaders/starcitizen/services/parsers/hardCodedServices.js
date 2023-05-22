@@ -190,12 +190,16 @@ module.exports = ({ services, locations }) => {
 
     if (hardcodedShop.parentName) {
       hardcodedShop.name = `Shop, ${hardcodedShop.parentName}`
-      hardcodedShop.parent = codify(hardcodedShop.parentName)
+      hardcodedShop.parent = {
+        _id: codify(hardcodedShop.parentName),
+      }
       delete hardcodedShop.parentName
     }
     if (typeof hardcodedShop.parent === 'object') {
       const parent = await locations.save(hardcodedShop.parent, true)
-      hardcodedShop.parent = parent._id
+      hardcodedShop.parent = {
+        _id: parent._id,
+      }
     }
     if (!hardcodedShop.name) {
       console.log(hardcodedShop)

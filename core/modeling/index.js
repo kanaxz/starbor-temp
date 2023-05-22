@@ -1,3 +1,1 @@
-global.THIS = {}
-require('./objects')
-require('./global')
+require('./types')

@@ -1,17 +1,19 @@
 const { codify } = require('../../../utils')
 
 module.exports = ({ db, labels, locations }) => {
-  
+
 
   const saveLocation = async (location, upsert = false) => {
     const locationJson = {
       ...location,
-      parent: location.parent?._id,
+      parent: location.parent ? {
+        _id: location.parent._id,
+      } : null,
     }
 
     delete locationJson.childs
     delete locationJson.json
-    
+
     await locations.save(locationJson, upsert)
   }
 

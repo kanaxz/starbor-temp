@@ -11,19 +11,25 @@ module.exports = ({ services, locations }, utils) => {
     const adminOffice = await locations.save({
       '@type': 'stand',
       name: `Admin Office, ${location.name}`,
-      parent: location._id,
+      parent: {
+        _id: location._id,
+      },
     }, true)
 
     const tradingConsole = await services.save({
       '@type': 'tradingConsole',
       name: `Trading console, ${adminOffice.name}`,
-      parent: adminOffice._id,
+      parent: {
+        _id: adminOffice._id,
+      },
     })
 
     await services.save({
       '@type': 'relay',
       name: `Relay, ${adminOffice.name}`,
-      parent: adminOffice._id,
+      parent: {
+        _id: adminOffice._id
+      },
     })
 
     await services.processInventary(serviceJson, tradingConsole)

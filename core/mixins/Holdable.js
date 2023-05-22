@@ -34,7 +34,8 @@ module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
     hold(reference) {
       const existing = this[state].references.indexOf(reference)
       if (existing !== -1) {
-        throw new Error('Could not hold')
+        //throw new Error('Could not hold')
+        return
       }
       this[state].references.push(reference)
       this[state].lastDate = new Date()
@@ -43,7 +44,8 @@ module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
     release(reference) {
       const referenceIndex = this[state].references.indexOf(reference)
       if (referenceIndex === -1) {
-        throw new Error('Could not release')
+        //throw new Error('Could not release')
+        return
       }
 
       this[state].references.splice(referenceIndex, 1)

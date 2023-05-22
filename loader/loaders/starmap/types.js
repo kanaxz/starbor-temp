@@ -14,7 +14,9 @@ module.exports = ({ locations }) => {
     location._id = codify(location.name)
     const locationJson = {
       ...location,
-      parent: location.parent?._id,
+      parent: location.parent ? {
+        _id: location.parent._id,
+      } : null,
     }
 
     delete locationJson.json

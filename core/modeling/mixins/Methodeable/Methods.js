@@ -5,9 +5,11 @@ module.exports = class Methods extends Tree {
     super()
     this.owner = owner
     this.isMixin = owner instanceof Mixin
-    owner.definition.parents.forEach((parent) => {
-      this.push(parent.methods)
-    })
+    owner.definition.parents
+      .filter((p) => p.methods)
+      .forEach((parent) => {
+        this.push(parent.methods)
+      })
   }
 
   call(...args) {

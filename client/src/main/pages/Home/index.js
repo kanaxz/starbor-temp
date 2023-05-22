@@ -20,6 +20,7 @@ module.exports = class Home extends Page {
   sort() {
     this.objects.sort((a, b) => b.id - a.id)
   }
+
   notify() {
     notifications.notify({
       type: 'info',

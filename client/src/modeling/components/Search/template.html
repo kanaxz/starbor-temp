@@ -1,0 +1,28 @@
+<self :class="`${this.@open ? 'open' : ''}`" :v:exit="this.open = false">
+  <div class="search-bar">
+    <div class="icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <input :v:input-delay="this.search()" as="input" :on:focus="this.start()" placeholder="Search ...">
+  </div>
+  <div class="searchables" :v:for="searchable of this.searchables">
+    <div class="searchable" :class="`${searchable.@error ? 'error' : ''}`">
+      <header>
+        <label>{{searchable.type.definition.pluralName}}</label>
+        <div class="icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <app-tooltip>
+            {{ searchable.@error || '' }}
+          </app-tooltip>
+        </div>
+
+      </header>
+      <app-loader :size="'50px'" :loading="searchable.@loading">
+        <div class="results" :v:for="result of searchable.@results">
+          <a :v:child="this.templateRow(result)"></a>
+        </div>
+      </app-loader>
+    </div>
+  </div>
+</self>

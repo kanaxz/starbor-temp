@@ -10,13 +10,18 @@ module.exports = class For extends Virtual {
   constructor(el, value) {
     super(el)
     this.iterations = null
-    const [name, source] = value.split(/ of /)
+    const [name, remaining] = value.split(/ of /)
+    const [source, template] = remaining.split(/ with /)
     this.el.setAttribute(':v.for.name', `'${name}'`)
     this.el.setAttribute(':v.for.source', `${source}`)
-    this.on('propertyChanged:source', this.b(this.onSourceChanged))
+    if (template) {
+      this.el.setAttribute(':v.for.template', `${template}`)
+    } else {
+      this.template = [...this.el.childNodes].find((child) => child.nodeType === Node.ELEMENT_NODE)
+      this.el.innerHTML = ''
+    }
 
-    this.template = [...this.el.childNodes].find((child) => child.nodeType === Node.ELEMENT_NODE)
-    this.el.innerHTML = ''
+    this.on('propertyChanged:source', this.b(this.onSourceChanged))
   }
 
   async initialize() {

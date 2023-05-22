@@ -16,7 +16,9 @@ module.exports = async (bootup, services) => {
     designation: json.designation,
     description: json.description,
     image: json.thumbnail?.source,
-    parent,
+    parent: parent ? {
+      _id: parent._id,
+    } : null,
     json,
   })
 

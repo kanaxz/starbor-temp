@@ -1,0 +1,93 @@
+app-search {
+  position: relative;
+  display: block;
+  width: fit-content;
+  .search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #b1b1b1;
+    width: fit-content;
+    cursor: pointer;
+    .icon {
+      padding: 5px 10px;
+      svg {
+      }
+    }
+
+    input {
+      font-size: 23px;
+      border: none;
+      padding: 2px;
+      min-width: 500px;
+      border: 1px solid #e1e1e1;
+      &:hover {
+        border-color: blue;
+      }
+    }
+
+    &:hover {
+      .icon {
+        svg {
+          color: blue;
+        }
+      }
+    }
+  }
+
+  .searchables {
+    display: none;
+    position: absolute;
+    top: 100%;
+    border: 1px solid #e1e1e1;
+    border-top: none;
+    background-color: #fff;
+    width: 100%;
+
+    .searchable {
+      &.error {
+        header {
+          background-color: rgba(#c55, 0.5);
+          .icon {
+            display: block;
+          }
+        }
+      }
+      header {
+        padding: 3px 5px;
+        background-color: #e1e1e1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        label {
+          font-size: 23px;
+          text-transform: capitalize;
+          flex: 1;
+        }
+
+        .icon {
+          position: relative;
+          display: none;
+          color: #c55;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+      }
+
+      .results {
+        > * {
+          display: block;
+          &:not(:last-child) {
+            border-bottom: 1px solid #e1e1e1
+          }
+        }
+      }
+    }
+  }
+
+  &.open {
+    .searchables {
+      display: block;
+    }
+  }
+}

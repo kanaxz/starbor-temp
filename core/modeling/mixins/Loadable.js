@@ -19,7 +19,6 @@ module.exports = mixer.mixin([Propertiable], (base) => {
     }
 
     async load(load) {
-      
     }
   }
 })

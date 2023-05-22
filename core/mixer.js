@@ -84,6 +84,7 @@ const mixer = {
   },
   is(object, mixinOrClass) {
     if (!object) { return false }
+    if (object.constructor === mixinOrClass) { return true }
     const dependencies = object.constructor?.allDependencies
 
     if (dependencies) {
@@ -101,7 +102,7 @@ const mixer = {
     }
 
     return false
-  }
+  },
 }
 
 module.exports = mixer

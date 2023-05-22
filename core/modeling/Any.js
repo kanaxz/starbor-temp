@@ -13,6 +13,10 @@ module.exports = mixer.mixin([Propertiable, Methodeable, Buildable, Templateable
       this.initialize()
     }
 
+    static getType() {
+      return this
+    }
+
 
     static sanitizeProperty(property) {
       utils.propertySanitizers.forEach((sanitizer) => sanitizer(property))

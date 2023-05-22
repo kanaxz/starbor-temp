@@ -9,7 +9,10 @@ require('./form')
 require('./locations')
 require('./main')
 require('./affiliation')
+require('./modeling')
 require('./style.scss')
+require('./api')
+
 
 const config = require('./config')
 

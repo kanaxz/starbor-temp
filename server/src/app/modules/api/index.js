@@ -1,7 +1,8 @@
 const models = require('shared/models')
 const exp = require('express')
-const { buildPipeline, loadLookups, unloadLookup } = require('./mongo')
+const { buildPipeline, buildLookups, unloadLookup } = require('./utils')
 const mixer = require('core/mixer')
+const Scope = require('./Scope')
 
 const objectDiff = (paths1, paths2) => {
   return Object.entries(paths1)
@@ -38,17 +39,24 @@ class Collection {
     this.modelClass = modelClass
   }
   find(query, options = {}) {
-    const [pipeline, paths] = buildPipeline(this.modelClass, query)
+    const scope = new Scope()
+    scope.variables.this = {
+      sourceType: 'var',
+      name: 'this',
+      value: '$$CURRENT',
+      type: this.modelClass,
+    }
+    const pipeline = buildPipeline(scope, query)
     if (!options.load) {
       options.load = {}
     }
-    const { load, unload } = merge(paths, options.load)
+    const { load, unload } = merge(scope.paths, options.load)
     pipeline.push(
       {
         $limit: options.limit || 50
       },
       ...unloadLookup(this.modelClass, unload),
-      ...loadLookups(this.modelClass, load),
+      ...buildLookups(this.modelClass, load),
     )
 
     console.log(JSON.stringify(pipeline, null, ' '))
@@ -76,8 +84,13 @@ module.exports = {
       .forEach(([collectionName, collection]) => {
         router.post(`/${collectionName}/find`, async (req, res) => {
           const { query, options } = req.body
-          const models = await collection.find(query, options)
-          res.send(models)
+          try {
+            const models = await collection.find(query, options)
+            res.send(models)
+          } catch (err) {
+            res.status(500).send({})
+          }
+
         })
       })
 
@@ -85,14 +98,18 @@ module.exports = {
 
     const locations = await collections.locations.find([
       {
-        $not: [{ $eq: ['$affiliation.name', 'UEE'] }]
-      }
+        $or: [{
+          $eq: ['$name', 'Stanton']
+        }]
+      },
       /**/
     ], {
       limit: 2,
-      load: {
+      /*
+        load: {
         affiliation: true,
       }
+      */
     })
     console.log(locations)
 

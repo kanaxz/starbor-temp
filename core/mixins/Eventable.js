@@ -1,5 +1,6 @@
 const mixer = require("../mixer")
 const events = Symbol("events")
+const otherEvents = Symbol("otherEvents")
 
 class Listener {
   constructor(options) {
@@ -17,19 +18,28 @@ module.exports = mixer.mixin((baseClass) => {
     constructor(...args) {
       super(...args)
       this[events] = {}
+      this[otherEvents] = []
     }
 
-    on(eventName, callback) {
-      const listener = new Listener({
-        eventable: this,
-        eventName,
-        callback,
-      })
-      if (!this[events][eventName]) {
-        this[events][eventName] = []
+    on(...args) {
+      if (args.length === 3) {
+        const [source, eventName, callback] = args
+        const listener = source.on(eventName, callback)
+        this[otherEvents].push(listener)
+        return listener
+      } else {
+        const [eventName, callback] = args
+        const listener = new Listener({
+          eventable: this,
+          eventName,
+          callback,
+        })
+        if (!this[events][eventName]) {
+          this[events][eventName] = []
+        }
+        this[events][eventName].push(listener)
+        return listener
       }
-      this[events][eventName].push(listener)
-      return listener
     }
 
     async emit(eventName, ...args) {
@@ -58,6 +68,8 @@ module.exports = mixer.mixin((baseClass) => {
             listener.remove()
           })
         })
+
+      this[otherEvents].forEach((listener) => listener.remove())
     }
   }
 })

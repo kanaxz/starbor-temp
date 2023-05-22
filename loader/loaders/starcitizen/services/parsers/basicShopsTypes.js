@@ -55,7 +55,9 @@ module.exports = ({ db, services }, utils) => {
     const shop = await services.save({
       type: '@shop',
       shopType: shopTypeName,
-      parent: location._id,
+      parent: {
+        _id: location._id,
+      },
       name
     })
     await services.processInventary(shopJson, shop)

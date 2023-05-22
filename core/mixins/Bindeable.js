@@ -1,8 +1,9 @@
 const mixer = require("../mixer")
 const symbol = Symbol("BindedFunctions")
+const Destroyable = require('./Destroyable')
 
-module.exports = mixer.mixin((baseClass) => {
-  
+module.exports = mixer.mixin([Destroyable], (baseClass) => {
+
   return class Bindeable extends baseClass {
     constructor(...args) {
       super(...args)
@@ -22,5 +23,6 @@ module.exports = mixer.mixin((baseClass) => {
       });
       return bindedFunction
     }
+
   }
 })

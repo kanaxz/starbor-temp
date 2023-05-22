@@ -16,7 +16,9 @@ module.exports = ({ services }, utils) => {
     await services.save({
       '@type': 'landingService',
       name: `Landing Service, ${location.name}`,
-      parent: location._id,
+      parent: {
+        _id: location._id,
+      },
     })
 
     return true

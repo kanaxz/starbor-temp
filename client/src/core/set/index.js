@@ -26,7 +26,10 @@ const attributes = {
       classes.forEach((c) => node.classList.add(c))
       cache.classes = classes
     }
-  })()
+  })(),
+  innerHtml(node, value, key) {
+    node.innerHTML = value
+  }
 }
 
 

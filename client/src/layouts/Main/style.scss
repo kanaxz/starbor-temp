@@ -28,10 +28,15 @@ app-layout-main {
     }
 
     h3 {
-      flex: 1;
+      
 
       margin-left: 20px;
     }
+    .search{
+      flex:1;
+      margin-left:50px;
+    }
+    
   }
 
   > .row {

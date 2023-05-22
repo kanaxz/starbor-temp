@@ -5,9 +5,11 @@ module.exports = class Properties extends Tree {
     super()
     this.propertiable = propertiable
     this.isMixin = propertiable instanceof Mixin
-    propertiable.definition.parents.forEach((parent) => {
-      this.push(parent.properties)
-    })
+    propertiable.definition.parents
+      .filter((p) => p.properties)
+      .forEach((parent) => {
+        this.push(parent.properties)
+      })
   }
 
   call(...args) {
@@ -47,7 +49,7 @@ module.exports = class Properties extends Tree {
           })
         return
       }
-      throw new Error('Property type not recognized')
+      throw new Error(`Property type not recognized`)
     })
   }
 }

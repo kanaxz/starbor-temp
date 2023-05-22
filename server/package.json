@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node src"
+    "dev": "node --inspect src"
   },
   "author": "",
   "license": "ISC",

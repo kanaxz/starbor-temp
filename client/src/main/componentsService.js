@@ -3,7 +3,7 @@ const registries = {
 
 }
 
-const register = (type, name, component, load) => {  
+const register = (type, name, component, load) => {
   if (!registries[name]) {
     registries[name] = []
   }
@@ -29,7 +29,7 @@ const get = (type, name) => {
       return parentFind
     }
   }
-  return null
+  throw new Error(`Could not find component ${card} for ${type.name}`)
 }
 
 module.exports = {

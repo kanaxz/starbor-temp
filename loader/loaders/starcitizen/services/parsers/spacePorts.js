@@ -10,19 +10,25 @@ module.exports = ({ services, locations }) => {
       '@type': 'complex',
       complexType: 'spaceport',
       name: `Spaceport, ${cityName}`,
-      parent: cityId,
+      parent: {
+        _id: cityId,
+      },
     }, true)
 
     const shop = await services.save({
       '@type': 'shop',
       name: `Shop, ${spacePort.name}`,
-      parent: spacePort._id,
+      parent: {
+        _id: spacePort._id,
+      },
     })
 
     await services.save({
       '@type': 'landingService',
       name: `Landing service, ${spacePort.name}`,
-      parent: spacePort._id,
+      parent: {
+        _id: spacePort._id,
+      },
     })
 
     await services.processInventary(serviceJson, shop)

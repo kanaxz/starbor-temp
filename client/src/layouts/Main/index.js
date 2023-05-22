@@ -1,7 +1,7 @@
 const Layout = require('@core/page/Layout')
 const template = require('./template.html')
 require('./style.scss')
-
+require('../../modeling/components/Search')
 module.exports = class Main extends Layout {
   constructor() {
     super()

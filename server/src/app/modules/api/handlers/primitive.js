@@ -1,9 +1,12 @@
-const { Primitive } = require.main.require('core/modeling/objects')
+const Primitive = require('core/modeling/types/Primitive')
 
-module.exports = [Primitive, {
-  eq({ value }, other) {
-    return {
-      $eq: [value, other]
-    }
-  },
-}]
+module.exports = {
+  for: Primitive,
+  methods: {
+    eq({ value }, other) {
+      return {
+        $eq: [value, other]
+      }
+    },
+  }
+}

@@ -12,6 +12,8 @@ require('./style.scss')
 module.exports = class LocationsPage extends Page {
   constructor() {
     super()
+    this.filters = []
+    this.templates = {}
     //this.on('propertyChanged:typeName',this.b(this.onChange))
   }
   async changed() {
@@ -27,6 +29,10 @@ module.exports = class LocationsPage extends Page {
         type: this.typeSelector.current.definition.name,
       }
     )
+  }
+
+  filterChanged() {
+
   }
 
   async initialize() {
@@ -51,4 +57,5 @@ module.exports = class LocationsPage extends Page {
   .properties({
     locations: 'any',
     typeName: 'any',
+    type: 'any',
   })

@@ -1,0 +1,14 @@
+<self>
+  <div class="path" :v:for="segment of source.path">
+    <div class="segment">
+      <span>{{segment.name}}</span>
+      <input :value="segment.@variable?.name">
+    </div>
+  </div>
+  <div class="method">
+    {{source.@method?.name || ''}}
+  </div>
+  <div class="args" :v:for="arg of source.args with this.sourceTemplate"></div>
+  <app-value-selector class="next" as="nextSource" :type="source.@type" :on:changed="source.next()">
+  </app-value-selector>
+</self>

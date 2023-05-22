@@ -1,9 +1,12 @@
-const Any = require.main.require('core/modeling/Any')
+const Any = require('core/modeling/Any')
 
-module.exports = [Any, {
-  not(source) {
-    return {
-      $not: [source.value]
+module.exports = {
+  for: Any,
+  methods: {
+    not({ value }) {
+      return {
+        $not: [value]
+      }
     }
   }
-}]
+}

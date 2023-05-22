@@ -1,27 +1,33 @@
-const { String } = require.main.require('core/modeling/objects')
+const { String } = require('core/modeling/types')
 
-module.exports = [String, {
-  match({ value }, regex) {
-    return {
-      $regexMatch: {
-        input: {
-          $toUpper: value
-        },
-        regex: {
-          $toUpper: regex
-        },
+module.exports = {
+  for: String,
+  methods: {
+    match({ value }, regex) {
+      return {
+        $regexMatch: {
+          input: {
+            $toUpper: value
+          },
+          regex: {
+            $toUpper: regex
+          },
+        }
       }
-    }
+    },
+    toUpperCase({ value }) {
+      return {
+        $toUpper: value
+      }
+    },
   },
-  toUpperCase({ value }) {
-    return {
-      $toUpper: value
-    }
-  },
-  parse({ value }) {
+  parse(scope, value) {
     if (typeof value !== 'string') {
       throw new Error()
     }
-    return value
+    return {
+      scope,
+      value,
+    }
   }
-}]
+}
