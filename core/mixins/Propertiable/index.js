@@ -1,10 +1,11 @@
 const mixer = require("../../mixer");
+const Destroyable = require("../Destroyable");
 const Eventable = require('../Eventable')
 const values = Symbol('values')
 const Initializeable = require('../Initializeable')
 const Properties = require('./Properties')
 
-const mixin = mixer.mixin([Eventable, Initializeable], (base) => {
+const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
   return class Propertiable extends base {
     static sanitizeProperty(property) {
 
@@ -17,7 +18,7 @@ const mixin = mixer.mixin([Eventable, Initializeable], (base) => {
         },
         set: function (newValue) {
           this.setPropertyValue(property, newValue)
-        }
+        },
       })
     }
 
@@ -32,6 +33,11 @@ const mixin = mixer.mixin([Eventable, Initializeable], (base) => {
       this[values] = {}
     }
 
+    async propertyChanged(property, value, oldValue) {
+      await this.emit('propertyChanged', property, value, oldValue)
+      await this.emit(`propertyChanged:${property.name}`, value, oldValue)
+    }
+
     async setPropertyValue(property, value) {
       if (!this[values]) {
         this[values] = {}
@@ -39,8 +45,14 @@ const mixin = mixer.mixin([Eventable, Initializeable], (base) => {
       const oldValue = this[values][property.name]
       this[values][property.name] = value
       if (!this.isInitialized) { return }
-      await this.emit('propertyChanged', value, oldValue)
-      await this.emit(`propertyChanged:${property.name}`, value, oldValue)
+      await this.propertyChanged(property, value, oldValue)
+    }
+
+    destroy() {
+      this.constructor.properties.forEach((p) => {
+        this[p.name] = null
+      })
+      super.destroy()
     }
   }
 })

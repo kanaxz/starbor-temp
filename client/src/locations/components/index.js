@@ -1,2 +1,0 @@
-require('./LocationCard')
-require('./LocationRow')

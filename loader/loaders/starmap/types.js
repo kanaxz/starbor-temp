@@ -1,5 +1,5 @@
 const { codify } = require('../../utils')
-
+const { System, Star, Planet, LandingZone, Moon } = require('shared/models')
 const getSystemPosition = (object) => {
   return ['x', 'y', 'z'].reduce((acc, axis) => {
     acc[axis] = object[`position_${axis}`]
@@ -8,66 +8,77 @@ const getSystemPosition = (object) => {
 }
 
 
-module.exports = ({ locations }) => {
-  //console.log(locations)
-  const saveLocation = async (location) => {
-    location._id = codify(location.name)
-    const locationJson = {
-      ...location,
-      parent: location.parent ? {
-        _id: location.parent._id,
-      } : null,
-    }
+module.exports = ({ collections }) => {
 
-    delete locationJson.json
-
-    await locations.save(locationJson, true)
+  const save = async (entity) => {
+    await collections.entities.createOrUpdate(entity)
   }
 
   const types = {
     system: {
       check: ({ type }) => false,
-      async process(location) {
-        location['@type'] = 'system'
-        location.starmap.position = getSystemPosition(location.json)
-        await saveLocation(location)
+      async process(entity, json) {
+        const system = new System(entity)
+        system.starmap.position = getSystemPosition(json)
+        await save(system)
+        return system
       }
     },
     star: {
       check: ({ type }) => type === 'STAR',
-      async process(location) {
-        Object.assign(location, {
-          '@type': 'star',
-          name: `${location.name} star`,
-          type: location.json.subtype?.name
+      async process(entity, json) {
+        const name = `${entity.name} star`
+        Object.assign(entity, {
+          name,
+          type: json.subtype?.name,
+          code: codify(name),
         })
 
-        await saveLocation(location)
-        return true
+        const star = new Star(entity)
+        await save(star)
+        return star
       }
     },
     planet: {
       check: ({ type }) => type === 'PLANET',
-      async process(location) {
-        location['@type'] = 'planet'
-        await saveLocation(location)
+      async process(entity) {
+        const planet = new Planet(entity)
+        await save(planet)
+        return planet
       }
     },
+    moon: {
+      check: ({ subtype }) => subtype?.name === 'Planetary Moon',
+      async process(entity) {
+        const moon = new Moon(entity)
+        await save(moon)
+        return moon
+      }
+    },
+
     landingZone: {
       check: ({ type }) => type === 'LZ',
-      async process(location) {
-        location['@type'] = 'landingZone'
-        await saveLocation(location)
+      async process(entity) {
+        const lz = new LandingZone(entity)
+        await save(lz)
+        return lz
       }
     },
+    /*
     jumpPoint: {
       check: ({ type }) => type === 'JUMPPOINT',
-      async process(location) {
-        let [, otherSystemName] = location.json.designation.split('-')
+      async process(location, json) {
+        let [, otherSystemName] = json.designation.split('-')
         otherSystemName = otherSystemName.trim()
-        const otherSystem = locations.entries.find((l) => {
-          return l['@type'] === 'system' && l.name === otherSystemName
-        })
+
+        const otherSystem = await collections.locations.findOne([
+          {
+            $is: ['$this', 'system']
+          },
+          {
+            $eq: ['$name', otherSystemName]
+          }
+        ])
         if (!otherSystem) {
           return false
         }
@@ -100,13 +111,6 @@ module.exports = ({ locations }) => {
         await saveLocation(location)
       }
     },
-    moon: {
-      check: ({ subtype }) => subtype?.name === 'Planetary Moon',
-      async process(location) {
-        location['@type'] = 'moon'
-        await saveLocation(location)
-      }
-    },
     spaceStation: {
       check: ({ type }) => type === 'MANMADE',
       async process(location) {
@@ -114,6 +118,7 @@ module.exports = ({ locations }) => {
         await saveLocation(location)
       }
     }
+    */
   }
   return types
 }

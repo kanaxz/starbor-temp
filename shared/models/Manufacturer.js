@@ -1,13 +1,8 @@
-const Model = require('../core/modeling/Model')
+const Organization = require('./Organization')
 
-module.exports = class Manufacturer extends Model {
+module.exports = class Manufacturer extends Organization {
 
 }
   .define({
     name: 'manufacturer',
-  })
-  .properties({
-    nameSmall: 'string',
-    name: 'string',
-    description: 'string',
   })

@@ -1,4 +1,4 @@
-const Component = require('@core/Component')
+const Component = require('hedera/Component')
 const template = require('./template.html')
 require('./style.scss')
 
@@ -8,8 +8,8 @@ module.exports = class Tooltip extends Component {
   constructor() {
     super()
     this.show = false
-    this.parentElement.addEventListener('mouseenter', this.b(this.onMouseEnter))
-    this.parentElement.addEventListener('mouseleave', this.b(this.onMouseLeave))
+    this.listen(this.parentElement, 'mouseenter', this.onMouseEnter)
+    this.listen(this.parentElement, 'mouseleave', this.onMouseLeave)
   }
 
   onMouseEnter() {
@@ -21,7 +21,7 @@ module.exports = class Tooltip extends Component {
   }
 }
   .define({
-    name: 'app-tooltip',
+    name: 'tool-tip',
     template,
     transclude: true,
   })

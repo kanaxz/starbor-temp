@@ -1,14 +1,14 @@
 require('core')
 const navigator = require('./navigator')
-const pageMiddleware = require('@core/page/middleware')
-
-require('@core')
+const pageMiddleware = require('hedera/page/middleware')
+const notifications = require('./notifications')
+require('hedera')
 require('./notifications/List')
 require('./auth')
 require('./form')
-require('./locations')
+require('./gameEntities')
 require('./main')
-require('./affiliation')
+require('./organization')
 require('./modeling')
 require('./style.scss')
 require('./api')
@@ -22,9 +22,25 @@ const start = async () => {
   console.log('Starting app')
   const app = {}
   const root = document.getElementById("root")
-  await root.start(app, { navigator })
+  await root.start(app, {
+    navigator,
+    objects: [{
+      objects: [1, 2, 3]
+    }, {
+      objects: ['a', 'b', 'c']
+    }]
+  })
+
+  /*
+  notifications.notify({
+    type: 'info',
+    message: 'test'
+  })
+  /**/
+
   navigator.root.use(pageMiddleware(app.presenter))
   await navigator.start()
+  /**/
 }
 
 start()

@@ -1,0 +1,59 @@
+model-branch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &.loading {
+    .preview {
+      display: flex;
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  @mixin row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &::before {
+      display: block;
+      content: " ";
+      width: 25px;
+      background-color: #e1e1e1;
+      height: 0.5px;
+    }
+  }
+
+  .circle {
+    border: 1px solid #e1e1e1;
+    border-radius: 100%;
+    width: fit-content;
+    .inner {
+      background-color: #e1e1e1;
+      border-radius: 100%;
+      margin: 3px;
+      padding: 5px;
+    }
+  }
+
+  .preview {
+    @include row();
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    .app-row {
+      width: 250px;
+      padding: 10px;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .model {
+      @include row();
+    }
+  }
+}

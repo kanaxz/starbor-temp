@@ -1,28 +1,15 @@
-
-const config = require('./config')
-const mongo = require('mongodb')
-
+require('core')
 const loadersNames = [
-  'locations',
-  'starmap',
-  //'starcitizen',
+  require('./loaders/collections'),
+  require('./loaders/starmap')
 ]
 
 const start = async () => {
-  const client = await mongo.MongoClient.connect(config.mongo.url, {
-    useUnifiedTopology: true
-  })
-  const db = client.db(config.mongo.db)
-
-  const services = {
-    db,
-  }
-  for (const loaderName of loadersNames) {
-    const loader = require(`./loaders/${loaderName}`)
+  const services = {}
+  for (const loader of loadersNames) {
     await loader(services)
   }
-  console.log('closing')
-  client.close()
+  console.log('-------- LOADING FINISHED --------')
 }
 
 start()

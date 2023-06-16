@@ -1,8 +1,15 @@
 <self :class="`${this.@loading ? 'loading' : ''}`">
-  <div class="transclude" as="transclude">
+  <div 
+    class="transclude" 
+    as="transclude" 
+    :style.min-height="this.@loading && `calc(${this.@size} + 15px)` || null">
 
   </div>
-  <div class="loader-container">
-    <div class="loader" :style.width="this.@size" :style.height="this.@size"></div>
+  <div class="loader-container" >
+    <div 
+      class="loader" 
+      :style.width="this.@size" 
+      :style.height="this.@size" >
+    </div>
   </div>
 </self>

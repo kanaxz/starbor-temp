@@ -6,12 +6,16 @@ module.exports = class Primitive extends mixer.extends([Any]) {
     throw new Error('Cannot instenciate')
   }
 
-  static build(value) {
+  static parse(value) {
     return value
   }
 
-  static toJSON(value) {
+  static toJSON(value, context) {
     return value
+  }
+
+  static feed(object, property, value) {
+    object[property.name] = value
   }
 }
   .define({

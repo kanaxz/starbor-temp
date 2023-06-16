@@ -37,7 +37,7 @@ module.exports = class Scope {
   process(body) {
     const and = []
     for (const functionCall of body) {
-      const source = processFunctionCall(this, functionCall)
+      const source = processObject(this, functionCall)
       and.push(source.value)
     }
     return and

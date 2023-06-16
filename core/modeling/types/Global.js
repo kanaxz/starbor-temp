@@ -9,13 +9,13 @@ class Global extends Virtual {
   }
 }
 
-Global.define({
-  name: 'Global',
-})
-
-Global.methods({
-  and: [[{ type: Array.of(Any), spread: true }], Bool],
-  or: [[{ type: Array.of(Any), spread: true }], Bool],
-})
+Global
+  .define({
+    name: 'Global',
+  })
+  .methods({
+    and: [[{ type: Array.of(Any), spread: true }], Bool],
+    or: [[{ type: Array.of(Any), spread: true }], Bool],
+  })
 
 module.exports = Global

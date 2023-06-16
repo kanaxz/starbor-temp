@@ -1,28 +1,51 @@
 const Destroyable = require('../../mixins/Destroyable')
 const mixer = require('../../mixer')
-const Buildable = require('./Buildable')
+const Indexable = require('./Indexable')
+const Comparable = require('../../mixins/Comparable')
 
-const instances = []
+const instances = [];
 
-module.exports = mixer.mixin([Buildable, Destroyable], (base) => {
-  return class SingleInstance extends base {
-
-    static build(json, property) {
-      if (!json) { return null }
-
-      let instance = instances.find((instance) => instance._id === json._id && instance instanceof this)
-      if (!instance) {
-        instance = super.build(json, property)
-        instances.push(instance)
+const checkDuplicates = () => {
+  for (const i of instances) {
+    for (const j of instances) {
+      if (i !== j && i.compare(j)) {
+        console.error('Duplicated instances', i, j)
+        throw new Error()
       }
+    }
+  }
+}
 
-      return instance
+const loop = () => {
+  checkDuplicates()
+  //setTimeout(loop, 1000)
+}
+
+module.exports = mixer.mixin([Destroyable, Comparable], (base) => {
+  return class SingleInstance extends base {
+    constructor(...args) {
+      super(...args)
+
+      const instance = instances.find((instance) => instance.constructor === this.constructor && instance.compare(this))
+      if (instance) {
+        Object.assign(instance, this.toJSON())
+        this.destroy()
+        return instance
+      } else {
+        instances.push(this)
+        checkDuplicates()
+        return this
+      }
     }
 
     destroy() {
       const index = instances.indexOf(this)
-      instances.splice(index, 1)
+      if (index !== -1) {
+        instances.splice(index, 1)
+      }
       return super.destroy()
     }
   }
 })
+
+loop()

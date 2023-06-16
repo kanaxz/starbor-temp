@@ -1,0 +1,10 @@
+<self :style.background-image="`url(${this.model.image || defaultImage })`">
+  <header>
+    <img src="../../assets/system.png" />
+    <label>{{this.model.@name}}</label>
+    <app-affiliation-little :affiliation="this.model?.affiliation"></app-affiliation-little>
+  </header>
+  <div class="content">
+    {{this.model.description}}
+  </div>
+</self>

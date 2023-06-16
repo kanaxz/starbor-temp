@@ -1,55 +1,51 @@
 const { starmapRequest } = require('./utils')
 const systemsLoader = require('./systems')
+const Organization = require('shared/models/Organization')
+const Starmap = require('shared/models/Starmap')
+const { codify } = require('../../utils')
 
 module.exports = async (services) => {
   const bootup = await starmapRequest('bootup')
   //console.log(Object.keys(bootup), bootup.config)
-  const { db } = services
+  const { collections } = services
 
   const loadAffiliations = async () => {
-    const collection = db.collection('affiliations')
     for (const starmapObject of bootup.affiliations.resultset) {
-      const object = {
-        '@type': 'affiliation',
-        code: starmapObject.code.toUpperCase(),
+      const code = codify(starmapObject.code)
+      const organization = new Organization({
+        code,
         name: starmapObject.name,
         color: starmapObject.color,
-        starmap: {
+        starmap: new Starmap({
+          type: 'affiliation',
           id: starmapObject.id
-        }
-      }
-      await collection.findOneAndUpdate({
-        'starmap.id': object.starmap.id,
-      }, {
-        $set: object,
-      }, {
-        upsert: true, new: true,
+        })
       })
+
+      await collections.organizations.createOrUpdate(organization)
     }
   }
 
   const loadSpecies = async () => {
-    const collection = db.collection('species')
     for (const starmapSpecies of bootup.species.resultset) {
-      const species = {
-        '@type': 'species',
+      const code = codify(starmapSpecies.name)
+      const organization = new Organization({
+        code,
+        type: 'species',
         name: starmapSpecies.name,
-        starmap: {
-          id: starmapSpecies.id
-        }
-      }
-      await collection.findOneAndUpdate({
-        'starmap.id': species.starmap.id,
-      }, {
-        $set: species,
-      }, {
-        upsert: true, new: true,
+        color: null,
+        starmap: new Starmap({
+          id: starmapSpecies.id,
+          type: 'species',
+        })
       })
+
+      await collections.organizations.createOrUpdate(organization)
     }
   }
 
 
-  await loadAffiliations()
-  await loadSpecies()
+  //await loadAffiliations()
+  //await loadSpecies()
   await systemsLoader(bootup, services)
 }

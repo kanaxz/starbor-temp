@@ -3,7 +3,7 @@ const { codify } = require('../../../utils')
 module.exports = ({ db, labels, locations }) => {
 
 
-  const saveLocation = async (location, upsert = false) => {
+  const save = async (entity, upsert = false) => {
     const locationJson = {
       ...location,
       parent: location.parent ? {

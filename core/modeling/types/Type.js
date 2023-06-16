@@ -1,18 +1,14 @@
-const Object = require('../Object')
-const Base = require('./Base')
-const Bool = require('./Bool')
+const Virtual = require('./Virtual')
 
-module.exports = class Type extends Object {
-  static build(value, property) {
+class Type extends Virtual {
+  static build(value) {
     return value
   }
 
-  static toJSON(value, property) {
+  static toJSON(value) {
     return value
   }
 }
-  .properties({
-    type: 'string',
-  })
 
-Object
+
+module.exports = Type

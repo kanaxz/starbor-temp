@@ -1,0 +1,22 @@
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+loading-content {
+  background-color: #e1e1e1;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: ease-in;
+  background: #f6f6f6;
+  background: linear-gradient(to right, transparent 8%, #fff 100%, transparent 33%);
+  background-size: 200%;
+  width: 100%;
+  height: 100%;
+}

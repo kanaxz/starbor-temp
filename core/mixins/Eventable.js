@@ -61,7 +61,7 @@ module.exports = mixer.mixin((baseClass) => {
       event.splice(index, 1)
     }
 
-    destructor() {
+    destroy() {
       Object.values(events)
         .forEach((event) => {
           event.forEach((listener) => {
@@ -70,6 +70,7 @@ module.exports = mixer.mixin((baseClass) => {
         })
 
       this[otherEvents].forEach((listener) => listener.remove())
+      super.destroy()
     }
   }
 })

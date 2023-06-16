@@ -1,4 +1,4 @@
-const Service = require('@core/Service')
+const Service = require('hedera/Service')
 
 const AuthService = class extends Service {
   constructor() {
@@ -7,7 +7,7 @@ const AuthService = class extends Service {
   }
 
   async login(payload) {
-    this.me = {}
+    this.me = await axios('/get/user')
     localStorage.setItem('me', this.me)
   }
 
@@ -22,3 +22,4 @@ const AuthService = class extends Service {
   })
 
 module.exports = new AuthService()
+

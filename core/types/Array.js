@@ -18,25 +18,34 @@ module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable
         return true
       },
       set: (target, property, value) => {
-        const index = parseInt(property)
-        if (!isNaN(index)) {
-          const oldValue = target[property]
-          target[property] = value;
-          target.indexSet(index, value, oldValue)
+        let index
+        try {
+          index = parseInt(property)
+        } catch (e) { }
+        if (index !== undefined && !isNaN(index)) {
+          target.setIndex(index, value)
         } else {
           target[property] = value;
         }
-        return true;
+        return true
       }
     })
   }
 
-  indexDeleted(index) {
-    this.emit('indexDeleted', index)
+  indexDeleted(index, value) {
+    this.emit('indexDeleted', index, value)
+    this.emit('propertyChanged:length', this.length)
+  }
+
+  setIndex(index, value) {
+    const oldValue = this[index]
+    this[index] = value
+    this.indexSet(index, value, oldValue)
   }
 
   indexSet(index, value, oldValue) {
     this.emit('indexSet', index, value, oldValue)
+    this.emit('propertyChanged:length', this.length)
   }
 
   remove(object) {

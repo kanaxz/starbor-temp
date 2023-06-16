@@ -77,9 +77,16 @@ const mixer = {
     })
     return mixin
   },
-  extends(...args) {
-    const base = args.length === 2 && args[0] || class { }
-    const dependencies = getDependencies(args[args.length - 1])
+  extends(arg1, arg2) {
+    let base
+    let dependancies
+    if (typeof arg1 === 'function') {
+      base = arg1
+      dependencies = getDependencies(arg2)
+    } else {
+      base = class { }
+      dependencies = getDependencies(arg1)
+    }
     return buildBase(base, dependencies)
   },
   is(object, mixinOrClass) {

@@ -1,8 +1,8 @@
-const Page = require('@core/page/Page')
+const Page = require('hedera/page/Page')
 const Main = require('@app/layouts/Main')
-const template = require('./template.html')
 const notifications = require('@app/notifications')
 const Array = require('core/types/Array')
+const template = require('./template.html')
 require('./style.scss')
 
 module.exports = class Home extends Page {
@@ -27,8 +27,9 @@ module.exports = class Home extends Page {
       message: 'Un Citizen vous veut du bien !'
     })
   }
-}.define({
-  name: 'app-home',
-  template,
-  layout: Main,
-})
+}
+  .define({
+    name: 'app-home',
+    template,
+    layout: Main,
+  })

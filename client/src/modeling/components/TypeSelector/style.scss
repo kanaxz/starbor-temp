@@ -23,7 +23,7 @@ app-type-selector {
       .model{
         padding:5px;
         cursor:pointer;
-        &:hover,&.active{
+        &:hover,&.active,&.selected{
           background-color:aqua;
         }
       }

@@ -1,4 +1,4 @@
-const Component = require('@core/Component')
+const Component = require('hedera/Component')
 
 module.exports = class Field extends Component {
   constructor() {

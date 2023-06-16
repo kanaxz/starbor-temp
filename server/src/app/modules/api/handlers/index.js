@@ -9,4 +9,5 @@ module.exports = [
   require('./array'),
   require('./branch'),
   require('./model'),
+  require('./type'),
 ]

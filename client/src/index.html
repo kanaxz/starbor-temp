@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <!-- useful if you don't want to add an additionnal '/' before all the scripts urls -->
@@ -7,16 +8,24 @@
   <title>
     Star citizen universe
   </title>
-  
+
   <script src="https://kit.fontawesome.com/8a41b4bde5.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <ui-root id="root">
-    <ui-presenter 
-      as="presenter">
+    <!--
+    <div :v:for="object of objects">
+      <div :v:for="subobject of object.objects">
+        <div>{{subobject}}</div>
+      </div>
+    </div>
+    -->
+    <ui-presenter as="presenter">
     </ui-presenter>
     <app-notifications-list></app-notifications-list>
+    <!---->
   </ui-root>
 </body>
+
 </html>

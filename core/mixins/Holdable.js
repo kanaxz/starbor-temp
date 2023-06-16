@@ -1,24 +1,23 @@
 const mixer = require('../mixer')
-const Eventable = require('./Eventable')
 const Destroyable = require('./Destroyable')
 
 const state = Symbol('holdState')
 const instances = []
 
 const loop = () => {
-  //console.log('loop', instances)
+  //console.log('holdables', instances)
   const currentDate = new Date()
   const copy = [...instances]
   for (const instance of copy) {
     const instanceState = instance[state]
-    if (!instanceState.references.length && currentDate - instanceState.lastDate > 10 * 1000) {
+    if (!instanceState.references.length && currentDate - instanceState.lastDate > 15 * 1000) {
       instance.destroy()
     }
   }
   setTimeout(loop, 5 * 1000)
 }
 
-module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
+module.exports = mixer.mixin([Destroyable], (base) => {
   return class Holdable extends base {
 
     constructor(...args) {
@@ -30,7 +29,6 @@ module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
       instances.push(this)
     }
 
-
     hold(reference) {
       const existing = this[state].references.indexOf(reference)
       if (existing !== -1) {
@@ -39,6 +37,13 @@ module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
       }
       this[state].references.push(reference)
       this[state].lastDate = new Date()
+    }
+
+    async holdWhile(fn) {
+      const id = {}
+      this.hold(id)
+      await fn()
+      this.release(id)
     }
 
     release(reference) {
@@ -54,7 +59,9 @@ module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
 
     destroy() {
       const index = instances.indexOf(this)
-      instances.splice(index, 1)
+      if (index !== -1) {
+        instances.splice(index, 1)
+      }
       return super.destroy()
     }
   }

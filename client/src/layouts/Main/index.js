@@ -1,4 +1,4 @@
-const Layout = require('@core/page/Layout')
+const Layout = require('hedera/page/Layout')
 const template = require('./template.html')
 require('./style.scss')
 require('../../modeling/components/Search')
@@ -22,9 +22,9 @@ module.exports = class Main extends Layout {
         url: '/models-tree',
       },
       {
-        label: 'Locations',
+        label: 'Entities',
         class: 'fa-solid fa-shop',
-        url: '/locations',
+        url: '/entities',
       }
     ]
   }

@@ -1,5 +1,4 @@
 const Primitive = require('./Primitive')
-const Model = require('../Model')
 const Any = require('../Any')
 const utils = require('../utils')
 
@@ -21,6 +20,7 @@ Primitive.methods({
   eq: [[THIS], Bool],
   neq: [[THIS], Bool]
 })
+
 
 utils.propertySanitizers.push((property) => {
   if (property.type === 'bool') {

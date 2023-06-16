@@ -1,81 +1,70 @@
 const Destroyable = require('../../mixins/Destroyable')
 const mixer = require('../../mixer')
 const Propertiable = require('../../mixins/Propertiable')
-const Holdable = require('../../mixins/Holdable')
-const objectUtility = require('../../utils/object')
+const Holder = require('../../mixins/Holder')
+const typeKey = '@type'
 
-module.exports = mixer.mixin([Destroyable, Propertiable, Holdable], (base) => {
+module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
   return class Buildable extends base {
 
-    static getBranch() {
-      const branch = []
-      let current = this
-      while (current) {
-        branch.push(current)
-        current = current.parent
+    constructor(values = {}) {
+      super()
+      this.constructor.properties.forEach((property) => {
+        const value = values[property.name]
+        this[property.name] = value
+      })
+    }
+
+
+    static parse(object) {
+      if (object == null || object instanceof this) {
+        return object
       }
-      return branch
-    }
-
-    static buildable(buildOptions) {
-      this.buildOptions = buildOptions
-    }
-
-    static build(json, property) {
-      const typeName = json['@type']
-      delete json['@type']
-      let type
-      if (this.definition.name === typeName) {
-        type = this
-      } else {
+      const typeName = object[typeKey]
+      let type = this
+      if (typeName && this.definition.name !== typeName) {
         type = this.findChild((c) => c.definition.name === typeName)
       }
-      if (!type) {
-        type = this
-        //throw new Error(`Type ${typeName} not found`)
+      try {
+        const instance = new type(object)
+
+        return instance
+      } catch (err) {
+        console.log(object, type, typeName, this.name)
+        throw err
       }
-      const instance = new type()
-      //console.log(json, type)
-      const values = type.properties.reduce((acc, property) => {
-        const jsonValue = json[property.name]
-        if (jsonValue === undefined) { return acc }
-        //console.log(property.type)
-        const value = property.type.build(jsonValue, property)
-        acc[property.name] = value
-        if (mixer.is(value, Holdable)) {
-          value.hold(instance)
-        }
-        return acc
-      }, {})
-
-
-      Object.assign(instance, values)
-      return instance
-    }
-
-    static toJSON(value, property) {
-      return value.toJSON(property)
     }
 
 
-    toJSON(property) {
-      const json = this.constructor.properties.reduce((acc, property) => {
-        const value = this[property.name]
-        acc[property.name] = property.type.toJSON(value, property)
-        return acc
-      }, {})
-      return json
+    static toJSON(value, context, paths) {
+      return value && value.toJSON(context, paths)
     }
 
-    destroy() {
-      console.log('destroying')
-      this.constructor.properties.forEach((property) => {
-        const value = this[property.name]
-        if (value && mixer.is(value, Holdable)) {
-          value.release(this)
-        }
-      })
-      return super.destroy()
+    async setPropertyValue(property, value) {
+      const parsedValue = property.type.parse(value, this, property)
+      if (parsedValue !== undefined) {
+        super.setPropertyValue(property, parsedValue)
+      }
+    }
+
+    toJSON(context = null, paths = {}) {
+      const values = Object.entries(this[Propertiable.symbol])
+        .reduce((acc, [k, v]) => {
+          const property = this.constructor.properties.find((p) => p.name === k)
+          if (!property || (property.context && property.context !== context)) {
+            return acc
+          }
+          const result = property.type.toJSON(v, context, paths && paths[property.name] || null)
+          if (result !== undefined) {
+            acc[property.name] = result
+          }
+          return acc
+        }, {})
+
+      return {
+        '@type': this.constructor.definition.name,
+        ...values,
+      }
     }
   }
 })

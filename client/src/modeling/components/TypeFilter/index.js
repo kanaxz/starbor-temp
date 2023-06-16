@@ -1,4 +1,4 @@
-const Component = require('@core/Component')
+const Component = require('hedera/Component')
 const template = require('./template.html')
 const mixer = require('core/mixer')
 const Propertiable = require('core/mixins/Propertiable')

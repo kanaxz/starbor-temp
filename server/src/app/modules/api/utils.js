@@ -27,6 +27,9 @@ const getProperty = (scope, source, propertyName) => {
   if (!property) {
     throw new Error(`Property ${propertyName} not found`)
   }
+  if(property.context && property.context !== 'mongo'){
+    throw new Error(`Property ${property.name} can only be used in context ${property.context}`)
+  }
   const any = {
     sourceType: 'property',
     owner: source,
@@ -42,9 +45,33 @@ const getProperty = (scope, source, propertyName) => {
   return any
 }
 
+const processObjectFilter = (scope, object) => {
+  const functionCalls = Object.entries(object)
+    .map(([k, v]) => {
+      const functionCall = {
+        $eq: [`$${k}`, v]
+      }
+
+      const { value } = processFunctionCall(scope, functionCall)
+      return value
+    })
+
+  return {
+    value: {
+      $and: functionCalls
+    }
+  }
+}
+
 const processObject = (scope, object, context) => {
   if (typeof object === 'object' && !Array.isArray(object)) {
-    return processFunctionCall(scope, object)
+    const keys = Object.keys(object)
+    if (keys.length === 1 && keys[0].startsWith('$')) {
+      return processFunctionCall(scope, object)
+    } else {
+      return processObjectFilter(scope, object)
+    }
+
   } else if (typeof object === 'string' && object.startsWith('$')) {
     const path = object.substring(1)
     const [sourceName, ...propertiesNames] = path.split('.')
@@ -177,7 +204,7 @@ const processFunctionCall = (scope, functionCall) => {
 const buildLookups = (type, paths) => {
   return Object.entries(paths)
     .flatMap(([k, v]) => {
-
+      console.log({ type })
       const property = type.properties.find((p) => p.name === k)
       if (!property) {
         throw new Error(`Could not find property ${k}`)

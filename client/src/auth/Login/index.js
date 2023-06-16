@@ -1,4 +1,4 @@
-const Page = require('@core/page/Page')
+const Page = require('hedera/page/Page')
 const Empty = require('@app/layouts/Empty')
 const template = require('./template.html')
 const Auth = require('../service')

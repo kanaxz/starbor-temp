@@ -3,10 +3,10 @@ const Propertiable = require('../mixins/Propertiable')
 
 const Buildable = require('./mixins/Buildable')
 const Templateable = require('./mixins/Templateable')
-const Methodeable = require('./mixins/Methodeable')
+const Methodable = require('./mixins/Methodable')
 const utils = require('./utils')
 
-module.exports = mixer.mixin([Propertiable, Methodeable, Buildable, Templateable], (base) => {
+module.exports = mixer.mixin([Propertiable, Methodable, Buildable, Templateable], (base) => {
   return class Any extends base {
     constructor(...args) {
       super(...args)

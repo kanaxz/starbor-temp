@@ -1,6 +1,10 @@
+global.MODEL_DISABLE_FRONT_MIXINS = true
 require('core')
+
 const Module = require('./core/Module')
 const { join } = require('path')
+
+
 
 
 const process = async () => {

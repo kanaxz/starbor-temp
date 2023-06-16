@@ -1,5 +1,6 @@
 require('core/modeling')
 module.exports = {
-  locations: require('./locations'),
-  Affiliation: require('./Affiliation'),
+  ...require('./entities'),
+  Organization: require('./Organization'),
+  Starmap: require('./Starmap'),
 }

@@ -5,8 +5,34 @@ module.exports = {
   for: Model,
   methods: {
     eq(source, other) {
-
+      return {
+        $eq: [{
+          $getField: {
+            input: source.value,
+            field: '_id',
+          }
+        }, {
+          $getField: {
+            input: other,
+            field: '_id',
+          }
+        }]
+      }
     },
+  },
+  parse(scope, value) {
+    let model
+    if (typeof value === 'string') {
+      model = {
+        _id: value,
+      }
+    } else {
+      model = value
+    }
+    return {
+      scope,
+      value: model,
+    }
   },
   getType: (type) => type,
   load(property, pipeline) {

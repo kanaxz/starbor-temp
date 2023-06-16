@@ -1,12 +1,10 @@
-const Object = require.main.require('core/modeling/Object')
+const Object = require('core/modeling/Object')
 
 module.exports = {
   for: Object,
   methods: {
     is(source, type) {
-      const child = source.type.findChild((c) => c.definition.name === type)
-      //console.log(child)
-      const tree = child.getAllChilds()
+      const tree = type.getAllChilds()
         .map((c) => c.definition.name)
       return {
         $in: [

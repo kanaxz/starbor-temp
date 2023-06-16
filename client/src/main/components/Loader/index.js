@@ -1,11 +1,11 @@
-const Component = require('@core/Component')
+const Component = require('hedera/Component')
 const template = require('./template.html')
 require('./style.scss')
 
 module.exports = class Loader extends Component {
   constructor() {
     super()
-    this.loading = false
+    this.loading = true
   }
 }
   .define({

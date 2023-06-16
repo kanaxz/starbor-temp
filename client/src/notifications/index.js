@@ -1,4 +1,4 @@
-const Service = require("@core/Service");
+const Service = require('hedera/Service');
 const Propertiable = require("core/mixins/Propertiable")
 const mixer = require("core/mixer")
 const Array = require('core/types/Array')

@@ -17,7 +17,7 @@ const mixin = mixer.mixin((base) => {
 
     static define(definition) {
       super.define(definition)
-      if (definition.template && !(this.prototype instanceof mixin.Template)) {
+      if (definition?.template && !(this.prototype instanceof mixin.Template)) {
         const lastTemplate = this.definition.parent?.getLastTemplate()
         const template = definition.template
         if (mixer.is(template.prototype, mixin.Template)) {

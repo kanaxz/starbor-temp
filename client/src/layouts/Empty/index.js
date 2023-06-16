@@ -1,4 +1,4 @@
-const Layout = require('@core/page/Layout')
+const Layout = require('hedera/page/Layout')
 const template = require('./template.html')
 require('./style.scss')
 
