@@ -1,4 +1,4 @@
-Error.stackTraceLimit = 20//Infinity
+Error.stackTraceLimit = Infinity
 require('./Base')
 require('./modeling')
 

@@ -43,7 +43,11 @@ module.exports = {
           _id: `$${tempId}._id`,
           [tempId]: { $first: `$${tempId}` },
           [propertyName]: {
-            $push: `$$CURRENT`,
+            $push: {
+              $mergeObjects: [`$$CURRENT`, {
+                [tempId]: null
+              }]
+            },
           }
         },
       },

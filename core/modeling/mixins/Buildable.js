@@ -16,7 +16,7 @@ module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
     }
 
 
-    static parse(object) {
+    static parse(object, owner, property) {
       if (object == null || object instanceof this) {
         return object
       }
@@ -25,6 +25,10 @@ module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
       if (typeName && this.definition.name !== typeName) {
         type = this.findChild((c) => c.definition.name === typeName)
       }
+      if(type.definition.abstract){
+        console.trace('parsing', type.definition.name, object, owner, property)
+      }
+      
       try {
         const instance = new type(object)
 
@@ -36,25 +40,25 @@ module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
     }
 
 
-    static toJSON(value, context, paths) {
-      return value && value.toJSON(context, paths)
+    static toJSON(value, paths, context) {
+      return value && value.toJSON(paths, context)
     }
 
     async setPropertyValue(property, value) {
       const parsedValue = property.type.parse(value, this, property)
       if (parsedValue !== undefined) {
-        super.setPropertyValue(property, parsedValue)
+        await super.setPropertyValue(property, parsedValue)
       }
     }
 
-    toJSON(context = null, paths = {}) {
+    toJSON(paths = {}, context = null) {
       const values = Object.entries(this[Propertiable.symbol])
         .reduce((acc, [k, v]) => {
           const property = this.constructor.properties.find((p) => p.name === k)
           if (!property || (property.context && property.context !== context)) {
             return acc
           }
-          const result = property.type.toJSON(v, context, paths && paths[property.name] || null)
+          const result = property.type.toJSON(v, paths && paths[property.name] || null, context)
           if (result !== undefined) {
             acc[property.name] = result
           }

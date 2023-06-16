@@ -1,4 +1,43 @@
 game-entity-show-page {
   display: block;
   padding: 25px;
+  width: 100%;
+
+  > .content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+
+    .left-column {
+      flex: 1;
+
+      > header {
+        model-branch {
+          margin-bottom: 20px;
+        }
+      }
+
+      > .content {
+        margin-top: 15px;
+      }
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+
+      .main-image {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      > .content {
+        border: 1px solid #e1e1e1;
+        border-top: none;
+        padding: 10px;
+      }
+    }
+  }
 }

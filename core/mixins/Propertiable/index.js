@@ -33,19 +33,19 @@ const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
       this[values] = {}
     }
 
-    async propertyChanged(property, value, oldValue) {
-      await this.emit('propertyChanged', property, value, oldValue)
-      await this.emit(`propertyChanged:${property.name}`, value, oldValue)
+    propertyChanged(property, value, oldValue) {
+      this.emit('propertyChanged', property, value, oldValue)
+      this.emit(`propertyChanged:${property.name}`, value, oldValue)
     }
 
-    async setPropertyValue(property, value) {
+    setPropertyValue(property, value) {
       if (!this[values]) {
         this[values] = {}
       }
       const oldValue = this[values][property.name]
       this[values][property.name] = value
       if (!this.isInitialized) { return }
-      await this.propertyChanged(property, value, oldValue)
+      this.propertyChanged(property, value, oldValue)
     }
 
     destroy() {

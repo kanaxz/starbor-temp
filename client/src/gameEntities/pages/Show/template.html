@@ -1,16 +1,22 @@
 <self>
-  <header>
-    <model-branch  :branch="this.entity.parents"></model-branch>
-    <h1>{{this.entity.@name}}</h1>
-  </header>
+
   <div class="content">
     <div class="left-column">
-      <p class="description">
-        {{this.entity.@description}}
-      </p>
+      <header>
+        <model-branch :branch="this.entity.parents"></model-branch>
+        <h1 class="text">{{this.entity.@name}}</h1>
+      </header>
+      <div class="content">
+        <p class="description text">
+          {{this.entity.@description}}
+        </p>
+      </div>
     </div>
     <div class="right-column">
-      
+      <img class="main-image" :src="this.entity.image || defaultImage">
+      <div class="content">
+        Some text
+      </div>
     </div>
   </div>
 </self>

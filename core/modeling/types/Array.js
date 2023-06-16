@@ -49,9 +49,9 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     return super.indexSet(index, value, oldValue)
   }
 
-  toJSON(context, paths) {
+  toJSON(paths, context) {
     const result = [...this].map((object) => {
-      return this.constructor.definition.template.toJSON(object, context, paths)
+      return this.constructor.definition.template.toJSON(object, paths, context)
     })
     return result
   }

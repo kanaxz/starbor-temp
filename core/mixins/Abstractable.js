@@ -6,8 +6,7 @@ module.exports = mixer.mixin([], (baseClass) => {
     constructor(...args) {
       super(...args)
       if (this.constructor.definition.abstract) {
-        //console.log(this.constructor.definition)
-        throw new Error()
+        throw new Error(`Cannot instanciate abstract type ${this.constructor.definition.name}`)
       }
     }
   }

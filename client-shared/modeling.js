@@ -22,7 +22,7 @@ class Collection {
   async request(action, ...args) {
     //console.log(`Requesting /api${action}`, body)
     const url = `${this.url}/api/${this.type.definition.pluralName}${action}`
-    //console.log(action, ...args)
+    console.log(action, ...args)
     try {
       const response = await axios({
         url,

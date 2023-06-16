@@ -42,13 +42,12 @@ module.exports = mixer.mixin((baseClass) => {
       }
     }
 
-    async emit(eventName, ...args) {
+    emit(eventName, ...args) {
       const event = this[events][eventName]
       if (!event) { return }
       const listeners = [...event]
-      for (const listener of listeners) {
-        await listener.callback(...args)
-      }
+      const results = listeners.map((l) => l.callback(...args))
+      return Promise.all(results)
     }
 
     off(listener) {

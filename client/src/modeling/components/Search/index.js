@@ -25,9 +25,9 @@ class SearchableResults extends mixer.extends([Propertiable]) {
       }, {
         $is: ['$this', this.type.definition.name]
       }], {
+        type: this.type.definition.name,
         limit: 3
       })
-      console.log(this.results)
     } catch (e) {
       console.error(e)
       this.error = e.message

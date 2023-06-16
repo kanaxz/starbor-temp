@@ -22,8 +22,9 @@ module.exports = class Model extends mixer.extends(Object, [...additionalMixins,
     const [result] = await this.constructor.collection.find([
       index
     ], {
+      type: this.constructor.definition.name,
       limit: 1,
-      paths
+      load: paths,
     })
     if (!result) {
       throw new Error()

@@ -53,12 +53,20 @@ module.exports = class Collection {
   }
 
   async find(req, query, options = {}) {
+    let type = this.type
+    if (options.type) {
+      type = this.type.findChild((c) => c.definition.name === options.type)
+    }
+    console.log('find', type.definition.name)
+    if (!type) {
+      throw new Error('Type not found')
+    }
     const scope = new Scope()
     scope.variables.this = {
       sourceType: 'var',
       name: 'this',
       value: '$$CURRENT',
-      type: this.type,
+      type: type,
     }
     const pipeline = buildPipeline(scope, query)
     if (!options.load) {
@@ -69,19 +77,25 @@ module.exports = class Collection {
       {
         $limit: Math.min(options.limit || 50)
       },
-      ...unloadLookup(this.type, unload),
-      ...buildLookups(this.type, load),
+      ...unloadLookup(type, unload),
+      ...buildLookups(type, load),
     )
 
     console.log('load', load)
 
-    console.log(JSON.stringify(pipeline, null, ' '))
+    //console.log(JSON.stringify(pipeline, null, ' '))
 
     const models = await this.mongoCollection
       .aggregate(pipeline)
       .toArray()
-    console.log(JSON.stringify({ models }, null, ' '))
-    return models.map((m) => this.type.parse(m))
+      /*
+    if (Object.keys(options.load).length) {
+      console.log(JSON.stringify({ models }, null, ' '))
+      process.exit()
+    }
+    */
+
+    return models.map((m) => type.parse(m))
   }
 
   async create(req, modelJson) {

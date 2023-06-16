@@ -24,7 +24,7 @@ module.exports = {
           const [query, options] = req.body
           try {
             const models = await collection.find(req, query, options)
-            const response = models.map((m) => m.toJSON(null, options.load))
+            const response = models.map((m) => m.toJSON(options.load))
             res.send(response)
           } catch (err) {
             console.error(err)
@@ -47,18 +47,19 @@ module.exports = {
         })
       })
 
-
+    /*    
     const [result] = await collections.entities.find({}, [
       {
-        $eq: ['$name', 'microTech']
+        $eq: ['$name', 'Calliope']
       }
     ], {
+      type: 'moon',
       load: {
         parents: true,
       }
     })
 
-    //console.log(result.parents)
+    //console.log(result.toJSON({ parents: true }))
     //console.log("json", result.toJSON({ parents: true }))
 
     //console.log(JSON.stringify(result, null, ' '))

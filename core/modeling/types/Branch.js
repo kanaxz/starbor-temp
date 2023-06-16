@@ -25,6 +25,7 @@ module.exports = class Branch extends mixer.extends(Array, [Loadable, Bindeable]
     }
 
     if (array) {
+      console.log({ array })
       instance.splice(0, this.length)
       instance.push(...array)
     }
@@ -32,9 +33,9 @@ module.exports = class Branch extends mixer.extends(Array, [Loadable, Bindeable]
     return instance
   }
 
-  async load() {
+  async innerLoad(paths) {
     await this.owner.load()
-    this.update()
+    this.update(paths)
   }
 
   resetListeners() {
@@ -42,30 +43,41 @@ module.exports = class Branch extends mixer.extends(Array, [Loadable, Bindeable]
     this.listeners = []
   }
 
-  async update() {
+  async update(paths = true) {
+    if (this.updating) {
+      console.log(this.owner)
+      throw new Error()
+    }
+    this.updating = true
+    console.log('update', this)
     this.resetListeners()
     this.length = 0
     const on = this.property.on
     let current = this.owner
     const name = this.property.name
     while (current) {
+      /*
       const listener = current.on(`propertyChanged:${on}`, this.b(this.update))
       this.listeners.push(listener)
-      current = current[this.property.on]
+      */
+      console.log({ current })
+      current = current[on]
       if (current) {
         await current.load({
-          [name]: true,
+          [name]: paths,
         })
         this.push(current)
       }
     }
+    console.log('update finished')
+    this.updating = false
   }
 
 
 
-  toJSON(context, paths) {
+  toJSON(paths, context) {
     if (!paths) { return undefined }
-    return super.toJSON(context, paths)
+    return super.toJSON(paths, context)
   }
 
   destroy() {

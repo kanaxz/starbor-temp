@@ -10,7 +10,7 @@ module.exports = class Primitive extends mixer.extends([Any]) {
     return value
   }
 
-  static toJSON(value, context) {
+  static toJSON(value) {
     return value
   }
 
