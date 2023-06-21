@@ -8,6 +8,6 @@
     </div>
   </div>
   <div :v:for="model of this.branch" class="list">
-    <a class="model" :v:link="model.url" :v:child="this.template(model)"></a>
+    <a class="model" :v:link="model.@url" :v:child="this.template(model)"></a>
   </div>
 </self>

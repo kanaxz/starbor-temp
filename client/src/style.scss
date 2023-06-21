@@ -14,6 +14,7 @@ html {
 * {
   box-sizing: border-box;
   transition-property: all;
+  transition-timing-function: linear;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
   color: inherit;
@@ -54,6 +55,22 @@ a {
   background: #555;
 }
 
-.text{
+.text {
   user-select: text;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  color: #202122;
+}
+
+h1 {
+  font-size: 47px;
+}
+
+h2 {
+  font-size: 37px;
 }

@@ -1,4 +1,4 @@
-const models = require('shared/models')
+const { rootModelTypes } = require('shared')
 const axios = require('axios')
 
 class Collection {
@@ -21,20 +21,22 @@ class Collection {
 
   async request(action, ...args) {
     //console.log(`Requesting /api${action}`, body)
-    const url = `${this.url}/api/${this.type.definition.pluralName}${action}`
-    console.log(action, ...args)
+    const url = `${this.url}/api/collections/${this.type.definition.pluralName}${action}`
+    //console.log(action, ...args)
     try {
       const response = await axios({
         url,
         method: 'POST',
         //mode: 'no-cors',
         data: args,
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
       })
       const result = response.data
+      //console.log(action, ...args, result)
       return result
     } catch (err) {
       throw new Error(`API error: ${err.message}`,)
@@ -50,15 +52,26 @@ class Collection {
     return result
   }
 
-  async find(query, options) {
+  async find(query, options = {}) {
     const modelsJson = await this.request('/find', query, options)
     const models = modelsJson.map((modelJson) => {
+
       const model = this.type.parse(modelJson)
       model.setLoadState(options.load || {})
       this.hold(model)
       return model
     })
     return models
+  }
+
+  async create(modelJson) {
+    if (modelJson.toJSON) {
+      modelJson = modelJson.toJSON()
+    }
+    const json = await this.request('/create', modelJson)
+    const resultModel = this.type.parse(json)
+    this.hold(resultModel)
+    return resultModel
   }
 
   async createOrUpdate(...args) {
@@ -70,9 +83,10 @@ class Collection {
       const [model] = args
       const index = model.getFirstUniqueIndex()
       if (!index) {
-        //console.log(model, model.toJSON())
+        console.log(JSON.stringify(model.toJSON(), null, ' '))
         throw new Error()
       }
+
       modelJson = model
       query = [index]
     }
@@ -87,11 +101,10 @@ class Collection {
 }
 
 const getCollections = (url, options = {}) => {
-  const collections = [models.Entity, models.Organization].reduce((acc, type) => {
+  const collections = rootModelTypes.reduce((acc, type) => {
     const collection = new Collection({ type, url, ...options })
     acc[type.definition.pluralName] = collection
     type.collection = collection
-    console.log({ type, collection })
     return acc
   }, {})
   return collections

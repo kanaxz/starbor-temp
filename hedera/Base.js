@@ -51,6 +51,14 @@ module.exports = mixer.mixin([Bindeable, Propertiable, Listening], (base) => {
       this.isInitialized = true
     }
 
+    propertyChanged(...args) {
+      if (!this.isInitialized) {
+        return
+      }
+
+      return super.propertyChanged(...args)
+    }
+
     destroy() { }
   }
 

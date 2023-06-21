@@ -18,7 +18,7 @@ module.exports = class Properties extends Tree {
   }
 
   defineProperty(property) {
-    this.propertiable.defineProperty(property)
+    //this.propertiable.defineProperty(property)
   }
 
   push(...args) {

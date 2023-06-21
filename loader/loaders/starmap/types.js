@@ -1,15 +1,16 @@
 const { codify } = require('../../utils')
-const { System, Star, Planet, LandingZone, Moon } = require('shared/models')
+const { System, Star, Planet, LandingZone, Moon, Position3D, GroundLocation } = require('shared/types')
 const getSystemPosition = (object) => {
-  return ['x', 'y', 'z'].reduce((acc, axis) => {
-    acc[axis] = object[`position_${axis}`]
+  const values = ['x', 'y', 'z'].reduce((acc, axis) => {
+    acc[axis] = parseFloat(object[`position_${axis}`])
     return acc
   }, {})
+
+  return new Position3D(values)
 }
 
 
 module.exports = ({ collections }) => {
-
   const save = async (entity) => {
     await collections.entities.createOrUpdate(entity)
   }
@@ -62,6 +63,14 @@ module.exports = ({ collections }) => {
         const lz = new LandingZone(entity)
         await save(lz)
         return lz
+      }
+    },
+    poi: {
+      check: ({ type }) => type === 'POI',
+      async process(location) {
+        const entity = new GroundLocation(entity)
+        await save(entity)
+        return entity
       }
     },
     /*

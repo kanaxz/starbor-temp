@@ -4,7 +4,7 @@ module.exports = class Field extends Component {
   constructor() {
     super()
     this.validators = []
-    this.classList.add('form-field')
+    this.classList.add('field')
     this.on('propertyChanged:value', this.b(this.onValueChanged))
   }
 

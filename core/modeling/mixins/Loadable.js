@@ -6,8 +6,19 @@ const LoadableMixin = mixer.mixin((base) => {
   return class Loadable extends base {
     constructor(...args) {
       super(...args)
-      this[loadingQueue] = []
-      this[state] = 'empty'
+      Object.defineProperties(this, {
+        [state]: {
+          enumerable: false,
+          writable: true,
+          value: 'empty'
+        },
+        [loadingQueue]: {
+          enumerable: false,
+          writable: true,
+          value: []
+        }
+      })
+
     }
 
     setLoadState(paths) {
@@ -40,7 +51,6 @@ const LoadableMixin = mixer.mixin((base) => {
     }
 
     async load(paths = {}) {
-      //console.log('loading', this[state], this, paths)
       if (this[state] === 'loaded') {
         if (paths === true) { return }
         for (const [propertyName, subPaths] of Object.entries(paths)) {
@@ -49,7 +59,6 @@ const LoadableMixin = mixer.mixin((base) => {
         return
       }
       else if (this[state] === 'loading') {
-        //console.log('wtf', this)
         const promise = new Promise((resolve, reject) => {
           this[loadingQueue].push({ resolve, reject })
         })
@@ -61,12 +70,12 @@ const LoadableMixin = mixer.mixin((base) => {
         try {
           await this.innerLoad(paths)
           this.setLoadState(paths)
-          this[loadingQueue].forEach(({ resolve }) => resolve())
           this[state] = 'loaded'
+          this[loadingQueue].forEach(({ resolve }) => resolve())
           this[loadingQueue] = []
         } catch (err) {
-          this[loadingQueue].forEach(({ reject }) => reject(err))
           this[state] = 'loaded'
+          this[loadingQueue].forEach(({ reject }) => reject(err))
           this[loadingQueue] = []
           throw err
         }

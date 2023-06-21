@@ -1,6 +1,5 @@
 const navigator = require('@app/navigator')
-const api = require('@app/api')
-const { GameEntity, Entity } = require('shared/models')
+const { GameEntity, Entity } = require('shared/types')
 
 const childs = GameEntity
   .getAllChilds()

@@ -1,21 +1,38 @@
 <self>
 
-  <div class="content">
-    <div class="left-column">
-      <header>
-        <model-branch :branch="this.entity.parents"></model-branch>
-        <h1 class="text">{{this.entity.@name}}</h1>
-      </header>
-      <div class="content">
-        <p class="description text">
-          {{this.entity.@description}}
-        </p>
-      </div>
+  <header>
+    <h1 class="text">{{this.entity.@name}}</h1>
+    <model-branch :branch="this.entity.parents"></model-branch>
+  </header>
+  <div class="row" as="scrollRoot">
+    <div class="left">
+      <content-summary :root="this.scrollRoot"  as="summary"></content-summary>
     </div>
-    <div class="right-column">
-      <img class="main-image" :src="this.entity.image || defaultImage">
-      <div class="content">
-        Some text
+    <div class="content" >
+      <p class="description text">
+        {{this.entity.@description}}
+      </p>
+      <summary-section style="margin-top:50px;">
+        <h2>Childs</h3>
+          
+          <section class="childs" :v:for="child of this.entity.children">
+            <a :v:link="child.@url" class="child" :v:child="this.templateChild(child)">
+
+            </a>
+          </section>
+         
+      </summary-section>
+      <summary-section class="map">
+        <h2>Map</h2>
+        <app-map :object="this.entity" :camera.zoom="0.5"></app-map>
+      </summary-section>
+    </div>
+    <div class="right">
+      <div class="infos">
+        <img class="main-image" :src="this.entity.image || defaultImage">
+        <div class="content">
+          Some text
+        </div>
       </div>
     </div>
   </div>

@@ -35,7 +35,7 @@ module.exports = class Indexes extends Tree {
           })
         return
       }
-      console.log(arg)
+      console.error(arg)
       throw new Error('Index type not recognized')
     })
   }

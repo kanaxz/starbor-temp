@@ -1,7 +1,7 @@
 const Destroyable = require('../../mixins/Destroyable')
 const mixer = require('../../mixer')
-const Indexable = require('./Indexable')
-const Comparable = require('../../mixins/Comparable')
+const Comparable = require('../../mixins/Comparable');
+const Propertiable = require('../../mixins/Propertiable');
 
 const instances = [];
 
@@ -21,21 +21,22 @@ const loop = () => {
   //setTimeout(loop, 1000)
 }
 
-module.exports = mixer.mixin([Destroyable, Comparable], (base) => {
-  return class SingleInstance extends base {
-    constructor(...args) {
-      super(...args)
+const symbol = Symbol('singleInstanceId')
 
-      const instance = instances.find((instance) => instance.constructor === this.constructor && instance.compare(this))
+let id = 0
+
+const SingleInstance = mixer.mixin([Destroyable, Comparable], (base) => {
+  return class SingleInstance extends base {
+    constructor(values) {
+      const instance = instances.find((instance) => instance.compare(values))
       if (instance) {
-        Object.assign(instance, this.toJSON())
-        this.destroy()
+        Object.assign(instance, values)
         return instance
-      } else {
-        instances.push(this)
-        checkDuplicates()
-        return this
-      }
+      } 
+      super(values)
+      this[symbol] = id++
+      instances.push(this)
+      checkDuplicates()
     }
 
     destroy() {
@@ -49,3 +50,7 @@ module.exports = mixer.mixin([Destroyable, Comparable], (base) => {
 })
 
 loop()
+
+SingleInstance.symbol = symbol
+
+module.exports = SingleInstance

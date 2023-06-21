@@ -8,11 +8,6 @@ module.exports = class Child extends Virtual {
     this.on('propertyChanged', this.b(this.update))
   }
 
-  async initialize() {
-    await this.update()
-    await super.initialize()
-  }
-
   async update() {
     renderer.destroyContent(this.el)
     this.el.innerHTML = ''

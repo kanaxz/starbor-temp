@@ -1,7 +1,6 @@
 const mixer = require("../../mixer");
-const Destroyable = require("../Destroyable");
+const Destroyable = require("../Destroyable")
 const Eventable = require('../Eventable')
-const values = Symbol('values')
 const Initializeable = require('../Initializeable')
 const Properties = require('./Properties')
 
@@ -11,14 +10,15 @@ const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
 
     }
 
-    static defineProperty(property) {
-      Object.defineProperty(this.prototype, property.name, {
+    defineProperty(property) {
+      Object.defineProperty(this, property.name, {
         get: function () {
-          return this[values][property.name]
+          return this.values[property.name]
         },
         set: function (newValue) {
           this.setPropertyValue(property, newValue)
         },
+        enumerable: true,
       })
     }
 
@@ -30,7 +30,12 @@ const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
 
     constructor(...args) {
       super(...args)
-      this[values] = {}
+      const properties = this.constructor.properties
+      if (properties) {
+        properties.forEach((p) => this.defineProperty(p))
+      }
+
+      Object.defineProperty(this, 'values', { enumerable: false, writable: true, value: {} })
     }
 
     propertyChanged(property, value, oldValue) {
@@ -39,24 +44,21 @@ const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
     }
 
     setPropertyValue(property, value) {
-      if (!this[values]) {
-        this[values] = {}
+      if (!this.values) {
+        this.values = {}
       }
-      const oldValue = this[values][property.name]
-      this[values][property.name] = value
-      if (!this.isInitialized) { return }
+      const oldValue = this.values[property.name]
+      this.values[property.name] = value
       this.propertyChanged(property, value, oldValue)
     }
 
     destroy() {
+      super.destroy()
       this.constructor.properties.forEach((p) => {
         this[p.name] = null
       })
-      super.destroy()
     }
   }
 })
-
-mixin.symbol = values
 
 module.exports = mixin

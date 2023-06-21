@@ -1,0 +1,17 @@
+<self :class="`${auth.@me ? 'has-user' : ''}`">
+  <div class="logged-in">
+    <header>
+      <label>{{auth.@me?.@username}}</label>
+    </header>
+    <div class="list">
+
+    </div>
+  </div>
+  <div class="logged-out">
+
+    <a :v:link="'/login'">
+      Login
+    </a>
+
+  </div>
+</self>

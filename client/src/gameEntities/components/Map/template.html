@@ -1,0 +1,39 @@
+<self>
+  <div class="outer" 
+    :on:mousedown="this.onMouseDown()" 
+    :on:mouseup="this.onMouseUp()"
+    :on:mousemove="this.onMove(event)"
+    :on:wheel="this.onWheel(event)">
+    <div class="inner"
+      :style.left="`${this.camera.@x}px`"
+      :style.top="`${this.camera.@y}px`"
+      :style.transform="`scale(${this.camera.@zoom})`">
+    
+        <div class="layers" :v:for="layer of this.@layers?.slice().reverse()">
+          <div class="layer">
+            <svg
+              :style.height="`${layer.size}px`" 
+              :style.width="`${layer.size}px`">
+                <circle 
+                  cx="50%" 
+                  cy="50%"
+                  r="50%" 
+                  stroke="#fff" 
+                  stroke-width="3"
+                  />
+            </svg>
+          </div>
+        </div>
+        <div class="objects" :v:for="mapObject of this.@mapObjects">
+          <a class="object" 
+            :v:link="mapObject.object.url"
+            :style.left="`${mapObject.@x}px`"
+            :style.top="`${mapObject.@y}px`"
+            :style.background-color="mapObject.color"
+            >
+              <label>{{mapObject.name}}</label>
+              
+          </a>
+        </div>
+  </div>
+</self>

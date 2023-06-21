@@ -11,13 +11,14 @@ module.exports = class TextField extends Field {
       message: 'some error'
     }]
   }
-  
+
 }
   .define({
-    name: 'form-text-field',
+    name: 'text-field',
     template,
   })
   .properties({
     type: 'string',
     errors: 'any',
+    required: 'any',
   }) 

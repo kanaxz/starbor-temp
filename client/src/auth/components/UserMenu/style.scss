@@ -1,0 +1,41 @@
+user-menu {
+  &.has-user {
+    .logged-in {
+      display: block;
+    }
+
+    .logged-out {
+      display: none;
+    }
+  }
+
+  .logged-in {
+    display: none;
+
+    header {
+      border: 2px solid #55c;
+      background-color: #fff;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition-duration: 0.1s;
+      cursor: pointer;
+      label {
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 20px;
+      }
+
+      &:hover {
+        background-color: rgba(#55c, 0.1);
+      }
+    }
+  }
+
+  .logged-out {
+    display: block;
+    background-color: #55c;
+    color: #fff;
+  }
+}

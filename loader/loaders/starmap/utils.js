@@ -16,7 +16,7 @@ const gePositionFromLatLon = (planet) => {
 }
 
 const starmapRequest = async (url) => {
-  console.log(url)
+  //console.log(url)
   const systemResult = await axios.post(baseUrl + url)
   return systemResult.data.data
 }

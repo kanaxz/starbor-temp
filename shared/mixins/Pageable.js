@@ -1,23 +1,30 @@
 const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
 const { String } = require('core/modeling/types')
-
+const timeout = Symbol('timeout')
 module.exports = mixer.mixin([Propertiable], (baseClass) => {
-
   return class Pageable extends baseClass {
     constructor(...args) {
       super(...args)
-      this.updateUrl()
+      Object.defineProperty(this, timeout, { enumerable: false, writable: true, value: null })
     }
 
     updateUrl() {
       const { name, codeField = 'code' } = this.constructor.definition
-      this.url = `/${name}/${this[codeField]}`
+      const code = this[codeField]
+      this.url = code ? `/${name}/${code}` : null
     }
 
-    propertyChanged(...args) {
-      this.updateUrl()
-      return super.propertyChanged(...args)
+    propertyChanged(property, ...args) {
+      if (property.name !== 'url') {
+        if (this[timeout]) {
+          clearTimeout(this[timeout])
+        }
+        this[timeout] = setTimeout(() => {
+          this.updateUrl()
+        })
+      }
+      return super.propertyChanged(property, ...args)
     }
   }
 })

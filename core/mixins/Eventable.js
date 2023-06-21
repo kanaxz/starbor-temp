@@ -17,8 +17,18 @@ module.exports = mixer.mixin((baseClass) => {
   return class Eventable extends baseClass {
     constructor(...args) {
       super(...args)
-      this[events] = {}
-      this[otherEvents] = []
+      Object.defineProperties(this, {
+        [events]: {
+          enumerable: false,
+          writable: true,
+          value: []
+        },
+        [otherEvents]: {
+          enumerable: false,
+          writable: true,
+          value: []
+        }
+      })
     }
 
     on(...args) {

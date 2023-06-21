@@ -1,0 +1,39 @@
+content-summary {
+  display: block;
+  top: 20px;
+  padding: 0 10px;
+  padding-right: 30px;
+  min-width: 200px;
+  text-align: right;
+  header {
+    padding: 5px;
+    cursor: pointer;
+    h3 {
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    &:hover {
+      background-color: hsl(210, 17%, 98%);
+      border-radius: 10px;
+    }
+  }
+
+  .sections {
+    margin-top: 7px;
+    .section {
+      font-weight: 400;
+      font-size: 17px;
+      border-right: 1px solid #e1e1e1;
+      padding: 5px 10px;
+
+      cursor: pointer;
+      &:hover,
+      &.current {
+        color: cornflowerblue;
+        border-right: 3px solid cornflowerblue;
+        background-color: rgba(#e1e1e1, 0.3);
+      }
+    }
+  }
+}

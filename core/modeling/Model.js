@@ -16,7 +16,7 @@ module.exports = class Model extends mixer.extends(Object, [...additionalMixins,
   async innerLoad(paths) {
     const index = this.getFirstUniqueIndex()
     if (!index) {
-      console.log(this)
+      console.error(this)
       throw new Error('Could not load')
     }
     const [result] = await this.constructor.collection.find([
@@ -31,13 +31,13 @@ module.exports = class Model extends mixer.extends(Object, [...additionalMixins,
     }
   }
 
-  toJSON(context, paths = {}) {
+  toJSON(paths = {}, context) {
     if (paths) {
-      return super.toJSON(context, paths)
+      return super.toJSON(paths, context)
     }
     const index = this.getIndex('main')
     if (!index) {
-      console.log(this)
+      console.error(this)
       throw new Error('Could not toJSON')
     }
     return {

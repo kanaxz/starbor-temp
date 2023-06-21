@@ -11,11 +11,9 @@ module.exports = () => {
       poll: true
     },
     devServer: {
-      /*
       proxy: {
         "/api": "http://localhost:8000",
       },
-      */
       historyApiFallback: true,
       port: 8081,
       allowedHosts: 'all',

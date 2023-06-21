@@ -87,7 +87,6 @@ module.exports = class Search extends Component {
 
 
   empty() {
-    this.length = 0
     this.input.value = ''
     this.search()
   }
@@ -97,10 +96,7 @@ module.exports = class Search extends Component {
     return new rowComponent(result)
   }
 
-  destroy() {
-    window.removeEventListener('keydown', this.b(this.onWindowKeyDown))
-    super.destroy()
-  }
+
 }
   .define({
     name: 'app-search',

@@ -1,7 +1,6 @@
 const { starmapRequest } = require('./utils')
 const systemsLoader = require('./systems')
-const Organization = require('shared/models/Organization')
-const Starmap = require('shared/models/Starmap')
+const { Starmap, Organization } = require('shared/types')
 const { codify } = require('../../utils')
 
 module.exports = async (services) => {
@@ -43,9 +42,9 @@ module.exports = async (services) => {
       await collections.organizations.createOrUpdate(organization)
     }
   }
-
-
-  //await loadAffiliations()
-  //await loadSpecies()
+  /*
+  await loadAffiliations()
+  await loadSpecies()
+  /**/
   await systemsLoader(bootup, services)
 }

@@ -9,6 +9,7 @@ module.exports = mixer.mixin([Propertiable], (base) => {
         oldValue.release(this)
       }
       if (value && mixer.is(value, Holdable)) {
+        console.log(property, value)
         value.hold(this)
       }
       return super.propertyChanged(property, value, oldValue)

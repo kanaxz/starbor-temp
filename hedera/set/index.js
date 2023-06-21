@@ -98,6 +98,10 @@ class BindingFunction {
         }
         const propertyName = segment.replace(/[@?]+/g, '')
         if (segment.startsWith('@')) {
+          if (!value.on) {
+            console.log(path, { value })
+            throw new Error()
+          }
           const listener = value.on(`propertyChanged:${propertyName}`, () => {
             this.update()
           })

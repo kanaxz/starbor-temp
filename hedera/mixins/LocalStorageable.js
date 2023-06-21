@@ -20,7 +20,7 @@ module.exports = mixer.mixin([Propertiable], (base) => {
       }
 
       this.on('propertyChanged', () => {
-        const values = this[Propertiable.symbol]
+        const values = this.values
         const valuesToSave = Object.entries(values)
           .filter(([name]) => options.properties.indexOf(name) !== -1)
           .reduce((acc, [name, value]) => {

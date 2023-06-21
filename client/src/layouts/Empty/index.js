@@ -5,6 +5,6 @@ require('./style.scss')
 module.exports = class Empty extends Layout {
 
 }.define({
-  name: 'app-layout-empty',
+  name: 'empty-layout',
   template,
 })
