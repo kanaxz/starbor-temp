@@ -79,7 +79,7 @@ module.exports = async (bootup, services) => {
   //starmapSystems = [starmapSystems[0]]
   const systems = []
   for (const starmapSystem of starmapSystems) {
-    if (starmapSystem.code !== 'TERRA') { continue }
+    //if (starmapSystem.code !== 'TERRA') { continue }
     const { resultset: [json] } = await starmapRequest('star-systems/' + starmapSystem.code)
     const entity = await buildFromJson(json)
     const system = await types.system.process(entity, json)
