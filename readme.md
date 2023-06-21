@@ -3,6 +3,8 @@
 
 Everything you need for star citizen
 
+
+
 # data extractor
 
 https://github.com/richardthombs/scunpacked
@@ -13,9 +15,6 @@ unforge.exe "C:\temp\unp4k-v3.13.21\Data"
 ## Authors 
 Sacha Perret  
 Cedric Dessalles
-
-# TODO
-Hangar/garage
 
 # wsl port forwarding
 
