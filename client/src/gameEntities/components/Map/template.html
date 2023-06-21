@@ -26,7 +26,7 @@
         </div>
         <div class="objects" :v:for="mapObject of this.@mapObjects">
           <a class="object" 
-            :v:link="mapObject.object.url"
+            :on:click="this.object = mapObject.object"
             :style.left="`${mapObject.@x}px`"
             :style.top="`${mapObject.@y}px`"
             :style.background-color="mapObject.color"
