@@ -6,10 +6,11 @@ const Bool = require('./types/Bool')
 const Indexable = require('./mixins/Indexable')
 const Holdable = require('../mixins/Holdable')
 const String = require('./types/String')
+const Holder = require('../mixins/Holder')
 
 const additionalMixins = []
 if (!global.MODEL_DISABLE_FRONT_MIXINS) {
-  additionalMixins.push(Holdable, SingleInstance)
+  additionalMixins.push(Holdable, SingleInstance,Holder)
 }
 
 module.exports = class Model extends mixer.extends(Object, [...additionalMixins, Loadable, Indexable]) {

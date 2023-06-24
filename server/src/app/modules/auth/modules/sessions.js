@@ -27,7 +27,6 @@ module.exports = {
 
     const processCookie = async (req) => {
       const token = req.cookies[TOKEN_KEY]
-      console.log({ ...req.cookies }, token)
       if (!token) { return }
 
       const session = await get(token)

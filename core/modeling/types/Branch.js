@@ -3,8 +3,6 @@ const mixer = require('../../mixer')
 const Array = require('./Array')
 const Bindeable = require('../../mixins/Bindeable')
 const Holdable = require('../../mixins/Holdable')
-const Destroyable = require('../../mixins/Destroyable')
-const SingleInstance = require('../mixins/SingleInstance')
 
 module.exports = class Branch extends mixer.extends(Array, [Loadable, Bindeable, Holdable]) {
   constructor(owner, property) {

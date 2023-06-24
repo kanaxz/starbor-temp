@@ -1,7 +1,7 @@
 const mixer = require('../../mixer')
-const Any = require('../Any')
+const Real = require('../Real')
 
-module.exports = class Primitive extends mixer.extends([Any]) {
+module.exports = class Primitive extends mixer.extends(Real) {
   constructor() {
     throw new Error('Cannot instenciate')
   }

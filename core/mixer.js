@@ -79,7 +79,7 @@ const mixer = {
   },
   extends(arg1, arg2) {
     let base
-    let dependancies
+    let dependencies
     if (typeof arg1 === 'function') {
       base = arg1
       dependencies = getDependencies(arg2)

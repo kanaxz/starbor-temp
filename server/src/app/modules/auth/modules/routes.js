@@ -1,9 +1,6 @@
 const { User, Roles } = require('shared/types')
-const { nanoid } = require('nanoid')
 const bcrypt = require('bcrypt')
 const exp = require('express')
-const saltRounds = 10;
-const moment = require('moment')
 
 module.exports = {
   name: null,

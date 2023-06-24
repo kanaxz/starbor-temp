@@ -1,6 +1,6 @@
 const Primitive = require('./Primitive')
-const Any = require('../Any')
 const utils = require('../utils')
+const Real = require('../Real')
 
 class Bool extends Primitive {
   static validate(value) {
@@ -12,7 +12,7 @@ Bool.define({
   name: 'bool',
 })
 
-Any.methods({
+Real.methods({
   not: [[], Bool]
 })
 

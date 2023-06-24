@@ -1,30 +1,31 @@
 
-const { processFunctionCall, processObject, processObjectFilter } = require('./utils')
+const { processObject, processObjectFilter } = require('./utils')
+const proto = require('../utils/proto')
 
 module.exports = class Scope {
   constructor(values) {
     Object.assign(this, values)
     this.variables = {
-      __proto__: (this.parent || {})
+      __proto__: (this.parent?.variables || {})
     }
     if (!this.parent) {
       this.paths = {}
     }
   }
 
-  load(path) {
-    if (this.parent) {
-      this.parent.load(path)
-      return
-    }
-    const split = path.split('.')
-    let current = this.paths
-    for (const segment of split) {
-      if (!current[segment]) {
-        current[segment] = {}
-      }
-      current = current[segment]
-    }
+  get root() {
+    return this.parent?.root || this
+  }
+
+  getHandlers(type) {
+    const typeHandlers = proto.get(type)
+      .flatMap((t) => {
+        const tHandlers = this.root.handlers.filter((h) => {
+          return h.for === t || t.dependencies && t.dependencies?.indexOf(h.for) !== -1
+        })
+        return tHandlers
+      })
+    return typeHandlers
   }
 
   child() {
@@ -48,9 +49,13 @@ module.exports = class Scope {
     }
     console.error(body)
     throw new Error('Could not parse body')
-
   }
+
   processObject(object) {
     return processObject(this, object)
+  }
+
+  onGetProperty(property){
+
   }
 }

@@ -48,7 +48,7 @@ const shouldDestroy = (instance) => {
 }
 
 const loop = () => {
-  console.log('holdables', instances)
+  //console.log('holdables', instances)
   circulars = []
   instances
     .filter(shouldDestroy)

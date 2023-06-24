@@ -1,10 +1,9 @@
 const Destroyable = require('../../mixins/Destroyable')
 const mixer = require('../../mixer')
 const Propertiable = require('../../mixins/Propertiable')
-const Holder = require('../../mixins/Holder')
 const typeKey = '@type'
 
-module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
+module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
   return class Buildable extends base {
 
     constructor(values = {}) {
@@ -21,9 +20,16 @@ module.exports = mixer.mixin([Destroyable, Propertiable, Holder], (base) => {
         return object
       }
       const typeName = object[typeKey]
+      if (!typeName) {
+        throw new Error(`'typeName' is missing`)
+      }
       let type = this
       if (typeName && this.definition.name !== typeName) {
         type = this.findChild((c) => c.definition.name === typeName)
+      }
+
+      if (!type) {
+        throw new Error(`Type ${typeName} not find from ${this.definition.name}`)
       }
       if (type.definition.abstract) {
         console.trace('parsing', type.definition.name, object, owner, property)

@@ -1,7 +1,7 @@
 const models = require('shared/types')
 const exp = require('express')
 
-const Collection = require('./Collection')
+const MongoCollection = require('processing-mongo/MongoCollection')
 
 const { rootModelTypes } = require('shared')
 
@@ -22,7 +22,7 @@ module.exports = {
     express.use('/api/collections', router)
 
     const collections = rootModelTypes.reduce((acc, type) => {
-      acc[type.definition.pluralName] = new Collection(mongo.db, type, controllers)
+      acc[type.definition.pluralName] = new MongoCollection(type, mongo.db, controllers)
       return acc
     }, {})
 
