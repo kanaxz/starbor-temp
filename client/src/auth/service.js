@@ -3,6 +3,7 @@ const Service = require('hedera/Service')
 const config = require('@app/config')
 const api = require('@app/api')
 const { User } = require('shared/types')
+const Controlleable = require('../modeling/Controlleable')
 
 const request = async (action, payload) => {
   const url = `${config.server.url}/api/auth${action}`
@@ -47,5 +48,10 @@ const AuthService = class extends Service {
     me: 'any',
   })
 
-module.exports = new AuthService()
+const service = new AuthService()
+
+Controlleable.auth = service
+globalThis.auth = service
+
+module.exports = service
 

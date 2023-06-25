@@ -1,7 +1,7 @@
-const Destroyable = require('../../mixins/Destroyable')
-const mixer = require('../../mixer')
-const Comparable = require('../../mixins/Comparable');
-const Propertiable = require('../../mixins/Propertiable');
+const Destroyable = require('core/mixins/Destroyable')
+const mixer = require('core/mixer')
+const Comparable = require('core/mixins/Comparable');
+const Propertiable = require('core/mixins/Propertiable');
 
 const instances = [];
 

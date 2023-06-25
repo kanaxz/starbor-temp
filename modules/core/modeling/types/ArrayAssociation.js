@@ -2,9 +2,10 @@ const Loadable = require('../mixins/Loadable')
 const mixer = require('../../mixer')
 const Array = require('./Array')
 const Bindeable = require('../../mixins/Bindeable')
-const Holdable = require('../../mixins/Holdable')
 
-module.exports = class HasMany extends mixer.extends(Array, [Loadable, Holdable, Bindeable]) {
+const additionalMixins = global?.modeling?.arrayAssociation?.mixins || []
+
+module.exports = class HasMany extends mixer.extends(Array, [Loadable, Bindeable]) {
   constructor(owner, property) {
     /*
   * when using native array functions like map, filter etc, it will return an instance of the current array class, which branch in this case

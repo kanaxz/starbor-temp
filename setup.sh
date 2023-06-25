@@ -1,0 +1,16 @@
+cd ./modules/core
+npm i
+cd ../hedera
+npm i
+cd ../processing-mongo
+npm i
+cd ../../shared
+npm i
+cd ../client-shared
+npm i
+cd ../server
+npm i
+cd ../client
+npm i
+cd ../loader
+npm i

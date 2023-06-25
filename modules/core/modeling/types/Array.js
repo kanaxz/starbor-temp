@@ -5,7 +5,6 @@ const Any = require('../Any')
 const Bool = require('./Bool')
 const Function = require('./Function')
 const Template = require('./Template')
-const Holdable = require('../../mixins/Holdable')
 
 const template = Template.of(Any)
 
@@ -26,12 +25,7 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     return array
   }
 
-  indexDeleted(index, value) {
-    if (mixer.is(value, Holdable)) {
-      value.release(this)
-    }
-    return super.indexDeleted(index, value)
-  }
+
 
   setIndex(index, value) {
 
@@ -39,15 +33,7 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     super.setIndex(index, value)
   }
 
-  indexSet(index, value, oldValue) {
-    if (oldValue && mixer.is(oldValue, Holdable)) {
-      oldValue.release(this)
-    }
-    if (value && mixer.is(value, Holdable)) {
-      value.hold(this)
-    }
-    return super.indexSet(index, value, oldValue)
-  }
+
 
   toJSON(paths, context) {
     const result = [...this].map((object) => {

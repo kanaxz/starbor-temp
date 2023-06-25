@@ -1,6 +1,10 @@
 const Model = require('core/modeling/Model')
 const Roles = require('../objects/Roles')
 
+const ownershipRule = (user, currentUser) => {
+  return user._id === currentUser._id || currentUser.roles.admin
+}
+
 module.exports = class User extends Model {
 
 }
@@ -12,6 +16,14 @@ module.exports = class User extends Model {
     username: {
       properties: ['username'],
       unique: true,
+    }
+  })
+  .controllers({
+    update(user) {
+      return ownershipRule(this, user)
+    },
+    delete(user) {
+      return ownershipRule(this, user)
     }
   })
   .properties({

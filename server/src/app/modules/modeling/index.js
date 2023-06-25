@@ -1,7 +1,7 @@
 const models = require('shared/types')
 const exp = require('express')
 
-const MongoCollection = require('processing-mongo/MongoCollection')
+const MongoCollection = require('../../../../../modules/core-server/mongo/MongoCollection')
 
 const { rootModelTypes } = require('shared')
 

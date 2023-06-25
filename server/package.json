@@ -12,13 +12,13 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
-    "core": "file:../core",
+    "core": "file:../modules/core",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "moment": "^2.29.4",
     "mongodb": "^5.0.1",
     "nanoid": "^3.3.6",
-    "processing-mongo": "file:../processing-mongo",
+    "processing-mongo": "file:../modules/processing-mongo",
     "shared": "file:../shared"
   }
 }

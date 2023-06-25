@@ -1,5 +1,5 @@
-const mixer = require('../mixer')
-const Propertiable = require('./Propertiable')
+const mixer = require('core/mixer')
+const Propertiable = require('core/mixins/Propertiable')
 const Holdable = require('./Holdable')
 
 module.exports = mixer.mixin([Propertiable], (base) => {

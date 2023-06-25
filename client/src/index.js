@@ -1,15 +1,19 @@
+// order is important: core-client->modeling/setup->core
+require('core-client')
+require('./modeling/setup')
 require('core')
 const navigator = require('./navigator')
 const pageMiddleware = require('hedera/page/middleware')
 const notifications = require('./notifications')
 require('hedera')
+require('./modeling')
 require('./notifications/List')
-const auth = require('./auth')
+require('./auth')
 require('./form')
 require('./gameEntities')
 require('./main')
 require('./organization')
-require('./modeling')
+
 require('./style.scss')
 require('./api')
 

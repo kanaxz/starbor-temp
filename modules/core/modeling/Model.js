@@ -1,18 +1,12 @@
 const mixer = require('../mixer')
 const Object = require('./Object')
 const Loadable = require('./mixins/Loadable')
-const SingleInstance = require('./mixins/SingleInstance')
 const Bool = require('./types/Bool')
 const Indexable = require('./mixins/Indexable')
-const Holdable = require('../mixins/Holdable')
 const String = require('./types/String')
-const Holder = require('../mixins/Holder')
 
-const additionalMixins = []
-if (!global.MODEL_DISABLE_FRONT_MIXINS) {
-  additionalMixins.push(Holdable, SingleInstance,Holder)
-}
-
+const additionalMixins = (globalThis || global).core?.modeling?.model?.mixins || []
+console.log({ additionalMixins })
 module.exports = class Model extends mixer.extends(Object, [...additionalMixins, Loadable, Indexable]) {
   async innerLoad(paths) {
     const index = this.getFirstUniqueIndex()

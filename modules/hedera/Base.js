@@ -3,7 +3,7 @@ const Propertiable = require("core/mixins/Propertiable")
 const Listening = require('./mixins/Listening')
 const mixer = require('core/mixer')
 const Scope = require("./Scope")
-const Holder = require("core/mixins/Holder")
+const Holder = require("core-client/modeling/mixins/Holder")
 
 module.exports = mixer.mixin([Bindeable, Propertiable, Listening, Holder], (base) => {
   return class Base extends base {
