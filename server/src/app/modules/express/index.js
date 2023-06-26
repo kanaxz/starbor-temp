@@ -26,7 +26,7 @@ module.exports = {
     expressApp.use(cookieParser())
     expressApp.use(bodyParser.json())
     expressApp.use((req, res, next) => {
-      console.log(req.method, req.url, req.body)
+      console.log(req.method, req.url, JSON.stringify(req.body, null, ' '))
       next()
     })
     const server = http.createServer(expressApp)

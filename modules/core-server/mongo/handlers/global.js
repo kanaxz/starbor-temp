@@ -1,4 +1,4 @@
-const Global = require('core/modeling/types/Global')
+const { Global } = require('core/modeling/types')
 
 module.exports = {
   for: Global,

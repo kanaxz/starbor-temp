@@ -1,6 +1,6 @@
 const Virtual = require('./Virtual')
 const Bool = require('./Bool')
-const Any = require('../Any')
+const Any = require('./Any')
 const Array = require('./Array')
 
 class Global extends Virtual {

@@ -10,6 +10,7 @@ const makeId = (length = 12) => {
   return `var${result}`
 }
 
+
 module.exports = {
   makeId,
 }

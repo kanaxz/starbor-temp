@@ -1,4 +1,4 @@
-const Model = require.main.require('core/modeling/Model')
+const { Model } = require.main.require('core/modeling/types')
 const { makeId } = require('core/utils/string')
 
 module.exports = {

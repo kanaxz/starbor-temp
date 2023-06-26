@@ -13,6 +13,7 @@ Entity
     name: 'entity',
     pluralName: 'entities',
     abstract: true,
+    root: true,
   })
 
   .properties({

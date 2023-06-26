@@ -74,6 +74,13 @@ class Collection {
     return resultModel
   }
 
+  async update(query, patches) {
+    const json = await this.request('/update', query, patches)
+    const resultModel = this.type.parse(json)
+    this.hold(resultModel)
+    return resultModel
+  }
+
   async createOrUpdate(...args) {
     let modelJson
     let query

@@ -8,6 +8,9 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
 
     constructor(values = {}) {
       super()
+      // disable the possibility to assign @type on buildables
+      // we don't want to throw an error
+      Object.defineProperty(this, '@type', { get() { }, set() { } })
       this.constructor.properties.forEach((property) => {
         const value = values[property.name]
         this[property.name] = value

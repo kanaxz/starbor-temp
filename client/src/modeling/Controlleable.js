@@ -8,7 +8,7 @@ const mixin = mixer.mixin([Controlleable], (base) => {
     }
 
     canDelete() {
-      return super.canEdit(mixin.auth.me)
+      return super.canDelete(mixin.auth.me)
     }
   }
 })

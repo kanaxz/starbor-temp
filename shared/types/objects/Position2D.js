@@ -1,4 +1,4 @@
-const Object = require('core/modeling/Object')
+const { Object, Number } = require('core/modeling/types')
 
 module.exports = class Position2D extends Object {
 
@@ -7,6 +7,6 @@ module.exports = class Position2D extends Object {
     name: 'position2D',
   })
   .properties({
-    x: 'number',
-    y: 'number',
+    x: Number,
+    y: Number,
   })

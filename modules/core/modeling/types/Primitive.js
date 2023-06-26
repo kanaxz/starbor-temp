@@ -1,5 +1,5 @@
 const mixer = require('../../mixer')
-const Real = require('../Real')
+const Real = require('./Real')
 
 module.exports = class Primitive extends mixer.extends(Real) {
   constructor() {

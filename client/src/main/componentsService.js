@@ -29,7 +29,7 @@ const get = (type, name) => {
       return parentFind
     }
   }
-  throw new Error(`Could not find component ${name} for ${type.name}`)
+  return null
 }
 
 module.exports = {

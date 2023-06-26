@@ -1,0 +1,9 @@
+<field-wrapper :field="this">
+  <input 
+    :name="this.@name"
+    type="date"
+    :value="this.@value"
+    :required="this.@required"
+    :on:change="this.value = node.value">
+  </input>
+</field-wrapper>

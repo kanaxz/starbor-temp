@@ -1,0 +1,9 @@
+<field-wrapper :field="this">
+  <input 
+    :name="this.@name"
+    type="text"
+    :value="this.@value || ''"
+    :required="this.@required"
+    :on:change="this.value = value">
+  </input>
+</field-wrapper>

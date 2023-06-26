@@ -25,8 +25,10 @@ html {
   outline: none;
 }
 
-input {
+input, textarea {
   outline: none;
+  font-size: 24px;
+  padding: 3px 5px;
 }
 
 a {

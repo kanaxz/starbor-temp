@@ -1,0 +1,9 @@
+<self>
+  <label>{{this.@field.@label}}</label>
+  <div class="transclude" as="transclude"></div>
+  <div class="errors" :v-for="error of this.@field.@errors">
+    <div class="error">
+      {{error.message}} {{index}}
+    </div>
+  </div>
+</self>

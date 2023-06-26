@@ -1,6 +1,6 @@
 const Virtual = require('./Virtual')
 
-class Type extends Virtual {
+module.exports = class Type extends Virtual {
   static build(value) {
     return value
   }
@@ -9,6 +9,7 @@ class Type extends Virtual {
     return value
   }
 }
+  .define({
+    name: 'type',
+  })
 
-
-module.exports = Type

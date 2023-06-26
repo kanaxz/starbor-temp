@@ -1,5 +1,4 @@
-const Type = require('core/modeling/types/Type')
-const Object = require('core/modeling/Object')
+const { Object, Type } = require('core/modeling/types')
 
 const authorizedTypes = [Object]
 

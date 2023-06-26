@@ -3,7 +3,7 @@
     <h3>Summary</h3>
   </header>
   
-  <div class="sections" :v:for="section of this.@sections">
+  <div class="sections" :v-for="section of this.@sections">
     <div :class="`section ${this.@current == section.element ? 'current' :''}`" 
       :on:click="this.focus(section.element)">
       <label>{{section.title.innerText}}</label>

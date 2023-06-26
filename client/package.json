@@ -33,6 +33,7 @@
     "axios": "^1.4.0",
     "client-shared": "file:../client-shared",
     "core-client": "file:../modules/core-client",
-    "hedera": "file:../modules/hedera"
+    "hedera": "file:../modules/hedera",
+    "showdown": "^2.1.0"
   }
 }

@@ -164,7 +164,7 @@ module.exports = class MongoCollection {
 
 
   async update(req, query, patches) {
-    const [model] = await this.find(query, { limit: 1 })
+    const [model] = await this.find(req, query, { limit: 1 })
     if (!model) {
       throw new Error()
     }

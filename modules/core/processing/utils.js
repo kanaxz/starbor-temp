@@ -37,6 +37,7 @@ const processObjectFilter = (scope, object) => {
 }
 
 const processObject = (scope, object, context) => {
+  console.log('processing object', object, context)
   if (typeof object === 'object' && !Array.isArray(object)) {
     const keys = Object.keys(object)
     if (keys.length === 1 && keys[0].startsWith('$')) {
@@ -79,6 +80,10 @@ const parse = (scope, object, context) => {
   const type = context.definition.type.getType(context.source.type)
   const handlers = scope.getHandlers(type)
   const handler = handlers.find((h) => h.parse)
+  if (!handler) {
+    console.error("error here", object, context)
+    throw new Error(`Could not find handler for parse on type ${type.definition.name}`)
+  }
   return handler.parse(scope, object, context)
 }
 
@@ -95,7 +100,7 @@ const getArgs = (scope, source, method, argsObjects) => {
   for (let i = 0; i < argsObjects.length; i++) {
     const definition = method.args[i]
     if (!definition) {
-       console.log(`Cannot parse arg from method ${method.name} at index ${i}`)
+      console.log(`Cannot parse arg from method ${method.name} at index ${i}`)
     }
     let object = argsObjects[i]
     if (definition.spread) {
@@ -134,6 +139,12 @@ const processFunctionCall = (scope, functionCall) => {
     source = processObject(scope, sourceObject)
   }
 
+  console.log({
+    methodName,
+    argsObjects,
+    source
+  })
+
   const method = source.type.methods.find((m) => m.name === methodName)
   if (!method) {
     console.error(source.type)
@@ -141,6 +152,7 @@ const processFunctionCall = (scope, functionCall) => {
   }
 
   const args = getArgs(scope, source, method, argsObjects)
+  console.log({ args })
   if ((method.args.length < argsObjects.length - 1)) {
     throw new Error('Too many args')
   }

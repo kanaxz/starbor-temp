@@ -1,14 +1,20 @@
 module.exports = {
   // This always on top
-  This:require('./This'),
-  Global:require('./Global'),
-  Template:require('./Template'),
-  Bool:require('./Bool'),
-  String: require('./String'),
+  Any: require('./Any'),
+  Virtual:require('./Virtual'),
+  This: require('./This'),
+  Type: require('./Type'),
+  Global: require('./Global'),
+  Real: require('./Real'),
   Primitive: require('./Primitive'),
-  Array: require('./Array'),
+  Bool: require('./Bool'),
   Number: require('./Number'),
+  String: require('./String'),
+  Object: require('./Object'),
+  Model: require('./Model'),
+  Template: require('./Template'),
+  Array: require('./Array'),
+
   
-  //Type: require('./Type'),
 }
 

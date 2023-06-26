@@ -114,8 +114,8 @@ const processQuery = async (parentScope, type, query, options) => {
   return {
     pipeline,
     lookups: [
+      ...lookups,
       ...loadLookups,
-      ...lookupsPipeline
     ]
   }
 }

@@ -1,4 +1,4 @@
-const Model = require('core/modeling/Model')
+const { Model } = require('core/modeling/types')
 const mixer = require('core/mixer')
 const StarMap = require('../objects/Starmap')
 

@@ -1,0 +1,9 @@
+<self>
+  <form :on:submit="this.onSubmit(event)">
+    <object-fieldset as="fieldset" :value="this.@model" :type="this.@model.constructor"></object-fieldset>
+    <div class="bottom">
+      <button type="submit">Save</button>
+    </div>
+
+  </form>
+</self>

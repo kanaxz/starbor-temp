@@ -1,0 +1,6 @@
+<self>
+  <label>{{this.type.definition.name}}</label>
+  <fieldset :v-for="field of this.@fields">
+    <replace-with :element="field"></replace-with>
+  </fieldset>
+</self>

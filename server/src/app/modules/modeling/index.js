@@ -55,6 +55,18 @@ module.exports = {
           }
         })
 
+        router.post(`/${collectionName}/update`, async (req, res) => {
+          const [query, patches] = req.body
+          try {
+            const model = await collection.update(req, query, patches)
+            const response = model.toJSON()
+            res.send(response)
+          } catch (err) {
+            console.error(err)
+            res.status(500).send({})
+          }
+        })
+
         router.post(`/${collectionName}/create`, async (req, res) => {
           const [json] = req.body
           try {

@@ -1,6 +1,6 @@
 const Primitive = require('./Primitive')
 const utils = require('../utils')
-const Real = require('../Real')
+const Real = require('./Real')
 
 class Bool extends Primitive {
   static validate(value) {

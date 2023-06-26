@@ -6,6 +6,23 @@ const childs = GameEntity
   .filter((c) => !c.definition.abstract)
 
 const childsNames = childs.map((m) => m.definition.name)
+
+const editRegex = new RegExp(`/(${childsNames.join('|')})/(.*)/edit`)
+
+navigator.route(editRegex, async (req, res) => {
+  const entityName = req.match[1]
+  const code = req.match[2]
+  const entityType = childs.find((c) => c.definition.name === entityName)
+  const entity = new entityType({
+    code,
+  })
+
+  console.log("PAGE", entity)
+
+  await entity.load()
+  await res.page(import('./Edit'), { entity })
+})
+
 const showRegex = new RegExp(`/(${childsNames.join('|')})/(.*)`)
 
 navigator.route(showRegex, async (req, res) => {

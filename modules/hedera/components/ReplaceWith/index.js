@@ -12,7 +12,7 @@ module.exports = class ReplaceWith extends Component {
         this.removeAttribute(attr.name)
         element.setAttribute(attr.name, attr.nodeValue)
       })
-    this.replaceWith(element);
+    this.replaceWith(element)
     element.setAttribute('selectable', '')
     await renderer.render(element, scope)
     return false

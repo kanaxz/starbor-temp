@@ -7,8 +7,11 @@ require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {
   async initialized() {
+    await super.initialized()
     await this.entity.children.load()
-    return super.initialized()
+    this.canDelete = await this.entity.canDelete()
+    this.canUpdate = await this.entity.canUpdate()
+    console.log('here', this.canDelete, this.canUpdate)
   }
 
   templateChild(child) {
@@ -26,4 +29,6 @@ module.exports = class PlanetShowPage extends Page {
   })
   .properties({
     entity: 'any',
+    canUpdate: 'any',
+    canDelete: 'any',
   })

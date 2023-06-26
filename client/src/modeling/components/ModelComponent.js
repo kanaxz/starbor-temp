@@ -7,7 +7,21 @@ module.exports = class ModelComponent extends mixer.extends(Component, [Register
   constructor(model) {
     super()
     this.model = model
+    this.on('propertyChanged:model', this.b(this.update))
   }
+
+  async initialize() {
+    await this.update()
+    await super.initialize()
+  }
+
+  async update() {
+    console.log('modelCOmponent', this.model)
+    if (!this.model) { return }
+    await this.model.load()
+  }
+
+
 }
   .define()
   .properties({

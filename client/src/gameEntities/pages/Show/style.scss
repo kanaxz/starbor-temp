@@ -8,17 +8,43 @@ game-entity-show-page {
   align-items: flex-start;
 
   > header {
-    padding: 5px;
-    padding-left: 242px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 242px;
+    padding-right: 340px;
     width: 100%;
     background-color: #f9fafb;
-    display: block;
     border-bottom: 1px solid #e1e1e1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    model-branch {
-      margin-top: 5px;
+
+    .infos {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      model-branch {
+        margin-top: 5px;
+      }
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      > * {
+        border: 1px solid #e1e1e1;
+        padding: 5px 10px;
+        background-color: #fff;
+        cursor: pointer;
+        margin-left: 15px;
+        font-weight: 500;
+        font-size: 26px;
+        text-transform: uppercase;
+        &:hover {
+          border-color: aquamarine;
+          background-color: rgba(aquamarine, 0.3);
+        }
+      }
     }
   }
 

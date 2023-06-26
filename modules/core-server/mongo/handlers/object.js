@@ -1,4 +1,4 @@
-const Object = require('core/modeling/Object')
+const { Object } = require('core/modeling/types')
 
 module.exports = {
   for: Object,

@@ -7,16 +7,12 @@ module.exports = {
   dependancies: ['users', 'express', 'mongo', 'modeling'],
   async construct({ express, mongo, modeling }) {
     try {
-      return
       console.log('----------TESTING------------')
       const req = {}
       const result = await modeling.collections.entities.find(req, [{
-        $not: [{ $is: ['$this', 'star'] }]
+        $is: ['$this', 'star']
       }], {
         limit: 2,
-        load: {
-          children: true,
-        }
       })
       /*
       const json = result.map((r) => r.toJSON({ children: false }))

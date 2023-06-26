@@ -1,4 +1,4 @@
-const Model = require('core/modeling/Model')
+const { Model } = require('core/modeling/types')
 const Roles = require('../objects/Roles')
 
 const ownershipRule = (user, currentUser) => {

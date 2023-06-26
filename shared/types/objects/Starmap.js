@@ -1,4 +1,4 @@
-const Object = require('core/modeling/Object')
+const { Object } = require('core/modeling/types')
 const Position2D = require('./Position3D')
 
 module.exports = class Starmap extends Object {

@@ -1,4 +1,4 @@
-<self :class="`${this.@open ? 'open' : ''}`" :v:exit="this.stop()">
+<self :class="`${this.@open ? 'open' : ''}`" :v-exit="this.stop()">
 
   <div class="search-bar">
     <div class="search-icon">
@@ -9,7 +9,7 @@
       as="input"
       placeholder="Search ..."
       :on:input="this.length = this.input.value.length" 
-      :v:input-delay="this.search()" 
+      :v-input-delay="this.search()" 
       :on:focus="this.start()">
     <div class="x" :class="`${this.@length ? '' : 'empty'}`" :on:click="this.empty()">
       <i class="fa-solid fa-xmark"></i>
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="searchables">
-    <div class="list" :v:for="searchable of this.searchables">
+    <div class="list" :v-for="searchable of this.searchables">
       <div class="searchable" :class="`${searchable.@error ? 'error' : ''} ${searchable.@results?.length ? '' : 'hide'}`"">
         <header>
           <label>{{searchable.type.definition.pluralName}}</label>
@@ -35,11 +35,11 @@
           </div>
         </header>
         <app-loader :size="'50px'" :loading="searchable.@loading">
-          <div class="results" :v:for="result of searchable.@results">
-            <a :on:click="this.stop()" :v:link="result.@url">
+          <div class="results" :v-for="result of searchable.@results">
+            <a :on:click="this.stop()" :v-link="result.@url">
               <replace-with 
                 :element="this.templateRow(result)" 
-                :v:selectable="node.click() within this">
+                :v-selectable="node.click() within this">
               </replace-with>
             </a>
           </div>

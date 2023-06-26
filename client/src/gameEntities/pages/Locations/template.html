@@ -3,8 +3,8 @@
     <app-type-selector as="typeSelector" :type="Entity" :current="this.@type" :on:change="this.type = this.typeSelector.current"></app-type-selector>
     <app-type-filter as="typeFilter" :type="this.type" :on:change="this.filterChanged()"></app-type-filter>
   </div>
-  <div class="entities" :v:for="entity of this.@entities">
-    <a class="entity" :v:link="`/entity/${entity._id}`" :v:child="this.templateCard(entity)">
+  <div class="entities" :v-for="entity of this.@entities">
+    <a class="entity" :v-link="`/entity/${entity._id}`" :v-child="this.templateCard(entity)">
     </a>
   </div>
 </self>

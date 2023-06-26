@@ -1,3 +1,4 @@
+const { Number } = require('core/modeling/types')
 const Position2D = require('./Position2D')
 
 module.exports = class Position3D extends Position2D {
@@ -7,5 +8,5 @@ module.exports = class Position3D extends Position2D {
     name: 'position3D',
   })
   .properties({
-    z: 'number',
+    z: Number,
   })

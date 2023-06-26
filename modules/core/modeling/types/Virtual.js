@@ -1,4 +1,4 @@
-const Any = require('../Any')
+const Any = require('./Any')
 
 module.exports = class Virtual extends Any {
 

@@ -35,8 +35,13 @@ module.exports = class For extends Virtual {
     const scope = this.scope.parent.child()
     scope.variables[this.name] = object
     scope.variables.index = index
+    let element
+    if (typeof this.template === 'function') {
+      element = this.template(object)
+    } else {
+      element = getElementFromTemplate(this.template)
+    }
 
-    const element = getElementFromTemplate(this.template)
     const it = new It({ index, object, element, scope })
 
 
