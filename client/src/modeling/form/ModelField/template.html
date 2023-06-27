@@ -1,0 +1,34 @@
+<self>
+  <field-wrapper :field="this">
+    <div class="actions">
+      <button type="button" :on-click="this.create()">Create</button>
+      <button 
+        type="button"
+        :style.display="`${ this.@value ? 'inline-block' : 'none' }`"
+        :on-click="this.edit()">
+          Edit
+      </button>
+      <button  
+        type="button"
+        :on-click="this.search()">
+          Search
+      </button>
+    </div>
+    <div class="value" :v-child="this.templateValue(this.@value)"></div>
+    <model-search :type="this.type" :style.display="this.@mode === 'search' ? 'block' : 'none'">
+      <!--
+      <div :on-click="this.select(model)">
+        <div :v:child="this.template(model)">
+
+        </div>
+      </div>
+      -->
+    </model-search>
+    
+  </field-wrapper>
+  <side-panel as="panel">
+   <model-form as="form" :on-saved="this.onSaved(event)">
+
+   </object-fieldset>
+  </side-panel>
+</self>

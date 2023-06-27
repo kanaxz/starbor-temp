@@ -34,14 +34,14 @@ module.exports = mixer.mixin([Bindeable, Propertiable, Listening, Holder], (base
         source: this,
         variables: this.constructor._variables
       })
+      if (!this.canInitialize()) {
+        return
+      }
       await this.initialize()
     }
 
     async initialize() {
-      if (!this.canInitialize()) {
-        console.error(this, this.isInitialized, this.isInitializing)
-        throw new Error()
-      }
+
 
       this.isInitializing = true
       await this.initialized()

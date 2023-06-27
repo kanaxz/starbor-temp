@@ -1,7 +1,7 @@
 module.exports = {
   // This always on top
   Any: require('./Any'),
-  Virtual:require('./Virtual'),
+  Virtual: require('./Virtual'),
   This: require('./This'),
   Type: require('./Type'),
   Global: require('./Global'),
@@ -14,7 +14,7 @@ module.exports = {
   Model: require('./Model'),
   Template: require('./Template'),
   Array: require('./Array'),
-
-  
+  Branch: require('./Branch'),
+  HasMany: require('./HasMany'),
 }
 

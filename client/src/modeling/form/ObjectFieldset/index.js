@@ -3,6 +3,7 @@ const template = require('./template.html')
 const componentsService = require('@app/main/componentsService')
 const { String, Bool, Model, Object, Number } = require('core/modeling/types')
 const { TextField, BoolField, DateField, NumberField, MarkdownField } = require('@app/fields')
+const ModelField = require('../ModelField')
 const Field = require('@app/fields/Field')
 const Markdown = require('shared/types/Markdown')
 require('./style.scss')
@@ -12,6 +13,7 @@ const typesFieldmapping = [
   [String, TextField],
   [Bool, BoolField],
   [Number, NumberField],
+  [Model, ModelField],
 ]
 
 const ignore = ['_id']
@@ -20,7 +22,8 @@ const ignore = ['_id']
 class ObjectFieldset extends Field {
   constructor(values) {
     super(values)
-    this.on('propertyChanged:value', this.b(this.update))
+    this.on('propertyChanged:value', this.b(this.updateTimeout))
+    this.on('propertyChanged:type', this.b(this.updateTimeout))
   }
 
   initialize() {
@@ -28,11 +31,23 @@ class ObjectFieldset extends Field {
     return super.initialize()
   }
 
+  async updateTimeout() {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
+    this.timeout = setTimeout(() => {
+      this.update()
+    }, 1)
+  }
+
   async update() {
-    console.log('update fielset')
+    if (!this.type) {
+      this.fields = []
+      return
+    }
+
     this.fields = this.type.properties
       .map((property) => {
-        if (property.type.prototype instanceof Model) { return null }
         const shouldIgnore = ignore.indexOf(property.name) !== -1
         if (shouldIgnore) { return null }
         if (property.context === false) { return null }
@@ -41,11 +56,7 @@ class ObjectFieldset extends Field {
 
         const fieldType = mapping[1]
         const value = this.value && this.value[property.name]
-        console.log({
-          name: property.name,
-          fieldType: fieldType.name,
-          value,
-        })
+
         return new fieldType({
           type: property.type,
           value,
@@ -55,6 +66,8 @@ class ObjectFieldset extends Field {
         })
       })
       .filter((o) => o)
+
+    console.log('fields', this.fields)
   }
 
   getValue() {

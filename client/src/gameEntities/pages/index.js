@@ -13,7 +13,7 @@ navigator.route(editRegex, async (req, res) => {
   const entityName = req.match[1]
   const code = req.match[2]
   const entityType = childs.find((c) => c.definition.name === entityName)
-  const entity = new entityType({
+  const entity = entityType.parse({
     code,
   })
 
@@ -29,7 +29,7 @@ navigator.route(showRegex, async (req, res) => {
   const entityName = req.match[1]
   const code = req.match[2]
   const entityType = childs.find((c) => c.definition.name === entityName)
-  const entity = new entityType({
+  const entity = entityType.parse({
     code,
   })
 

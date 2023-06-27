@@ -10,7 +10,7 @@ module.exports = async (bootup, services) => {
     const affiliation = json.affiliation[0]
     let organization
     if (affiliation) {
-      organization = new Organization({
+      organization = Organization.parse({
         code: codify(affiliation.code),
       })
       await organization.load()

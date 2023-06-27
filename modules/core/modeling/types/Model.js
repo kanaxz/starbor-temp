@@ -8,7 +8,7 @@ const Controlleable = require('../controlling/Controlleable')
 
 const additionalMixins = (globalThis || global).core?.modeling?.model?.mixins || []
 
-module.exports = class Model extends mixer.extends(Object, [...additionalMixins, Controlleable, Loadable, Indexable]) {
+module.exports = class Model extends mixer.extends(Object, [Controlleable, Loadable, Indexable, ...additionalMixins]) {
   async innerLoad(paths) {
     const index = this.getFirstUniqueIndex()
     if (!index) {

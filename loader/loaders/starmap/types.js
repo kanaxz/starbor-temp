@@ -19,7 +19,7 @@ module.exports = ({ collections }) => {
     system: {
       check: ({ type }) => false,
       async process(entity, json) {
-        const system = new System(entity)
+        const system = System.parse(entity)
         system.starmap.position = getSystemPosition(json)
         await save(system)
         return system
@@ -35,7 +35,7 @@ module.exports = ({ collections }) => {
           code: codify(name),
         })
 
-        const star = new Star(entity)
+        const star = Star.parse(entity)
         await save(star)
         return star
       }
@@ -43,7 +43,7 @@ module.exports = ({ collections }) => {
     planet: {
       check: ({ type }) => type === 'PLANET',
       async process(entity) {
-        const planet = new Planet(entity)
+        const planet = Planet.parse(entity)
         await save(planet)
         return planet
       }
@@ -51,7 +51,7 @@ module.exports = ({ collections }) => {
     moon: {
       check: ({ subtype }) => subtype?.name === 'Planetary Moon',
       async process(entity) {
-        const moon = new Moon(entity)
+        const moon = Moon.parse(entity)
         await save(moon)
         return moon
       }
@@ -60,7 +60,7 @@ module.exports = ({ collections }) => {
     landingZone: {
       check: ({ type }) => type === 'LZ',
       async process(entity) {
-        const lz = new LandingZone(entity)
+        const lz = LandingZone.parse(entity)
         await save(lz)
         return lz
       }
@@ -68,7 +68,7 @@ module.exports = ({ collections }) => {
     poi: {
       check: ({ type }) => type === 'POI',
       async process(location) {
-        const entity = new GroundLocation(entity)
+        const entity = GroundLocation.parse(entity)
         await save(entity)
         return entity
       }

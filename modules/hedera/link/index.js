@@ -6,8 +6,11 @@ module.exports = class Link extends Virtual {
     this.el.setAttribute(':v.link.href', value)
 
     this.el.addEventListener('click', (event) => {
+
       event.preventDefault()
-      this.navigator.navigate(this.href)
+      if (this.href) {
+        this.navigator.navigate(this.href)
+      }
     })
 
     this.on('propertyChanged:href', () => {
@@ -28,7 +31,7 @@ module.exports = class Link extends Virtual {
   }
 
   updateHref() {
-    this.el.href = this.href
+    this.el.href = this.href || ''
   }
 
   updateActive() {

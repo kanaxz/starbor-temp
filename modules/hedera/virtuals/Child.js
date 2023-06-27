@@ -11,6 +11,7 @@ module.exports = class Child extends Virtual {
   async update() {
     renderer.destroyContent(this.el)
     this.el.innerHTML = ''
+    if (!this.node) { return }
     this.el.appendChild(this.node)
     await renderer.renderContent(this.el, this.scope.parent)
   }

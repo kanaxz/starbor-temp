@@ -11,7 +11,7 @@ module.exports = async (services) => {
   const loadAffiliations = async () => {
     for (const starmapObject of bootup.affiliations.resultset) {
       const code = codify(starmapObject.code)
-      const organization = new Organization({
+      const organization = Organization.parse({
         code,
         name: starmapObject.name,
         color: starmapObject.color,
@@ -28,7 +28,7 @@ module.exports = async (services) => {
   const loadSpecies = async () => {
     for (const starmapSpecies of bootup.species.resultset) {
       const code = codify(starmapSpecies.name)
-      const organization = new Organization({
+      const organization = Organization.parse({
         code,
         type: 'species',
         name: starmapSpecies.name,

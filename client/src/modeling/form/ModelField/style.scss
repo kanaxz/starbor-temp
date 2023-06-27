@@ -1,0 +1,13 @@
+model-field {
+  display: block;
+  width: 100%;
+  flex: 100% !important;
+  field-wrapper {
+    .actions {
+    }
+
+    model-search {
+      margin-top: 20px;
+    }
+  }
+}

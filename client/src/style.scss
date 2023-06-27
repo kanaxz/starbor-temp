@@ -25,7 +25,8 @@ html {
   outline: none;
 }
 
-input, textarea {
+input,
+textarea {
   outline: none;
   font-size: 24px;
   padding: 3px 5px;
@@ -75,4 +76,16 @@ h1 {
 
 h2 {
   font-size: 37px;
+}
+
+button {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  text-transform: uppercase;
+  padding: 5px 7px;
+  cursor: pointer;
+  &:hover {
+    border-color: aquamarine;
+  }
 }

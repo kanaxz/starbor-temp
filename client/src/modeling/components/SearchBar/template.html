@@ -8,10 +8,10 @@
     <input 
       as="input"
       placeholder="Search ..."
-      :on:input="this.length = this.input.value.length" 
+      :on-input="this.length = this.input.value.length" 
       :v-input-delay="this.search()" 
-      :on:focus="this.start()">
-    <div class="x" :class="`${this.@length ? '' : 'empty'}`" :on:click="this.empty()">
+      :on-focus="this.start()">
+    <div class="x" :class="`${this.@length ? '' : 'empty'}`" :on-click="this.empty()">
       <i class="fa-solid fa-xmark"></i>
     </div>
 
@@ -36,7 +36,7 @@
         </header>
         <app-loader :size="'50px'" :loading="searchable.@loading">
           <div class="results" :v-for="result of searchable.@results">
-            <a :on:click="this.stop()" :v-link="result.@url">
+            <a :on-click="this.stop()" :v-link="result.@url">
               <replace-with 
                 :element="this.templateRow(result)" 
                 :v-selectable="node.click() within this">

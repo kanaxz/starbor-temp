@@ -30,16 +30,9 @@ module.exports = class ModelForm extends Component {
       }, {
         $set: value
       })
-      await navigator.navigate(this.model.url)
-      notifications.notify({
-        type: 'success',
-        message: 'Model saved !',
-      })
-    } catch (err) {
-      notifications.notify({
-        type: 'error',
-        message: err.message,
-      })
+      this.event('on-saved', { model: this.model })
+    } catch (error) {
+      this.event('on-error', { error })
       throw err
     }
   }
@@ -50,6 +43,7 @@ module.exports = class ModelForm extends Component {
   })
   .properties({
     model: 'any',
+    type: 'any',
   })
 
 

@@ -1,7 +1,7 @@
 const { workers } = require('../renderer')
 const { createFunction, dashToCamel } = require('../utils')
 
-const prefix = ':on:'
+const prefix = ':on-'
 
 const suffixes = {
   prevent: {

@@ -5,7 +5,9 @@ const Pageable = require('../../../mixins/Pageable')
 const Markdown = require('../../Markdown')
 
 module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
-
+  toString() {
+    return this.name || this.code || this._id
+  }
 }
   .define({
     name: 'gameEntity',
@@ -19,7 +21,6 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
     }
   })
   .properties({
-    name: 'string',
     code: 'string',
     description: Markdown,
 

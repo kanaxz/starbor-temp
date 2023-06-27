@@ -69,11 +69,11 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
   }
 
   event(name, arg) {
-    var event = new CustomEvent(name, {
+    const event = new CustomEvent(name, {
       bubbles: false,
-      'detail': arg
-    });
-    return this.dispatchEvent(event);
+    })
+    Object.assign(event, arg)
+    return this.dispatchEvent(event)
   }
 
   destroy() {

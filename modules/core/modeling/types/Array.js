@@ -44,8 +44,6 @@ class Array extends mixer.extends(BaseArray, [Any]) {
 
   destroy() {
     this.splice(0, this.length)
-    
-    //this.length = 0
     super.destroy()
   }
 }

@@ -26,9 +26,12 @@ module.exports = class For extends Virtual {
 
   async initialize() {
     await super.initialize()
+    //await this.onSourceChanged()
+
     setTimeout(() => {
       this.onSourceChanged()
     })
+    /**/
   }
 
   iteration(object, index) {
@@ -50,7 +53,6 @@ module.exports = class For extends Virtual {
   }
 
   async onSourceChanged() {
-
     if (this.handler) {
       this.handler.destroy()
       this.handler = null

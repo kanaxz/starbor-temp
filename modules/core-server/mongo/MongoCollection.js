@@ -143,8 +143,9 @@ module.exports = class MongoCollection {
   }
 
   async innerUpdate(req, model, patches) {
-    const editModel = new model.constructor(model.toJSON())
-    applyPatches(editModel, patches)
+    const editJson = model.toJSON()
+    applyPatches(editJson, patches)
+    const editModel = this.type.parse(editJson)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.update) {
@@ -159,7 +160,7 @@ module.exports = class MongoCollection {
       })
     })
 
-    return model
+    return editModel
   }
 
 

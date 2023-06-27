@@ -27,16 +27,24 @@ let id = 0
 
 const SingleInstance = mixer.mixin([Destroyable, Comparable], (base) => {
   return class SingleInstance extends base {
-    constructor(values) {
-      const instance = instances.find((instance) => instance.compare(values))
+
+    static parse(object, ...args) {
+      if (!object) {
+        return object
+      }
+
+      const instance = instances.find((instance) => instance.compare(object))
       if (instance) {
-        Object.assign(instance, values)
+        Object.assign(instance, object)
         return instance
-      } 
-      super(values)
-      this[symbol] = id++
-      instances.push(this)
+      }
+
+      const newInstance = super.parse(object, ...args)
+      if (!newInstance) { return }
+      newInstance[symbol] = id++
+      instances.push(newInstance)
       checkDuplicates()
+      return newInstance
     }
 
     destroy() {

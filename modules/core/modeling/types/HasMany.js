@@ -11,6 +11,7 @@ module.exports = class HasMany extends mixer.extends(ArrayAssociation) {
     }], {
       load: paths,
     })
+
     this.push(...models)
   }
 }

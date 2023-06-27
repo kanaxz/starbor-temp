@@ -1,8 +1,7 @@
 const mixer = require('core/mixer')
-const Branch = require('core/modeling/types/Branch')
 const GameModel = require('../GameModel')
 const Organization = require('../Organization')
-const HasMany = require('core/modeling/types/HasMany')
+const { String, Branch, HasMany } = require('core/modeling/types')
 
 class Entity extends mixer.extends(GameModel) {
 
@@ -19,10 +18,12 @@ Entity
   .properties({
     organization: Organization,
     parent: Entity,
+    name: String,
     parents: {
       type: Branch.of(Entity),
       on: 'parent',
     },
+    /**/
 
     children: {
       type: HasMany.of(Entity),

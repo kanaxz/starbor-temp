@@ -1,5 +1,9 @@
 const Component = require('../../Component')
 const renderer = require('../../renderer')
+
+/**
+ * This component cannot be used as a root of a v-for
+ */
 module.exports = class ReplaceWith extends Component {
   async process(scope) {
     const div = document.createElement('div')

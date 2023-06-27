@@ -92,12 +92,12 @@ const destroyContent = (node) => {
 
 const destroy = (node) => {
   if (node.destroy) {
-    node.destroy()
+    node.destroy(true)
   } else {
     workers.forEach((w) => w.destroy && w.destroy(node))
     if (node.v) {
       for (const virtual of Object.values(node.v)) {
-        virtual.destroy()
+        virtual.destroy(true)
       }
     }
     destroyContent(node)

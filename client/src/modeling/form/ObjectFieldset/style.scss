@@ -19,7 +19,7 @@ object-fieldset {
     flex-wrap: wrap;
     gap: 12px;
     > * {
-      flex: 1;
+      flex: 1 1 450px;
     }
   }
 }

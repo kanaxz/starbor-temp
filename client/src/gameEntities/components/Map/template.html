@@ -1,9 +1,9 @@
 <self>
   <div class="outer" 
-    :on:mousedown="this.onMouseDown()" 
-    :on:mouseup="this.onMouseUp()"
-    :on:mousemove="this.onMove(event)"
-    :on:wheel="this.onWheel(event)">
+    :on-mousedown="this.onMouseDown()" 
+    :on-mouseup="this.onMouseUp()"
+    :on-mousemove="this.onMove(event)"
+    :on-wheel="this.onWheel(event)">
     <div class="inner"
       :style.left="`${this.camera.@x}px`"
       :style.top="`${this.camera.@y}px`"
@@ -26,7 +26,7 @@
         </div>
         <div class="objects" :v-for="mapObject of this.@mapObjects">
           <a class="object" 
-            :on:click="this.object = mapObject.object"
+            :on-click="this.object = mapObject.object"
             :style.left="`${mapObject.@x}px`"
             :style.top="`${mapObject.@y}px`"
             :style.background-color="mapObject.color"

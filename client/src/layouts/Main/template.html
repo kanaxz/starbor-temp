@@ -1,6 +1,6 @@
 <self :class="`${ this.@open && 'open' || '' }`">
   <div class="top-bar">
-    <div class="burger" :on:click="this.open = !this.open">
+    <div class="burger" :on-click="this.open = !this.open">
       <i class="fa-solid fa-bars"></i>
     </div>
     <h3>Star citizen universe</h3>
@@ -22,5 +22,6 @@
       </div>
     </div>
     <div class="container" as="container"></div>
+    <side-panels></side-panels>
   </div>
 </self>

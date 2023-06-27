@@ -16,7 +16,6 @@ module.exports = class ModelComponent extends mixer.extends(Component, [Register
   }
 
   async update() {
-    console.log('modelCOmponent', this.model)
     if (!this.model) { return }
     await this.model.load()
   }

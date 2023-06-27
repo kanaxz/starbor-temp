@@ -3,6 +3,7 @@ const Main = require('@app/layouts/Main')
 const template = require('./template.html')
 const defaultImage = require('../../assets/defaultImage.jpg')
 const componentsService = require('@app/main/componentsService')
+const navigator = require('@app/navigator')
 require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {
@@ -13,6 +14,10 @@ module.exports = class PlanetShowPage extends Page {
       throw new Error('Cannot edit')
     }
     this.canDelete = await this.entity.canDelete()
+  }
+
+  async onSaved({ model }) {
+    await navigator.navigate(model.url)
   }
 
 }

@@ -2,10 +2,11 @@ const Loadable = require('../mixins/Loadable')
 const mixer = require('../../mixer')
 const Array = require('./Array')
 const Bindeable = require('../../mixins/Bindeable')
+const Abstractable = require('../../mixins/Abstractable')
 
 const additionalMixins = (globalThis || global).core?.modeling?.arrayAssociation?.mixins || []
 
-module.exports = class ArrayAssociation extends mixer.extends(Array, [...additionalMixins, Loadable, Bindeable]) {
+module.exports = class ArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...additionalMixins]) {
   constructor(owner, property) {
     /*
   * when using native array functions like map, filter etc, it will return an instance of the current array class, which branch in this case
@@ -19,9 +20,17 @@ module.exports = class ArrayAssociation extends mixer.extends(Array, [...additio
     this.property = property
   }
 
+  toString() {
+    return `${this.constructor.definition.name} of ${this.owner.toString()}`
+  }
+
   static parse(array, owner, property) {
 
     let instance = owner[property.name]
+    if (instance && array === instance) {
+      return undefined
+    }
+    console.log('parsing arrayAssociation', array, owner.toString(), instance)
     if (array === null) {
       return null
     }
@@ -31,26 +40,12 @@ module.exports = class ArrayAssociation extends mixer.extends(Array, [...additio
     }
 
     if (array) {
-      instance.length = 0
+      instance.splice(0, instance.length)
       instance.push(...array)
     }
 
     return instance
   }
-
-  async innerLoad(paths = {}) {
-    await this.owner.load()
-    const path = `$${this.property.on}._id`
-    const models = await this.constructor.definition.template.collection.find([{
-      $eq: [path, this.owner._id]
-    }], {
-      load: paths,
-    })
-    this.push(...models)
-  }
-
-
-
 
   toJSON(paths, context) {
     if (!paths) { return undefined }
@@ -59,4 +54,5 @@ module.exports = class ArrayAssociation extends mixer.extends(Array, [...additio
 }
   .define({
     name: 'hasMany',
+    abstract: true,
   })

@@ -9,9 +9,9 @@ module.exports = class PlanetShowPage extends Page {
   async initialized() {
     await super.initialized()
     await this.entity.children.load()
+    console.log('children loaded', this.entity.children, [...this.entity.children])
     this.canDelete = await this.entity.canDelete()
     this.canUpdate = await this.entity.canUpdate()
-    console.log('here', this.canDelete, this.canUpdate)
   }
 
   templateChild(child) {

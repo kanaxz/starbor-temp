@@ -1,7 +1,7 @@
 const Layout = require('hedera/page/Layout')
 const template = require('./template.html')
 require('./style.scss')
-require('../../modeling/components/Search')
+require('../../modeling/components/SearchBar')
 const auth = require('@app/auth')
 module.exports = class Main extends Layout {
   constructor() {

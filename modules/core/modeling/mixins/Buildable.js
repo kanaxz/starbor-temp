@@ -23,9 +23,6 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
         return object
       }
       const typeName = object[typeKey]
-      if (!typeName) {
-        throw new Error(`'typeName' is missing`)
-      }
       let type = this
       if (typeName && this.definition.name !== typeName) {
         type = this.findChild((c) => c.definition.name === typeName)

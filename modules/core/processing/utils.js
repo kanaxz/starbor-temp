@@ -37,7 +37,6 @@ const processObjectFilter = (scope, object) => {
 }
 
 const processObject = (scope, object, context) => {
-  console.log('processing object', object, context)
   if (typeof object === 'object' && !Array.isArray(object)) {
     const keys = Object.keys(object)
     if (keys.length === 1 && keys[0].startsWith('$')) {
