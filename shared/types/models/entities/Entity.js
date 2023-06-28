@@ -14,7 +14,6 @@ Entity
     abstract: true,
     root: true,
   })
-
   .properties({
     organization: Organization,
     parent: Entity,
@@ -24,12 +23,10 @@ Entity
       on: 'parent',
     },
     /**/
-
     children: {
       type: HasMany.of(Entity),
       on: 'parent',
     }
-
   })
 
 

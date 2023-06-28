@@ -50,6 +50,7 @@ module.exports = class MongoCollection {
   constructor(type, mongodb, controllers) {
     this.type = type
     this.mongodb = mongodb
+    this.type.collection = this
     this.mongoCollection = mongodb.collection(type.definition.pluralName)
     this.controllers = controllers
   }

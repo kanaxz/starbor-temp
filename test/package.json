@@ -11,6 +11,7 @@
     "chai": "^4.3.7",
     "core": "file:../core",
     "mocha": "^10.2.0",
+    "mongodb": "^5.6.0",
     "shared": "file:../shared"
   },
   "description": ""

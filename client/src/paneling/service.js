@@ -2,6 +2,7 @@ const Service = require('hedera/Service')
 const Array = require('core/types/Array')
 const { wait, immediate } = require('core/utils/promise')
 
+// Must match the duration in the scss
 const ANIMATION_DURATION = 201
 
 class PanelService extends Service {

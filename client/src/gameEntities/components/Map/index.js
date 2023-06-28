@@ -150,6 +150,7 @@ module.exports = class Map extends Component {
 
   onWheel(event) {
     if (!event.ctrlKey) { return }
+
     event.preventDefault()
     const zoom = this.camera.zoom - (event.deltaY / 1000)
     this.camera.zoom = boundInt(zoom, [MIN_ZOOM, MAX_ZOOM])
