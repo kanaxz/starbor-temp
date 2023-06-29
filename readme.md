@@ -3,6 +3,10 @@
 
 Everything you need for star citizen
 
+## Setup
+
+```node setup.js```
+
 
 
 # data extractor
