@@ -51,10 +51,12 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
     }
 
     setPropertyValue(property, value) {
+      if (value === this[property.name]) { return }
+
       const parsedValue = property.type.parse(value, this, property)
-      if (parsedValue !== undefined) {
-        super.setPropertyValue(property, parsedValue)
-      }
+      if (parsedValue === undefined) { return }
+
+      super.setPropertyValue(property, parsedValue)
     }
 
     toJSON(paths = {}, context = null) {

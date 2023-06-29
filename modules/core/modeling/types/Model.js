@@ -21,10 +21,14 @@ module.exports = class Model extends mixer.extends(Object, [Controlleable, Loada
       type: this.constructor.definition.name,
       limit: 1,
       load: paths,
+      raw: true,
     })
+
     if (!result) {
       throw new Error(`Could not load ${this.constructor.definition.name} with index ${JSON.stringify(index)} `)
     }
+    Object.assign(this, result)
+    
   }
 
   toJSON(paths = {}, context) {
