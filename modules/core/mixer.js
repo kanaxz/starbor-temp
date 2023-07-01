@@ -40,10 +40,12 @@ const buildBase = (base, dependenciesTree) => {
 }
 
 const getDependencies = (dependencies = []) => {
-  if (mixer.base) {
-    dependencies = [mixer.base, ...dependencies]
+  const baseType = mixer.Base
+  if (!baseType) {
+    return dependencies
   }
-  return dependencies
+
+  return [baseType, ...dependencies]
 }
 
 const mixer = {

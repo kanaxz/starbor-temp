@@ -1,7 +1,7 @@
 // order is important: core-client->modeling/setup->core
-require('core-client')
+require('core/setup')
+require('core-client/setup')
 require('./modeling/setup')
-require('core')
 const navigator = require('./navigator')
 const pageMiddleware = require('hedera/page/middleware')
 const notifications = require('./notifications')
@@ -18,13 +18,8 @@ require('./organization')
 require('./style.scss')
 require('./api')
 
-
-const config = require('./config')
-
-console.log({ config })
-
 const start = async () => {
-  console.log('Starting app')
+  console.info('Starting app')
   const app = {}
   const root = document.getElementById("root")
   await root.start(app, {

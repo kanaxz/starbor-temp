@@ -3,17 +3,15 @@ const template = require('./template.html')
 const componentsService = require('../../../main/componentsService')
 require('./style.scss')
 
-
-
 module.exports = class Branch extends Component {
   constructor() {
     super()
     this.on('propertyChanged:branch', this.b(this.update))
   }
 
-  initialize() {
-    this.update()
-    return super.initialize()
+  async initialize() {
+    await super.initialize()
+    await this.update()
   }
 
   template(model) {

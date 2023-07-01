@@ -47,8 +47,16 @@ const shouldDestroy = (instance) => {
   return circular
 }
 
+const log = () => {
+  const objectToLog = instances.reduce((acc, h) => {
+    acc[h.toString()] = h
+    return acc
+  }, {})
+  console.log(instances.length, objectToLog)
+}
+
 const loop = () => {
-  console.log('holdables', instances)
+  log()
   circulars = []
   instances
     .filter(shouldDestroy)

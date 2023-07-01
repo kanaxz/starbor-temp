@@ -2,8 +2,8 @@ const mixer = require('../../mixer')
 const ArrayAssociation = require('./ArrayAssociation')
 
 module.exports = class Branch extends mixer.extends(ArrayAssociation) {
-  async innerLoad(paths) {
-    await this.owner.load()
+  async innerLoad(context, paths) {
+    await this.owner.load(context)
     await this.update(paths)
   }
 
@@ -30,6 +30,7 @@ module.exports = class Branch extends mixer.extends(ArrayAssociation) {
         await current.load({
           [name]: paths,
         })
+
         this.push(current)
       }
     }

@@ -1,6 +1,7 @@
 const Primitive = require('./Primitive')
 const utils = require('../utils')
 const Real = require('./Real')
+const This = require('./This')
 
 class Bool extends Primitive {
   static validate(value) {
@@ -17,8 +18,8 @@ Real.methods({
 })
 
 Primitive.methods({
-  eq: [[THIS], Bool],
-  neq: [[THIS], Bool]
+  eq: [[This], Bool],
+  neq: [[This], Bool]
 })
 
 

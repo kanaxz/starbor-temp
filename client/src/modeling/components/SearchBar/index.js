@@ -13,7 +13,6 @@ class SearchableResults extends mixer.extends([Propertiable]) {
   constructor(type) {
     super()
     this.type = type
-    this.initialize()
   }
 
   async search(key) {

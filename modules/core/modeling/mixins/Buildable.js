@@ -12,7 +12,10 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
       // we don't want to throw an error
       Object.defineProperty(this, '@type', { get() { }, set() { } })
       this.constructor.properties.forEach((property) => {
-        const value = values[property.name]
+        let value = values[property.name]
+        if (value === undefined) {
+          value = null
+        }
         this[property.name] = value
       })
     }
@@ -51,8 +54,6 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
     }
 
     setPropertyValue(property, value) {
-      if (value === this[property.name]) { return }
-
       const parsedValue = property.type.parse(value, this, property)
       if (parsedValue === undefined) { return }
 

@@ -3,10 +3,11 @@ const mixer = require('../../mixer')
 const Array = require('./Array')
 const Bindeable = require('../../mixins/Bindeable')
 const Abstractable = require('../../mixins/Abstractable')
+const setup = require('../../setup')
+const config = setup.modeling.arrayAssociation
 
-const additionalMixins = (globalThis || global).core?.modeling?.arrayAssociation?.mixins || []
 
-module.exports = class ArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...additionalMixins]) {
+class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...config.after]) {
   constructor(owner, property) {
     /*
   * when using native array functions like map, filter etc, it will return an instance of the current array class, which branch in this case
@@ -21,19 +22,12 @@ module.exports = class ArrayAssociation extends mixer.extends(Array, [Abstractab
   }
 
   toString() {
-    return `${this.constructor.definition.name} of ${this.owner.toString()}`
+    return `${this.property.name} of ${this.owner.toString()}`
   }
 
   static parse(array, owner, property) {
 
     let instance = owner[property.name]
-    if (instance && array === instance) {
-      return undefined
-    }
-    console.log('parsing arrayAssociation', array, owner.toString(), instance)
-    if (array === null) {
-      return null
-    }
 
     if (!instance) {
       instance = new this(owner, property)
@@ -51,6 +45,13 @@ module.exports = class ArrayAssociation extends mixer.extends(Array, [Abstractab
     if (!paths) { return undefined }
     return super.toJSON(paths, context)
   }
+}
+
+
+
+
+module.exports = class ArrayAssociation extends mixer.extends(BaseArrayAssociation, config.after) {
+
 }
   .define({
     name: 'hasMany',

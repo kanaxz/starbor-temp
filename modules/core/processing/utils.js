@@ -138,12 +138,6 @@ const processFunctionCall = (scope, functionCall) => {
     source = processObject(scope, sourceObject)
   }
 
-  console.log({
-    methodName,
-    argsObjects,
-    source
-  })
-
   const method = source.type.methods.find((m) => m.name === methodName)
   if (!method) {
     console.error(source.type)
@@ -151,7 +145,6 @@ const processFunctionCall = (scope, functionCall) => {
   }
 
   const args = getArgs(scope, source, method, argsObjects)
-  console.log({ args })
   if ((method.args.length < argsObjects.length - 1)) {
     throw new Error('Too many args')
   }

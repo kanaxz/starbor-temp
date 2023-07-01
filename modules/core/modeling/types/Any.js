@@ -10,7 +10,6 @@ module.exports = mixer.mixin([Propertiable, Methodable, Buildable, Templateable]
   return class Any extends base {
     constructor(...args) {
       super(...args)
-      this.initialize()
     }
 
     static getType(type) {

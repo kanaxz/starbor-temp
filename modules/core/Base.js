@@ -1,5 +1,5 @@
 const mixer = require('./mixer')
-const base = mixer.mixin((base) => {
+module.exports = mixer.mixin((base) => {
   return class Base extends base {
     static define(definition = {}) {
       if (this.definition?.owner === this) {
@@ -51,5 +51,3 @@ const base = mixer.mixin((base) => {
 
   }
 })
-mixer.base = base
-module.exports = base

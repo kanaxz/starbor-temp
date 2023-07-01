@@ -18,7 +18,7 @@ module.exports = mixer.mixin([Comparable], (base) => {
       return this.constructor.indexes
         .filter((index) => index.unique)
         .find((index) => {
-          const matchingProperties = index.properties.filter((p) => this[p] === object[p] && this[p] !== undefined)
+          const matchingProperties = index.properties.filter((p) => this[p] === object[p] && this[p] != undefined)
           return matchingProperties.length === index.properties.length
         })
     }

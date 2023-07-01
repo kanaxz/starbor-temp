@@ -87,7 +87,7 @@ class Module {
       return acc
     }, {})
     this.object = await construct(params)
-    console.log(`Module ${this.name} processed`)
+    console.info(`Module ${this.name} processed`)
   }
 
   async processModules() {

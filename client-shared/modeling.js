@@ -1,5 +1,10 @@
 const { rootModelTypes } = require('shared')
 const axios = require('axios')
+const Context = require('core-client/modeling/Context')
+
+const getArgs = (args) => {
+  return args.filter((arg) => !(arg instanceof Context))
+}
 
 class Collection {
   constructor(values) {
@@ -43,7 +48,8 @@ class Collection {
     }
   }
 
-  async findOne(query, options) {
+  async findOne(...args) {
+    const [query, options] = getArgs(args)
     const [result] = await this.find(query, {
       ...options,
       limit: 1,
@@ -52,7 +58,8 @@ class Collection {
     return result
   }
 
-  async find(query, options = {}) {
+  async find(...args) {
+    const [query, options = {}] = getArgs(args)
     const modelsJson = await this.request('/find', query, options)
     const models = modelsJson.map((modelJson) => {
 

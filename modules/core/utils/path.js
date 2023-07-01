@@ -7,9 +7,16 @@ const set = (object, path, value) => {
   object[name] = value
 }
 
+/**
+ * it should throw an error if the path is invalid
+ * @param {*} object 
+ * @param {*} path 
+ * @returns 
+ */
 const get = (object, path) => {
   const split = path.split('.')
   for (const segment of split) {
+    
     object = object[segment]
   }
 

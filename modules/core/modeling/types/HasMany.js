@@ -3,10 +3,10 @@ const ArrayAssociation = require('./ArrayAssociation')
 
 module.exports = class HasMany extends mixer.extends(ArrayAssociation) {
 
-  async innerLoad(paths = {}) {
-    await this.owner.load()
+  async innerLoad(context, paths = {}) {
+    await this.owner.load(context)
     const path = `$${this.property.on}._id`
-    const models = await this.constructor.definition.template.collection.find([{
+    const models = await this.constructor.definition.template.collection.find(context, [{
       $eq: [path, this.owner._id]
     }], {
       load: paths,

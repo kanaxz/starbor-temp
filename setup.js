@@ -2,7 +2,7 @@ const { exec, execSync } = require('child_process')
 const fs = require('fs')
 const { join } = require('path')
 
-console.log(process.cwd(), __dirname)
+console.info(process.cwd(), __dirname)
 const processed = []
 const filePrefix = 'file:'
 
@@ -25,7 +25,7 @@ const processFolder = (path) => {
     const dependencyPath = join(path, dependencyRelativePath)
     processFolder(dependencyPath)
   }
-  console.log({ path })
+  console.info({ path })
   execSync(`cd ${path} && npm i`)
   processed.push(path)
 }

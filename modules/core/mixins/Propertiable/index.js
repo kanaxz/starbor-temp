@@ -1,10 +1,9 @@
 const mixer = require("../../mixer");
 const Destroyable = require("../Destroyable")
 const Eventable = require('../Eventable')
-const Initializeable = require('../Initializeable')
 const Properties = require('./Properties')
 
-const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
+const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
   return class Propertiable extends base {
     static sanitizeProperty(property) {
 
@@ -16,6 +15,7 @@ const mixin = mixer.mixin([Eventable, Initializeable, Destroyable], (base) => {
           return this.values[property.name]
         },
         set: function (newValue) {
+          if (newValue === this[property.name]) { return }
           this.setPropertyValue(property, newValue)
         },
         enumerable: true,

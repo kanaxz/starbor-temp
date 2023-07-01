@@ -155,6 +155,11 @@ module.exports = class Map extends Component {
     const zoom = this.camera.zoom - (event.deltaY / 1000)
     this.camera.zoom = boundInt(zoom, [MIN_ZOOM, MAX_ZOOM])
   }
+
+  destroy() {
+    this.mapObjects.forEach((o) => o.destroy())
+    return super.destroy()
+  }
 }
   .define({
     name: 'app-map',

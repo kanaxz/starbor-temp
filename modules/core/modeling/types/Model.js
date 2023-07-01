@@ -1,34 +1,34 @@
 const mixer = require('../../mixer')
-const Object = require('./Object')
+const ObjectType = require('./Object')
 const Loadable = require('../mixins/Loadable')
 const Bool = require('./Bool')
 const Indexable = require('../mixins/Indexable')
 const String = require('./String')
 const Controlleable = require('../controlling/Controlleable')
+const setup = require('../../setup')
+const This = require('./This')
+const config = setup.modeling.model
+class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Indexable, ...config.before]) {
 
-const additionalMixins = (globalThis || global).core?.modeling?.model?.mixins || []
-
-module.exports = class Model extends mixer.extends(Object, [Controlleable, Loadable, Indexable, ...additionalMixins]) {
-  async innerLoad(paths) {
+  async innerLoad(context, paths) {
     const index = this.getFirstUniqueIndex()
     if (!index) {
       console.error(this)
       throw new Error('Could not load')
     }
-    const [result] = await this.constructor.collection.find([
+    const [result] = await this.constructor.collection.find(context, [
       index
     ], {
       type: this.constructor.definition.name,
       limit: 1,
       load: paths,
-      raw: true,
     })
 
     if (!result) {
       throw new Error(`Could not load ${this.constructor.definition.name} with index ${JSON.stringify(index)} `)
     }
     Object.assign(this, result)
-    
+
   }
 
   toJSON(paths = {}, context) {
@@ -45,6 +45,14 @@ module.exports = class Model extends mixer.extends(Object, [Controlleable, Loada
       ...index,
     }
   }
+
+  toString() {
+    return this._id || this
+  }
+}
+
+module.exports = class Model extends mixer.extends(BaseModel, config.after) {
+
 }
   .define({
     name: 'model',
@@ -60,5 +68,5 @@ module.exports = class Model extends mixer.extends(Object, [Controlleable, Loada
     _id: String,
   })
   .methods({
-    eq: [[THIS], Bool]
+    eq: [[This], Bool]
   })

@@ -1,3 +1,3 @@
+const setup = require('core/setup')
 const Controlleable = require('./Controlleable')
-
-globalThis.core.modeling.model.mixins.push(Controlleable)
+setup.modeling.model.before.push(Controlleable)

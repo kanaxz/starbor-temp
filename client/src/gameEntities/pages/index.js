@@ -17,8 +17,6 @@ navigator.route(editRegex, async (req, res) => {
     code,
   })
 
-  console.log("PAGE", entity)
-
   await entity.load()
   await res.page(import('./Edit'), { entity })
 })
@@ -32,8 +30,6 @@ navigator.route(showRegex, async (req, res) => {
   const entity = entityType.parse({
     code,
   })
-
-  console.log("PAGE", entity)
 
   await entity.load()
   await res.page(import('./Show'), { entity })

@@ -5,6 +5,8 @@ const mixer = require('core/mixer')
 const handlers = require('./handlers')
 const { processQuery, makePath } = require('./utils')
 const { get } = require('core/utils/path')
+const setup = require('core/setup')
+const config = setup.server.mongo
 
 const patchesMap = {
   '$set': (object, value) => {
@@ -103,7 +105,10 @@ module.exports = class MongoCollection {
       })
       const { pipeline, lookups } = await processQuery(rootScope, type, query, options)
       pipeline.unshift(...initPipeline)
-      console.log(JSON.stringify(pipeline, null, ' '))
+      if (config.logPipeline) {
+        console.log(JSON.stringify(pipeline, null, ' '))
+      }
+
 
       const modelsJson = await this.mongoCollection
         .aggregate(pipeline)

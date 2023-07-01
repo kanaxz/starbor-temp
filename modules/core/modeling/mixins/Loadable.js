@@ -2,7 +2,7 @@ const mixer = require('../../mixer')
 const loadingQueue = Symbol('loadingQueue')
 const stateKey = Symbol('loadableState')
 
-const LoadableMixin = mixer.mixin((base) => {
+const Loadable = mixer.mixin((base) => {
   return class Loadable extends base {
     constructor(...args) {
       super(...args)
@@ -34,6 +34,7 @@ const LoadableMixin = mixer.mixin((base) => {
       this[stateKey] = state
 
       if (state === 'error') {
+        console.error(err)
         this[loadingQueue].forEach(({ reject }) => reject(err))
         this[loadingQueue] = null
       } else if (state === 'loaded') {
@@ -50,12 +51,12 @@ const LoadableMixin = mixer.mixin((base) => {
       throw new Error(`innerLoad not implemented on ${this.constructor.definition.name}`)
     }
 
-    async load(paths = {}) {
+    async load(context, paths = {}) {
       const state = this[stateKey]
       if (state === 'loaded') {
         if (paths === true) { return }
         for (const [propertyName, subPaths] of Object.entries(paths)) {
-          await this[propertyName].load(subPaths)
+          await this[propertyName].load(context, subPaths)
         }
         return
       }
@@ -65,11 +66,11 @@ const LoadableMixin = mixer.mixin((base) => {
         })
         await promise
         // make sure the paths are loaded
-        await this.load(paths)
+        await this.load(context, paths)
       } else if (state === 'empty') {
         this.setState('loading', paths)
         try {
-          await this.innerLoad(paths)
+          await this.innerLoad(context, paths)
           this.setState('loaded', paths)
         } catch (err) {
           this.setState('error', paths, err)
@@ -82,5 +83,5 @@ const LoadableMixin = mixer.mixin((base) => {
   }
 })
 
-LoadableMixin.stateSymbol = stateKey
-module.exports = LoadableMixin
+Loadable.stateSymbol = stateKey
+module.exports = Loadable

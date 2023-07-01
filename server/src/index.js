@@ -1,10 +1,6 @@
-require('core')
-
-const Module = require('./core/Module')
+require('./setup')
+const Module = require('core-server/Module')
 const { join } = require('path')
-
-
-
 
 const process = async () => {
   const app = new Module({
@@ -15,7 +11,7 @@ const process = async () => {
   app.load()
   console.log('processing')
   await app.process()
-  app.object.onReady.trigger()
+  await app.object.onReady.trigger()
 }
 
 process().catch((err) => {

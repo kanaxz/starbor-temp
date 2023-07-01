@@ -6,7 +6,6 @@ module.exports = class It extends mixer.extends([Propertiable]) {
   constructor(values) {
     super()
     Object.assign(this, values)
-    this.initialize()
   }
 
   destroy() {
