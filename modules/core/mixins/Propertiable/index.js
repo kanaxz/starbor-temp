@@ -15,6 +15,7 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
           return this.values[property.name]
         },
         set: function (newValue) {
+          if (this[Destroyable.symbol]) { return }
           if (newValue === this[property.name]) { return }
           this.setPropertyValue(property, newValue)
         },
@@ -53,10 +54,10 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
     }
 
     destroy() {
-      super.destroy()
       this.constructor.properties.forEach((p) => {
         this[p.name] = null
       })
+      super.destroy()
     }
   }
 })

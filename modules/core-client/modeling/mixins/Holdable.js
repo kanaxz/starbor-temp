@@ -60,7 +60,7 @@ const loop = () => {
   circulars = []
   instances
     .filter(shouldDestroy)
-    .forEach((i) => i.destroy())
+    .forEach((i) => i.released())
   setTimeout(loop, HOLD_DURATION / 3 * 1000)
 }
 
@@ -110,6 +110,10 @@ module.exports = mixer.mixin([Destroyable], (base) => {
 
       this[state].references.splice(referenceIndex, 1)
       this[state].lastDate = new Date()
+    }
+
+    released(){
+      this.destroy()
     }
 
     destroy() {

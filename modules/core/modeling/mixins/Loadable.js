@@ -80,6 +80,10 @@ const Loadable = mixer.mixin((base) => {
         throw new Error(`Unknown state ${state} on ${this.toString()}`)
       }
     }
+
+    unload() {
+      this.setState('empty')
+    }
   }
 })
 

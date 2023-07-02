@@ -35,6 +35,7 @@ module.exports = {
       const user = await userCollection.findOne({
         _id: session.userId,
       })
+      delete user.password
       req.user = User.parse(user)
     }
 

@@ -2,6 +2,7 @@ const Destroyable = require('core/mixins/Destroyable')
 const mixer = require('core/mixer')
 const Comparable = require('core/mixins/Comparable');
 const Propertiable = require('core/mixins/Propertiable');
+const Transformable = require('./Transformable');
 
 const instances = [];
 
@@ -9,8 +10,9 @@ const checkDuplicates = () => {
   for (const i of instances) {
     for (const j of instances) {
       if (i !== j && i.compare(j)) {
-        console.error('Duplicated instances', i, j)
-        throw new Error()
+        Object.assign(i, j)
+        j.tranform(i)
+        console.info('Transformation completed', i, j)
       }
     }
   }
@@ -25,7 +27,7 @@ const symbol = Symbol('singleInstanceId')
 
 let id = 0
 
-const SingleInstance = mixer.mixin([Destroyable, Comparable], (base) => {
+const SingleInstance = mixer.mixin([Destroyable, Comparable, Transformable], (base) => {
   return class SingleInstance extends base {
 
     static parse(object, ...args) {

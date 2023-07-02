@@ -45,6 +45,11 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
     if (!paths) { return undefined }
     return super.toJSON(paths, context)
   }
+
+  unload() {
+    instance.splice(0, instance.length)
+    super.unload()
+  }
 }
 
 

@@ -30,6 +30,11 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
     Object.assign(this, result)
 
   }
+  
+  // we do nothing ..
+  unload() {
+ 
+  }
 
   toJSON(paths = {}, context) {
     if (paths) {
