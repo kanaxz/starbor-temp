@@ -5,6 +5,7 @@ const Array = require('core/types/Array')
 const template = require('./template.html')
 const { System, LandingZone, Planet, Entity, GameEntity } = require('shared/types')
 require('./style.scss')
+require('@app/entitiesList')
 
 module.exports = class Home extends Page {
   constructor() {

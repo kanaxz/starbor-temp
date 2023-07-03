@@ -1,5 +1,6 @@
+const mongo = require('mongodb')
+
 const start = async () => {
-  const mongo = require('mongodb')
   const client = await mongo.MongoClient.connect('mongodb://127.0.0.1:27018/', {
     useUnifiedTopology: true
   })
@@ -69,6 +70,7 @@ const start = async () => {
   ]).toArray()
   */
 
+  /*
   const entities = await Entities.aggregate([
     {
       $match: {
@@ -85,6 +87,35 @@ const start = async () => {
     }
   ]).toArray()
   console.log(JSON.stringify(entities, null, ' '))
-}
-start()
+}*/
 
+  const entities = await Entities.aggregate([
+    {
+      $graphLookup: {
+        from: 'entities',
+        as: 'parents',
+        startWith: '$parent._id',
+        connectFromField: 'parent._id',
+        connectToField: '_id',
+      }
+    }, {
+      $addFields: {
+        arraySize: {
+          $size: '$parents'
+        }
+      }
+    }, {
+      $sort: {
+        arraySize: -1,
+      }
+
+    }, {
+      $limit: 20,
+    }
+  ]).toArray()
+  console.log(JSON.stringify(entities, null, ' '))
+
+}
+
+
+start()
