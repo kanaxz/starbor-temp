@@ -1,5 +1,6 @@
 const { Model, String } = require('core/modeling/types')
-const { Organization, User } = require('.')
+const Organization = require('./Organization')
+const User = require('./User')
 
 module.exports = class Invitation extends Model {
 
