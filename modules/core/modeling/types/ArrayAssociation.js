@@ -6,8 +6,7 @@ const Abstractable = require('../../mixins/Abstractable')
 const setup = require('../../setup')
 const config = setup.modeling.arrayAssociation
 
-
-class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...config.after]) {
+class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...config.before]) {
   constructor(owner, property) {
     /*
   * when using native array functions like map, filter etc, it will return an instance of the current array class, which branch in this case

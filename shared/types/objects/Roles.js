@@ -1,4 +1,4 @@
-const { Object } = require('core/modeling/types')
+const { Object, Bool } = require('core/modeling/types')
 
 module.exports = class Roles extends Object {
 
@@ -7,7 +7,7 @@ module.exports = class Roles extends Object {
     name: 'role',
   })
   .properties({
-    admin: 'bool',
-    editor: 'bool',
+    admin: Bool,
+    editor: Bool,
   })
 
