@@ -1,5 +1,5 @@
 const { Model, String } = require('core/modeling/types')
-const Organization = require('./Organization')
+const UserOrganization = require('./UserOrganization')
 const User = require('./User')
 
 module.exports = class Invitation extends Model {
@@ -16,8 +16,8 @@ module.exports = class Invitation extends Model {
       required: true,
       readonly: true,
     },
-    organization: {
-      type: Organization,
+    userOrganization: {
+      type: UserOrganization,
       required: true,
       readonly: true,
     },
@@ -33,4 +33,5 @@ module.exports = class Invitation extends Model {
       required: true,
     },
   })
+
 
