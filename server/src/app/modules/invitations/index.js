@@ -1,11 +1,9 @@
 const { User, Invitation } = require('shared/types')
 
 module.exports = {
-  dependancies: ['modeling', 'express'],
-  async construct({ modeling, express }) {
-    expres.user((req, res, next) => {
-      next()
-    })
+  dependancies: ['modeling'],
+  async construct({ modeling }) {
+
     modeling.controller(Invitation, {
       async find(req, pipeline, query, next) {
         return next()
@@ -17,7 +15,6 @@ module.exports = {
         if (!req.user) {
           throw new Error('')
         }
-        authorizeOnly(['status'], invitation, oldInvitation)
         if (invitation.status === oldInvitation.status) {
           throw new Error('You are not supposed to call update without changing status')
         }
@@ -28,15 +25,14 @@ module.exports = {
         })
         const { owner } = invitation.organization
         if (invitation.status !== oldInvitation.status) {
-          if (invitation.initiator === 'user') {
-            if (req.user._id === invitation.user._id) {
-              if (['pending', 'accepted', 'canceled'].indexOf(invitation.status) !== -1) {
-                throw new Error()
-              }
-            } else if (req.user._id === owner._id) {
-              if (['pending', 'canceled', 'canceled'].indexOf(invitation.status) !== -1) {
-                throw new Error()
-              }
+          const [initiator, userThatHasToAccept] = invitation.initiator === 'user' ? [invitation.user, owner] : [owner, invitation.user]
+          if (req.user._id === initiator._id) {
+            if (['pending', 'accepted', 'refused'].indexOf(invitation.status) !== -1) {
+              throw new Error()
+            }
+          } else if (req.user._id === userThatHasToAccept._id) {
+            if (['pending', 'canceled'].indexOf(invitation.status) !== -1) {
+              throw new Error()
             }
           }
         }
@@ -49,7 +45,7 @@ module.exports = {
             user: invitation.user,
             creationDate: new Date()
           })
-          await collections.members.create(adminReq, member)
+          await collections.members.create(modeling.adminReq, member)
         }
 
         if (['canceled', 'accepted'].indexOf(invitation.status) !== -1) {
