@@ -1,7 +1,7 @@
 const Scope = require('core/processing/Scope')
 const Loadable = require('core/modeling/mixins/Loadable')
 const mixer = require('core/mixer')
-const { makePath } = require('./utils')
+const { makePath } = require('./queryUtils')
 
 const getPath = (source) => {
   if (source.sourceType === 'arg') {
@@ -41,5 +41,4 @@ module.exports = class MongoScope extends Scope {
       this.load(path)
     }
   }
-
 }

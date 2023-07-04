@@ -4,8 +4,14 @@ const Real = require('./Real')
 const This = require('./This')
 
 class Bool extends Primitive {
-  static validate(value) {
-    return typeof value === 'boolean'
+
+
+  static parse(value, owner, property) {
+    if (value == null) { return value }
+    if (typeof value !== 'boolean') {
+      throw new Error(`Property ${property.name} has to be a bool, received ${value}`)
+    }
+    return super.parse(value, owner, property)
   }
 }
 
@@ -22,11 +28,5 @@ Primitive.methods({
   neq: [[This], Bool]
 })
 
-
-utils.propertySanitizers.push((property) => {
-  if (property.type === 'bool') {
-    property.type = Bool
-  }
-})
 
 module.exports = Bool

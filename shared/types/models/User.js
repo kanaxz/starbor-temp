@@ -1,4 +1,4 @@
-const { Model } = require('core/modeling/types')
+const { Model, String } = require('core/modeling/types')
 const Roles = require('../objects/Roles')
 
 const ownershipRule = (user, currentUser) => {
@@ -27,7 +27,7 @@ module.exports = class User extends Model {
     }
   })
   .properties({
-    username: 'string',
-    password: 'string',
+    username: String,
+    password: String,
     roles: Roles
   })

@@ -3,9 +3,10 @@ const { nanoid } = require('nanoid')
 const { chain } = require('core/utils/array')
 const mixer = require('core/mixer')
 const handlers = require('./handlers')
-const { processQuery, makePath } = require('./utils')
+const { processQuery, makePath } = require('./queryUtils')
 const { get } = require('core/utils/path')
 const setup = require('core/setup')
+const { validate } = require('./utils')
 const config = setup.server.mongo
 
 const patchesMap = {
@@ -152,6 +153,10 @@ module.exports = class MongoCollection {
     const editJson = model.toJSON()
     applyPatches(editJson, patches)
     const editModel = this.type.parse(editJson)
+    if (editModel.constructor !== model.constructor) {
+      throw new Error('Type not matching')
+    }
+    validate(model.constructor, 'update', editModel, model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.update) {
@@ -159,10 +164,12 @@ module.exports = class MongoCollection {
       }
       return controller.update(req, editModel, model, next)
     }, async () => {
+      const json = editModel.toJSON()
+      delete json._id
       await this.mongoCollection.updateOne({
         _id: model._id,
       }, {
-        $set: editModel.toJSON()
+        $set: json
       })
     })
 

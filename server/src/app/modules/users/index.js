@@ -55,6 +55,7 @@ module.exports = {
         user.password = await encryptPassword(password)
         user.roles = new Roles({
           admin: false,
+          editor: false,
         })
 
         await next()

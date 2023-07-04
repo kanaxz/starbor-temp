@@ -34,9 +34,6 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
       if (!type) {
         throw new Error(`Type ${typeName} not find from ${this.definition.name}`)
       }
-      if (type.definition.abstract) {
-        console.trace('parsing', type.definition.name, object, owner, property)
-      }
 
       try {
         const instance = new type(object)
