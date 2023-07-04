@@ -42,7 +42,7 @@ module.exports = async (services) => {
       await collections.organizations.createOrUpdate(organization)
     }
   }
-
+  /*
   await loadAffiliations()
   await loadSpecies()
   /**/

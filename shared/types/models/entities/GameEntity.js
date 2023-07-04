@@ -3,6 +3,7 @@ const Starmap = require('../../objects/Starmap')
 const mixer = require('core/mixer')
 const Pageable = require('../../../mixins/Pageable')
 const Markdown = require('../../Markdown')
+const { String } = require('core/modeling/types')
 
 module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
   toString() {
@@ -21,9 +22,9 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
     }
   })
   .properties({
-    code: 'string',
+    code: String,
     description: Markdown,
 
     starmap: Starmap,
-    image: 'string',
+    image: String,
   })

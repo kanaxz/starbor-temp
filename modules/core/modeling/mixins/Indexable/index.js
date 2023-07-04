@@ -1,8 +1,8 @@
 const mixer = require("../../../mixer");
-const Comparable = require("../../../mixins/Comparable");
+const Equalable = require("../../../mixins/Equalable");
 const Indexes = require('./Indexes')
 
-module.exports = mixer.mixin([Comparable], (base) => {
+module.exports = mixer.mixin([Equalable], (base) => {
   return class Indexable extends base {
     static define(definition) {
       super.define(definition)
@@ -10,8 +10,8 @@ module.exports = mixer.mixin([Comparable], (base) => {
       return this
     }
 
-    compare(instance) {
-      return this.anyUniqueIndexMatch(instance)
+    static equals(value1, value2) {
+      return value1.anyUniqueIndexMatch(value2)
     }
 
     anyUniqueIndexMatch(object) {

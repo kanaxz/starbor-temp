@@ -1,4 +1,4 @@
-const { Model } = require('core/modeling/types')
+const { Model, String } = require('core/modeling/types')
 const mixer = require('core/mixer')
 const StarMap = require('../objects/Starmap')
 
@@ -18,9 +18,9 @@ module.exports = class Organization extends Model {
     }
   })
   .properties({
-    code: 'string',
-    color: 'string',
-    name: 'string',
+    code: String,
+    color: String,
+    name: String,
     starmap: StarMap,
   })
 
