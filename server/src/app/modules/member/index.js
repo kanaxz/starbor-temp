@@ -1,60 +1,37 @@
-const { User, member } = require('shared/types')
+const { User, Member, Invitation, UserOrganization } = require('shared/types')
+const userOrganizations = require('../userOrganizations')
+
+const isAdmin = (req) => {
+  if (!req.user?.roles.admin) {
+    throw new Error('You are not allowed to create a new member.')
+  }
+}
+
+const isMember = (req, member, UserOrganization) => {
+  if (!req.member.userOrganization._id !== UserOrganization._id) {
+    throw new Error('You are not a member of this organization.')
+  }
+}
 
 module.exports = {
   dependancies: ['modeling'],
   async construct({ modeling }) {
 
-    modeling.controller(member, {
-      async find(req, pipeline, query, next) {
-        return next()
+    modeling.controller(Member, {
+      async find(req, pipeline, query, UserOrganization, next) {
+        if (!UserOrganization.private) {
+          return next()
+        } else {
+          //
+        }
       },
-      async create(req, user, next) {
+      async create(req, member, next) {
+        isAdmin(req)
         await next()
       },
-      async update(req, invitation, oldInvitation, next) {
-        if (!req.user) {
-          throw new Error('')
-        }
-        authorizeOnly(['status'], invitation, oldInvitation)
-        if (invitation.status === oldInvitation.status) {
-          throw new Error('You are not supposed to call update without changing status')
-        }
-        await invitation.load({
-          organization: {
-            owner: true
-          }
-        })
-        const { owner } = invitation.organization
-        if (invitation.status !== oldInvitation.status) {
-          if (invitation.initiator === 'user') {
-            if (req.user._id === invitation.user._id) {
-              if (['pending', 'accepted', 'canceled'].indexOf(invitation.status) !== -1) {
-                throw new Error()
-              }
-            } else if (req.user._id === owner._id) {
-              if (['pending', 'canceled', 'canceled'].indexOf(invitation.status) !== -1) {
-                throw new Error()
-              }
-            }
-          }
-        }
-
-        await next()
-
-        if (invitation.status === 'accepted') {
-          const member = new Member({
-            organization: invitation.organization,
-            user: invitation.user,
-            creationDate: new Date()
-          })
-          await collections.members.create(adminReq, member)
-        }
-
-        if (['canceled', 'accepted'].indexOf(invitation.status) !== -1) {
-          await collections.invitations.delete(req, invitation)
-        }
-      },
-      async delete(req, user, next) {
+      async delete(req, member, next) {
+        isMember(req, member, UserOrganization)
+        isAdmin(req)
         return next()
       }
     })
