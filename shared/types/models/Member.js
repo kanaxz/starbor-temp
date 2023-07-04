@@ -2,9 +2,10 @@ const { Model } = require('core/modeling/types')
 const UserOrganization = require('./UserOrganization')
 const User = require('./User')
 
-module.exports = class Member extends Model {
+class Member extends Model {
 
 }
+Member
   .define({
     name: 'member',
     pluralName: 'members',
@@ -23,3 +24,11 @@ module.exports = class Member extends Model {
     },
   })
 
+module.exports = Member
+
+UserOrganization
+  .properties({
+    members: {
+      type: HasMany.of(Member),
+    }
+  })

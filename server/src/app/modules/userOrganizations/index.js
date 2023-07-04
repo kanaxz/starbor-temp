@@ -1,13 +1,13 @@
 const { User, Member, Invitation, UserOrganization } = require('shared/types')
 
-const isLogged = (req, user) => {
-  if (!req.user.connexion) {
+const isLogged = (req) => {
+  if (!req.user) {
     throw new Error('You must be logged in to create a clan')
   }
 }
 
-const isAdmin = (req, user, UserOrganization, member) => {
-  if (!req.user.admin && req.UserOrganization.owner._id !== member.user._id) {
+const isAdminOrOwner = (req, organization) => {
+  if (!req.user.roles.admin || organization.owner._id === req.user._id) {
     throw new Error('You do not have sufficient rights to perform this action')
   }
 }
@@ -20,16 +20,16 @@ module.exports = {
       async find(req, pipeline, query, next) {
         return next()
       },
-      async create(req, user, UserOrganization, next) {
-        isLogged(req, user)
+      async create(req, userOrganization, next) {
+        isLogged(req)
         await next()
       },
-      async update(req, user, UserOrganization, member, next) {
-        isAdmin(req, UserOrganization, user, member)
+      async update(req, userOrganization, oldUserOrganization, next) {
+        isAdminOrOwner(req, oldUserOrganization)
         await next()
       },
-      async delete(req, user, UserOrganization, member, next) {
-        isAdmin(req, UserOrganization, user, member)
+      async delete(req, userOrganization, next) {
+        isAdminOrOwner(req, userOrganization)
         return next()
       }
     })

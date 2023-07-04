@@ -1,7 +1,8 @@
-const { Organization, Bool } = require('core/modeling/types')
+const { Organization, Bool, HasMany } = require('core/modeling/types')
 const Organization = require('./Organization')
 const User = require('./User')
 const Markdown = require('../Markdown')
+
 
 module.exports = class Invitation extends Organization {
 
