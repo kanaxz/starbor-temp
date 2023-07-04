@@ -49,6 +49,8 @@ const applyLookups = async (models, lookups, paths, path) => {
   }
 }
 
+const DELETE_MANY_SIZE = 100
+
 module.exports = class MongoCollection {
   constructor(type, mongodb, controllers) {
     this.type = type
@@ -203,12 +205,15 @@ module.exports = class MongoCollection {
     }
   }
 
-  async delete(req, _id) {
-    if (!_id) {
-      throw new Error('_id cannot be null')
+  async delete(req, arg) {
+    let model
+    if (typeof arg === 'string') {
+      model = await this.findOne(req, { _id: arg })
+    } else {
+      model = arg
     }
-    const model = await this.findOne(req, { _id })
-    if (!model) {
+
+    if (!model || !(model instanceof this.type)) {
       throw new Error(`Model with id ${_id} not found`)
     }
     const controllers = this.getTypeControllers(model.constructor)
@@ -222,5 +227,17 @@ module.exports = class MongoCollection {
         _id,
       })
     })
+  }
+
+  async deleteMany(req, query) {
+    let models
+    do {
+      models = await this.find(req, query, {
+        limit: DELETE_MANY_SIZE
+      })
+      for (const model of models) {
+        await this.delete(req, model)
+      }
+    } while (models.length === DELETE_MANY_SIZE)
   }
 }
