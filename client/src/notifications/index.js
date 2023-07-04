@@ -7,7 +7,6 @@ class Notification extends mixer.extends([Propertiable]) {
   constructor(values) {
     super();
     Object.assign(this, values)
-    this.initialize()
   }
   close() {
     if (this.isClosed) {

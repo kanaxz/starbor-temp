@@ -7,7 +7,7 @@
       <loading-content></loading-text>
     </div>
   </div>
-  <div :v:for="model of this.branch" class="list">
-    <a class="model" :v:link="model.url" :v:child="this.template(model)"></a>
+  <div :v-for="model of this.branch" class="list">
+    <a class="model" :v-link="model.@url" :v-child="this.template(model)"></a>
   </div>
 </self>

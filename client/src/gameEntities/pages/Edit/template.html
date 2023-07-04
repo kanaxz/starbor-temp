@@ -1,0 +1,22 @@
+<self>
+
+  <header>
+    <div class="infos">
+      <h1 class="text">{{this.entity.@name}}</h1>
+      <model-branch :branch="this.entity.parents"></model-branch>
+    </div>
+    <div class="menu">
+      <a :v-link="`${this.entity.@url}`">
+        Read
+      </a>
+      <div :style.display="`${this.@canDelete ? 'block' : 'none'}`">
+        Delete
+      </div>
+    </div>
+  </header>
+  <div class="row" as="scrollRoot">
+   <model-form :on-saved="this.onSaved(event)" :model="this.@entity" :type="this.@entity.constructor">
+
+   </model-form>
+  </div>
+</self>

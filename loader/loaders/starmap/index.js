@@ -1,7 +1,6 @@
 const { starmapRequest } = require('./utils')
 const systemsLoader = require('./systems')
-const Organization = require('shared/models/Organization')
-const Starmap = require('shared/models/Starmap')
+const { Starmap, Organization } = require('shared/types')
 const { codify } = require('../../utils')
 
 module.exports = async (services) => {
@@ -12,7 +11,7 @@ module.exports = async (services) => {
   const loadAffiliations = async () => {
     for (const starmapObject of bootup.affiliations.resultset) {
       const code = codify(starmapObject.code)
-      const organization = new Organization({
+      const organization = Organization.parse({
         code,
         name: starmapObject.name,
         color: starmapObject.color,
@@ -29,7 +28,7 @@ module.exports = async (services) => {
   const loadSpecies = async () => {
     for (const starmapSpecies of bootup.species.resultset) {
       const code = codify(starmapSpecies.name)
-      const organization = new Organization({
+      const organization = Organization.parse({
         code,
         type: 'species',
         name: starmapSpecies.name,
@@ -44,8 +43,8 @@ module.exports = async (services) => {
     }
   }
 
-
-  //await loadAffiliations()
-  //await loadSpecies()
+  await loadAffiliations()
+  await loadSpecies()
+  /**/
   await systemsLoader(bootup, services)
 }

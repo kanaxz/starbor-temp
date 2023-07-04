@@ -1,2 +1,12 @@
+const { Entity, Organization, User } = require('./types')
 
-require('./models')
+const rootModelTypes = [
+  Entity,
+  Organization,
+  User
+]
+
+
+module.exports = {
+  rootModelTypes
+}

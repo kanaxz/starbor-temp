@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../core"
+    "core": "file:../modules/core"
   }
 }

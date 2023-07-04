@@ -1,7 +1,8 @@
 const Layout = require('hedera/page/Layout')
 const template = require('./template.html')
 require('./style.scss')
-require('../../modeling/components/Search')
+require('../../modeling/components/SearchBar')
+const auth = require('@app/auth')
 module.exports = class Main extends Layout {
   constructor() {
     super()
@@ -25,6 +26,11 @@ module.exports = class Main extends Layout {
         label: 'Entities',
         class: 'fa-solid fa-shop',
         url: '/entities',
+      },
+      {
+        label: 'Map',
+        class: 'fa-solid fa-shop',
+        url: '/map',
       }
     ]
   }
@@ -32,6 +38,9 @@ module.exports = class Main extends Layout {
   .define({
     name: 'app-layout-main',
     template,
+  })
+  .variables({
+    auth,
   })
   .properties({
     open: 'any'

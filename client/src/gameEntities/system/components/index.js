@@ -1,2 +1,1 @@
-require('./Card')
 require('./Row')

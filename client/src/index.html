@@ -15,16 +15,17 @@
 <body>
   <ui-root id="root">
     <!--
-    <div :v:for="object of objects">
-      <div :v:for="subobject of object.objects">
+    <div :v-for="object of objects">
+      <div :v-for="subobject of object.objects">
         <div>{{subobject}}</div>
       </div>
     </div>
     -->
     <ui-presenter as="presenter">
     </ui-presenter>
+   
     <app-notifications-list></app-notifications-list>
-    <!---->
+     
   </ui-root>
 </body>
 

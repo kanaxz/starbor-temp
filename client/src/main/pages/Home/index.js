@@ -3,13 +3,16 @@ const Main = require('@app/layouts/Main')
 const notifications = require('@app/notifications')
 const Array = require('core/types/Array')
 const template = require('./template.html')
+const { System, LandingZone, Planet, Entity, GameEntity } = require('shared/types')
 require('./style.scss')
 
 module.exports = class Home extends Page {
   constructor() {
     super()
     this.objects = new Array()
+
   }
+
 
   add() {
     this.objects.push({
@@ -32,4 +35,7 @@ module.exports = class Home extends Page {
     name: 'app-home',
     template,
     layout: Main,
+  })
+  .variables({
+    System,
   })

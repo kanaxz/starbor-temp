@@ -1,15 +1,16 @@
 const { codify } = require('../../utils')
-const { System, Star, Planet, LandingZone, Moon } = require('shared/models')
+const { System, Star, Planet, LandingZone, Moon, Position3D, GroundLocation } = require('shared/types')
 const getSystemPosition = (object) => {
-  return ['x', 'y', 'z'].reduce((acc, axis) => {
-    acc[axis] = object[`position_${axis}`]
+  const values = ['x', 'y', 'z'].reduce((acc, axis) => {
+    acc[axis] = parseFloat(object[`position_${axis}`])
     return acc
   }, {})
+
+  return new Position3D(values)
 }
 
 
 module.exports = ({ collections }) => {
-
   const save = async (entity) => {
     await collections.entities.createOrUpdate(entity)
   }
@@ -18,7 +19,7 @@ module.exports = ({ collections }) => {
     system: {
       check: ({ type }) => false,
       async process(entity, json) {
-        const system = new System(entity)
+        const system = System.parse(entity)
         system.starmap.position = getSystemPosition(json)
         await save(system)
         return system
@@ -34,7 +35,7 @@ module.exports = ({ collections }) => {
           code: codify(name),
         })
 
-        const star = new Star(entity)
+        const star = Star.parse(entity)
         await save(star)
         return star
       }
@@ -42,7 +43,7 @@ module.exports = ({ collections }) => {
     planet: {
       check: ({ type }) => type === 'PLANET',
       async process(entity) {
-        const planet = new Planet(entity)
+        const planet = Planet.parse(entity)
         await save(planet)
         return planet
       }
@@ -50,7 +51,7 @@ module.exports = ({ collections }) => {
     moon: {
       check: ({ subtype }) => subtype?.name === 'Planetary Moon',
       async process(entity) {
-        const moon = new Moon(entity)
+        const moon = Moon.parse(entity)
         await save(moon)
         return moon
       }
@@ -59,9 +60,17 @@ module.exports = ({ collections }) => {
     landingZone: {
       check: ({ type }) => type === 'LZ',
       async process(entity) {
-        const lz = new LandingZone(entity)
+        const lz = LandingZone.parse(entity)
         await save(lz)
         return lz
+      }
+    },
+    poi: {
+      check: ({ type }) => type === 'POI',
+      async process(location) {
+        const entity = GroundLocation.parse(entity)
+        await save(entity)
+        return entity
       }
     },
     /*

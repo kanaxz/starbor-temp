@@ -1,0 +1,10 @@
+<self :class="`${this.@open ? '' : 'close'}`">
+  <header :on-click="this.open = !this.open">
+    <div class="circle">
+      <div></div>
+    </div>
+    <div class="link"></div>
+    <div class="titleContainer" as="titleContainer"></div>
+  </header>
+  <div as="transclude" class="section"></div>
+</self>

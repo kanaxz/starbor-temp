@@ -1,25 +1,25 @@
-require('core')
+// order is important: core-client->modeling/setup->core
+require('core/setup')
+require('core-client/setup')
+require('./modeling/setup')
 const navigator = require('./navigator')
 const pageMiddleware = require('hedera/page/middleware')
-const notifications = require('./notifications')
+require('./notifications')
 require('hedera')
+require('./modeling')
 require('./notifications/List')
 require('./auth')
-require('./form')
+require('./fields')
 require('./gameEntities')
 require('./main')
+require('./paneling')
 require('./organization')
-require('./modeling')
+
 require('./style.scss')
 require('./api')
 
-
-const config = require('./config')
-
-console.log({ config })
-
 const start = async () => {
-  console.log('Starting app')
+  console.info('Starting app')
   const app = {}
   const root = document.getElementById("root")
   await root.start(app, {

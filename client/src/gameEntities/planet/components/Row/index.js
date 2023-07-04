@@ -1,6 +1,6 @@
 const Card = require('@app/modeling/components/Card')
 const template = require('./template.html')
-const Planet = require('shared/models/entities/Planet')
+const { Planet } = require('shared/types')
 require('./style.scss')
 
 module.exports = class PlanetRow extends Card { }

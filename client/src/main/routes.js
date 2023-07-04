@@ -4,6 +4,8 @@ navigator.route(/\/$/, (req, res) => {
   res.page(import('./pages/Home'))
 })
 
+
+
 navigator.route('/not-found', (req, res) => {
   res.page(import('./pages/NotFound'))
 })

@@ -1,0 +1,20 @@
+<self>
+  <div class="content">
+    <h3>Signup</h3>
+    <form as="form" :on-submit.prevent="this.onSubmit()">
+      <text-field 
+        :label="'Username'" 
+        :required="true"
+        :name="'username'">
+      </text-field>
+      <text-field  
+        :label="'Password'" 
+        :name="'password'" 
+        :required="true"
+        :type="'password'">
+      </text-field>
+      <button type="submit">Submit</button>
+    </form>
+    <a :v-link="'/login'">Login</a>
+  </div>
+</self>

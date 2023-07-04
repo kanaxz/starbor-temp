@@ -1,22 +1,22 @@
 const navigator = require('@app/navigator')
-const service = require('./service')
+const auth = require('./service')
 
-return
-navigator.route('/login', (req, res) => {
-  if (service.me) {
+const notConnected = (req, res, next) => {
+  if (auth.me) {
     return navigator.navigate('/')
   }
-  res.page(import('./Login'))
+  return next()
+}
+
+navigator.route('/login', notConnected, (req, res) => {
+  res.page(import('./pages/Login'))
+})
+
+navigator.route('/signup', notConnected, (req, res) => {
+  res.page(import('./pages/Signup'))
 })
 
 navigator.route('/logout', (req, res) => {
-  service.logout()
+  auth.logout()
   return navigator.navigate('/')
-})
-
-navigator.use((req, res, next) => {
-  if (!service.me) {
-    return navigator.navigate('/login')
-  }
-  next()
 })

@@ -12,19 +12,21 @@ module.exports = {
   construct({ app }) {
     const expressApp = express()
 
-    expressApp.set('view engine', 'html');
 
     expressApp.use(bodyParser.urlencoded({
       extended: false
     }))
 
-    expressApp.use(cors({
-      origin: true,
-    }))
-    expressApp.use(bodyParser.json())
-    expressApp.use(cookieParser())
     expressApp.use((req, res, next) => {
-      console.log(req.method, req.url, req.body)
+      next()
+    })
+
+    expressApp.use(cors())
+
+    expressApp.use(cookieParser())
+    expressApp.use(bodyParser.json())
+    expressApp.use((req, res, next) => {
+      console.log(req.method, req.url, JSON.stringify(req.body, null, ' '))
       next()
     })
     const server = http.createServer(expressApp)

@@ -1,4 +1,4 @@
-const { Organization, Starmap, Star } = require('shared/models')
+const { Organization, Starmap, Star } = require('shared/types')
 const { starmapRequest, gePositionFromLatLon } = require('./utils')
 const { codify } = require('../../utils')
 
@@ -10,7 +10,7 @@ module.exports = async (bootup, services) => {
     const affiliation = json.affiliation[0]
     let organization
     if (affiliation) {
-      organization = new Organization({
+      organization = Organization.parse({
         code: codify(affiliation.code),
       })
       await organization.load()
@@ -21,6 +21,7 @@ module.exports = async (bootup, services) => {
         id: json.id,
         position: gePositionFromLatLon(json),
         'orbitPeriod': json.orbit_period,
+        code: json.code,
       }),
       organization,
       name,
@@ -32,24 +33,40 @@ module.exports = async (bootup, services) => {
   }
 
   const processChilds = async (celestialObjects, parent) => {
+    let isStar = false
     if (parent instanceof Star) {
       parent = parent.parent
+      isStar = true
     }
     for (const celestialObject of celestialObjects) {
-      if (parent instanceof Star) {
-        parent = parent.parent
+      /*
+      console.log(
+        celestialObject.id,
+        celestialObject.code,
+        celestialObject.parent_id,
+        parent.starmap.id,
+        parent.name,
+      )
+      */
+
+      if (celestialObject.type !== 'STAR' && celestialObject.parent_id !== parent.starmap.id && !isStar) {
+        continue
       }
+
+
+
       const type = Object.values(types).find((type) => type.check(celestialObject))
       if (!type) {
-        /*
+
         console.log(celestialObject.type, celestialObject.subtype?.name)
         console.log(JSON.stringify(celestialObject))
         //process.exit()
-        */
+        /**/
         continue
       }
       const { resultset: [json] } = await starmapRequest('celestial-objects/' + celestialObject.code)
       const entityJson = await buildFromJson(json, parent)
+
       const entity = await type.process(entityJson, json)
       if (!entity) { continue }
       if (json.children) {
@@ -62,7 +79,7 @@ module.exports = async (bootup, services) => {
   //starmapSystems = [starmapSystems[0]]
   const systems = []
   for (const starmapSystem of starmapSystems) {
-    if (starmapSystem.code !== 'STANTON') { continue }
+    //if (starmapSystem.code !== 'TERRA') { continue }
     const { resultset: [json] } = await starmapRequest('star-systems/' + starmapSystem.code)
     const entity = await buildFromJson(json)
     const system = await types.system.process(entity, json)
