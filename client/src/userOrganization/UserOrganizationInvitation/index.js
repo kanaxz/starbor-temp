@@ -26,7 +26,7 @@ module.exports = class UserOrganizationInvitation extends Component {
   }
 }
   .define({
-    name: 'model-user-organization-invitation',
+    name: 'user-organization-invitation',
     template
   })
   .properties({
