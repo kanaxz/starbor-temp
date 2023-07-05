@@ -14,6 +14,7 @@ require('./gameEntities')
 require('./main')
 require('./paneling')
 require('./organization')
+require('./userOrganization/user-organization-invitationb')
 
 require('./style.scss')
 require('./api')
