@@ -25,6 +25,19 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     return array
   }
 
+  static equals(a1, a2) {
+    if (a1.constructor !== a2.constructor) { return false }
+    if (a1.length !== a2.length) { return false }
+
+    const type = this.definition.template
+    for (let i = 0; i < a1.length; i++) {
+      if (!type.equals(a1[i], a2[i])) {
+        return false
+      }
+    }
+    return true
+  }
+
 
 
   setIndex(index, value) {

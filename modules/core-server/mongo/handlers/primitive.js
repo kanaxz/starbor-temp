@@ -8,5 +8,11 @@ module.exports = {
         $eq: [value, other]
       }
     },
+  },
+  parse(scope, value) {
+    return {
+      scope,
+      value,
+    }
   }
 }

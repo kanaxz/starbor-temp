@@ -99,7 +99,12 @@ module.exports = class MongoCollection {
       if (!controller.find) {
         return next()
       }
-      return controller.find(req, initPipeline, query, next)
+      return controller.find(req, initPipeline, query, (newQuery) => {
+        if (newQuery) {
+          query = newQuery
+        }
+        return next()
+      })
     }, async () => {
       const rootScope = new MongoScope({
         req,

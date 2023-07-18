@@ -8,9 +8,20 @@ user-menu {
       display: none;
     }
   }
+  
 
   .logged-in {
     display: none;
+
+    &.is-open {
+      .list {
+        display: block;
+      }
+    }
+
+    .list {
+      display: none;
+    }
 
     header {
       border: 2px solid #55c;
