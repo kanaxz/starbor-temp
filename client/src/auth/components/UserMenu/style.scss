@@ -7,14 +7,26 @@ user-menu {
     .logged-out {
       display: none;
     }
+
   }
 
   .logged-in {
     display: none;
 
+    &.is-open {
+      .list {
+        display: block;
+      }
+    }
+
+    .list {
+      display: none;
+    }
+
     header {
       border: 2px solid #55c;
       background-color: #fff;
+      margin-top: 5px;
       padding: 5px 10px;
       display: flex;
       align-items: center;

@@ -8,6 +8,9 @@ module.exports = class UserMenu extends Component { }
     name: 'user-menu',
     template,
   })
+  .properties({
+    isOpen: 'any',
+  })
   .variables({
     auth,
   })

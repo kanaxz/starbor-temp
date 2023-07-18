@@ -1,10 +1,11 @@
 <self :class="`${auth.@me ? 'has-user' : ''}`">
-  <div class="logged-in">
-    <header>
+  <div :class="`logged-in ${this.@isOpen ? 'is-open' : '' }`">
+    <header :on-click="this.isOpen = !this.isOpen">
       <label>{{auth.@me?.@username}}</label>
     </header>
     <div class="list">
-
+      <button @click="logout">Log out</button>
+      <button @click="goToProfile">My profile</button>
     </div>
   </div>
   <div class="logged-out">
