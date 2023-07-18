@@ -9,7 +9,6 @@ user-menu {
     }
 
   }
-  
 
   .logged-in {
     display: none;
@@ -22,12 +21,18 @@ user-menu {
 
     .list {
       display: none;
+      position: absolute;
+      a {
+        &:hover {
+          background-color: rgba(#55c, 0.1);
+        }
+      }
+
     }
 
     header {
       border: 2px solid #55c;
       background-color: #fff;
-      margin-top: 5px;
       padding: 5px 10px;
       display: flex;
       align-items: center;
@@ -35,6 +40,7 @@ user-menu {
       transition-duration: 0.1s;
       cursor: pointer;
       label {
+        position: relative;
         text-transform: uppercase;
         font-weight: 500;
         font-size: 20px;
