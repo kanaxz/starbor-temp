@@ -12,6 +12,11 @@ module.exports = {
       return {
         $or: args,
       }
+    },
+    if(scope, $if, $then, $else) {
+      return {
+        $cond: [$if, $then, $else],
+      }
     }
   }
 }

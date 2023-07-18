@@ -16,6 +16,7 @@ Global
   .methods({
     and: [[{ type: Array.of(Any), spread: true }], Bool],
     or: [[{ type: Array.of(Any), spread: true }], Bool],
+    if: [[Any, Any, Any], Bool]
   })
 
 module.exports = Global

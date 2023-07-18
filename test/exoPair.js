@@ -1,6 +1,3 @@
-
-
-
 const findSumPair = (numbers, k) => {
   const results = []
   numbers.forEach((n1, i1) => {
@@ -15,7 +12,6 @@ const findSumPair = (numbers, k) => {
   if (!results.length) {
     return [0, 0]
   }
-
 
   const [result] = results.sort(([a], [b]) => a - b)
   return result
