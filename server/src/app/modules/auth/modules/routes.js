@@ -41,14 +41,14 @@ module.exports = {
     router.post('/signup', connectedMiddleware, async (req, res) => {
       console.log('signup')
       try {
-        const user = await modeling.collections.users.create(req.body)
+        const user = await modeling.collections.users.create(req, req.body)
         req.user = user
         await sessions.update(req, res)
         res.json({
           me: user.toJSON()
         })
       } catch (err) {
-        handleError(res, error)
+        handleError(res, err)
       }
     })
 
