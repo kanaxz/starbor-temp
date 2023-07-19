@@ -1,20 +1,28 @@
 <self>
   <div class="content">
     <div class="list">
-      <header>My profile</header>
+      <h1>My profile</h1>
       <div :on-click="this.MyDataIsOpen = !this.MyDataIsOpen">
         <h3>My data</h3>
         <div :class="`my-data ${this.@MyDataIsOpen ? 'data-is-open' : ''}`">
           <label>Username : {{auth.@me?.@username}}</label>
-          <label>Password : XXXXXXX</label>
+          <label>Password : A supprimer ? </label>
         </div>
       </div>
-      <div :on-click="this.EditMyDataIsOpen = !this.EditMyDataIsOpen">
+      <header :on-click="this.EditMyDataIsOpen = !this.EditMyDataIsOpen">
         <h3>Edit my data</h3>
+      </header>
         <div :class="`edit-my-data ${this.@EditMyDataIsOpen ? 'edit-is-open' : ''}`">
-          <label>My password : XXXXXXX</label>
+          <form as="form" :on-submit.prevent="this.onSubmit()">
+            <text-field
+              :label="'Please enter your password'"
+              :name="'password'"
+              :required="true"
+              :type="'password'">
+            </text-field>
+            <button type="submit">Submit</button>
+          </form>
         </div>
-      </div>
     </div>
   </div>
 </self>

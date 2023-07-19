@@ -12,6 +12,12 @@ module.exports = class MyProfile extends Page {
     this.MyDataIsOpen = false
     this.EditMyDataIsOpen = false
   }
+
+  async onSubmit() {
+    console.log('submit');
+  }
+
+
 }.define({
   name: 'myprofile-page',
   template,
@@ -24,3 +30,4 @@ module.exports = class MyProfile extends Page {
   .variables({
     auth,
   })
+
