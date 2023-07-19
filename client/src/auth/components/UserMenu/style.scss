@@ -1,5 +1,6 @@
 user-menu {
   &.has-user {
+    position: relative;
     .logged-in {
       display: block;
     }
@@ -7,7 +8,6 @@ user-menu {
     .logged-out {
       display: none;
     }
-
   }
 
   .logged-in {
@@ -15,19 +15,26 @@ user-menu {
 
     &.is-open {
       .list {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        width: 100%;
       }
     }
 
     .list {
       display: none;
       position: absolute;
+
       a {
+        padding-bottom: 5px;
         &:hover {
           background-color: rgba(#55c, 0.1);
+          font-weight: bold;
+          cursor: pointer;
         }
       }
-
     }
 
     header {

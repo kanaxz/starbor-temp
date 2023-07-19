@@ -1,11 +1,11 @@
 <self :class="`${auth.@me ? 'has-user' : ''}`">
-  <div :v-exit="this.isOpen = false" :class="`logged-in ${this.@isOpen ? 'is-open' :''}`">
+  <div :class="`logged-in ${this.@isOpen ? 'is-open' : '' }`">
     <header :on-click="this.isOpen = !this.isOpen">
       <label>{{auth.@me?.@username}}</label>
     </header>
     <div class="list">
-      <button @click="logout">Log out</button>
-      <button @click="goToProfile">My profile</button>
+      <a :v-link="'/logout'">Logout</a>
+      <a :v-link="'/myprofile'">My profile</a>
     </div>
   </div>
   <div class="logged-out">
