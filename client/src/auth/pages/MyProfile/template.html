@@ -1,0 +1,20 @@
+<self>
+  <div class="content">
+    <div class="list">
+      <header>My profile</header>
+      <div :on-click="this.MyDataIsOpen = !this.MyDataIsOpen">
+        <h3>My data</h3>
+        <div :class="`my-data ${this.@MyDataIsOpen ? 'data-is-open' : ''}`">
+          <label>Username : {{auth.@me?.@username}}</label>
+          <label>Password : XXXXXXX</label>
+        </div>
+      </div>
+      <div :on-click="this.EditMyDataIsOpen = !this.EditMyDataIsOpen">
+        <h3>Edit my data</h3>
+        <div :class="`edit-my-data ${this.@EditMyDataIsOpen ? 'edit-is-open' : ''}`">
+          <label>My password : XXXXXXX</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</self>
