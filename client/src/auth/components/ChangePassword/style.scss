@@ -3,6 +3,23 @@
     display: flex;
     width: 50%;
     border-radius: 5px;
+
+    .newPassword {
+      display: none;
+
+      &.has-click {
+        display: block;
+      }
+    }
+  }
+
+  .error {
+    display: none;
+
+    &.error-message {
+      display: block;
+      color: red;
+    }
   }
 
   label {
@@ -16,5 +33,14 @@
 
   button {
     margin-top: 8px;
+
+    &.submit {
+      display: none;
+
+      &.has-click {
+        display: block;
+      }
+    }
   }
+
 }

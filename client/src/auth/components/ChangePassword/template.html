@@ -1,10 +1,33 @@
 <self>
   <div class="content">
+    <div :class="`error ${this.@errorMessage ? 'error-message' : ''}`">Your password is incorrect</div>
     <fieldset>
       <form as="form" :on-submit.prevent="this.onSubmit()">
-        <text-field class="password":label="'Please, enter your password :'" :name="'password'" :required="true" :type="'password'">
+        <text-field
+          class="currentPassword"
+          :label="'Please, enter your password :'"
+          :name="'currentPassword'"
+          :required="true"
+          :type="'password'">
         </text-field>
-        <button type="submit">Submit</button>
+        <button :on-click="this.hasClick = !this.hasClick" type="button">Next</button>
+        <text-field
+        :class="`newPassword ${this.@hasClick ? 'has-click' : ''}`"
+        :label="'New password :'"
+        :name="'newPassword'"
+        :required="true"
+        :type="'password'">
+        </text-field>
+        <text-field
+        :class="`newPassword ${this.@hasClick ? 'has-click' : ''}`"
+        :label="'Confirm your new password :'"
+        :name="'confirmedNewPassword'"
+        :required="true"
+        :type="'password'">
+        </text-field>
+        <button
+          :class="`submit ${this.@hasClick ? 'has-click' : ''}`"
+          type="submit">Submit</button>
       </form>
     </fieldset>
   </div>

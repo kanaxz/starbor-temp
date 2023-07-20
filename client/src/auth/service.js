@@ -34,7 +34,8 @@ const AuthService = class extends Service {
   }
 
   async changePassword(user) {
-    await request('/change-password', user)
+    const response = await request('/change-password', user)
+    return response
   }
 
   async signup(user) {

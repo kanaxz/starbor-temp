@@ -28,7 +28,7 @@ module.exports = {
         .status(500)
         .json({
           success: false,
-          message: err.message,
+          message: error.message,
         })
     }
 
@@ -89,7 +89,7 @@ module.exports = {
     })
 
 
-    router.post('/login', connectedMiddleware, async (req, res) => {
+    router.post('/login', loggedOut, async (req, res) => {
       try {
         const { username, password } = req.body
         if (!username || !password) {
