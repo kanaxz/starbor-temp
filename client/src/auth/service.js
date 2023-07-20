@@ -33,6 +33,10 @@ const AuthService = class extends Service {
     this.me = User.parse(me)
   }
 
+  async changePassword(user) {
+    await request('/change-password', user)
+  }
+
   async signup(user) {
     const { me } = await request('/signup', user)
     this.me = User.parse(me)

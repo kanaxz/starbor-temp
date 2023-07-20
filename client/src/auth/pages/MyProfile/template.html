@@ -6,22 +6,13 @@
         <h3>My data</h3>
         <div :class="`my-data ${this.@MyDataIsOpen ? 'data-is-open' : ''}`">
           <label>Username : {{auth.@me?.@username}}</label>
-          <label>Password : A supprimer ? </label>
         </div>
       </div>
       <header :on-click="this.EditMyDataIsOpen = !this.EditMyDataIsOpen">
         <h3>Edit my data</h3>
       </header>
         <div :class="`edit-my-data ${this.@EditMyDataIsOpen ? 'edit-is-open' : ''}`">
-          <form as="form" :on-submit.prevent="this.onSubmit()">
-            <text-field
-              :label="'Please enter your password'"
-              :name="'password'"
-              :required="true"
-              :type="'password'">
-            </text-field>
-            <button type="submit">Submit</button>
-          </form>
+         <change-password></change-password>
         </div>
     </div>
   </div>

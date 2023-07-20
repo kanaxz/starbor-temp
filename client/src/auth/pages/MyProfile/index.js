@@ -3,6 +3,7 @@ const Main = require('@app/layouts/Main')
 const template = require('./template.html')
 const auth = require('../../service')
 const navigator = require('@app/navigator')
+const ChangePassword = require('../../components/ChangePassword')
 
 require('./style.scss')
 
@@ -12,11 +13,6 @@ module.exports = class MyProfile extends Page {
     this.MyDataIsOpen = false
     this.EditMyDataIsOpen = false
   }
-
-  async onSubmit() {
-    console.log('submit');
-  }
-
 
 }.define({
   name: 'myprofile-page',
