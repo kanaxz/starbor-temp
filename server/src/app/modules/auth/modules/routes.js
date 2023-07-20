@@ -1,6 +1,7 @@
 const { User, Roles } = require('shared/types')
 const bcrypt = require('bcrypt')
 const exp = require('express')
+const { encryptPassword } = require('../utils')
 
 module.exports = {
   name: null,
@@ -8,8 +9,14 @@ module.exports = {
   async construct({ sessions, express, mongo, modeling }) {
     const userCollection = mongo.db.collection('users')
     const router = exp.Router()
-    const connectedMiddleware = (req, res, next) => {
+    const loggedOut = (req, res, next) => {
       if (!req.user) {
+        return next()
+      }
+    }
+
+    const loggedIn = (req, res, next) => {
+      if (req.user) {
         return next()
       }
     }
@@ -20,6 +27,7 @@ module.exports = {
       res
         .status(500)
         .json({
+          success: false,
           message: err.message,
         })
     }
@@ -38,7 +46,7 @@ module.exports = {
       })
     })
 
-    router.post('/signup', connectedMiddleware, async (req, res) => {
+    router.post('/signup', loggedOut, async (req, res) => {
       console.log('signup')
       try {
         const user = await modeling.collections.users.create(req, req.body)
@@ -52,14 +60,28 @@ module.exports = {
       }
     })
 
-    router.post('/change-password', connectedMiddleware, async (req, res) => {
+    router.post('/change-password', loggedIn, async (req, res) => {
       console.log('change-password')
       try {
-        const user = await modeling.collections.users.create(req, req.body)
-        req.user = user
-        await sessions.update(req, res)
+        const currentHashedPassword = await encryptPassword(req.body.currentPassword)
+        const user = await userCollection.find({
+          _id: req.user._id,
+          password: currentHashedPassword
+        })
+        if (!user) {
+          throw new Error('User not found')
+        }
+
+        const newHashedPassword = await encryptPassword(req.body.newPassword)
+        await userCollection.updateOne({
+          _id: req.user._id,
+        }, {
+          $set: {
+            password: newHashedPassword
+          }
+        })
         res.json({
-          me: user.toJSON()
+          success: true,
         })
       } catch (err) {
         handleError(res, err)

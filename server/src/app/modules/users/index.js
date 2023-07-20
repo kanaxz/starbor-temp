@@ -1,6 +1,5 @@
 const { User, Roles } = require('shared/types')
-const bcrypt = require('bcrypt')
-const saltRounds = 10;
+const { encryptPassword } = require('../auth/utils')
 
 
 const isAdminOrSelf = (req, user) => {
@@ -9,9 +8,7 @@ const isAdminOrSelf = (req, user) => {
   }
 }
 
-const encryptPassword = async (password) => {
-  return await bcrypt.hash(password, saltRounds)
-}
+
 
 const logic = () => {
 
