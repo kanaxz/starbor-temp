@@ -7,6 +7,15 @@ object-fieldset {
     font-weight: 500;
     text-transform: uppercase;
   }
+
+  > .types {
+    .type {
+      &.current {
+        
+      }
+    }
+  }
+
   > fieldset {
     //border: 1px solid #a1a1a1;
     background-color: rgba(#a1a1a1, 0.2);

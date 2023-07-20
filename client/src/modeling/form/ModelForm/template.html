@@ -1,9 +1,14 @@
 <self>
   <form :on-submit="this.onSubmit(event)">
-    <object-fieldset as="fieldset" :required="true" :value="this.@model" :type="this.@type"></object-fieldset>
+    <object-fieldset 
+      as="fieldset" 
+      :label="this.@type?.definition.name" 
+      :required="true" 
+      :value="this.@model" 
+      :type="this.@type">
+    </object-fieldset>
     <div class="bottom">
       <button type="submit">Save</button>
     </div>
-
   </form>
-</self>
+</self>   

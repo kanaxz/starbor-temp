@@ -34,3 +34,11 @@ navigator.route(showRegex, async (req, res) => {
   await entity.load()
   await res.page(import('./Show'), { entity })
 })
+
+navigator.route(/\/entities$/, async (req, res) => {
+  await res.page(import('./Entities'))
+})
+
+navigator.route(/\/entities\/create/, async (req, res) => {
+  await res.page(import('./Create'))
+})

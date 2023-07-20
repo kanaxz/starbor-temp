@@ -1,0 +1,37 @@
+$size: 40px;
+wheel-select {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: $size;
+  .options {
+    transition-duration: 0.2s;
+    position: absolute;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    height: $size;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    .option {
+      height: $size;
+      &.current {
+        color: red;
+      }
+      border-bottom: 1px solid #e1e1e1;
+      padding: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: aquamarine;
+      }
+    }
+  }
+
+  &:hover {
+    overflow: visible;
+
+    .options {
+      height: auto;
+    }
+  }
+}
