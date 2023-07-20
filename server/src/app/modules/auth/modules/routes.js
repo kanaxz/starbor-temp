@@ -64,7 +64,7 @@ module.exports = {
       console.log('change-password')
       try {
         const currentHashedPassword = await encryptPassword(req.body.currentPassword)
-        const user = await userCollection.find({
+        const user = await userCollection.findOne({
           _id: req.user._id,
           password: currentHashedPassword
         })
