@@ -52,6 +52,21 @@ module.exports = {
       }
     })
 
+    router.post('/change-password', connectedMiddleware, async (req, res) => {
+      console.log('change-password')
+      try {
+        const user = await modeling.collections.users.create(req, req.body)
+        req.user = user
+        await sessions.update(req, res)
+        res.json({
+          me: user.toJSON()
+        })
+      } catch (err) {
+        handleError(res, err)
+      }
+    })
+
+
     router.post('/login', connectedMiddleware, async (req, res) => {
       try {
         const { username, password } = req.body

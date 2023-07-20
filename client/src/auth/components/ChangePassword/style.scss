@@ -1,0 +1,20 @@
+.content {
+  fieldset {
+    display: flex;
+    width: 50%;
+    border-radius: 5px;
+  }
+
+  label {
+    text-transform: lowercase;
+    font-size: medium;
+  }
+
+  form {
+    padding : 8px;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+}
