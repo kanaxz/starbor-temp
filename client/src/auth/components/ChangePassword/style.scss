@@ -13,15 +13,6 @@
     }
   }
 
-  .error {
-    display: none;
-
-    &.error-message {
-      display: block;
-      color: red;
-    }
-  }
-
   label {
     text-transform: lowercase;
     font-size: medium;

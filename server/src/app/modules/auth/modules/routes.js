@@ -63,13 +63,13 @@ module.exports = {
     router.post('/change-password', loggedIn, async (req, res) => {
       console.log('change-password')
       try {
-        const currentHashedPassword = await encryptPassword(req.body.currentPassword)
         const user = await userCollection.findOne({
           _id: req.user._id,
-          password: currentHashedPassword
         })
-        if (!user) {
-          throw new Error('User not found')
+
+        const match = await bcrypt.compare(req.body.currentPassword, user.password)
+        if (!match) {
+          throw new Error('Invalid credentials')
         }
 
         const newHashedPassword = await encryptPassword(req.body.newPassword)

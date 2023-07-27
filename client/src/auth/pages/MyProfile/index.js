@@ -5,6 +5,7 @@ const auth = require('../../service')
 const navigator = require('@app/navigator')
 const ChangePassword = require('../../components/ChangePassword')
 
+
 require('./style.scss')
 
 module.exports = class MyProfile extends Page {
@@ -26,4 +27,5 @@ module.exports = class MyProfile extends Page {
   .variables({
     auth,
   })
+
 

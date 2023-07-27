@@ -27,6 +27,14 @@ app-notifications-list {
         background-color: blue;
         color: white;
       }
+      &.success {
+        background-color: green;
+        color: white;
+      }
+      &.error {
+        background-color: red;
+        color: white;
+      }
     }
   }
 }

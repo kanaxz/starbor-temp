@@ -2,13 +2,13 @@ const template = require('./template.html')
 const Component = require('hedera/Component')
 const auth = require('../../service')
 require('./style.scss')
+const notifications = require('../../../notifications')
 
 
 module.exports = class ChangePassword extends Component {
   constructor() {
     super()
     this.hasClick = false
-    this.errorMessage = false
   }
 
   async onSubmit() {
@@ -22,15 +22,15 @@ module.exports = class ChangePassword extends Component {
 
     try {
       const response = await auth.changePassword(values)
-      console.log(response)
+      notifications.notify({ message: 'Your password has been successfully changed', type: 'success' })
+      this.hasClick = false
+      this.form.reset();
     }
-
     catch (error) {
       this.hasClick = false
-      this.errorMessage = true
+      notifications.notify({ message: 'Your password is incorrect', type: 'error' })
       this.form.reset()
     }
-
   }
 
 }.define({
@@ -39,8 +39,8 @@ module.exports = class ChangePassword extends Component {
 })
   .variables({
     auth,
+    notifications,
   })
   .properties({
     hasClick: 'any',
-    errorMessage: 'any',
   })
