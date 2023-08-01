@@ -1,0 +1,19 @@
+.content {
+    padding-left: 5px;
+
+    fieldset {
+        display: flex;
+        width: 200%;
+        border-radius: 5px;
+    }
+    label {
+        text-transform: lowercase;
+        font-size: medium;
+      }
+
+      form {
+        padding : 8px;
+
+      }
+
+}

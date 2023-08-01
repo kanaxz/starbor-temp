@@ -1,4 +1,4 @@
-const { User, Roles } = require('shared/types')
+const { User, Roles, Organization } = require('shared/types')
 const bcrypt = require('bcrypt')
 const exp = require('express')
 const { encryptPassword } = require('../utils')
@@ -55,6 +55,22 @@ module.exports = {
         res.json({
           me: user.toJSON()
         })
+      } catch (err) {
+        handleError(res, err)
+      }
+    })
+
+    router.post('/create-user-organization', async (req, res) => {
+      console.log('hello 1 : ', req, res, req.body)
+      console.log('try to send datas')
+      try {
+        const organization = await modeling.collections.organization.create(req, req.body)
+        req.OrganizationName = OrganizationName
+        req.OrganizationAcronym = OrganizationAcronym
+        res.json({
+          organization: organization.toJSON()
+        })
+        console.log('Here')
       } catch (err) {
         handleError(res, err)
       }

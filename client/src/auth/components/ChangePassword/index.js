@@ -24,7 +24,7 @@ module.exports = class ChangePassword extends Component {
       const response = await auth.changePassword(values)
       notifications.notify({ message: 'Your password has been successfully changed', type: 'success' })
       this.hasClick = false
-      this.form.reset();
+      this.form.reset()
     }
     catch (error) {
       this.hasClick = false

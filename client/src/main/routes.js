@@ -18,3 +18,7 @@ navigator.route('/market', (req, res) => {
 navigator.use((req, res) => {
   navigator.navigate('/not-found')
 })
+
+navigator.route('/users-organizations', (req, res) => {
+  res.page(import('../organization/userOrganization/pages/usersOrganizations'))
+})
