@@ -61,16 +61,13 @@ module.exports = {
     })
 
     router.post('/create-user-organization', async (req, res) => {
-      console.log('hello 1 : ', req, res, req.body)
-      console.log('try to send datas')
       try {
-        const organization = await modeling.collections.organization.create(req, req.body)
-        req.OrganizationName = OrganizationName
-        req.OrganizationAcronym = OrganizationAcronym
+        const organization = await modeling.collections.organizations.create(req, req.body)
+        req.OrganizationName = organization
+        //req.OrganizationAcronym = organizationAcronym
         res.json({
-          organization: organization.toJSON()
+          me: organization.toJSON()
         })
-        console.log('Here')
       } catch (err) {
         handleError(res, err)
       }

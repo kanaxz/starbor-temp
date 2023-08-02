@@ -22,7 +22,7 @@ module.exports = class CreateUserOrganization extends Component {
       console.log(response)
     }
     catch (error) {
-      console.log('ERROR')
+      console.error('ERROR')
     }
   }
 
