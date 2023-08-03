@@ -48,9 +48,9 @@ const AuthService = class extends Service {
     this.me = null
   }
 
-  async createUserOrganization(organization) {
-    const response = await request('/create-user-organization', organization)
-    return response
+  async createUserOrganization(userOrganization) {
+    const result = api.collections.organizations.create(userOrganization)
+    return result
   }
 }
   .define()

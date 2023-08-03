@@ -1,0 +1,1 @@
+require('../organization/userOrganization/components/UserOrganizationInvitation')
