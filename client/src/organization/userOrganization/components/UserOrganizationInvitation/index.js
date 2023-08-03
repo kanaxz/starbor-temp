@@ -22,7 +22,7 @@ module.exports = class UserOrganizationInvitation extends Component {
 
   async initialize() {
     await super.initialize()
-    await this.update()
+    //await this.update()
   }
 }
   .define({

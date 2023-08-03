@@ -10,7 +10,7 @@ require('./style.scss')
 module.exports = class UsersOrganizations extends Page {
   constructor() {
     super()
-    this.CreateNewOrgIsOpen = false
+    this.createNewOrgIsOpen = false
 
   }
 }.define({
@@ -19,7 +19,7 @@ module.exports = class UsersOrganizations extends Page {
   layout: Main,
 })
   .properties({
-    CreateNewOrgIsOpen: 'any',
+    createNewOrgIsOpen: 'any',
   })
   .variables({
     collections,

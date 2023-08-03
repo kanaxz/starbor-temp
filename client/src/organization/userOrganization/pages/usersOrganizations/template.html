@@ -1,10 +1,10 @@
 <self>
     <div class="list">
         <h1>Users Organizations</h1>
-        <header :on-click="this.CreateNewOrgIsOpen = !this.CreateNewOrgIsOpen">
+        <header :on-click="this.createNewOrgIsOpen = !this.CreateNewOrgIsOpen">
             <h3>Create a new user organisation</h3>
         </header>
-            <div :class="`create-new-organization ${this.@CreateNewOrgIsOpen ? 'create-is-open' : ''}`">
+            <div :class="`create-new-organization ${this.@createNewOrgIsOpen ? 'create-is-open' : ''}`">
                 <create-user-organization></create-user-organization>
             </div>
         </div>
