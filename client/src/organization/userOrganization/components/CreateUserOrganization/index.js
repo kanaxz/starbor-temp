@@ -18,7 +18,10 @@ module.exports = class CreateUserOrganization extends Component {
     }, {})
     console.log(values)
     try {
-      const response = await auth.createUserOrganization(values)
+      const response = await auth.createUserOrganization({
+        '@type': 'userOrganization',
+        ...values,
+      })
       console.log(response)
     }
     catch (error) {
