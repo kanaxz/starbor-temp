@@ -1,4 +1,4 @@
-const Component = require('/workspace/star-citizen-universe/modules/hedera/Component')
+const Component = require('hedera/Component')
 const api = require('@app/api')
 const template = require('./template.html')
 const invitation = require('shared/types/models/Invitation.js')

@@ -1,6 +1,7 @@
 const { Model } = require('core/modeling/types')
 const UserOrganization = require('./UserOrganization')
 const User = require('./User')
+const HasMany = require('core/modeling/types/HasMany')
 
 class Member extends Model {
 
