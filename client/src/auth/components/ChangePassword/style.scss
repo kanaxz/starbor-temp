@@ -1,0 +1,37 @@
+.content {
+  fieldset {
+    display: flex;
+    width: 50%;
+    border-radius: 5px;
+
+    .newPassword {
+      display: none;
+
+      &.has-click {
+        display: block;
+      }
+    }
+  }
+
+  label {
+    text-transform: lowercase;
+    font-size: medium;
+  }
+
+  form {
+    padding : 8px;
+  }
+
+  button {
+    margin-top: 8px;
+
+    &.submit {
+      display: none;
+
+      &.has-click {
+        display: block;
+      }
+    }
+  }
+
+}

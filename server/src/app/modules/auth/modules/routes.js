@@ -1,6 +1,7 @@
-const { User, Roles } = require('shared/types')
+const { User, Roles, Organization } = require('shared/types')
 const bcrypt = require('bcrypt')
 const exp = require('express')
+const { encryptPassword } = require('../utils')
 
 module.exports = {
   name: null,
@@ -8,8 +9,14 @@ module.exports = {
   async construct({ sessions, express, mongo, modeling }) {
     const userCollection = mongo.db.collection('users')
     const router = exp.Router()
-    const connectedMiddleware = (req, res, next) => {
+    const loggedOut = (req, res, next) => {
       if (!req.user) {
+        return next()
+      }
+    }
+
+    const loggedIn = (req, res, next) => {
+      if (req.user) {
         return next()
       }
     }
@@ -20,7 +27,8 @@ module.exports = {
       res
         .status(500)
         .json({
-          message: err.message,
+          success: false,
+          message: error.message,
         })
     }
 
@@ -38,21 +46,63 @@ module.exports = {
       })
     })
 
-    router.post('/signup', connectedMiddleware, async (req, res) => {
+    router.post('/signup', loggedOut, async (req, res) => {
       console.log('signup')
       try {
-        const user = await modeling.collections.users.create(req.body)
+        const user = await modeling.collections.users.create(req, req.body)
         req.user = user
         await sessions.update(req, res)
         res.json({
           me: user.toJSON()
         })
       } catch (err) {
-        handleError(res, error)
+        handleError(res, err)
       }
     })
 
-    router.post('/login', connectedMiddleware, async (req, res) => {
+    router.post('/create-user-organization', async (req, res) => {
+      try {
+        const organization = await modeling.collections.organizations.create(req, req.body)
+        req.OrganizationName = organization
+        //req.OrganizationAcronym = organizationAcronym
+        res.json({
+          me: organization.toJSON()
+        })
+      } catch (err) {
+        handleError(res, err)
+      }
+    })
+
+    router.post('/change-password', loggedIn, async (req, res) => {
+      console.log('change-password')
+      try {
+        const user = await userCollection.findOne({
+          _id: req.user._id,
+        })
+
+        const match = await bcrypt.compare(req.body.currentPassword, user.password)
+        if (!match) {
+          throw new Error('Invalid credentials')
+        }
+
+        const newHashedPassword = await encryptPassword(req.body.newPassword)
+        await userCollection.updateOne({
+          _id: req.user._id,
+        }, {
+          $set: {
+            password: newHashedPassword
+          }
+        })
+        res.json({
+          success: true,
+        })
+      } catch (err) {
+        handleError(res, err)
+      }
+    })
+
+
+    router.post('/login', loggedOut, async (req, res) => {
       try {
         const { username, password } = req.body
         if (!username || !password) {

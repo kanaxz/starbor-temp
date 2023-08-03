@@ -30,10 +30,10 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
     Object.assign(this, result)
 
   }
-  
+
   // we do nothing ..
   unload() {
- 
+
   }
 
   toJSON(paths = {}, context) {
@@ -42,7 +42,7 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
     }
     const index = this.getIndex('main')
     if (!index) {
-      console.error(this)
+      console.error(this.toJSON())
       throw new Error('Could not toJSON')
     }
     return {

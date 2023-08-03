@@ -3,9 +3,10 @@ const { nanoid } = require('nanoid')
 const { chain } = require('core/utils/array')
 const mixer = require('core/mixer')
 const handlers = require('./handlers')
-const { processQuery, makePath } = require('./utils')
+const { processQuery, makePath } = require('./queryUtils')
 const { get } = require('core/utils/path')
 const setup = require('core/setup')
+const { validate } = require('./utils')
 const config = setup.server.mongo
 
 const patchesMap = {
@@ -47,6 +48,8 @@ const applyLookups = async (models, lookups, paths, path) => {
     await lookup.controllers.rightToLeft
   }
 }
+
+const DELETE_MANY_SIZE = 100
 
 module.exports = class MongoCollection {
   constructor(type, mongodb, controllers) {
@@ -96,7 +99,12 @@ module.exports = class MongoCollection {
       if (!controller.find) {
         return next()
       }
-      return controller.find(req, initPipeline, query, next)
+      return controller.find(req, initPipeline, query, (newQuery) => {
+        if (newQuery) {
+          query = newQuery
+        }
+        return next()
+      })
     }, async () => {
       const rootScope = new MongoScope({
         req,
@@ -152,6 +160,10 @@ module.exports = class MongoCollection {
     const editJson = model.toJSON()
     applyPatches(editJson, patches)
     const editModel = this.type.parse(editJson)
+    if (editModel.constructor !== model.constructor) {
+      throw new Error('Type not matching')
+    }
+    validate(model.constructor, 'update', editModel, model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.update) {
@@ -159,10 +171,12 @@ module.exports = class MongoCollection {
       }
       return controller.update(req, editModel, model, next)
     }, async () => {
+      const json = editModel.toJSON()
+      delete json._id
       await this.mongoCollection.updateOne({
         _id: model._id,
       }, {
-        $set: editModel.toJSON()
+        $set: json
       })
     })
 
@@ -196,12 +210,15 @@ module.exports = class MongoCollection {
     }
   }
 
-  async delete(req, _id) {
-    if (!_id) {
-      throw new Error('_id cannot be null')
+  async delete(req, arg) {
+    let model
+    if (typeof arg === 'string') {
+      model = await this.findOne(req, { _id: arg })
+    } else {
+      model = arg
     }
-    const model = await this.findOne(req, { _id })
-    if (!model) {
+
+    if (!model || !(model instanceof this.type)) {
       throw new Error(`Model with id ${_id} not found`)
     }
     const controllers = this.getTypeControllers(model.constructor)
@@ -215,5 +232,17 @@ module.exports = class MongoCollection {
         _id,
       })
     })
+  }
+
+  async deleteMany(req, query) {
+    let models
+    do {
+      models = await this.find(req, query, {
+        limit: DELETE_MANY_SIZE
+      })
+      for (const model of models) {
+        await this.delete(req, model)
+      }
+    } while (models.length === DELETE_MANY_SIZE)
   }
 }

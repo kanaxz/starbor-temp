@@ -81,7 +81,7 @@ module.exports = {
       await collection.deleteOne({
         userId: req.user._id,
       })
-      res.clearCookie(TOKEN_AGE)
+      res.clearCookie(TOKEN_KEY)
     }
 
     return {

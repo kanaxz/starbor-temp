@@ -1,4 +1,4 @@
-const { Object } = require('core/modeling/types')
+const { Object, Number, String } = require('core/modeling/types')
 const Position2D = require('./Position3D')
 
 module.exports = class Starmap extends Object {
@@ -8,9 +8,9 @@ module.exports = class Starmap extends Object {
     name: 'Starmap',
   })
   .properties({
-    id: 'string',
-    type: 'string',
-    code: 'string',
+    id: Number,
+    type: String,
+    code: String,
     position: Position2D,
-    orbitPeriod: 'number',
+    orbitPeriod: Number,
   })

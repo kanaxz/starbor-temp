@@ -1,17 +1,14 @@
 const { User, Roles } = require('shared/types')
-const bcrypt = require('bcrypt')
-const saltRounds = 10;
+const { encryptPassword } = require('../auth/utils')
 
 
 const isAdminOrSelf = (req, user) => {
-  if (!req.user.admin && req.user.id !== user._id) {
+  if (!req.user.roles.admin && req.user.id !== user._id) {
     throw new Error('Cannot update user')
   }
 }
 
-const encryptPassword = async (password) => {
-  return await bcrypt.hash(password, saltRounds)
-}
+
 
 const logic = () => {
 
@@ -24,6 +21,11 @@ const userLogiq = logic({
   password: {
     required: true,
   }
+})
+
+const emptyRoles = new Roles({
+  admin: false,
+  editor: false,
 })
 
 module.exports = {
@@ -53,15 +55,19 @@ module.exports = {
         }
 
         user.password = await encryptPassword(password)
-        user.roles = new Roles({
-          admin: false,
-        })
+        if (!req.user.roles.admin && !user.roles.equals(emptyRoles)) {
+          throw new Error('Cannot change roles')
+        }
+
 
         await next()
         delete user.password
       },
       async update(req, user, oldUser, next) {
         isAdminOrSelf(req, user)
+        if (!req.user.roles.admin && !user.roles.equals(oldUser.roles)) {
+          throw new Error('Cannot change roles')
+        }
 
         if (user.password !== oldUser.password) {
           user.password = await encryptPassword(user.password)

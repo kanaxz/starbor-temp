@@ -52,7 +52,7 @@ const log = () => {
     acc[h.toString()] = h
     return acc
   }, {})
-  console.log(instances.length, objectToLog)
+  //console.log(instances.length, objectToLog)
 }
 
 const loop = () => {

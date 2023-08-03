@@ -1,3 +1,4 @@
+const mixer = require('../mixer')
 const Global = require('../modeling/types/Global')
 
 const getProperty = (scope, source, propertyName) => {
@@ -75,13 +76,30 @@ const processObject = (scope, object, context) => {
   throw new Error('Could not process object')
 }
 
+const getParseHandler = (scope, object, type) => {
+  const typeHandlers = scope.getHandlers(type)
+  const typeHandler = typeHandlers.find((h) => h.parse)
+  if (typeHandler) {
+    return typeHandler
+  }
+
+  for (const handler of scope.root.handlers) {
+    if (mixer.is(handler.for.prototype, type) && handler.check && handler.check(object)) {
+      const typeHandlers = scope.getHandlers(handler.for)
+      const typeHandler = typeHandlers.find((h) => h.parse)
+      return typeHandler
+    }
+  }
+
+  return null
+}
+
+
 const parse = (scope, object, context) => {
   const type = context.definition.type.getType(context.source.type)
-  const handlers = scope.getHandlers(type)
-  const handler = handlers.find((h) => h.parse)
+  const handler = getParseHandler(scope, object, type)
   if (!handler) {
-    console.error("error here", object, context)
-    throw new Error(`Could not find handler for parse on type ${type.definition.name}`)
+    throw new Error(`Could not find handler for parse on type ${type.definition.name} ${object}`)
   }
   return handler.parse(scope, object, context)
 }

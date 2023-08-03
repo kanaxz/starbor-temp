@@ -8,13 +8,11 @@ module.exports = {
   async construct({ express, mongo, modeling }) {
     try {
       const req = {}
-      const microTech = await modeling.collections.entities.findOne(req, [{
-        $eq: ['$name', 'microTech']
-      }], {
-        load: {
-          parents: true,
-        }
+      const microTech = await modeling.collections.entities.find(req, {
+        name: 'abc',
       })
+
+      console.log(microTech)
 
       //await microTech.parents.load()
       //console.log([...microTech.parents])

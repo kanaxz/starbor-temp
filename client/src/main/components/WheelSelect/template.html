@@ -1,0 +1,14 @@
+<self>
+  <div 
+    :on-wheel="this.onWheel(event)"
+    :style.top="`-${this.@index * 40}px`" 
+    class="options" 
+    :v-for="option of this.@options">
+    <div 
+      :class="`option ${option === this.@option ? 'current' : ''} `" 
+      :on-click="this.setOption(option)">
+        <label>{{option.label}}</label>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</self>

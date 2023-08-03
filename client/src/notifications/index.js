@@ -34,6 +34,12 @@ const types = {
   info: {
     icon: '<i class="fa-solid fa-circle-info"></i>',
   },
+  success: {
+    icon: '<i class="fa-solid fa-check"></i>',
+  },
+  error: {
+    icon: '<i class="fa-solid fa-exclamation"></i>',
+  },
 };
 
 Object.entries(types).forEach(([name, type]) => {

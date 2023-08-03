@@ -20,3 +20,11 @@ navigator.route('/logout', (req, res) => {
   auth.logout()
   return navigator.navigate('/')
 })
+
+navigator.route('/myprofile', (req, res) => {
+  res.page(import('./pages/MyProfile'))
+})
+
+navigator.route('/users-organizations', (req, res) => {
+  res.page(import('../organization/userOrganization/pages/usersOrganizations'))
+})

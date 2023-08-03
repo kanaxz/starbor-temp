@@ -1,5 +1,10 @@
 <self>
-  <label>{{this.@type?.definition?.name || ''}}</label>
+  <label>{{this.@label || ''}}</label>
+  <wheel-select 
+    :options="this.@types" 
+    :option="this.@currentOption"
+    :on-change="this.onTypeChanged(event)">
+  </wheel-select>
   <fieldset :v-for="field of this.@fields with (f) => f">
   </fieldset>
 </self>

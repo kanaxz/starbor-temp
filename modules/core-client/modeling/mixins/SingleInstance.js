@@ -1,6 +1,6 @@
 const Destroyable = require('core/mixins/Destroyable')
 const mixer = require('core/mixer')
-const Comparable = require('core/mixins/Comparable');
+const Equalable = require('core/mixins/Equalable');
 const Propertiable = require('core/mixins/Propertiable');
 const Transformable = require('./Transformable');
 
@@ -9,7 +9,7 @@ const instances = [];
 const checkDuplicates = () => {
   for (const i of instances) {
     for (const j of instances) {
-      if (i !== j && i.compare(j)) {
+      if (i !== j && i.equals(j)) {
         Object.assign(i, j)
         j.tranform(i)
         console.info('Transformation completed', i, j)
@@ -27,7 +27,7 @@ const symbol = Symbol('singleInstanceId')
 
 let id = 0
 
-const SingleInstance = mixer.mixin([Destroyable, Comparable, Transformable], (base) => {
+const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (base) => {
   return class SingleInstance extends base {
 
     static parse(object, ...args) {
@@ -35,7 +35,7 @@ const SingleInstance = mixer.mixin([Destroyable, Comparable, Transformable], (ba
         return object
       }
 
-      const instance = instances.find((instance) => instance.compare(object))
+      const instance = instances.find((instance) => instance.equals(object))
       if (instance) {
         Object.assign(instance, object)
         return instance

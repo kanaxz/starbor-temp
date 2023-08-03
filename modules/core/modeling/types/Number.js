@@ -2,15 +2,13 @@ const Primitive = require('./Primitive')
 const utils = require('../utils')
 
 class Number extends Primitive {
-  static validate(value) {
-    return typeof value === 'number'
+  static parse(value, owner, property) {
+    if (value == null) { return value }
+    if (typeof value !== 'number') {
+      throw new Error(`Property ${property.name} has to be a number, received ${value}`)
+    }
+    return super.parse(value, owner, property)
   }
 }
-
-utils.propertySanitizers.push((property) => {
-  if (property.type === 'number') {
-    property.type = Number
-  }
-})
 
 module.exports = Number

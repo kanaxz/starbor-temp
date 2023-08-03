@@ -18,15 +18,16 @@ const typesFieldmapping = [
 
 const ignore = ['_id']
 
-
 class ObjectFieldset extends Field {
   constructor(values) {
     super(values)
     this.on('propertyChanged:value', this.b(this.updateTimeout))
-    this.on('propertyChanged:type', this.b(this.updateTimeout))
+    this.on('propertyChanged:type', this.b(this.updateType))
+    this.on('propertyChanged:currentOption', this.b(this.update))
   }
 
   initialize() {
+    this.updateType()
     this.update()
     return super.initialize()
   }
@@ -40,13 +41,40 @@ class ObjectFieldset extends Field {
     }, 1)
   }
 
-  async update() {
+  async updateType() {
     if (!this.type) {
+      this.types = []
+      return
+    }
+    this.types = this.type
+      .getAllChilds()
+      .filter((c) => !c.definition.abstract)
+      .map((c) => ({
+        label: c.definition.name,
+        value: c,
+      }))
+
+    this.currentOption = this.types[0]
+
+    if (!this.required) {
+      this.types.unshift({
+        label: 'NULL',
+        value: null
+      })
+    }
+  }
+
+  onTypeChanged({ option }) {
+    this.currentOption = option
+  }
+
+  async update() {
+    if (!this.currentOption?.value) {
       this.fields = []
       return
     }
 
-    this.fields = this.type.properties
+    this.fields = this.currentOption.value.properties
       .map((property) => {
         const shouldIgnore = ignore.indexOf(property.name) !== -1
         if (shouldIgnore) { return null }
@@ -66,16 +94,19 @@ class ObjectFieldset extends Field {
         })
       })
       .filter((o) => o)
-
-    console.log('fields', this.fields)
   }
 
+
+
   getValue() {
+    if (!this.currentOption) {
+      return null
+    }
     const value = this.fields.reduce((acc, field) => {
       acc[field.name] = field.getValue()
       return acc
     }, {})
-    value['@type'] = this.type.definition.name
+    value['@type'] = this.currentOption.value.definition.name
     return value
   }
 }
@@ -88,6 +119,8 @@ ObjectFieldset
     template,
   })
   .properties({
+    types: 'any',
+    currentOption: 'any',
     fields: 'any',
   })
 

@@ -8,6 +8,7 @@ const MapObject = require('./Object')
 const { calculateDistance, getMax } = require('./utils')
 const Component = require('hedera/Component')
 const { collections } = require('@app/api')
+const { bound: boundInt } = require('core/utils/number')
 require('./style.scss')
 
 const toRadians = (angle) => {
@@ -20,16 +21,6 @@ const LAYER_DISTANCE = 400
 const MIN_ZOOM = 0.2
 const MAX_ZOOM = 2
 const RADIANS = toRadians(360)
-
-const boundInt = (int, [min, max]) => {
-  if (int < min) {
-    return min
-  }
-  if (int > max) {
-    return max
-  }
-  return int
-}
 
 const bound = (position, square) => {
   position.x = boundInt(position.x, square.x)
@@ -61,16 +52,20 @@ module.exports = class Map extends Component {
     console.log({ ...systems[0] })
 
 
-    this.mapObjects = systems.map((object) => {
-      return new MapObject({
-        object,
-        name: object.name,
-        position: object.starmap.position,
-        color: object.organization.color,
-        x: 0,
-        y: 0,
+    this.mapObjects = systems
+      .filter((system) => system.starmap?.position)
+      .map((object) => {
+        if (!object.organization)
+          console.log(object)
+        return new MapObject({
+          object,
+          name: object.name,
+          position: object.starmap.position,
+          color: object.organization?.color,
+          x: 0,
+          y: 0,
+        })
       })
-    })
     this.layers = [...Array(MAX_LAYERS)].map((nop, i) => {
       return new Layer({
         x: 0,

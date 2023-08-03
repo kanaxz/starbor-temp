@@ -6,33 +6,27 @@ const notifications = require('@app/notifications')
 require('./style.scss')
 
 module.exports = class ModelForm extends Component {
-  constructor(values) {
-    super(values)
-    this.on('propertyChanged:model', this.b(this.update))
-  }
-
-  initialize() {
-    this.update()
-    return super.initialize()
-  }
-
-  async update() {
-
-  }
-
   async onSubmit(e) {
     e.preventDefault()
     const value = this.fieldset.getValue()
     console.log({ value })
     try {
-      await this.model.constructor.collection.update({
-        _id: this.model._id,
-      }, {
-        $set: value
-      })
-      this.event('on-saved', { model: this.model })
+      let model
+      if (this.model) {
+        model = await this.type.collection.update({
+          _id: this.model._id,
+        }, {
+          $set: value
+        })
+      } else {
+        model = await this.type.collection.create(value)
+      }
+      
+
+      this.event('saved', { model })
     } catch (error) {
-      this.event('on-error', { error })
+      console.log('error', error)
+      this.event('error', { error })
       throw err
     }
   }

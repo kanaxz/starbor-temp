@@ -1,4 +1,4 @@
-require('core')
+require('core-client/setup')
 const loadersNames = [
   require('./loaders/collections'),
   require('./loaders/starmap')
