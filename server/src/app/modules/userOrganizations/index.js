@@ -21,6 +21,8 @@ module.exports = {
         return next()
       },
       async create(req, userOrganization, next) {
+        userOrganization.owner = req.user
+        userOrganization.private = false
         isLogged(req)
         await next()
       },
