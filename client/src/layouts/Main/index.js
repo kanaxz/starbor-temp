@@ -31,7 +31,12 @@ module.exports = class Main extends Layout {
         label: 'Map',
         class: 'fa-solid fa-shop',
         url: '/map',
-      }
+      },
+      {
+        label: 'Users Organizations',
+        class: 'fa-solid fa-shop',
+        url: '/users-organizations',
+      },
     ]
   }
 }

@@ -2,7 +2,7 @@ const axios = require('axios')
 const Service = require('hedera/Service')
 const config = require('@app/config')
 const api = require('@app/api')
-const { User } = require('shared/types')
+const { User, Organization } = require('shared/types')
 const Controlleable = require('../modeling/Controlleable')
 
 const request = async (action, payload) => {
@@ -46,6 +46,11 @@ const AuthService = class extends Service {
   async logout() {
     await request('/logout')
     this.me = null
+  }
+
+  async createUserOrganization(organization) {
+    const response = await request('/create-user-organization', organization)
+    return response
   }
 }
   .define()
