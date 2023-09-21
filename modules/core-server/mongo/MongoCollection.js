@@ -33,6 +33,23 @@ const collect = (models, path) => {
   return array
 }
 
+const check = (model, old) => {
+  const properties = model.constructor.properties
+  for (const p of properties) {
+    if (p.required && model[p.name] == undefined) {
+      throw new Error(`Property ${p.name} is required`)
+    }
+  }
+
+  if (old) {
+    for (const p of properties) {
+      if (p.readonly && !p.type.equals(model[p.name], old[p.name])) {
+        throw new Error(`Cannot change property ${p.name}`)
+      }
+    }
+  }
+}
+
 const applyLookups = async (models, lookups, paths, path) => {
   for (const [propertyName, subPaths] of Object.entries(paths)) {
     const lookup = lookups.find(({ property }) => property.name === propertyName)
@@ -143,12 +160,14 @@ module.exports = class MongoCollection {
     modelJson._id = nanoid()
     const model = this.type.parse(modelJson)
     const controllers = this.getTypeControllers(model.constructor)
+    
     await chain(controllers, async (controller, next) => {
       if (!controller.create) {
         return next()
       }
       return controller.create(req, model, next)
     }, async () => {
+      check(model)
       const json = model.toJSON()
       await this.mongoCollection.insertOne(json)
     })

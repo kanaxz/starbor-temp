@@ -24,3 +24,7 @@ navigator.route('/logout', (req, res) => {
 navigator.route('/myprofile', (req, res) => {
   res.page(import('./pages/MyProfile'))
 })
+
+navigator.route('/users-organizations', (req, res) => {
+  res.page(import('../organization/userOrganization/pages/usersOrganizations'))
+})

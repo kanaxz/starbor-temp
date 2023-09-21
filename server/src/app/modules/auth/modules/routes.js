@@ -1,4 +1,4 @@
-const { User, Roles } = require('shared/types')
+const { User, Roles, Organization } = require('shared/types')
 const bcrypt = require('bcrypt')
 const exp = require('express')
 const { encryptPassword } = require('../utils')
@@ -54,6 +54,19 @@ module.exports = {
         await sessions.update(req, res)
         res.json({
           me: user.toJSON()
+        })
+      } catch (err) {
+        handleError(res, err)
+      }
+    })
+
+    router.post('/create-user-organization', async (req, res) => {
+      try {
+        const organization = await modeling.collections.organizations.create(req, req.body)
+        req.OrganizationName = organization
+        //req.OrganizationAcronym = organizationAcronym
+        res.json({
+          me: organization.toJSON()
         })
       } catch (err) {
         handleError(res, err)

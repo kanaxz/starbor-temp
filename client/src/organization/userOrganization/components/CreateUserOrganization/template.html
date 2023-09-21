@@ -1,0 +1,35 @@
+<self>
+    <div class="content">
+        <fieldset>
+            <form
+                as="form"
+                :on-submit.prevent="this.onSubmit()">
+                <text-field
+                    class="OrganizationName"
+                    :label="'Name of the user organization'"
+                    :name="'name'"
+                    :required="true"
+                    :type="'text'">
+                </text-field>
+                <text-field
+                    class="OrganizationAcronym"
+                    :label="'Acronym of the user organization'"
+                    :name="'code'"
+                    :required="true"
+                    :type="'text'">
+                </text-field>
+                <text-field
+                    class="OrganizationAcronym"
+                    :label="'Acronym of the user organization'"
+                    :name="'description'"
+                    :required="true"
+                    :type="'text'">
+                </text-field>
+                <button
+                    type="submit">
+                    Submit
+                </button>
+            </form>
+        </fieldset>
+    </div>
+</self>
