@@ -1,6 +1,8 @@
 const Component = require('hedera/Component')
+const State = require('./State')
 
 module.exports = class Field extends Component {
+  static stateType = State
   constructor(values = {}) {
     super()
     Object.assign(this, values)
@@ -15,8 +17,14 @@ module.exports = class Field extends Component {
     }
   }
 
-  getValue(){
-    return this.value
+  getValue() {
+    return this.state.value
+  }
+
+  setValue(value) {
+    this.state.value = value
+    console.log({...this})
+    this.childForm.onFieldChanged()
   }
 
 }
@@ -25,7 +33,6 @@ module.exports = class Field extends Component {
     type: 'string',
     label: 'string',
     name: 'string',
-    required: 'any',
     errors: 'any',
-    value: 'any',
+    state: 'any',
   })

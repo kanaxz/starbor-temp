@@ -13,10 +13,21 @@ const attach = (node, { this: thisArg }) => {
   set(thisArg, node.id, node)
 }
 
+const _in = (node, { this: thisArg }) => {
+  const attr = node.getAttribute('in')
+  if (!attr) { return }
+
+  if(!thisArg[attr]){
+    thisArg[attr] = []
+  }
+  thisArg[attr].push(node)
+}
+
 module.exports = {
   process(node, variables) {
     if (node.nodeType !== Node.ELEMENT_NODE) { return }
     as(node, variables)
     attach(node, variables)
+    _in(node, variables)
   }
 }

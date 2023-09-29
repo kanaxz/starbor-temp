@@ -1,34 +1,34 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const navigator = require('@app/navigator')
-const notifications = require('@app/notifications')
+const Array = require('core/types/Array')
 
 require('./style.scss')
 
 module.exports = class ModelForm extends Component {
-  async onSubmit(e) {
-    e.preventDefault()
-    const value = this.fieldset.getValue()
-    console.log({ value })
-    try {
-      let model
-      if (this.model) {
-        model = await this.type.collection.update({
-          _id: this.model._id,
-        }, {
-          $set: value
-        })
-      } else {
-        model = await this.type.collection.create(value)
-      }
-      
+  constructor() {
+    super()
+    this.forms = new Array()
+  }
 
-      this.event('saved', { model })
-    } catch (error) {
-      console.log('error', error)
-      this.event('error', { error })
-      throw err
-    }
+  target(form) {
+
+    const index = this.forms.indexOf(form)
+    console.log('targetting', form, index)
+    if (index === -1) { throw new Error() }
+
+    this.forms.splice(index + 1, this.forms.length - index + 1)
+  }
+
+  show(form) {
+    this.forms.push(form)
+    form.addEventListener('saved', () => {
+      this.forms.remove(form)
+    })
+  }
+
+  onSaved({ model }) {
+    console.log('model saved', model)
+    this.event('saved', { model })
   }
 }
   .define({

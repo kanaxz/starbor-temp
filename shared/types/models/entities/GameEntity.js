@@ -22,9 +22,28 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
     }
   })
   .properties({
-    code: String,
+    code: {
+      type: String,
+      state: {
+        required: true,
+      }
+    },
     description: Markdown,
-
     starmap: Starmap,
     image: String,
+  })
+  .controllers({
+    update: {
+      logic(context, states) {
+        console.log({ ...states.starmap })
+        states.starmap.states.code.disabled = true
+        if (states.code.value === 'abc') {
+          states.name.value = 'lol'
+          states.name.disabled = true
+          states.name.hidden = false
+        } else {
+          states.name.hidden = true
+        }
+      }
+    }
   })

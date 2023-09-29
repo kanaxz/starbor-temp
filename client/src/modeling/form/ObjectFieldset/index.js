@@ -23,7 +23,7 @@ class ObjectFieldset extends Field {
     super(values)
     this.on('propertyChanged:value', this.b(this.updateTimeout))
     this.on('propertyChanged:type', this.b(this.updateType))
-    this.on('propertyChanged:currentOption', this.b(this.update))
+    this.on('propertyChanged:currentOption', this.b(this.onCurrentOptionChanged))
   }
 
   initialize() {
@@ -39,6 +39,11 @@ class ObjectFieldset extends Field {
     this.timeout = setTimeout(() => {
       this.update()
     }, 1)
+  }
+
+  async onCurrentOptionChanged(){
+    this.update()
+    this.childForm.updateStates()
   }
 
   async updateType() {
@@ -68,7 +73,7 @@ class ObjectFieldset extends Field {
     this.currentOption = option
   }
 
-  async update() {
+  update() {
     if (!this.currentOption?.value) {
       this.fields = []
       return
@@ -87,16 +92,24 @@ class ObjectFieldset extends Field {
 
         return new fieldType({
           type: property.type,
-          value,
           label: property.name,
           name: property.name,
-          required: false,
+          childForm: this.childForm,
+          fieldset: this,
+          form: this.form,
+          state: new fieldType.stateType({
+            ...(property.state || {}),
+            value
+          })
         })
       })
       .filter((o) => o)
+
+    this.state.states = this.fields.reduce((acc, f) => {
+      acc[f.name] = f.state
+      return acc
+    }, {})
   }
-
-
 
   getValue() {
     if (!this.currentOption) {
@@ -109,6 +122,7 @@ class ObjectFieldset extends Field {
     value['@type'] = this.currentOption.value.definition.name
     return value
   }
+
 }
 
 typesFieldmapping.push([Object, ObjectFieldset])

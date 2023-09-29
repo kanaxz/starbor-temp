@@ -12,7 +12,6 @@ require('./auth')
 require('./fields')
 require('./gameEntities')
 require('./main')
-require('./paneling')
 require('./organization')
 
 require('./style.scss')

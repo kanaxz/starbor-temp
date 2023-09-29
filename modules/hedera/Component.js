@@ -31,6 +31,11 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
   }
 
   async process(scope) {
+    if (this.processed) {
+      console.warn('Already processed', this)
+      return
+    }
+    this.processed = true
     renderer.process(this.el, scope)
     if (await renderer.renderVirtuals(this, scope)) {
       throw new Error('Incompatible')

@@ -64,7 +64,7 @@ const render = async (node, scope) => {
   if (await processSelf(node, scope)) {
     return
   }
-
+  
   if (isCustomElement(node)) {
     await customElements.whenDefined(node.tagName.toLowerCase());
   }

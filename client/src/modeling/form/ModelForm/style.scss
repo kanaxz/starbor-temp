@@ -1,14 +1,19 @@
 model-form {
   width: 100%;
-  form {
-    object-fieldset {
+  .breadcrumb {
+    label {
+      &:not(:last-child) {
+        &::after {
+          content: ">";
+        }
+      }
     }
-    .bottom {
-      margin-top: 15px;
-      float: right;
-      button {
-        font-size: 26px;
-        padding: 5px;
+  }
+
+  .forms {
+    child-model-form {
+      &:not(:last-child) {
+        display: none;
       }
     }
   }

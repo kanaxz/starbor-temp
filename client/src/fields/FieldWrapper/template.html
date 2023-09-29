@@ -1,4 +1,4 @@
-<self>
+<self :class="`${this.@field.@state.@hidden ? 'hidden' : ''} ${this.@field.@state.@required ? 'required' : ''}`">
   <label>{{this.@field.@label}}</label>
   <div class="transclude" as="transclude"></div>
   <div class="errors" :v-for="error of this.@field.@errors">

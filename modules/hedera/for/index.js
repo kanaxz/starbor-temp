@@ -26,8 +26,8 @@ module.exports = class For extends Virtual {
 
   async initialize() {
     await super.initialize()
-    //await this.onSourceChanged()
-
+    await this.onSourceChanged()
+    /*
     setTimeout(() => {
       this.onSourceChanged()
     })
@@ -72,7 +72,7 @@ module.exports = class For extends Virtual {
       this.handler = null
     }
     for (let i = 0; i < this.source.length; i++) {
-      const it = await this.iteration(this.source[i], i)
+      const it = this.iteration(this.source[i], i)
       this.el.appendChild(it.element)
       await renderer.render(it.element, it.scope)
     }

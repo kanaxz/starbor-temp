@@ -13,6 +13,10 @@ module.exports = class PlanetShowPage extends Page {
     this.canUpdate = await this.entity.canUpdate()
   }
 
+  onReady(){
+    
+  }
+
   templateChild(child) {
     const card = componentsService.get(child.constructor, 'card')
     return new card(child)

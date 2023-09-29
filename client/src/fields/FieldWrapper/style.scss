@@ -6,4 +6,18 @@ field-wrapper {
     text-transform: uppercase;
     margin-bottom: 5px;
   }
+
+  &.hidden {
+    display: none;
+  }
+
+  &.required {
+    > label {
+      &::after {
+        margin-left: 5px;
+        content: "*";
+        color: red;
+      }
+    }
+  }
 }

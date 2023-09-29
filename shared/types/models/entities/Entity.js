@@ -17,7 +17,12 @@ Entity
   .properties({
     organization: Organization,
     parent: Entity,
-    name: String,
+    name: {
+      type: String,
+      state: {
+        required: true,
+      }
+    },
     parents: {
       type: Branch.of(Entity),
       on: 'parent',
@@ -26,6 +31,11 @@ Entity
     children: {
       type: HasMany.of(Entity),
       on: 'parent',
+    }
+  })
+  .controllers({
+    update: {
+      check({ user }) { return user.roles.admin },
     }
   })
 

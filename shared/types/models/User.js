@@ -19,11 +19,11 @@ module.exports = class User extends Model {
     }
   })
   .controllers({
-    update(user) {
-      return ownershipRule(this, user)
+    update: {
+      check({ user }) { return ownershipRule(this, user) }
     },
-    delete(user) {
-      return ownershipRule(this, user)
+    delete: {
+      check({ user }) { return ownershipRule(this, user) }
     }
   })
   .properties({

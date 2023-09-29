@@ -1,14 +1,14 @@
 <self>
-  <form :on-submit="this.onSubmit(event)">
-    <object-fieldset 
-      as="fieldset" 
-      :label="this.@type?.definition.name" 
-      :required="true" 
-      :value="this.@model" 
-      :type="this.@type">
-    </object-fieldset>
-    <div class="bottom">
-      <button type="submit">Save</button>
-    </div>
-  </form>
+  <div class="breadcrumb" :v-for="form of this.forms">
+    <label :on-click="this.target(form)">{{ form.label || form.@type?.definition.name }}</label>
+  </div>
+  <child-model-form 
+    :form="this" 
+    in="forms" 
+    :type="this.@type" 
+    :label="this.@model?.toString()"
+    :on-saved="this.onSaved(event)"
+    :model="this.@model">
+  </child-model-form>
+  <div class="forms" :v-for="form of this.forms with (f) => f"></div>
 </self>   
