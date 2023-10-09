@@ -29,6 +29,5 @@ module.exports = {
   dashToCamel,
   createFunction,
   isCustomElement,
-  path: require('./path'),
   template: require('./template')
 }

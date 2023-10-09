@@ -8,10 +8,10 @@ module.exports = class SummarySection extends Component {
     super()
     this.open = true
   }
-  initialized() {
+
+  onReady() {
     const title = this.querySelector('h1,h2,h3,h4,h5,h6')
     this.titleContainer.appendChild(title)
-    return super.initialized()
   }
 }
   .define({

@@ -16,9 +16,9 @@ module.exports = class Summary extends Component {
     super()
     this.on('propertyChanged:root', this.b(this.update))
   }
-  initialize() {
+
+  onInit() {
     this.update()
-    return super.initialize()
   }
 
   update() {

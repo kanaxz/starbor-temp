@@ -26,6 +26,10 @@ module.exports = {
       return acc
     }, {})
 
+    for(const collection of Object.values(collections)){
+      await collection.buildIndexes()
+    }
+
 
 
     Object.entries(collections)
@@ -36,6 +40,7 @@ module.exports = {
           try {
             const models = await collection.find(req, query, options)
             const response = models.map((m) => m.toJSON(options.load))
+            console.log({ response })
             res.send(response)
           } catch (err) {
             console.error(err)

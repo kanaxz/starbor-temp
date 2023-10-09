@@ -2,6 +2,7 @@
 require('core/setup')
 require('core-client/setup')
 require('./modeling/setup')
+require('core/processing')
 const navigator = require('./navigator')
 const pageMiddleware = require('hedera/page/middleware')
 require('./notifications')

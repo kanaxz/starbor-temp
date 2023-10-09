@@ -2,7 +2,7 @@ const { workers } = require('../renderer')
 const utils = require('../utils')
 const mixer = require('core/mixer')
 const Holdable = require('core-client/modeling/mixins/Holdable')
-
+const { set } = require('core/utils/path')
 const { createFunction, dashToCamel } = utils
 
 const attributes = {
@@ -32,13 +32,13 @@ const attributes = {
   }
 }
 
-const set = (node, path, value, key) => {
+const setAttr = (node, path, value, key) => {
   const attr = attributes[path]
   if (attr) {
     attr(node, value, key)
     return
   }
-  utils.path.set(node, path, value)
+  set(node, path, value)
 }
 
 const expressionRegex = /{{.*?}}/g
@@ -169,7 +169,7 @@ workers.push({
       .forEach((attr) => {
         const path = dashToCamel(attr.name.replace('::', ''))
         const bindingExpression = new BindingExpression(attr.nodeValue, variables, (value) => {
-          set(node, path, value, attr.nodeValue)
+          setAttr(node, path, value, attr.nodeValue)
         })
         this.expressions.push({
           node,
@@ -213,7 +213,7 @@ workers.push({
       .forEach((attr) => {
         const path = dashToCamel(attr.name.replace(PREFIX, ''))
         const bindingFunction = new BindingFunction(attr.nodeValue, variables, (value) => {
-          set(node, path, value, attr.nodeValue)
+          setAttr(node, path, value, attr.nodeValue)
         })
         this.paths.push({
           node,

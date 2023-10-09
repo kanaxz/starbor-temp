@@ -16,8 +16,8 @@ module.exports = class Virtual extends mixer.extends([Base]) {
     return this
   }
 
-  async attach(scope){
-    await super.attach(scope)
+  attach(scope){
+    super.attach(scope)
     return this.constructor.doesTakeControl
   }
 

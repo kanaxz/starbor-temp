@@ -7,3 +7,12 @@ module.exports = class Star extends GameEntity {
     name: 'star',
     pluralName: 'stars'
   })
+  .controllers({
+    update: {
+      logic(context, states) {
+        states.parent.filters.push({
+          $is: ['$this', 'system']
+        })
+      }
+    }
+  })

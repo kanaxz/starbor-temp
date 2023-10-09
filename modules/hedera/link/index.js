@@ -19,8 +19,7 @@ module.exports = class Link extends Virtual {
 
   }
 
-  async initialize() {
-    await super.initialize()
+  onInit() {
     this.navigator = this.scope.variables.navigator
     this.navigator.on('change', () => {
       this.updateActive()

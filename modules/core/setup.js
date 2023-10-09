@@ -4,6 +4,7 @@ const mixer = require('./mixer')
 
 mixer.Base = Base
 
+
 const core = {
   modeling: {
     model: {
@@ -15,7 +16,11 @@ const core = {
       before: [],
       after: [],
     }
-  }
+  },
 }
 
+
 module.exports = core
+
+
+

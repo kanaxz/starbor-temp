@@ -3,15 +3,17 @@ const mixer = require('core/mixer')
 
 module.exports = {
   for: Array,
-  parse(scope, objects, context) {
+  async parse(scope, objects, context) {
     const template = context.definition.type.getLastTemplate()
-    const values = objects.map((object) => {
-      const result = scope.processObject(object)
-      if (!mixer.is(result.type.prototype, template)) {
-        throw new Error()
-      }
-      return result.value
-    })
+    const values = await Promise.all(
+      objects.map(async (object) => {
+        const result = await scope.processObject(object)
+        if (!mixer.is(result.type.prototype, template)) {
+          throw new Error()
+        }
+        return result.value
+      })
+    )
     return {
       value: values,
     }

@@ -33,7 +33,12 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
       super(...args)
       const properties = this.constructor.properties
       if (properties) {
-        properties.forEach((p) => this.defineProperty(p))
+        try {
+          properties.forEach((p) => this.defineProperty(p))
+        } catch (err) {
+          console.error(this, [...properties])
+          throw err
+        }
       }
 
       Object.defineProperty(this, 'values', { enumerable: false, writable: true, value: {} })

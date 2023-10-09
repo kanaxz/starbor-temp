@@ -4,11 +4,11 @@ const mixer = require('core/mixer')
 const mixin = mixer.mixin([Controlleable], (base) => {
   return class ClientControlleable extends base {
     canUpdate() {
-      return super.canUpdate(mixin.auth.me)
+      return super.canUpdate({ user: mixin.auth.me })
     }
 
     canDelete() {
-      return super.canDelete(mixin.auth.me)
+      return super.canDelete({ user: mixin.auth.me })
     }
   }
 })

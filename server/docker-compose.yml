@@ -14,7 +14,7 @@ services:
       DATABASE_URL: postgres://todoapp@postgres/todos
     working_dir: /app
   mongodb:
-    image: mongo:5.0.14 # Version used on our MongoAtlas cluster
+    image: mongo:6.0.4
     ports:
       - 27018:27017
     volumes:

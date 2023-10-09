@@ -6,15 +6,10 @@ const componentsService = require('@app/main/componentsService')
 require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {
-  async initialized() {
-    await super.initialized()
+  async onReady() {
     await this.entity.children.load()
     this.canDelete = await this.entity.canDelete()
     this.canUpdate = await this.entity.canUpdate()
-  }
-
-  onReady(){
-    
   }
 
   templateChild(child) {

@@ -16,41 +16,27 @@ module.exports = mixer.mixin([Bindeable, Propertiable, Listening, Holder], (base
       return this
     }
 
-
-
     constructor() {
       super()
       this.isInitialized = false
-      this.isInitializing = false
     }
 
-    canInitialize() {
-      return !this.isInitializing && !this.isInitialized
-    }
-
-    async attach(scope) {
+    attach(scope) {
       this.scope = new Scope({
         parent: scope,
         source: this,
         variables: this.constructor._variables
       })
-      if (!this.canInitialize()) {
-        return
-      }
-      await this.initialize()
+
+      this.initialize()
     }
 
-    async initialize() {
-
-
-      this.isInitializing = true
-      await this.initialized()
-    }
-
-    async initialized() {
-      this.isInitializing = false
+    initialize() {
+      this.onInit()
       this.isInitialized = true
     }
+
+    onInit() { }
 
     propertyChanged(...args) {
       if (!this.isInitialized) {

@@ -13,12 +13,11 @@ module.exports = class Render extends Virtual {
     this.on('propertyChanged', this.b(this.update))
   }
 
-  async initialize() {
-    await super.initialize()
-    await this.update()
+  onInit() {
+    this.update()
   }
 
-  async update() {
+  update() {
     renderer.destroyContent(this.el)
     this.innerHTML = ''
     const scope = this.scope.parent.child({
@@ -26,7 +25,7 @@ module.exports = class Render extends Virtual {
     })
     const template = getElementFromTemplate(this.template)
     this.el.appendChild(template)
-    await renderer.render(template, scope)
+    renderer.render(template, scope)
   }
 }
   .define({

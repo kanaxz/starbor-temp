@@ -18,7 +18,7 @@ const attributes = {
   },
 }
 
-const processSelf = async (node, scope) => {
+const processSelf = (node, scope) => {
   if (node.nodeName !== 'SELF') {
     return false
   }
@@ -41,15 +41,15 @@ const processSelf = async (node, scope) => {
   }
 
   process(parent, scope)
-  await renderContent(parent, scope)
+  renderContent(parent, scope)
   return true
 }
 
-const renderVirtuals = async (node, scope) => {
+const renderVirtuals = (node, scope) => {
   let takeControl = false
   if (node.v) {
     for (const virtual of Object.values(node.v)) {
-      if (await virtual.attach(scope)) {
+      if (virtual.attach(scope)) {
         if(takeControl){
           throw new Error()
         }
@@ -60,28 +60,26 @@ const renderVirtuals = async (node, scope) => {
   return takeControl
 }
 
-const render = async (node, scope) => {
-  if (await processSelf(node, scope)) {
+const render = (node, scope) => {
+  if (processSelf(node, scope)) {
     return
   }
-  
+  /*
   if (isCustomElement(node)) {
     await customElements.whenDefined(node.tagName.toLowerCase());
   }
+  */
   if (node.process) {
-    await node.process(scope)
+    node.process(scope)
   } else {
     process(node, scope)
-    if (!await renderVirtuals(node, scope)) {
-      await renderContent(node, scope)
+    if (!renderVirtuals(node, scope)) {
+      renderContent(node, scope)
     }
   }
 }
-const renderContent = async (node, scope) => {
-  const nodes = [...node.childNodes]
-  for (const child of nodes) {
-    await render(child, scope)
-  }
+const renderContent = (node, scope) => {
+  node.childNodes.forEach((child)=>render(child, scope))
 }
 
 const destroyContent = (node) => {

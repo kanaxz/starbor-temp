@@ -16,5 +16,6 @@ module.exports = {
   Array: require('./Array'),
   Branch: require('./Branch'),
   HasMany: require('./HasMany'),
+  ArrayAssociation: require('./ArrayAssociation'),
 }
 

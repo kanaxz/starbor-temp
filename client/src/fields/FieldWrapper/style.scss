@@ -20,4 +20,14 @@ field-wrapper {
       }
     }
   }
+
+  > .errors {
+    .error {
+      background-color: rgba(#c55, 0.3);
+      color: #c55;
+      padding: 5px;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+  }
 }

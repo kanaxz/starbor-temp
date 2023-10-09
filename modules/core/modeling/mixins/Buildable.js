@@ -13,6 +13,7 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
       Object.defineProperty(this, '@type', { get() { }, set() { } })
       this.constructor.properties.forEach((property) => {
         let value = values[property.name]
+
         if (value === undefined) {
           value = null
         }
@@ -34,13 +35,11 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
       if (!type) {
         throw new Error(`Type ${typeName} not find from ${this.definition.name}`)
       }
-
       try {
         const instance = new type(object)
 
         return instance
       } catch (err) {
-        console.error(object, type, typeName, this.name)
         throw err
       }
     }
@@ -52,7 +51,7 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
 
     setPropertyValue(property, value) {
       const parsedValue = property.type.parse(value, this, property)
-      if (parsedValue === undefined) { return }
+      //if (parsedValue === undefined) { return }
 
       super.setPropertyValue(property, parsedValue)
     }
@@ -61,9 +60,10 @@ module.exports = mixer.mixin([Destroyable, Propertiable], (base) => {
       const values = Object.entries(this)
         .reduce((acc, [k, v]) => {
           const property = this.constructor.properties.find((p) => p.name === k)
-          if (!property || (property.context && property.context !== context)) {
+          if (!property || (property.context !== undefined && property.context !== context)) {
             return acc
           }
+
           const result = property.type.toJSON(v, paths && paths[property.name] || null, context)
           if (result !== undefined) {
             acc[property.name] = result

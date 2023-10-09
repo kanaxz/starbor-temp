@@ -59,7 +59,9 @@ class Collection {
   }
 
   async find(...args) {
+
     const [query, options = {}] = getArgs(args)
+    console.log({ args, query, options })
     const modelsJson = await this.request('/find', query, options)
     const models = modelsJson.map((modelJson) => {
 
@@ -77,6 +79,7 @@ class Collection {
     }
     const json = await this.request('/create', modelJson)
     const resultModel = this.type.parse(json)
+    console.log({ json, resultModel })
     this.hold(resultModel)
     return resultModel
   }
@@ -108,6 +111,7 @@ class Collection {
       modelJson = modelJson.toJSON()
     }
     const json = await this.request('/create-or-update', query, modelJson)
+    console.log('create-or-update', json)
     const resultModel = this.type.parse(json)
     this.hold(resultModel)
     return resultModel

@@ -9,10 +9,10 @@ module.exports = mixer.mixin((base) => {
       return this
     }
 
-    async canUpdate(user) {
+    async canUpdate(context) {
       for (const controller of this.constructor.controllers) {
-        if (controller.update) {
-          const result = await controller.update.call(this, user)
+        if (controller.update?.check) {
+          const result = await controller.update.check.call(this, context)
           if (!result) {
             return false
           }
@@ -21,10 +21,10 @@ module.exports = mixer.mixin((base) => {
       return true
     }
 
-    async canDelete(user) {
+    async canDelete(context) {
       for (const controller of this.constructor.controllers) {
         if (controller.delete) {
-          const result = await controller.delete.call(this, user)
+          const result = await controller.delete.call(this, context)
           if (!result) {
             return false
           }

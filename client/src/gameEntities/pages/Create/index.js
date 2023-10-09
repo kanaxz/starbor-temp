@@ -10,7 +10,6 @@ require('./style.scss')
 
 module.exports = class CreateEntityPage extends Page {
   async onSaved({ model }) {
-    console.log('on saved', model)
     await navigator.navigate(model.url)
   }
 }

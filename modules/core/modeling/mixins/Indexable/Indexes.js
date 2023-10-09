@@ -31,6 +31,7 @@ module.exports = class Indexes extends Tree {
               }
             }
             index.name = name
+            index.owner = this.owner
             super.push(index)
           })
         return

@@ -1,12 +1,29 @@
 const { Object, Number } = require('core/modeling/types')
 
-module.exports = class Position2D extends Object {
+const getDimensionState = ({ property }, ownProperty) => {
+  return {
+    ...(property?.dimensionState || {})
+  }
+}
+
+class Position2D extends Object {
 
 }
+
+Position2D.getDimensionState = getDimensionState
+
+module.exports = Position2D
   .define({
     name: 'position2D',
   })
   .properties({
-    x: Number,
-    y: Number,
+    x: {
+      type: Number,
+      state: getDimensionState
+    },
+    y: {
+      type: Number,
+      state: getDimensionState
+    },
   })
+

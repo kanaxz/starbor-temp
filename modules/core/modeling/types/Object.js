@@ -18,6 +18,10 @@ module.exports = class Object extends mixer.extends(Real) {
     }
     return true
   }
+
+  shadowClone() {
+    return new this.constructor(this.toJSON())
+  }
 }
   .define({
     name: 'object',

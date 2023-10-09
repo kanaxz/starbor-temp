@@ -4,8 +4,6 @@ const Real = require('./Real')
 const This = require('./This')
 
 class Bool extends Primitive {
-
-
   static parse(value, owner, property) {
     if (value == null) { return value }
     if (typeof value !== 'boolean') {

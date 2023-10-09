@@ -3,8 +3,7 @@
     :name="this.@name"
     type="number"
     :value="this.@value"
-    :required="this.@required"
-    step="0.0000001" 
-    :on-change="this.value = node.value">
+    :step="this.@step || 1" 
+    :on-change="this.setValue(parseInt(node.value))">
   </input>
 </field-wrapper>

@@ -4,6 +4,14 @@ const mixer = require('core/mixer')
 const Pageable = require('../../../mixins/Pageable')
 const Markdown = require('../../Markdown')
 const { String } = require('core/modeling/types')
+const { Folder, File } = require('../fs')
+
+const isAdmin = (context) => {
+  return context.user?.roles.admin
+  if (!context.user?.roles.admin) {
+    throw new Error('Admin role requiredz')
+  }
+}
 
 module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
   toString() {
@@ -19,6 +27,10 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
     code: {
       properties: ['code'],
       unique: true,
+    },
+    name: {
+      properties: ['name'],
+      unique: true,
     }
   })
   .properties({
@@ -28,22 +40,51 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
         required: true,
       }
     },
-    description: Markdown,
+    description: {
+      type: Markdown,
+      state: {
+        required: true
+      }
+    },
     starmap: Starmap,
-    image: String,
+    image: {
+      type: File,
+      state: {
+        required: true,
+        filters: [{
+          $eq: ['$type', 'image']
+        }]
+      }
+    },
+    folder: {
+      type: Folder,
+      state: {
+        disabled: true,
+      }
+    }
   })
   .controllers({
-    update: {
+    create: {
+      check(context) {
+        return isAdmin(context)
+      },
       logic(context, states) {
-        console.log({ ...states.starmap })
-        states.starmap.states.code.disabled = true
-        if (states.code.value === 'abc') {
-          states.name.value = 'lol'
-          states.name.disabled = true
-          states.name.hidden = false
-        } else {
-          states.name.hidden = true
+        states.code.value = states.code.value?.toUpperCase()
+        states.folder.disabled = true
+        states.organization.filters.push({
+          $match: ['$name', '^U']
+        })
+        if (states.organization.value?.name !== 'UEE') {
+          states.organization.errors.push('ntm')
         }
+      }
+    },
+    update: {
+      check(context, gameEntity) {
+        return isAdmin(context)
+      },
+      logic(context, states) {
+        states.code.value = states.code.value.toUpperCase()
       }
     }
   })

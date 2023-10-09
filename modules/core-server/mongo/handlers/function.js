@@ -2,7 +2,7 @@ const Function = require('core/modeling/types/Function')
 
 module.exports = {
   for: Function,
-  parse(scope, object, context) {
+  async parse(scope, object, context) {
     if (!Array.isArray(object)) {
       throw new Error('not ok')
     }
@@ -26,7 +26,7 @@ module.exports = {
       return result
     })
 
-    body = child.process(body)
+    body = await child.process(body)
     fn.value.body = body
     return fn
   }

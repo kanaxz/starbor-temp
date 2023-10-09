@@ -1,10 +1,13 @@
 <self>
-  <label>{{this.@label || ''}}</label>
-  <wheel-select 
-    :options="this.@types" 
-    :option="this.@currentOption"
-    :on-change="this.onTypeChanged(event)">
-  </wheel-select>
-  <fieldset :v-for="field of this.@fields with (f) => f">
-  </fieldset>
+  <field-wrapper :field="this">
+    <wheel-select
+      :options="this.@types"
+      :option="this.@types.find((t)=> this.value === t.value || (t.value && this.@value instanceof t.value))"
+      :on-changed="this.onSelectedTypeChanged(event.option.value)"
+    >
+    </wheel-select>
+    <fieldset
+      :v-for="field of Object.values(this.@fields || []) with (f) => f"
+    ></fieldset>
+  </field-wrapper>
 </self>

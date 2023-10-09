@@ -4,22 +4,12 @@ const Equalable = require('core/mixins/Equalable');
 const Propertiable = require('core/mixins/Propertiable');
 const Transformable = require('./Transformable');
 
-const instances = [];
-
-const checkDuplicates = () => {
-  for (const i of instances) {
-    for (const j of instances) {
-      if (i !== j && i.equals(j)) {
-        Object.assign(i, j)
-        j.tranform(i)
-        console.info('Transformation completed', i, j)
-      }
-    }
-  }
-}
+const types = []
 
 const loop = () => {
-  checkDuplicates()
+  for (const type of types) {
+    type.checkDuplicates()
+  }
   //setTimeout(loop, 1000)
 }
 
@@ -28,7 +18,22 @@ const symbol = Symbol('singleInstanceId')
 let id = 0
 
 const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (base) => {
-  return class SingleInstance extends base {
+
+  const instances = []
+
+  class SingleInstance extends base {
+    static checkDuplicates() {
+      for (const i of instances) {
+        for (const j of instances) {
+          if (i === j) { continue }
+          if (i.equals(j)) {
+            Object.assign(i, j)
+            j.tranform(i)
+            console.info('Transformation completed', i, j)
+          }
+        }
+      }
+    }
 
     static parse(object, ...args) {
       if (!object) {
@@ -45,7 +50,7 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
       if (!newInstance) { return }
       newInstance[symbol] = id++
       instances.push(newInstance)
-      checkDuplicates()
+      this.checkDuplicates()
       return newInstance
     }
 
@@ -57,6 +62,10 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
       return super.destroy()
     }
   }
+
+  types.push(SingleInstance)
+
+  return SingleInstance
 })
 
 loop()

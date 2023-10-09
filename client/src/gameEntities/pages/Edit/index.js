@@ -7,8 +7,7 @@ const navigator = require('@app/navigator')
 require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {
-  async initialized() {
-    await super.initialized()
+  async onReady() {
     const canUpdate = await this.entity.canUpdate()
     if (!canUpdate) {
       throw new Error('Cannot edit')

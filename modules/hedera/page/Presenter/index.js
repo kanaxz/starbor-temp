@@ -23,12 +23,12 @@ module.exports = class Presenter extends Component {
     return this.currentLayout.attach(this.scope)
   }
 
-  async display(pageInstance, layoutClass) {
+  display(pageInstance, layoutClass) {
     layoutClass = layoutClass || pageInstance.constructor.definition.layout;
     if (!(this.currentLayout instanceof layoutClass)) {
-      await this.setLayout(new layoutClass())
+      this.setLayout(new layoutClass())
     }
-    await this.currentLayout.setView(pageInstance)
+    this.currentLayout.setView(pageInstance)
   }
 }.define({
   name: 'ui-presenter'

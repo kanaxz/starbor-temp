@@ -5,7 +5,7 @@ const renderer = require('../../renderer')
  * This component cannot be used as a root of a v-for
  */
 module.exports = class ReplaceWith extends Component {
-  async process(scope) {
+  process(scope) {
     const div = document.createElement('div')
     const elementAttribute = this.getAttribute(':element')
     div.setAttribute(':element', elementAttribute)
@@ -18,7 +18,7 @@ module.exports = class ReplaceWith extends Component {
       })
     this.replaceWith(element)
     element.setAttribute('selectable', '')
-    await renderer.render(element, scope)
+    renderer.render(element, scope)
     return false
   }
 }

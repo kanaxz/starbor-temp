@@ -24,9 +24,8 @@ module.exports = class For extends Virtual {
     this.on('propertyChanged:source', this.b(this.onSourceChanged))
   }
 
-  async initialize() {
-    await super.initialize()
-    await this.onSourceChanged()
+  onInit() {
+    this.onSourceChanged()
     /*
     setTimeout(() => {
       this.onSourceChanged()
@@ -52,7 +51,7 @@ module.exports = class For extends Virtual {
     return it
   }
 
-  async onSourceChanged() {
+  onSourceChanged() {
     if (this.handler) {
       this.handler.destroy()
       this.handler = null
@@ -74,7 +73,7 @@ module.exports = class For extends Virtual {
     for (let i = 0; i < this.source.length; i++) {
       const it = this.iteration(this.source[i], i)
       this.el.appendChild(it.element)
-      await renderer.render(it.element, it.scope)
+      renderer.render(it.element, it.scope)
     }
   }
 }

@@ -3,8 +3,7 @@ const template = require('./template.html')
 require('./style.scss')
 
 module.exports = class TypeSelector extends Component {
-  async initialized() {
-    super.initialized()
+  onInit() {
     if (!this.current) {
       this.current = this.type
     }

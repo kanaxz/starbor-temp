@@ -1,25 +1,32 @@
-const { Model, Object } = require("core/modeling/types")
+const ObjectState = require('core/modeling/states/ObjectState')
 
-
-const validate = (type, mode, object1, object2) => {
-  const properties = type.properties
-  properties.forEach((property) => {
-    const value1 = object1[property.name]
-    const value2 = object2[property.name]
-
-    if (property.required && value == null) {
-      throw new Error(`Property ${property.name} is required`)
-    }
-    if (mode === 'update' && property.readonly === true && !this.equals(value1, value2)) {
-      throw new Error(`Cannot update property ${property.name}`)
-    }
-    if (property.set === false && !this.equals(value1, value2)) {
-      throw new Error(`Cannot set property ${property.name}`)
-    }
-    if (value1 && value1 instanceof Object && !(value1 instanceof Model)) {
-      validate(property.type, mode, value1, value2)
+const applyStatesValues = (type, states, object) => {
+  Object.entries(states).forEach(([propertyName, state]) => {
+    const property = type.properties.find((p) => p.name === propertyName)
+    if (state.value == null) { return }
+    object[propertyName] = state.value
+    if (state.states) {
+      applyStatesValues(property.type, state.states, object[propertyName])
     }
   })
+}
+
+const validate = async (req, type, mode, newObject, oldObject) => {
+  const state = new ObjectState({
+    value: newObject,
+    type,
+    required: true,
+  })
+  state.reset()
+  type.controllers.forEach((controller) => {
+    const logic = mode === 'create' ? controller.create?.logic : controller.update?.logic
+    if (logic) {
+      logic(req, state.states, oldObject)
+    }
+  })
+
+  await state.validate()
+  applyStatesValues(type, state.states, newObject)
 }
 
 module.exports = {

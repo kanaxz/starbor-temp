@@ -2,33 +2,30 @@ object-fieldset {
   display: block;
   width: 100%;
   flex: 100% !important;
-  > label {
-    font-size: 26px;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  > .types {
-    .type {
-      &.current {
-        
+  field-wrapper {
+    .transclude {
+      > .types {
+        .type {
+          &.current {
+          }
+        }
       }
-    }
-  }
 
-  > fieldset {
-    //border: 1px solid #a1a1a1;
-    background-color: rgba(#a1a1a1, 0.2);
-    margin-top: 5px;
-    padding: 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    > * {
-      flex: 1 1 450px;
+      > fieldset {
+        //border: 1px solid #a1a1a1;
+        background-color: rgba(#a1a1a1, 0.2);
+        margin-top: 5px;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        > * {
+          flex: 1 1 450px;
+        }
+      }
     }
   }
 }

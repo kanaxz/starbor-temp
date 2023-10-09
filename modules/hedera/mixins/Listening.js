@@ -9,8 +9,8 @@ module.exports = mixer.mixin([Bindeable, Destroyable], (base) => {
       this.listeners = []
     }
 
-    listen(el, event, callback) {
-      el.addEventListener(event, this.b(callback))
+    listen(el, event, callback, options) {
+      el.addEventListener(event, this.b(callback), options)
       this.listeners.push({ el, event, callback })
     }
 

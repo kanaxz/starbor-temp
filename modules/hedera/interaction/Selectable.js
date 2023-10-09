@@ -55,12 +55,11 @@ module.exports = class Selectable extends Virtual {
     }
   }
 
-  initialize() {
+  onInit() {
     this.el.setAttribute('selectable', '')
     if (!this.within[symbol]) {
       initContainer(this.within)
     }
-    return super.initialize()
   }
 }
   .define({

@@ -1,7 +1,7 @@
 const mixer = require('../mixer')
 const Global = require('../modeling/types/Global')
 
-const getProperty = (scope, source, propertyName) => {
+const getProperty = async (scope, source, propertyName) => {
   const property = source.type.properties.find((p) => p.name === propertyName)
   if (!property) {
     throw new Error(`Property ${propertyName} not found`)
@@ -18,7 +18,7 @@ const getProperty = (scope, source, propertyName) => {
     type: property.type,
   }
 
-  scope.onGetProperty(property, any)
+  await scope.onGetProperty(property, any)
   return any
 }
 
@@ -37,13 +37,13 @@ const processObjectFilter = (scope, object) => {
   })
 }
 
-const processObject = (scope, object, context) => {
+const processObject = async (scope, object, context) => {
   if (typeof object === 'object' && !Array.isArray(object)) {
     const keys = Object.keys(object)
     if (keys.length === 1 && keys[0].startsWith('$')) {
-      return processFunctionCall(scope, object)
+      return await processFunctionCall(scope, object)
     } else {
-      return processObjectFilter(scope, object)
+      return await processObjectFilter(scope, object)
     }
 
   } else if (typeof object === 'string' && object.startsWith('$')) {
@@ -53,7 +53,7 @@ const processObject = (scope, object, context) => {
     let source = scope.variables[sourceName]
 
     if (!source) {
-      source = getProperty(scope, scope.variables.this, sourceName)
+      source = await getProperty(scope, scope.variables.this, sourceName)
     }
 
     if (!source) {
@@ -61,13 +61,14 @@ const processObject = (scope, object, context) => {
     }
 
     for (const propertyName of propertiesNames) {
-      source = getProperty(scope, source, propertyName)
+      source = await getProperty(scope, source, propertyName)
     }
 
     return source
   }
   if (context) {
-    const source = parse(scope, object, context)
+    const source = await parse(scope, object, context)
+    console.log({ source })
     if (source) {
       return source
     }
@@ -84,6 +85,9 @@ const getParseHandler = (scope, object, type) => {
   }
 
   for (const handler of scope.root.handlers) {
+    if(!handler.for){
+      console.log(handler)
+    }
     if (mixer.is(handler.for.prototype, type) && handler.check && handler.check(object)) {
       const typeHandlers = scope.getHandlers(handler.for)
       const typeHandler = typeHandlers.find((h) => h.parse)
@@ -95,36 +99,39 @@ const getParseHandler = (scope, object, type) => {
 }
 
 
-const parse = (scope, object, context) => {
+const parse = async (scope, object, context) => {
   const type = context.definition.type.getType(context.source.type)
   const handler = getParseHandler(scope, object, type)
   if (!handler) {
     throw new Error(`Could not find handler for parse on type ${type.definition.name} ${object}`)
   }
-  return handler.parse(scope, object, context)
+  const result = await handler.parse(scope, object, context)
+  return result
 }
 
-const callFunction = (scope, source, method, args = []) => {
+const callFunction = async (scope, source, method, args = []) => {
   const handlers = scope.getHandlers(source.type)
   const handler = handlers.find((h) => h.methods[method.name])
   //console.log('calling', source.value, method.name, handlers.map((h) => h.methods))
   args.unshift(source.type === Global ? scope : source)
-  return handler.methods[method.name](...args)
+  const result = await handler.methods[method.name](...args)
+  return result
 }
 
-const getArgs = (scope, source, method, argsObjects) => {
+const getArgs = async (scope, source, method, argsObjects) => {
   const args = []
   for (let i = 0; i < argsObjects.length; i++) {
     const definition = method.args[i]
     if (!definition) {
-      console.log(`Cannot parse arg from method ${method.name} at index ${i}`)
+      throw new Error(`Cannot parse arg from method ${method.name} at index ${i}`)
     }
     let object = argsObjects[i]
     if (definition.spread) {
+
       object = argsObjects.slice(i)
       i = argsObjects.length
     }
-    const arg = processObject(scope, object, {
+    const arg = await processObject(scope, object, {
       source,
       definition,
     })
@@ -133,7 +140,7 @@ const getArgs = (scope, source, method, argsObjects) => {
   return args
 }
 
-const processFunctionCall = (scope, functionCall) => {
+const processFunctionCall = async (scope, functionCall) => {
 
   let methodName = Object.keys(functionCall)[0]
   if (!methodName.startsWith('$')) {
@@ -153,7 +160,7 @@ const processFunctionCall = (scope, functionCall) => {
     argsObjects = callObject
   } else {
     [sourceObject, ...argsObjects] = callObject
-    source = processObject(scope, sourceObject)
+    source = await processObject(scope, sourceObject)
   }
 
   const method = source.type.methods.find((m) => m.name === methodName)
@@ -162,8 +169,8 @@ const processFunctionCall = (scope, functionCall) => {
     throw new Error(`Method '${methodName}' not found`)
   }
 
-  const args = getArgs(scope, source, method, argsObjects)
-  if ((method.args.length < argsObjects.length - 1)) {
+  const args = await getArgs(scope, source, method, argsObjects)
+  if ((method.args.length < args.length - (globalMethod ? 0 : 1))) {
     throw new Error('Too many args')
   }
 

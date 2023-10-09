@@ -8,5 +8,8 @@ module.exports = class Position3D extends Position2D {
     name: 'position3D',
   })
   .properties({
-    z: Number,
+    z: {
+      type: Number,
+      state:Position2D.getDimensionState
+    },
   })

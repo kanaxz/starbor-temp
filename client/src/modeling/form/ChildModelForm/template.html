@@ -5,8 +5,8 @@
       :required="true" 
       :child-form="this"
       :form="this.@form"
-      :value="this.@model" 
-      :state="{}"
+      :value="this.@model?.shadowClone()" 
+      :on-changed="this.onFieldsetChanged()"
       :type="this.@type">
     </object-fieldset>
     <div class="bottom">

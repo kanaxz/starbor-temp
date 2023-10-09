@@ -1,6 +1,26 @@
 
-const { processObject, processObjectFilter } = require('./utils')
+const { processObject, processObjectFilter, processFunctionCall } = require('./utils')
 const proto = require('../utils/proto')
+const Loadable = require('../modeling/mixins/Loadable')
+const mixer = require('../mixer')
+
+const makePath = (...args) => args.filter((o) => o).join('.')
+
+
+const getPath = (source) => {
+  if (source.sourceType === 'arg') {
+    return getPath(source.function.source)
+  } else if (source.sourceType === 'var') {
+    if (source.name !== 'this') {
+      throw new Error('Cannot build path from source with type var')
+    }
+    return null
+  } else if (source.sourceType === 'property') {
+    let parent = getPath(source.owner)
+    return makePath(parent, source.name)
+  }
+  throw new Error('Could build path from source')
+}
 
 module.exports = class Scope {
   constructor(values) {
@@ -35,27 +55,33 @@ module.exports = class Scope {
     return child
   }
 
-  process(body) {
+  async process(body) {
+    console.log({ body })
     if (Array.isArray(body)) {
-      const and = body.map((functionCall) => {
-        const source = processObject(this, functionCall)
-        return source.value
+      const source = await processFunctionCall(this, {
+        $and: body
       })
-
-      return and
+      return source.value
     } else if (typeof body === 'object') {
-      const source = processObjectFilter(this, body)
+      const source = await processObjectFilter(this, body)
       return source.value
     }
     console.error(body)
     throw new Error('Could not parse body')
   }
 
-  processObject(object) {
-    return processObject(this, object)
+  async processObject(object) {
+    return await processObject(this, object)
   }
 
-  onGetProperty(property){
+  load() {
 
+  }
+
+  async onGetProperty(property, value) {
+    if (mixer.is(property.type.prototype, Loadable)) {
+      const path = getPath(value)
+      await this.load(path)
+    }
   }
 }

@@ -1,5 +1,8 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
+const ObjectState = require('core/modeling/states/ObjectState')
+const auth = require('@app/auth')
+const RootModelState = require('core/modeling/states/RootModelState')
 require('./style.scss')
 
 module.exports = class ChildModelForm extends Component {
@@ -8,10 +11,23 @@ module.exports = class ChildModelForm extends Component {
     Object.assign(this, values)
   }
 
+  handleFieldError() {
+    const state = this.state.findFirstStateWithError()
+    if (!state) { return false }
+
+    const field = this.fieldset.fields[state.property.name]
+    field.focus()
+    field.scrollTo()
+    return true
+  }
+
   async onSubmit(e) {
     e.preventDefault()
-    const value = this.fieldset.getValue()
-    console.log('a', { value })
+    this.updateStates()
+    this.fieldset.showErrors()
+    if (this.handleFieldError()) { return }
+
+    const value = this.state.value
     try {
       let model
       if (this.model) {
@@ -24,33 +40,48 @@ module.exports = class ChildModelForm extends Component {
         model = await this.type.collection.create(value)
       }
 
-      console.log({ model })
+      console.log({ model }, model.url)
       this.event('saved', { model })
     } catch (error) {
       console.log('error', error)
       this.event('error', { error })
-      throw err
+      throw error
     }
   }
 
-  updateStates() {
-    const type = this.fieldset.currentOption.value
-    const { states } = this.fieldset.state
-    type.controllers.forEach((controller) => {
-      if (controller.update.logic) {
-        controller.update.logic(this.context, states)
+  isCreate() { return !this.model }
+
+  async updateStates() {
+    const { value } = this.fieldset
+    const state = new RootModelState({
+      type: value.constructor,
+      value,
+      required: true,
+      context: {
+        user: auth.me,
       }
     })
-    console.log(states)
+    state.reset()
+
+    state.value.constructor.controllers.forEach((controller) => {
+      const isCreate = this.isCreate()
+      const logic = isCreate ? controller.create?.logic : controller.update?.logic
+      if (logic) {
+        logic(this.context, state.states, this.model)
+      }
+    })
+
+    await state.validate()
+    this.fieldset.importState(state)
+    this.state = state
   }
 
-  onFieldChanged() {
-    this.updateStates()
+  async onFieldsetChanged() {
+    await this.updateStates()
   }
 
-  async initialized() {
-    await super.initialized()
-    this.updateStates()
+  async onReady() {
+    await this.updateStates()
   }
 }
   .define({

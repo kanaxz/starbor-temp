@@ -25,18 +25,17 @@ module.exports = class Markdown extends Component {
     this.on('propertyChanged:value', this.b(this.update))
   }
 
-  async initialize() {
-    await this.update()
-    await super.initialized()
+  onInit() {
+    this.update()
   }
 
-  async update() {
+  update() {
     renderer.destroyContent(this)
     const html = converter.makeHtml(this.value)
     this.innerHTML = html
     const scope = this.scope.child()
     scope.variables.this = service.variables
-    await renderer.renderContent(this, scope)
+    renderer.renderContent(this, scope)
   }
 }
   .define({

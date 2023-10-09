@@ -60,6 +60,40 @@ module.exports = class MongoCollection {
     this.controllers = controllers
   }
 
+  async buildIndexes() {
+    const indexes = await this.mongoCollection.listIndexes().toArray()
+    const types = this.type.getAllChilds()
+    for (const type of types) {
+      for (const index of type.indexes) {
+        if (index.build === false || index.owner !== type) { continue }
+        const properties = index.properties.reduce((acc, property) => {
+          acc[property] = 1
+          return acc
+        }, {})
+        const options = {
+          name: index.name,
+          unique: index.unique,
+        }
+        const hasIndex = indexes.some((i) => i.name === index.name)
+        if (hasIndex) {
+          await this.mongoCollection.dropIndex(index.name)
+        }
+        if (type !== this.type) {
+          const childTypes = type
+            .getAllChilds()
+            .filter((t) => !t.definition.abstract)
+          options.partialFilterExpression = {
+            '@type': {
+              $in: childTypes.map((t) => t.definition.name)
+            }
+          }
+        }
+        await this.mongoCollection.createIndex(properties, options)
+      }
+    }
+
+  }
+
   getTypeControllers(type) {
     const controllers = this.controllers
       .filter((controller) => {
@@ -79,13 +113,15 @@ module.exports = class MongoCollection {
     return result
   }
 
-  async find(req, query = {}, options) {
-    if (!options) {
-      options = {}
-    }
+  async find(req, query = [], options = {}) {
     let type = this.type
     if (options.type) {
       type = this.type.findChild((c) => c.definition.name === options.type)
+      if (type !== this.type) {
+        query.push({
+          $is: ['$this', type.definition.name]
+        })
+      }
     }
 
     if (!type) {
@@ -142,6 +178,7 @@ module.exports = class MongoCollection {
   async create(req, modelJson) {
     modelJson._id = nanoid()
     const model = this.type.parse(modelJson)
+    validate(req, model.constructor, 'create', model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.create) {
@@ -163,7 +200,7 @@ module.exports = class MongoCollection {
     if (editModel.constructor !== model.constructor) {
       throw new Error('Type not matching')
     }
-    validate(model.constructor, 'update', editModel, model)
+    validate(req, model.constructor, 'update', editModel, model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.update) {

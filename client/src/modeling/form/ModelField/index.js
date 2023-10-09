@@ -11,31 +11,59 @@ require('./style.scss')
 module.exports = class ModelField extends Field {
   constructor(values) {
     super(values)
-    this.mode = null
+    this.mode = 'default'
     //this.on('propertyChanged:value', this.b(this.update))
   }
-
-  initialize() {
-    //this.update()
-    return super.initialize()
-  }
-
 
   select(model) {
     this.value = model
     this.panel.close()
   }
 
+  default(fromExit) {
+    this.mode = 'default'
+    this.suggestionsOpen = false
+  }
+
+  edit() {
+    this.mode = 'edit'
+    this.suggestionsOpen = true
+    this.input.focus()
+  }
+
   templateValue() {
     if (!this.value) { return null }
     console.log(this.value)
-    const componentType = componentsService.get(this.value.constructor, 'card')
+    const componentType = componentsService.get(this.value.constructor, 'row')
     return new componentType(this.value)
   }
 
+  selectSuggestion(suggestion) {
+    this.default()
+    this.setValue(suggestion)
+  }
 
-  search() {
-    this.mode = this.mode === 'search' ? null : 'search'
+  async onFocus() {
+    await this.search('')
+  }
+
+  templateSuggestion(suggestion) {
+    const componentType = componentsService.get(suggestion.constructor, 'row')
+    return new componentType(suggestion)
+  }
+
+  async search(value) {
+    const searchField = this.type.definition.searchField || 'name'
+    this.suggestions = await this.type.collection.find([
+      ...(this.filters || []),
+      {
+        $match: [`$${searchField}`, value]
+      }
+    ], {
+      
+      limit: 3,
+    })
+    this.suggestionsOpen = true
   }
 
   async create() {
@@ -53,28 +81,18 @@ module.exports = class ModelField extends Field {
     this.form.show(form)
   }
 
-
-  edit() {
-    this.mode = 'edit'
-    const form = new ChildModelForm({
-      type: this.type,
-      model: this.value,
-      label: `${this.value.toString()} (${this.label})`,
-    })
-
-    form.addEventListener('saved', ({ model }) => {
-      this.value = model
-    })
-    this.form.show(form)
-  }
-
   onSaved({ model }) {
-    this.value = model
+    this.setValue(model)
   }
 
   template(model) {
     const componentType = componentsService.get(model.constructor, 'card')
     return new componentType(model)
+  }
+
+  importState(state) {
+    super.importState(state)
+    this.filters = state.filters
   }
 }
   .define({
@@ -84,4 +102,6 @@ module.exports = class ModelField extends Field {
   .properties({
     panelModel: 'any',
     mode: 'any',
+    suggestions: 'any',
+    suggestionsOpen: 'any',
   })

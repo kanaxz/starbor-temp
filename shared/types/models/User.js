@@ -1,9 +1,16 @@
 const { Model, String } = require('core/modeling/types')
 const Roles = require('../objects/Roles')
 
-const ownershipRule = (user, currentUser) => {
-  return user._id === currentUser._id || currentUser.roles.admin
+const isAdminOrSelf = (context, user) => {
+  if (!context.user.roles.admin && context.user.id !== user._id) {
+    throw new Error('Cannot update user')
+  }
 }
+
+const emptyRoles = new Roles({
+  admin: false,
+  editor: false,
+})
 
 module.exports = class User extends Model {
 
@@ -18,16 +25,51 @@ module.exports = class User extends Model {
       unique: true,
     }
   })
-  .controllers({
-    update: {
-      check({ user }) { return ownershipRule(this, user) }
+  .properties({
+    username: {
+      type: String,
+      state: {
+        required: true,
+      }
     },
-    delete: {
-      check({ user }) { return ownershipRule(this, user) }
+    password: {
+      type: String,
+      state: {
+        required: true,
+      }
+    },
+    roles: {
+      type: Roles,
+      state: {
+        required: true,
+      }
     }
   })
-  .properties({
-    username: String,
-    password: String,
-    roles: Roles
+  .controllers({
+    create: {
+      check(context) {
+        if (context.user && !context.user.roles.admin) {
+          throw new error('You are already connected')
+        }
+      },
+      logic(context, user) {
+        if (!context.user?.roles.admin) {
+          Object.assign(user.roles, {
+            value: emptyRoles,
+            disabled: true,
+          })
+        }
+      }
+    },
+    update: {
+      check: isAdminOrSelf,
+      logic(context, newUser, oldUser) {
+        if (!context.user?.roles.admin) {
+          newUser.roles.disabled = true
+        }
+      }
+    },
+    delete: {
+      check: isAdminOrSelf
+    }
   })

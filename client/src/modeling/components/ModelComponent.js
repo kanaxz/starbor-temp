@@ -10,9 +10,8 @@ module.exports = class ModelComponent extends mixer.extends(Component, [Register
     this.on('propertyChanged:model', this.b(this.update))
   }
 
-  async initialize() {
+  async onReady() {
     await this.update()
-    await super.initialize()
   }
 
   async update() {

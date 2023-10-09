@@ -121,7 +121,7 @@ const processQuery = async (parentScope, type, query, options) => {
 }
 
 const buildPipeline = async (scope, and) => {
-  const $and = scope.process(and)
+  const $and = await scope.process(and)
   const lookups = await buildLookups(scope, scope.variables.this.type, scope.root.paths)
   const lookupsPipeline = lookups.flatMap(({ pipeline }) => pipeline)
   const pipeline = [

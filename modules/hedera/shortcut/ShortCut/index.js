@@ -43,12 +43,10 @@ module.exports = class ShortCut extends Component {
 
   }
 
-  async initialize() {
-    await super.initialize()
+  onInit() {
     this.updateKeys()
     if (!this.callback) { return }
     this.target.addEventListener('keydown', this.b(this.onKeyDown))
-
   }
 
   updateKeys() {

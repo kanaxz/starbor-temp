@@ -35,7 +35,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     this.updateTimeout()
   }
 
-  async onIndexSet(index, newValue, oldValue) {
+  onIndexSet(index, newValue, oldValue) {
     this.modifs.push({
       type: 'set',
       oldValue,
@@ -74,7 +74,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     }
   }
 
-  async processModifications() {
+  processModifications() {
     this.timeout = null
     const modifs = [...this.modifs]
     this.modifs = []
@@ -95,9 +95,9 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
           newIt.index = modif.index
           this.moveIt(newIt)
         } else {
-          const itToInsert = await this.repeater.iteration(modif.newValue, modif.index)
+          const itToInsert = this.repeater.iteration(modif.newValue, modif.index)
           this.insertIt(itToInsert)
-          await renderer.render(itToInsert.element, itToInsert.scope)
+          renderer.render(itToInsert.element, itToInsert.scope)
         }
       }
     }

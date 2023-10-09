@@ -2,9 +2,8 @@
   <input 
     :name="this.@name"
     type="text"
-    :value="this.@state.@value || ''"
-    :required="this.@state.@required"
-    :disabled="this.state.@disabled"
+    :value="this.@value || ''"
+    :disabled="this.@disabled"
     :on-change="this.setValue(node.value)">
   </input>
 </field-wrapper>

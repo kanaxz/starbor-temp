@@ -4,13 +4,16 @@
   "main": "index.js",
   "scripts": {
     "first": "mocha --timeout 500000 src/**/*.test.js",
+    "client": "mocha --timeout 500000 src/client/**/*.test.js",
     "test": "mocha src/**/*.test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.7",
+    "client-shared": "file:../client-shared",
     "core": "file:../modules/core",
+    "core-client": "file:../modules/core-client",
     "core-server": "file:../modules/core-server",
     "dotenv": "^16.3.1",
     "mocha": "^10.2.0",

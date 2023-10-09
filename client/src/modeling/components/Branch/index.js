@@ -9,9 +9,9 @@ module.exports = class Branch extends Component {
     this.on('propertyChanged:branch', this.b(this.update))
   }
 
-  async initialize() {
-    await super.initialize()
+  async onReady() {
     await this.update()
+
   }
 
   template(model) {

@@ -8,6 +8,7 @@ const Controlleable = require('../controlling/Controlleable')
 const setup = require('../../setup')
 const This = require('./This')
 const config = setup.modeling.model
+
 class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Indexable, ...config.before]) {
 
   async innerLoad(context, paths) {
@@ -51,14 +52,36 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
     }
   }
 
+
+
   toString() {
     return this._id || this
   }
 }
 
-module.exports = class Model extends mixer.extends(BaseModel, config.after) {
+class Model extends mixer.extends(BaseModel, config.after) {
+  async match(context, filters) {
+    await this.load()
+    const scope = new setup.MemoryScope({
+      context,
+    })
 
+    scope.variables = {
+      this: {
+        sourceType: 'var',
+        name: 'this',
+        value: this,
+        type: this.constructor,
+      }
+    }
+
+    const match = await scope.process(filters)
+    console.log({ match, filters })
+    return match
+  }
 }
+
+module.exports = Model
   .define({
     name: 'model',
     abstract: true,
@@ -67,10 +90,16 @@ module.exports = class Model extends mixer.extends(BaseModel, config.after) {
     main: {
       properties: ['_id'],
       unique: true,
+      build: false,
     }
   })
   .properties({
-    _id: String,
+    _id: {
+      type: String,
+      state: {
+        disabled: true,
+      }
+    },
   })
   .methods({
     eq: [[This], Bool]

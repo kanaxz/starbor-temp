@@ -8,6 +8,11 @@ module.exports = {
         $eq: [value, other]
       }
     },
+    neq({ value }, other) {
+      return {
+        $ne: [value, other]
+      }
+    },
   },
   parse(scope, value) {
     return {

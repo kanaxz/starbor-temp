@@ -51,7 +51,6 @@ module.exports = class Map extends Component {
 
     console.log({ ...systems[0] })
 
-
     this.mapObjects = systems
       .filter((system) => system.starmap?.position)
       .map((object) => {
@@ -85,8 +84,7 @@ module.exports = class Map extends Component {
     })
   }
 
-  initialized() {
-    super.initialized()
+  onInit() {
     this.start()
   }
 

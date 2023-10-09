@@ -21,8 +21,6 @@ class SearchableResults extends mixer.extends([Propertiable]) {
     try {
       this.results = await this.type.collection.find([{
         $match: [`$${this.type.search?.property || 'name'}`, key]
-      }, {
-        $is: ['$this', this.type.definition.name]
       }], {
         type: this.type.definition.name,
         limit: 3

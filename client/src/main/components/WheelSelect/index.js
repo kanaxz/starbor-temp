@@ -12,13 +12,12 @@ module.exports = class WheelSelect extends Component {
     this.on('propertyChanged:option', this.b(this.update))
   }
 
-  initialize() {
+  onInit() {
     this.index = 0
     if (!this.option) {
       this.option = this.options[0]
     }
     this.update()
-    return super.initialize()
   }
 
   update() {
@@ -27,7 +26,7 @@ module.exports = class WheelSelect extends Component {
 
   setOption(option) {
     this.option = option
-    this.event('change', { option })
+    this.event('changed', { option })
   }
 
   onWheel(event) {

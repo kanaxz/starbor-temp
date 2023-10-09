@@ -72,7 +72,7 @@ Array
   .methods({
     find: [[fnArg], template],
     has: [[template], Bool],
-    any: [[fnArg], Bool],
+    some: [[fnArg], Bool],
   })
 
 utils.propertySanitizers.push((property) => {

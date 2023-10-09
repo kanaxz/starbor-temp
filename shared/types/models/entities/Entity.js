@@ -27,7 +27,6 @@ Entity
       type: Branch.of(Entity),
       on: 'parent',
     },
-    /**/
     children: {
       type: HasMany.of(Entity),
       on: 'parent',
@@ -35,7 +34,12 @@ Entity
   })
   .controllers({
     update: {
-      check({ user }) { return user.roles.admin },
+      logic(context, states, oldValue) {
+        console.log(states.parent)
+        states.parent.filters.push({
+          $neq: ['$_id', oldValue._id]
+        })
+      }
     }
   })
 

@@ -30,38 +30,44 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     this.scope = null
   }
 
-  async process(scope) {
+  process(scope) {
     if (this.processed) {
       console.warn('Already processed', this)
       return
     }
     this.processed = true
     renderer.process(this.el, scope)
-    if (await renderer.renderVirtuals(this, scope)) {
+    if (renderer.renderVirtuals(this, scope)) {
       throw new Error('Incompatible')
     }
-    await this.attach(scope)
+    this.attach(scope)
   }
 
-  async initialize() {
-    await this.initializeContent()
-    await this.initializeTemplate()
-    await super.initialize()
+  initialize() {
+    super.initialize()
+    this.initializeContent()
+    this.initializeTemplate()
+    Promise.resolve(this.onReady())
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
-  async initializeContent() {
+  onReady() { }
+
+  initializeContent() {
     if (this.definition.transclude) {
       this.transcludeContent = [
         ...this.childNodes
       ]
     } else
-      return await renderer.renderContent(this, this.scope)
+      renderer.renderContent(this, this.scope)
   }
 
-  async initializeTemplate() {
+  initializeTemplate() {
     if (this.definition.template) {
       this.innerHTML = this.definition.template
-      await renderer.renderContent(this, this.scope)
+      renderer.renderContent(this, this.scope)
     }
 
     if (this.definition.transclude) {
@@ -69,7 +75,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
       this.transcludeContent.forEach((n) => {
         container.appendChild(n)
       })
-      await renderer.renderContent(container, this.scope.parent)
+      renderer.renderContent(container, this.scope.parent)
     }
   }
 

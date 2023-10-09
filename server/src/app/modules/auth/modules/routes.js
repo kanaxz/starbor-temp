@@ -119,7 +119,8 @@ module.exports = {
           me: userModel.toJSON()
         })
       } catch (err) {
-        handleError(res, error)
+        console.error(err)
+        handleError(res, err)
       }
     })
   }
