@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../modules/core"
+    "core": "file:../modules/core/shared",
+    "modeling": "file:../modules/modeling/shared",
+    "storage": "file:../modules/storage/shared"
   }
 }

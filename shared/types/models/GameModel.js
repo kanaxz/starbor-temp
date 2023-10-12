@@ -1,4 +1,4 @@
-const { Model } = require('core/modeling/types')
+const { Model } = require('modeling/types')
 
 module.exports = class GameModel extends Model {
 

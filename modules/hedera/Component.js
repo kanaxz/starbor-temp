@@ -32,7 +32,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
 
   process(scope) {
     if (this.processed) {
-      console.warn('Already processed', this)
+      console.trace('Already processed', this)
       return
     }
     this.processed = true
@@ -88,6 +88,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
   }
 
   destroy() {
+    console.log('component destroyed', this, { ...this })
     renderer.workers.forEach((w) => w.destroy && w.destroy(this))
     this.childNodes.forEach(renderer.destroy)
     if (this.v) {

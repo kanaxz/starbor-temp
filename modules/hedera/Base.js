@@ -1,11 +1,11 @@
-const Bindeable = require("core/mixins/Bindeable")
-const Propertiable = require("core/mixins/Propertiable")
+const Bindeable = require('core/mixins/Bindeable')
+const Propertiable = require('core/mixins/Propertiable')
 const Listening = require('./mixins/Listening')
 const mixer = require('core/mixer')
 const Scope = require("./Scope")
-const Holder = require("core-client/modeling/mixins/Holder")
+const { base } = require('./setup')
 
-module.exports = mixer.mixin([Bindeable, Propertiable, Listening, Holder], (base) => {
+module.exports = mixer.mixin([Bindeable, Propertiable, Listening, ...base], (base) => {
   return class Base extends base {
 
     static variables(variables) {

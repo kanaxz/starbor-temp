@@ -1,5 +1,5 @@
-const mixer = require('core/mixer')
-const Propertiable = require('core/mixins/Propertiable')
+const mixer = require('../../shared/mixer')
+const Propertiable = require('../../shared/mixins/Propertiable')
 const renderer = require('../renderer')
 
 module.exports = class It extends mixer.extends([Propertiable]) {

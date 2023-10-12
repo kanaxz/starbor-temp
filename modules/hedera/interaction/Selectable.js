@@ -6,13 +6,35 @@ const { select, getSelectables, getSelected, selectFirst, interact } = require('
 const keys = [
   [(e) => e.key === 'ArrowUp', -1],
   [(e) => e.key === 'ArrowDown', 1],
+  [(e) => e.key === 'ArrowRight', 1],
+  [(e) => e.key === 'ArrowLeft', -1],
   [(e) => e.key === 'Tab' && !e.shiftKey, 1],
   [(e) => e.key === 'Tab' && e.shiftKey, -1],
 ]
 
-const initContainer = (el) => {
+const initContainer = (virtual, el) => {
 
-  el.addEventListener('keydown', (e) => {
+  const triggers = el.querySelectorAll('[selectable-trigger]')
+  el.setAttribute('tabindex', '0')
+  console.log({ triggers })
+  triggers.forEach((trigger) => {
+    virtual.listen(trigger, 'click', () => interact(el))
+  })
+
+  virtual.listen(el, 'click', (e) => {
+    const selectable = e.target.closest('[selectable]')
+    if (!selectable) { return }
+    console.log(document.activeElement)
+    select(el, selectable)
+  })
+
+  virtual.listen(el, 'dblclick', (e) => {
+    const selectable = e.target.closest('[selectable]')
+    if (!selectable) { return }
+    interact(el)
+  })
+
+  virtual.listen(el, 'keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
       interact(el)
@@ -42,13 +64,22 @@ const initContainer = (el) => {
     }
   })
 
-  el[symbol] = {}
+  const focus = () => {
+    const current = getSelected(el)
+    if (!current) {
+      selectFirst(el)
+    }
+  }
+
+  el[symbol] = {
+    focus
+  }
 }
 
 module.exports = class Selectable extends Virtual {
   constructor(el, value) {
     super(el)
-    const [callback, within] = value.split('within')
+    const [callback, within] = value.split(/ within /)
     this.el.setAttribute(':v.selectable.callback', `()=>${callback}`)
     if (within) {
       this.el.setAttribute(':v.selectable.within', `${within}`)
@@ -58,7 +89,9 @@ module.exports = class Selectable extends Virtual {
   onInit() {
     this.el.setAttribute('selectable', '')
     if (!this.within[symbol]) {
-      initContainer(this.within)
+      initContainer(this, this.within)
+    } else {
+      this.within[symbol].focus()
     }
   }
 }

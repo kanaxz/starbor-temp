@@ -106,27 +106,5 @@ game-entity-edit-page {
         }
       }
     }
-
-    .right {
-      position: sticky;
-      top: 50px;
-      width: 300px;
-
-      .infos {
-        display: flex;
-        flex-direction: column;
-
-        .main-image {
-          width: 100%;
-          object-fit: cover;
-        }
-
-        > .content {
-          border: 1px solid #e1e1e1;
-          border-top: none;
-          padding: 10px;
-        }
-      }
-    }
   }
 }

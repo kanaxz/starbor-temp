@@ -1,6 +1,6 @@
 const Virtual = require('../Virtual')
-const Propertiable = require('core/mixins/Propertiable')
-const mixer = require('core/mixer')
+const Propertiable = require('../../shared/mixins/Propertiable')
+const mixer = require('../../shared/mixer')
 const renderer = require('../renderer')
 const It = require('./It')
 const { getElementFromTemplate } = require('../utils/template')
@@ -52,6 +52,7 @@ module.exports = class For extends Virtual {
   }
 
   onSourceChanged() {
+    console.log('source changed', this.source)
     if (this.handler) {
       this.handler.destroy()
       this.handler = null

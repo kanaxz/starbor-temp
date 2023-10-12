@@ -1,4 +1,4 @@
 require('./Child')
-require('./Render')
+require('../Render')
 require('./InputDelay')
 require('./Exit')

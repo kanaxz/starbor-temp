@@ -1,4 +1,4 @@
-<self :style.background-image="`url(${this.model.image || defaultImage })`">
+<self :style.background-image="`url(${this.@model.@image?.@path || defaultImage })`">
   <header>
     <label>{{this.model.@name}}</label>
     <app-affiliation-little :affiliation="this.model?.affiliation"></app-affiliation-little>

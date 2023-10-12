@@ -1,7 +1,7 @@
 const config = require('@app/config')
-const { getCollections } = require('client-shared/modeling')
+const { buildCollections } = require('processing-client')
 
-const collections = getCollections(config.server.url)
+const collections = buildCollections(config.server.url)
 
 module.exports = {
   collections

@@ -1,0 +1,11 @@
+<self :v-exit="this.close()" >
+  <header>
+    <h3 class="title">{{this.@title}}</h3>
+    <div class="actions">
+      <div :on-click="this.close()">
+        <i class="fa-solid fa-x"></i>
+      </div>
+    </div>
+  </header>
+  <div class="transclude" as="transclude"></div>
+</self>

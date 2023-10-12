@@ -1,4 +1,4 @@
-const { Model, String } = require('core/modeling/types')
+const { Model, String } = require('modeling/types')
 const mixer = require('core/mixer')
 const StarMap = require('../objects/Starmap')
 
@@ -10,6 +10,7 @@ module.exports = class Organization extends Model {
   .define({
     name: 'organization',
     pluralName: 'organizations',
+    root: true,
   })
   .indexes({
     code: {

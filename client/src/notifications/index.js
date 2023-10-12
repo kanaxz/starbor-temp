@@ -1,7 +1,7 @@
 const Service = require('hedera/Service');
-const Propertiable = require("core/mixins/Propertiable")
-const mixer = require("core/mixer")
-const Array = require('core/types/Array')
+const Propertiable = require("../../../modules/shared/mixins/Propertiable")
+const mixer = require("../../../modules/shared/mixer")
+const Array = require('../../../modules/shared/types/Array')
 
 class Notification extends mixer.extends([Propertiable]) {
   constructor(values) {

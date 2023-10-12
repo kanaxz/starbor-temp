@@ -34,6 +34,7 @@
     "client-shared": "file:../client-shared",
     "core-client": "file:../modules/core-client",
     "hedera": "file:../modules/hedera",
-    "showdown": "^2.1.0"
+    "showdown": "^2.1.0",
+    "storage-client": "file:../modules/storage/client"
   }
 }

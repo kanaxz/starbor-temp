@@ -1,14 +1,13 @@
 
 const Main = require('@app/layouts/Main')
 const template = require('./template.html')
-const objects = require('./points')
 const Camera = require('./Camera')
 const Layer = require('./Layer')
 const MapObject = require('./Object')
 const { calculateDistance, getMax } = require('./utils')
 const Component = require('hedera/Component')
 const { collections } = require('@app/api')
-const { bound: boundInt } = require('core/utils/number')
+const { bound: boundInt } = require('../../../../../modules/shared/utils/number')
 require('./style.scss')
 
 const toRadians = (angle) => {
@@ -32,7 +31,6 @@ module.exports = class Map extends Component {
   constructor() {
     super()
     this.on('propertyChanged:object', this.b(this.update))
-    console.log('dimensiosn', this.clientHeight, this.clientWidth)
     this.camera = new Camera({
       x: 0,
       y: 0,
@@ -48,8 +46,6 @@ module.exports = class Map extends Component {
         organization: true,
       }
     })
-
-    console.log({ ...systems[0] })
 
     this.mapObjects = systems
       .filter((system) => system.starmap?.position)
@@ -119,8 +115,6 @@ module.exports = class Map extends Component {
       })
       min = max
     })
-
-    console.log({ layers: this.layers, maxDistance })
   }
 
   onMouseDown() {

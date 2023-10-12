@@ -10,13 +10,11 @@ module.exports = class System extends GameEntity {
   .controllers({
     create: {
       logic(context, states) {
-        console.log('logic here')
         states.parent.disabled = true
       }
     },
     update: {
       logic(context, states) {
-        console.log('logic here')
         states.parent.disabled = true
       }
     }

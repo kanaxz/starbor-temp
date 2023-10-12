@@ -1,0 +1,16 @@
+{
+  "name": "processing-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core-server": "file:../../core/server",
+    "express": "^4.18.2",
+    "modeling": "file:../../modeling/shared"
+  }
+}

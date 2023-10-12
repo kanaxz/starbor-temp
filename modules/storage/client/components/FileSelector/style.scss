@@ -1,0 +1,47 @@
+file-selector {
+  display: block;
+  width: 100%;
+  header {
+    $size: 40px;
+    width: 350px;
+    height: $size;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    input[type="text"] {
+      flex: 1;
+    }
+
+    .add {
+      cursor: pointer;
+      display: flex;
+      margin-left: 10px;
+      align-items: center;
+      justify-content: center;
+      width: $size;
+      height: $size;
+      background-color: rgba(#e1e1e1, 0.3);
+      border: 1px solid #e1e1e1;
+    }
+  }
+
+  .objects {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    margin-top: 15px;
+    min-height: 150px;
+    > * {
+      margin-right: 10px;
+    }
+  }
+
+  button {
+    float: right;
+  }
+}

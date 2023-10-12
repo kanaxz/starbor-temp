@@ -9,17 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
-    "core": "file:../modules/core",
-    "core-server": "file:../modules/core-server",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "moment": "^2.29.4",
-    "mongodb": "^5.0.1",
-    "nanoid": "^3.3.6",
-    "processing-mongo": "file:../modules/processing-mongo",
-    "shared": "file:../shared"
+    "core": "file:../modules/core/shared",
+    "core-server": "file:../modules/core/server",
+    "management-server": "file:../modules/management/server",
+    "modeling": "file:../modules/modeling/shared",
+    "modeling-server": "file:../modules/modeling/server",
+    "mongo": "file:../modules/mongo",
+    "processing-server": "file:../modules/processing/server",
+    "shared": "file:../shared",
+    "storage": "file:../modules/storage/shared",
+    "storage-server": "file:../modules/storage/server"
   }
 }

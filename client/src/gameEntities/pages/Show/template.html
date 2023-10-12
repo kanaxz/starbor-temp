@@ -37,7 +37,8 @@
     </div>
     <div class="right">
       <div class="infos">
-        <img class="main-image" :src="this.entity.image || defaultImage">
+        <img class="main-image" 
+          :src="this.entity.@image?.@path || defaultImage">
         <div class="content">
           Some text
         </div>

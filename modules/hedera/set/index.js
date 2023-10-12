@@ -1,8 +1,8 @@
 const { workers } = require('../renderer')
 const utils = require('../utils')
-const mixer = require('core/mixer')
+const mixer = require('../../shared/mixer')
 const Holdable = require('core-client/modeling/mixins/Holdable')
-const { set } = require('core/utils/path')
+const { set } = require('../../shared/utils/path')
 const { createFunction, dashToCamel } = utils
 
 const attributes = {

@@ -118,7 +118,9 @@ game-entity-show-page {
 
         .main-image {
           width: 100%;
-          object-fit: cover;
+          min-height: 250px;
+          object-fit: contain;
+          background-color: #e1e1e1;
         }
 
         > .content {

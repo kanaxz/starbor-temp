@@ -1,4 +1,4 @@
-const { Object, Number } = require('core/modeling/types')
+const { Object, Number } = require('modeling/types')
 
 const getDimensionState = ({ property }, ownProperty) => {
   return {

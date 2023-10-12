@@ -1,0 +1,24 @@
+<self>
+  <header>
+    <input type="text" as="input" :on-input="this.search(node.value)" />
+    <input type="file" as="inputFile" :on-change="this.uploadFile(node.files[0])" />
+    <button class="add" :on-click="this.inputFile.click()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </header>
+  <div
+    class="objects"
+    :v-for="object of this.@objects">
+    <div>
+      <replace-with 
+        :element="this.template(object)"
+        :v-selectable="this.selectFile(object) within this" 
+        :class="`${this.@file === object ? 'selected' : ''}`">
+      </replace-with>    
+    </div>
+  </div>
+  <button 
+    selectable-trigger>
+    OK
+  </button>
+</self>

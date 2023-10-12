@@ -1,6 +1,6 @@
 const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
-const { String } = require('core/modeling/types')
+const { String } = require('modeling/types')
 
 module.exports = mixer.mixin([Propertiable], (baseClass) => {
   return class Pageable extends baseClass {

@@ -1,5 +1,3 @@
-const { isCustomElement } = require("./utils");
-
 const workers = []
 
 const process = (node, scope) => {
@@ -41,6 +39,7 @@ const processSelf = (node, scope) => {
   }
 
   process(parent, scope)
+  renderVirtuals(parent, scope)
   renderContent(parent, scope)
   return true
 }

@@ -1,4 +1,4 @@
-const { makeId } = require("core/utils/string")
+const { makeId } = require("../../../../../modules/shared/utils/string")
 
 const variables = {}
 

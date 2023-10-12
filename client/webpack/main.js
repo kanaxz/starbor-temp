@@ -13,6 +13,8 @@ module.exports = () => {
     devServer: {
       proxy: {
         "/api": "http://localhost:8000",
+        "/storage": "http://localhost:8000",
+        "/upload": "http://localhost:8000",
       },
       historyApiFallback: true,
       port: 8081,

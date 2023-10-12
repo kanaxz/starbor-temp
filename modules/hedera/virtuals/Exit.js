@@ -3,9 +3,17 @@ const Virtual = require('../Virtual')
 module.exports = class Exit extends Virtual {
   constructor(el, value) {
     super(el)
-    this.el.setAttribute(':v.exit.callback', `()=>${value}`)
-    this.listen(window, 'click', this.onWindowClicked)
-    this.listen(window, 'keydown', this.onWindowKeyDown)
+    const [callback, when] = value.split(/ when /)
+    this.el.setAttribute(':v.exit.callback', `()=>${callback}`)
+    this.el.setAttribute(':v.exit.when', when)
+    this.listen(window, 'click', this.onWindowClicked, true)
+    this.listen(window, 'keydown', this.onWindowKeyDown, true)
+  }
+
+  onInit() {
+    if (this.when === undefined) {
+      this.when = true
+    }
   }
 
   onWindowKeyDown(e) {
@@ -21,6 +29,7 @@ module.exports = class Exit extends Virtual {
   }
 
   trigger() {
+    if (!this.when) { return }
     this.callback()
   }
 }

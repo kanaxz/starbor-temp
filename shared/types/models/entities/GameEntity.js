@@ -3,14 +3,11 @@ const Starmap = require('../../objects/Starmap')
 const mixer = require('core/mixer')
 const Pageable = require('../../../mixins/Pageable')
 const Markdown = require('../../Markdown')
-const { String } = require('core/modeling/types')
-const { Folder, File } = require('../fs')
+const { String } = require('modeling/types')
+const { Folder, File, Image } = require('storage')
 
-const isAdmin = (context) => {
-  return context.user?.roles.admin
-  if (!context.user?.roles.admin) {
-    throw new Error('Admin role requiredz')
-  }
+const isAdmin = async (context) => {
+  return await context.user?.is('admin')
 }
 
 module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
@@ -48,12 +45,9 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
     },
     starmap: Starmap,
     image: {
-      type: File,
+      type: Image,
       state: {
         required: true,
-        filters: [{
-          $eq: ['$type', 'image']
-        }]
       }
     },
     folder: {
@@ -68,14 +62,19 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
       check(context) {
         return isAdmin(context)
       },
-      logic(context, states) {
+      async logic(context, states) {
         states.code.value = states.code.value?.toUpperCase()
         states.folder.disabled = true
         states.organization.filters.push({
           $match: ['$name', '^U']
         })
-        if (states.organization.value?.name !== 'UEE') {
-          states.organization.errors.push('ntm')
+
+        const organization = states.organization.value
+        if (organization) {
+          await organization.load()
+          if (organization?.name !== 'UEE') {
+            states.organization.errors.push('ntm')
+          }
         }
       }
     },

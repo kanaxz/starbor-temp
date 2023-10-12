@@ -1,0 +1,25 @@
+const { String } = require('modeling/types')
+
+module.exports = {
+  for: String,
+  methods: {
+    match({ value }, regex) {
+
+      const regExp = new RegExp(regex.toUpperCase())
+      console.log('matching', { value, regex })
+      return value.toUpperCase().match(regExp)
+    },
+    toUpperCase({ value }) {
+      return value.toUpperCase()
+    },
+  },
+  parse(scope, value) {
+    if (typeof value !== 'string') {
+      throw new Error()
+    }
+    return {
+      scope,
+      value,
+    }
+  }
+}

@@ -1,7 +1,7 @@
 const mixer = require('core/mixer')
 const GameModel = require('../GameModel')
 const Organization = require('../Organization')
-const { String, Branch, HasMany } = require('core/modeling/types')
+const { String, Branch, HasMany } = require('modeling/types')
 
 class Entity extends mixer.extends(GameModel) {
 

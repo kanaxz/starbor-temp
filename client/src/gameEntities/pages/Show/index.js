@@ -7,6 +7,8 @@ require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {
   async onReady() {
+    console.log('show page')
+    await this.entity.image?.load()
     await this.entity.children.load()
     this.canDelete = await this.entity.canDelete()
     this.canUpdate = await this.entity.canUpdate()
