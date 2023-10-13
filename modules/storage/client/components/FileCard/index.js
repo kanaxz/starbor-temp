@@ -1,6 +1,6 @@
-const Card = require('@app/modeling/components/Card')
+const Card = require('modeling-client/components/Card')
 const template = require('./template.html')
-const { FileSystemObject } = require('shared/types')
+const { FileSystemObject } = require('storage')
 require('./style.scss')
 
 module.exports = class FileCard extends Card {

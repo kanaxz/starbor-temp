@@ -1,5 +1,6 @@
 const config = require('./config')
-const AuthService = require('modeling-client/Service')
+const AuthService = require('hedera/Service')
+
 module.exports = {
   auth: new AuthService(config.server.url)
 }

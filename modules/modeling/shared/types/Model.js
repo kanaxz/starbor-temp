@@ -60,7 +60,7 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
 }
 
 class Model extends mixer.extends(BaseModel, config.after) {
-  
+
 }
 
 module.exports = Model

@@ -1,11 +1,11 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const Propertiable = require('../../../shared/mixins/Propertiable')
-const mixer = require('../../../shared/mixer')
-const componentsService = require('../../../../client/src/main/componentsService')
+const Propertiable = require('core/mixins/Propertiable')
+const mixer = require('core/mixer')
+const componentsService = require('../../componentsService')
 const interaction = require('hedera/interaction')
-const Pageable = require('shared/mixins/Pageable')
-const Mixin = require('../../../shared/Mixin')
+const Pageable = require('modeling/mixins/Pageable')
+const Mixin = require('core/Mixin')
 
 require('./style.scss')
 

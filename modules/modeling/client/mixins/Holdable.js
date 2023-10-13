@@ -1,5 +1,5 @@
-const mixer = require('../../../shared/mixer')
-const Destroyable = require('../../../shared/mixins/Destroyable')
+const mixer = require('core/mixer')
+const Destroyable = require('core/mixins/Destroyable')
 
 const state = Symbol('holdState')
 const instances = []

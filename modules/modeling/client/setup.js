@@ -1,4 +1,4 @@
-
+const setup = require('modeling/setup')
 const Holdable = require('./mixins/Holdable')
 const Holder = require('./mixins/Holder')
 const SingleInstance = require('./mixins/SingleInstance')
@@ -8,7 +8,8 @@ const Transformable = require('./mixins/Transformable')
 const HasTransformable = require('./mixins/HasTransformable')
 const ArrayHasTransformable = require('./mixins/ArrayHasTransformable')
 const hederaSetup = require('hedera/setup')
-const setup = require('modeling/setup')
+
+const Controlleable = require('./mixins/Controlleable')
 const { model } = setup
 
 hederaSetup.base.push(Holder)

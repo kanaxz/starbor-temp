@@ -1,6 +1,6 @@
-const mixer = require('../../shared/mixer')
-const Bindeable = require('../../shared/mixins/Bindeable')
-const Destroyable = require('../../shared/mixins/Destroyable')
+const mixer = require('core/mixer')
+const Bindeable = require('core/mixins/Bindeable')
+const Destroyable = require('core/mixins/Destroyable')
 
 module.exports = mixer.mixin([Bindeable, Destroyable], (base) => {
   return class Interactable extends base {

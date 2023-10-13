@@ -1,9 +1,8 @@
 const Entity = require('./Entity')
 const Starmap = require('../../objects/Starmap')
 const mixer = require('core/mixer')
-const Pageable = require('../../../mixins/Pageable')
-const Markdown = require('../../Markdown')
-const { String } = require('modeling/types')
+const Pageable = require('modeling/mixins/Pageable')
+const { String, Markdown } = require('modeling/types')
 const { Folder, File, Image } = require('storage')
 
 const isAdmin = async (context) => {

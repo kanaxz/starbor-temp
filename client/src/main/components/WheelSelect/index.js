@@ -1,6 +1,6 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const { bound } = require('../../../../../modules/shared/utils/number')
+const { bound } = require('core/utils/number')
 
 require('./style.scss')
 

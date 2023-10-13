@@ -1,17 +1,12 @@
 const template = require('./template.html')
-const Array = require('core/types/Array')
 const { String, Bool, Model, Object: ObjectType, Number } = require('modeling/types')
 const { TextField, BoolField, DateField, NumberField, MarkdownField } = require('../..//fields')
 const ModelField = require('../ModelField')
 const Field = require('../../fields/Field')
 const Markdown = require('modeling/types/Markdown')
-const ObjectState = require('processing/states/ObjectState')
-const { File } = require('storage')
-const FileField = require('../../../../storage/client/components/FileField')
 require('./style.scss')
 
 const typesFieldmapping = [
-  [File, FileField],
   [Markdown, MarkdownField],
   [String, TextField],
   [Bool, BoolField],
@@ -19,13 +14,12 @@ const typesFieldmapping = [
   [Model, ModelField],
 ]
 
-const ignore = ['_id']
-
 const getMapping = (type) => {
   return typesFieldmapping.find(([t]) => type === t || type.prototype instanceof t)
 }
 
 class ObjectFieldset extends Field {
+  static typesFieldmapping = typesFieldmapping
   constructor(values) {
     super(values)
     this.on('propertyChanged:type', this.b(this.updateTypes))

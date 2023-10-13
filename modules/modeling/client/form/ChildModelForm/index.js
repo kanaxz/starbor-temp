@@ -1,8 +1,7 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const ObjectState = require('../../../shared/modeling/states/ObjectState')
-const auth = require('@app/auth')
-const RootModelState = require('../../../shared/modeling/states/RootModelState')
+const context = require('hedera/context')
+const RootModelState = require('processing/states/RootModelState')
 require('./style.scss')
 
 module.exports = class ChildModelForm extends Component {
@@ -56,15 +55,13 @@ module.exports = class ChildModelForm extends Component {
       type: value.constructor,
       value,
       required: true,
-      context: {
-        user: auth.me,
-      }
+      context
     })
     for (const controller of state.value.constructor.controllers) {
       const isCreate = this.isCreate()
       const logic = isCreate ? controller.create?.logic : controller.update?.logic
       if (logic) {
-        await logic(this.context, state.states, this.model)
+        await logic(context, state.states, this.model)
       }
     }
    

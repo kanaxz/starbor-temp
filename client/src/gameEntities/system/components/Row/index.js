@@ -1,4 +1,4 @@
-const Card = require('@app/modeling/components/Card')
+const Card = require('modeling-client/components/Card')
 const template = require('./template.html')
 const { System } = require('shared/types')
 require('./style.scss')

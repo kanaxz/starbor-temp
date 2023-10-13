@@ -15,7 +15,7 @@
     "babel-loader": "^9.1.0",
     "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "^5.1.1",
-    "core": "file:../modules/core",
+    "core": "file:../modules/core/shared",
     "css-loader": "^3.4.2",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^5.5.1",
@@ -34,6 +34,11 @@
     "client-shared": "file:../client-shared",
     "core-client": "file:../modules/core-client",
     "hedera": "file:../modules/hedera",
+    "management-client": "file:../modules/management/client",
+    "modeling": "file:../modules/modeling/shared",
+    "modeling-client": "file:../modules/modeling/client",
+    "processing": "file:../modules/processing/shared",
+    "processing-client": "file:../modules/processing/client",
     "showdown": "^2.1.0",
     "storage-client": "file:../modules/storage/client"
   }

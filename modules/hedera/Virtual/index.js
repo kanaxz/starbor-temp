@@ -1,5 +1,5 @@
 const { virtuals } = require('./worker')
-const mixer = require('../../shared/mixer')
+const mixer = require('core/mixer')
 const Base = require('../Base')
 
 module.exports = class Virtual extends mixer.extends([Base]) {

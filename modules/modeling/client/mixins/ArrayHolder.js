@@ -1,4 +1,4 @@
-const mixer = require('../../../shared/mixer')
+const mixer = require('core/mixer')
 const Holdable = require('./Holdable')
 
 module.exports = mixer.mixin((base) => {

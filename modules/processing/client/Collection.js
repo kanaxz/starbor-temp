@@ -1,5 +1,5 @@
 const axios = require('axios')
-const Context = require('core-client/modeling/Context')
+const Context = require('modeling-client/Context')
 
 const getArgs = (args) => {
   return args.filter((arg) => !(arg instanceof Context))

@@ -1,7 +1,6 @@
-const Destroyable = require('../../../shared/mixins/Destroyable')
-const mixer = require('../../../shared/mixer')
-const Equalable = require('../../../shared/mixins/Equalable');
-const Propertiable = require('../../../shared/mixins/Propertiable')
+const Destroyable = require('core/mixins/Destroyable')
+const mixer = require('core/mixer')
+const Equalable = require('core/mixins/Equalable');
 const Transformable = require('./Transformable')
 const types = []
 
@@ -35,6 +34,7 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
     }
 
     static onObjectParsed(object) {
+      console.log('objectParsed', object)
       object[symbol] = id++
       instances.push(object)
       this.checkDuplicates()
@@ -44,7 +44,7 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
       if (!object) {
         return object
       }
-
+      console.log(...instances)
       const instance = instances.find((instance) => instance.equals(object))
       if (instance) {
         Object.assign(instance, object)

@@ -1,4 +1,4 @@
-const Row = require('@app/modeling/components/Row')
+const Row = require('modeling-client/components/Row')
 const template = require('./template.html')
 const { Entity } = require('shared/types')
 require('./style.scss')

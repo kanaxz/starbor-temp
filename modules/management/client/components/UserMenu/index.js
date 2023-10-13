@@ -1,6 +1,6 @@
 const template = require('./template.html')
 const Component = require('hedera/Component')
-const auth = require('../../service')
+const context = require('hedera/context')
 require('./style.scss')
 
 module.exports = class UserMenu extends Component {
@@ -17,5 +17,5 @@ module.exports = class UserMenu extends Component {
     isOpen: 'any',
   })
   .variables({
-    auth,
+    context,
   })

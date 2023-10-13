@@ -1,7 +1,7 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const { FileSystemObject } = require('storage-shared')
-const componentsService = require('hedera-modeling/componentsService')
+const { FileSystemObject } = require('storage')
+const componentsService = require('modeling-client/componentsService')
 require('./style.scss')
 
 

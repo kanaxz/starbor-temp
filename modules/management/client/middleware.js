@@ -1,6 +1,6 @@
-const Service = require('./Service')
+const context = require('hedera/context')
 module.exports = (req, res, next) => {
-  if (!Service.instance.me) {
+  if (!context.user) {
     return navigator.navigate('/login')
   }
   next()

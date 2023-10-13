@@ -1,7 +1,6 @@
-const mixer = require('../../../shared/mixer')
-const Context = require('../Context')
-const Eventable = require('../../../shared/mixins/Eventable')
-const Destroyable = require('../../../shared/mixins/Destroyable')
+const mixer = require('core/mixer')
+const Eventable = require('core/mixins/Eventable')
+const Destroyable = require('core/mixins/Destroyable')
 
 module.exports = mixer.mixin([Destroyable, Eventable], (base) => {
   return class Transformable extends base {

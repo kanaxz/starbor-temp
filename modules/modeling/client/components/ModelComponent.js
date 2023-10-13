@@ -1,6 +1,6 @@
 const Component = require('hedera/Component')
-const mixer = require('../../shared/mixer')
-const Registerable = require('@app/main/mixins/Registerable')
+const mixer = require('core/mixer')
+const Registerable = require('../mixins/Registerable')
 const Interactable = require('hedera/mixins/Interactable')
 
 module.exports = class ModelComponent extends mixer.extends(Component, [Registerable]) {

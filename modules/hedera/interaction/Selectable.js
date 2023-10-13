@@ -24,7 +24,6 @@ const initContainer = (virtual, el) => {
   virtual.listen(el, 'click', (e) => {
     const selectable = e.target.closest('[selectable]')
     if (!selectable) { return }
-    console.log(document.activeElement)
     select(el, selectable)
   })
 

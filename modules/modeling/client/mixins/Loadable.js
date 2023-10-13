@@ -1,4 +1,4 @@
-const mixer = require('../../../shared/mixer')
+const mixer = require('core/mixer')
 const Context = require('../Context')
 
 module.exports = mixer.mixin((base) => {

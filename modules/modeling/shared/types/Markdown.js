@@ -1,4 +1,4 @@
-const { String } = require('modeling/types')
+const String = require('./String')
 
 module.exports = class Markdown extends String {
 

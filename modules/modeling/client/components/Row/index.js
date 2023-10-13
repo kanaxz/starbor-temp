@@ -1,4 +1,4 @@
-const { Model } = require('core/modeling/types')
+const { Model } = require('modeling/types')
 const ModelComponent = require('../ModelComponent')
 const template = require('./template.html')
 

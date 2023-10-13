@@ -1,10 +1,11 @@
-require('./memory/MemoryScope')
+const MemoryScope = require('./memory/MemoryScope')
 
 const match = async (context, object, filters) => {
+  console.log('match', object, object.constructor)
   if (object.load) {
     await object.load()
   }
-  const scope = new setup.MemoryScope({
+  const scope = new MemoryScope({
     context,
   })
 

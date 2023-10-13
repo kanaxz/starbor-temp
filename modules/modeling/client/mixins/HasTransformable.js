@@ -1,5 +1,5 @@
-const mixer = require('../../../shared/mixer')
-const Propertiable = require('../../../shared/mixins/Propertiable')
+const mixer = require('core/mixer')
+const Propertiable = require('core/mixins/Propertiable')
 const symbol = Symbol('HasTransformable')
 const Transformable = require('./Transformable')
 

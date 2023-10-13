@@ -1,7 +1,7 @@
-const { Model } = require("../../../../../../modules/shared/modeling/types")
-const componentsService = require('@app/main/componentsService')
+const { Model } = require('modeling/types')
+const componentsService = require('modeling-client/componentsService')
 const markdownService = require('../service')
-const { parse } = require('../../../../../../modules/shared/utils/json')
+const { parse } = require('core/utils/json')
 const childs = Model
   .getAllChilds()
   .filter((c) => !c.definition.abstract)

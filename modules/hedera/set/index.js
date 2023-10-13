@@ -1,8 +1,7 @@
 const { workers } = require('../renderer')
 const utils = require('../utils')
-const mixer = require('../../shared/mixer')
-const Holdable = require('core-client/modeling/mixins/Holdable')
-const { set } = require('../../shared/utils/path')
+const Event = require('core/types/Event')
+const { set } = require('core/utils/path')
 const { createFunction, dashToCamel } = utils
 
 const attributes = {
@@ -59,6 +58,9 @@ const processFunctionString = (string) => {
   }
 }
 
+const onBindingGetProperty = new Event()
+const onBindingDestroyed = new Event()
+
 class BindingFunction {
   constructor(functionString, variables, callback, trigger) {
     this.functionString = functionString
@@ -86,16 +88,13 @@ class BindingFunction {
   update(trigger = true) {
     this.destroy()
     this.listeners = []
-    this.holdables = []
     this.paths.forEach((path) => {
       const segments = path.split('.')
       let value = this.variables
       segments.forEach((segment) => {
         if (!value) { return }
-        if (mixer.is(value, Holdable)) {
-          this.holdables.push(value)
-          value.hold(this)
-        }
+        onBindingGetProperty.trigger(this, value)
+
         const propertyName = segment.replace(/[@?]+/g, '')
         if (segment.startsWith('@')) {
           if (!value.on) {
@@ -119,7 +118,7 @@ class BindingFunction {
 
   destroy() {
     this.listeners.forEach((l) => l.remove())
-    this.holdables.forEach((h) => h.release(this))
+    onBindingDestroyed.trigger(this)
   }
 }
 
@@ -230,3 +229,8 @@ workers.push({
       })
   }
 })
+
+module.exports = {
+  onBindingDestroyed,
+  onBindingGetProperty
+}

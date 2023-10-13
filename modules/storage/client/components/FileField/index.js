@@ -1,6 +1,6 @@
 const template = require('./template.html')
-const Field = require('@app/fields/Field')
-const { validateType } = require('../../../shared/utils/file')
+const Field = require('modeling-client/fields/Field')
+const { validateType } = require('core/utils/file')
 
 require('./style.scss')
 

@@ -1,8 +1,9 @@
+/*
 const template = require('./template.html')
 const Component = require('hedera/Component')
 const auth = require('../../Service')
 require('./style.scss')
-const notifications = require('../../../notifications')
+const notifications = require('@app/notifications')
 
 
 module.exports = class ChangePassword extends Component {
@@ -44,3 +45,4 @@ module.exports = class ChangePassword extends Component {
   .properties({
     hasClick: 'any',
   })
+  */

@@ -5,7 +5,7 @@
       <div :on-click="this.MyDataIsOpen = !this.MyDataIsOpen">
         <h3>My data</h3>
         <div :class="`my-data ${this.@MyDataIsOpen ? 'data-is-open' : ''}`">
-          <label>Username : {{auth.@me?.@username}}</label>
+          <label>Username : {{context.@user?.@username}}</label>
         </div>
       </div>
       <header :on-click="this.EditMyDataIsOpen = !this.EditMyDataIsOpen">

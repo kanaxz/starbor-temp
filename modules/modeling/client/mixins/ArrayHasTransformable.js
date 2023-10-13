@@ -1,4 +1,4 @@
-const mixer = require('../../../shared/mixer')
+const mixer = require('core/mixer')
 const symbol = Symbol('ArrayHasTransformable')
 const Transformable = require('./Transformable')
 

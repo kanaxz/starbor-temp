@@ -1,7 +1,7 @@
-<self :class="`${auth.@me ? 'has-user' : ''}`">
+<self :class="`${context.@me ? 'has-user' : ''}`">
   <div :class="`logged-in ${this.@isOpen ? 'is-open' : '' }`">
     <header :on-click="this.isOpen = !this.isOpen">
-      <label>{{auth.@me?.@username}}</label>
+      <label>{{context.@me?.@username}}</label>
     </header>
     <div class="list">
       <a :v-link="'/myprofile'">My profile</a>

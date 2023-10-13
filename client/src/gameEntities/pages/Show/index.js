@@ -2,7 +2,7 @@ const Page = require('hedera/page/Page')
 const Main = require('@app/layouts/Main')
 const template = require('./template.html')
 const defaultImage = require('../../assets/defaultImage.jpg')
-const componentsService = require('@app/main/componentsService')
+const componentsService = require('modeling-client/componentsService')
 require('./style.scss')
 
 module.exports = class PlanetShowPage extends Page {

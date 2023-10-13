@@ -1,7 +1,7 @@
 const Page = require('hedera/page/Page')
 const Empty = require('@app/layouts/Empty')
 const template = require('./template.html')
-const auth = require('../../Service')
+const AuthService = require('../../AuthService')
 const navigator = require('@app/navigator')
 
 require('./style.scss')
@@ -15,7 +15,7 @@ module.exports = class Home extends Page {
       return acc
     }, {})
 
-    await auth.login(values)
+    await AuthService.instance.login(values)
     await navigator.navigate('/')
   }
 }.define({

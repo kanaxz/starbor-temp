@@ -1,5 +1,5 @@
 const Component = require('hedera/Component')
-const Array = require('../../../../modules/shared/types/Array')
+const Array = require('core/types/Array')
 
 require('./style.scss')
 

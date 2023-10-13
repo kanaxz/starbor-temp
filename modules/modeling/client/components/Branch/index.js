@@ -1,6 +1,6 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const componentsService = require('../../../main/componentsService')
+const componentsService = require('../../componentsService')
 require('./style.scss')
 
 module.exports = class Branch extends Component {

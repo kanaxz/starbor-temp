@@ -32,7 +32,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
 
   process(scope) {
     if (this.processed) {
-      console.trace('Already processed', this)
+      console.warn('Already processed', this)
       return
     }
     this.processed = true

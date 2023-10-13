@@ -40,8 +40,6 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
           console.error(this, [...properties])
           throw err
         }
-      } else {
-        console.log('weird no props', this)
       }
 
       Object.defineProperty(this, 'values', { enumerable: false, writable: true, value: {} })

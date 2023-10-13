@@ -1,4 +1,4 @@
-const mixer = require('../../shared/mixer')
+const mixer = require('core/mixer')
 
 module.exports = mixer.mixin((base) => {
   return class Interactable extends base {

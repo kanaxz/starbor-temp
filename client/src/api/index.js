@@ -1,3 +1,4 @@
+require('shared/types')
 const config = require('@app/config')
 const { buildCollections } = require('processing-client')
 

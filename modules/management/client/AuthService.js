@@ -1,6 +1,7 @@
 const axios = require('axios')
 const Service = require('hedera/Service')
 const { User } = require('management')
+const context = require('hedera/context')
 
 module.exports = class AuthService extends Service {
   constructor(url) {
@@ -8,6 +9,11 @@ module.exports = class AuthService extends Service {
     this.url = url
     this.me = null
     this.getMe()
+    this.on('propertyChanged:me', this.b(this.onMeChanged))
+  }
+
+  onMeChanged() {
+    context.user = this.me
   }
 
   async request() {

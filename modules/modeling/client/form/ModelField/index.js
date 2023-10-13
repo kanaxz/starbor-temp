@@ -1,10 +1,6 @@
-const Component = require('hedera/Component')
 const template = require('./template.html')
-const componentsService = require('@app/main/componentsService')
-const { String, Bool, Model, Object, Number } = require('../../../shared/modeling/types')
-const { TextField, BoolField, DateField, NumberField, MarkdownField } = require('@app/fields')
-const Field = require('@app/fields/Field')
-const Markdown = require('shared/types/Markdown')
+const componentsService = require('../../componentsService')
+const Field = require('../../fields/Field')
 const ChildModelForm = require('../ChildModelForm')
 require('./style.scss')
 

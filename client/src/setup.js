@@ -1,0 +1,10 @@
+require('core/setup')
+require('modeling/setup')
+require('modeling-client/setup')
+require('hedera/setup')
+require('./services')
+
+require('hedera')
+require('management-client')
+require('storage-client')
+require('modeling-client')

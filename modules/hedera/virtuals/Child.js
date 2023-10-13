@@ -13,7 +13,6 @@ module.exports = class Child extends Virtual {
   }
 
   update() {
-    console.log('updated', this, this.node)
     renderer.destroyContent(this.el)
     this.el.innerHTML = ''
     if (!this.node) { return }

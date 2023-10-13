@@ -1,10 +1,5 @@
 const { Model } = require('modeling/types')
 const Collection = require('./Collection')
-const { Model } = require('modeling')
-
-const rootModelTypes = Model
-  .getAllChilds()
-  .filter((t) => t.definition.root)
 
 
 
@@ -13,6 +8,9 @@ const collectionsTypesMap = [
 ]
 
 const buildCollections = (url, options = {}) => {
+  const rootModelTypes = Model
+    .getAllChilds()
+    .filter((t) => t.definition.root)
   const collections = rootModelTypes.reduce((acc, type) => {
     const collectionTypePair = collectionsTypesMap.find(([t]) => t === type || type.prototype instanceof t)
     if (!collectionTypePair) {

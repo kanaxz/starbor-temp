@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../core",
+    "core": "file:../core/shared",
     "core-client": "file:../core-client"
   }
 }

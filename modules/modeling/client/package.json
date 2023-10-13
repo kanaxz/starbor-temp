@@ -1,5 +1,5 @@
 {
-  "name": "core-client",
+  "name": "modeling-client",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../core",
-    "modeling": "file:../shared"
+    "core": "file:../../core/shared",
+    "hedera": "file:../../hedera",
+    "modeling": "file:../shared",
+    "processing": "file:../../processing/shared"
   },
   "description": ""
 }

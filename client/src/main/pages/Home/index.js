@@ -1,7 +1,7 @@
 const Page = require('hedera/page/Page')
 const Main = require('@app/layouts/Main')
 const notifications = require('@app/notifications')
-const Array = require('../../../../../modules/shared/types/Array')
+const Array = require('core/types/Array')
 const template = require('./template.html')
 const { System, LandingZone, Planet, Entity, GameEntity } = require('shared/types')
 require('./style.scss')

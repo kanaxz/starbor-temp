@@ -45,6 +45,7 @@ module.exports = class Scope {
       const source = await processObjectFilter(this, body)
       return source.value
     }
+    console.error(body)
     throw new Error('Could not parse body')
   }
 

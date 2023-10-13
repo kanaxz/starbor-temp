@@ -7,7 +7,7 @@ const MapObject = require('./Object')
 const { calculateDistance, getMax } = require('./utils')
 const Component = require('hedera/Component')
 const { collections } = require('@app/api')
-const { bound: boundInt } = require('../../../../../modules/shared/utils/number')
+const { bound: boundInt } = require('core/utils/number')
 require('./style.scss')
 
 const toRadians = (angle) => {

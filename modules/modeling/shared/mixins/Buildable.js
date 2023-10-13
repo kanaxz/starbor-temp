@@ -48,6 +48,10 @@ const Buildable = mixer.mixin([Destroyable, Propertiable], (base) => {
       }
     }
 
+    equals(object){
+      return this.constructor.equals(this, object)
+    }
+
 
     static toJSON(value, paths, context) {
       return value && value.toJSON(paths, context)

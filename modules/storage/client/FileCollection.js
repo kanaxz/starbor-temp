@@ -1,4 +1,4 @@
-const Collection = require('../../../client-shared/collections/Collection')
+const Collection = require('processing-client/Collection')
 const axios = require('axios')
 
 module.exports = class FileCollection extends Collection {

@@ -1,5 +1,5 @@
-const Eventable = require('../../shared/mixins/Eventable')
-const mixer = require('../../shared/mixer')
+const Eventable = require('core/mixins/Eventable')
+const mixer = require('core/mixer')
 const Route = require('./Route')
 
 module.exports = class Router extends mixer.extends([Eventable]) {

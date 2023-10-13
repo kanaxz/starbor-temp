@@ -1,11 +1,12 @@
 const navigator = require('@app/navigator')
-const auth = require('./Service')
+const AuthService = require('./AuthService')
 const Router = require('hedera/routing/Router')
+const context = require('hedera/context')
 
 const router = new Router()
 
 const notConnected = (req, res, next) => {
-  if (auth.me) {
+  if (context.me) {
     return navigator.navigate('/')
   }
   return next()
@@ -20,7 +21,7 @@ router.route('/signup', notConnected, (req, res) => {
 })
 
 router.route('/logout', (req, res) => {
-  auth.logout()
+  AuthService.instance.logout()
   return navigator.navigate('/')
 })
 

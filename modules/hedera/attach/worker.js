@@ -1,4 +1,4 @@
-const { set } = require('../../shared/utils/path')
+const { set } = require('core/utils/path')
 
 const as = (node, { this: thisArg }) => {
   const as = node.getAttribute("as")
