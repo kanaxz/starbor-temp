@@ -1,0 +1,38 @@
+<self 
+  :class="`${this.state.@value ? 'has-value' : ''} ${this.@mode}`">
+    <field-wrapper :field="this">
+      <div class="inner" :v-exit="this.default(true)">
+        <div class="input">
+          <div 
+            class="value" 
+            :on-click="this.edit()"
+            :v-child="this.templateSuggestion(this.state.@value)" >
+          </div>
+          <input 
+            as="input" 
+            :on-focus="this.onFocus()" 
+            :on-input="this.search(node.value)" />
+          <div class="close" :on-click="this.selectSuggestion(null)">
+            <i class="fa-solid fa-x"></i>
+          </div>
+          
+        </div>
+        <button class="create" type="button" :on-click="this.create()">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <div 
+          class="suggestions" 
+          :style.display="!this.@suggestionsOpen && 'none' || null"
+          :v-for="suggestion of this.@suggestions">
+            <div 
+              class="suggestion" 
+              :on-click="this.selectSuggestion(suggestion)">
+                <replace-with 
+                  :element="this.templateSuggestion(suggestion)"
+                  :v-selectable="node.click() within this">
+                </replace-with>
+            </div>
+        </div>
+      </div>
+    </field-wrapper>
+</self>

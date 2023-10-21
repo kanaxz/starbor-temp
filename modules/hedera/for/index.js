@@ -1,5 +1,4 @@
 const Virtual = require('../Virtual')
-const renderer = require('../renderer')
 const It = require('./It')
 const { getElementFromTemplate } = require('../utils/template')
 const handlers = require('./handlers')
@@ -22,13 +21,8 @@ module.exports = class For extends Virtual {
     this.on('propertyChanged:source', this.b(this.onSourceChanged))
   }
 
-  onInit() {
-    this.onSourceChanged()
-    /*
-    setTimeout(() => {
-      this.onSourceChanged()
-    })
-    /**/
+  async onInit() {
+    await this.onSourceChanged()
   }
 
   iteration(object, index) {
@@ -49,7 +43,7 @@ module.exports = class For extends Virtual {
     return it
   }
 
-  onSourceChanged() {
+  reset() {
     if (this.handler) {
       this.handler.destroy()
       this.handler = null
@@ -59,6 +53,10 @@ module.exports = class For extends Virtual {
         it.destroy()
       })
     }
+  }
+
+  async onSourceChanged() {
+    this.reset()
     this.iterations = []
     if (!this.source) { return }
 
@@ -71,8 +69,13 @@ module.exports = class For extends Virtual {
     for (let i = 0; i < this.source.length; i++) {
       const it = this.iteration(this.source[i], i)
       this.el.appendChild(it.element)
-      renderer.render(it.element, it.scope)
+      await it.scope.render(it.element)
     }
+  }
+
+  destroy(){
+    this.reset()
+    super.destroy()
   }
 }
   .define({

@@ -1,4 +1,11 @@
+const Event = require('core/types/Event')
+
 module.exports = {
-  require,
   name: 'core',
+  construct() {
+    const onReady = new Event()
+    return {
+      onReady,
+    }
+  }
 }

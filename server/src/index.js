@@ -1,16 +1,17 @@
 require('./setup')
-const Module = require('core-server/Module')
+const AppModule = require('core-server/AppModule')
 
 const { join } = require('path')
 
 const start = async () => {
-  const app = new Module({
+  const app = new AppModule({
     name: 'app',
     node_modules: join(__dirname, '../node_modules'),
     path: join(__dirname, './app'),
     bundles: [
       'core-server',
       'mongo',
+      'jwt-server',
       'management-server',
       'storage-server',
       'modeling-server',
@@ -18,11 +19,8 @@ const start = async () => {
     ]
   })
 
-  app.load()
-  await app.process()
-  await app.object.onReady.trigger({
-    setup: true
-  })
+  await app.start()
+ 
 }
 
 start().catch((err) => {

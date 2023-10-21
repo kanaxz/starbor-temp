@@ -10,6 +10,8 @@ module.exports = async (services) => {
 
   const loadAffiliations = async () => {
     for (const starmapObject of bootup.affiliations.resultset) {
+      console.log(JSON.stringify(starmapObject, null, ' '))
+      process.exit()
       const code = codify(starmapObject.code)
       const organization = Organization.parse({
         code,
@@ -42,9 +44,9 @@ module.exports = async (services) => {
       await collections.organizations.createOrUpdate(organization)
     }
   }
-  /*
+  
   await loadAffiliations()
   await loadSpecies()
   /**/
-  await systemsLoader(bootup, services)
+  //await systemsLoader(bootup, services)
 }

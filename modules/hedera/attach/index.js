@@ -1,5 +1,5 @@
 
 const worker = require('./worker')
-const { workers } = require('../renderer')
+const { workers } = require('../global')
 
 workers.push(worker)

@@ -14,11 +14,11 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
         get: function () {
           return this.values[property.name]
         },
-        set: function (newValue) {
+        set: async function (newValue) {
           //console.log('setting', property, newValue)
           if (this[Destroyable.symbol]) { return }
           if (newValue === this[property.name]) { return }
-          this.setPropertyValue(property, newValue)
+          await this.setPropertyValue(property, newValue)
         },
         enumerable: true,
       })
@@ -45,18 +45,27 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
       Object.defineProperty(this, 'values', { enumerable: false, writable: true, value: {} })
     }
 
-    propertyChanged(property, value, oldValue) {
-      this.emit('propertyChanged', property, value, oldValue)
-      this.emit(`propertyChanged:${property.name}`, value, oldValue)
+    async set(values) {
+      await Promise.all(Object.entries(values).map(async ([k, v]) => {
+        const property = this.constructor.properties.find((p) => p.name === k)
+        await this.setPropertyValue(property, v)
+      }))
     }
 
-    setPropertyValue(property, value) {
+    async propertyChanged(property, value, oldValue) {
+      await Promise.all([
+        this.emit('propertyChanged', [property, value, oldValue]),
+        this.emit(`propertyChanged:${property.name}`, [value, oldValue])
+      ])
+    }
+
+    async setPropertyValue(property, value) {
       if (!this.values) {
         this.values = {}
       }
       const oldValue = this.values[property.name]
       this.values[property.name] = value
-      this.propertyChanged(property, value, oldValue)
+      await this.propertyChanged(property, value, oldValue)
     }
 
     destroy() {

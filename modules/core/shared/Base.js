@@ -1,4 +1,6 @@
 const mixer = require('./mixer')
+const Definitions = require('./Definitions')
+
 module.exports = mixer.mixin((base) => {
   return class Base extends base {
     static define(definition = {}) {
@@ -25,6 +27,13 @@ module.exports = mixer.mixin((base) => {
         owner: this,
       }
 
+      this.definitions = new Definitions(this)
+
+      return this
+    }
+
+    static set(values){
+      Object.assign(this, values)
       return this
     }
 

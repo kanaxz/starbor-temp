@@ -1,6 +1,5 @@
 const mixer = require('core/mixer')
 const Propertiable = require('core/mixins/Propertiable')
-const renderer = require('../renderer')
 
 module.exports = class It extends mixer.extends([Propertiable]) {
   constructor(values) {
@@ -9,7 +8,7 @@ module.exports = class It extends mixer.extends([Propertiable]) {
   }
 
   destroy() {
-    renderer.destroy(this.element)
+    this.scope.destroy()
     this.element.remove()
   }
 }

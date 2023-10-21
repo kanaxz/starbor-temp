@@ -25,10 +25,10 @@ module.exports = mixer.mixin([Bindeable, Destroyable], (base) => {
     }
 
     destroy() {
-      super.destroy()
       this.listeners.forEach(({ el, event, callback }) => {
         el.removeEventListener(event, this.b(callback))
       })
+      super.destroy()
     }
   }
 })

@@ -1,0 +1,7 @@
+<self>
+  <div class="properties" :v-for="property of this.properties">
+    <div class="property" :on-click="this.openProperty(property)">
+      <label>{{ property.name }}</label>
+    </div>
+  </div>
+</self>

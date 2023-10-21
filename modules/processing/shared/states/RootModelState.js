@@ -3,7 +3,8 @@ const ObjectState = require("./ObjectState");
 module.exports = class RootModelState extends ObjectState {
   async validate() {
     await super.validate()
-    for (const index of this.type.indexes) {
+    const type = this.property.type
+    for (const index of type.indexes) {
       if (index.build === false || !index.unique) { continue }
 
       const values = index.properties.reduce((acc, propertyName) => {
@@ -25,7 +26,7 @@ module.exports = class RootModelState extends ObjectState {
           $neq: ['$_id', this.value._id]
         })
       }
-      const existingModel = await this.type.collection.findOne(filters, {
+      const existingModel = await type.collection.findOne(filters, {
         type: index.owner.definition.name,
       })
 
@@ -40,3 +41,4 @@ module.exports = class RootModelState extends ObjectState {
     }
   }
 }
+  .define()

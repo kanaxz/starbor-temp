@@ -44,36 +44,50 @@ module.exports = mixer.mixin((baseClass) => {
           eventName,
           callback,
         })
-        if (!this[events][eventName]) {
-          this[events][eventName] = []
+        let event = this[events][eventName]
+        if (!event) {
+          event = {
+            listeners: []
+          }
+          this[events][eventName] = event
         }
-        this[events][eventName].push(listener)
+
+        this[events][eventName].listeners.push(listener)
+
         return listener
       }
     }
 
-    emit(eventName, ...args) {
-      const event = this[events][eventName]
-      if (!event) { return }
-      const listeners = [...event]
-      const results = listeners.map((l) => l.callback(...args))
-      return Promise.all(results)
+    async emit(eventName, args = [], options = {}) {
+      let event = this[events][eventName]
+      if (!event) {
+        event = {
+          listeners: [],
+        }
+        this[events][eventName] = event
+      }
+      const listeners = [...event.listeners]
+      await Promise.all(listeners.map((l) => l.callback(...args)))
     }
 
-    off(listener) {
-      const event = this[events][listener.eventName]
+    off(eventName, callback) {
+      if (eventName instanceof Listener) {
+        callback = eventName.callback
+        eventName = eventName.eventName
+      }
+
+      const event = this[events][eventName]
       if (!event) { return }
+      const index = event.listeners.findIndex((listener) => listener.eventName === eventName && listener.callback === callback)
 
-      const index = event.indexOf(listener)
       if (index === -1) { return }
-
-      event.splice(index, 1)
+      event.listeners.splice(index, 1)
     }
 
     destroy() {
       Object.values(events)
         .forEach((event) => {
-          event.forEach((listener) => {
+          event.listeners.forEach((listener) => {
             listener.remove()
           })
         })

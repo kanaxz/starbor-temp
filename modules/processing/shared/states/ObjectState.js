@@ -21,11 +21,24 @@ const getStateType = (type) => {
 class ObjectState extends State {
   constructor(values) {
     super(values)
+    this.on('propertyChanged:value', this.b(this.onValueChanged))
+    this.onValueChanged()
     this.updateStates()
   }
 
+  onValueChanged() {
+    if (!this.value) { return }
+    this.value.on('propertyChanged', this.b(this.onChildValueChanged))
+  }
+
+  async onChildValueChanged(property, value) {
+    const state = this.states[property.name]
+    if (!state) { return }
+    await state.valueChanged()
+  }
+
   updateStates() {
-    this.states = this.type.properties
+    this.states = this.property.type.properties
       .filter((p) => {
         const shouldIgnore = ignore.indexOf(p.name) !== -1
         if (shouldIgnore) { return false }
@@ -36,12 +49,12 @@ class ObjectState extends State {
       .reduce((acc, property) => {
         const stateType = getStateType(property.type)
         const state = getState({ property: this.property }, property)
+        
         acc[property.name] = new stateType({
           objectState: this,
           property,
-          type: property.type,
-          ...state,
           root: this.root || this,
+          ...state,
         })
         return acc
       }, {})
@@ -63,6 +76,10 @@ class ObjectState extends State {
       }
     }
     return null
+  }
+
+  reset() {
+    Object.values(this.states).forEach((s) => s.reset())
   }
 }
 ObjectState

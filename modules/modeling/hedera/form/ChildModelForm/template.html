@@ -1,0 +1,14 @@
+<self>
+  <form :on-submit="this.onSubmit(event)">
+    <object-fieldset 
+      as="fieldset" 
+      :child-form="this"
+      :form="this.@form"
+      :state="this.state"
+      :on-changed="this.onFieldsetChanged()">
+    </object-fieldset>
+    <div class="bottom">
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</self>   

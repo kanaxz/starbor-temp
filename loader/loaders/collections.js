@@ -1,6 +1,16 @@
 const config = require('../config')
-const { getCollections } = require('client-shared/modeling')
+const { buildCollections } = require('../../modules/processing/client')
 module.exports = (services) => {
-  const collections = getCollections(config.server, { autoHold: true })
+  let tokenInfos = null
+  const headersBuilder = async () => {
+    if (!tokenInfos || tokenInfos.expireDate < new Date()) {
+      tokenInfos = await fetch(`${config.server}/jwt-token`, config.jwt)
+    }
+
+    return {
+      authorization: `Bearer ${tokenInfos.token}`
+    }
+  }
+  const collections = buildCollections(config.server, { autoHold: true, headersBuilder })
   services.collections = collections
 }

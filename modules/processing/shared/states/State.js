@@ -1,22 +1,41 @@
+const Array = require('core/types/Array')
 const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
 const Bindeable = require('core/mixins/Bindeable')
 
 module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
   constructor(values) {
-
     super()
-    const value = values.value
-    delete values.value
-    this._value = value
-    Object.assign(this, {
-      errors: [],
-      ...values,
-    })
+    Object.assign(this, values)
   }
 
   reset() {
+    this.errors = new Array()
+    this.message = new Array()
+  }
 
+  async valueChanged() {
+    await this.propertyChanged({
+      name: 'value',
+    }, this.value)
+  }
+
+  set value(value) {
+    if (this.objectState) {
+      this.objectState.value[this.property.name] = value
+    } else {
+      this._value = value
+      this.valueChanged()
+    }
+  }
+
+  get value(){
+    if (this.objectState) {
+      const parent = this.objectState.value
+      return parent && parent[this.property.name]
+    } else {
+      return this._value
+    }
   }
 
   validate() {
@@ -28,17 +47,11 @@ module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
       this.value = undefined
     }
   }
-
-  get value() {
-    return this._value || this.objectState.value[this.property.name]
-  }
-
-  set value(value) {
-    if (this.objectState) {
-      this.objectState.value[this.property.name] = value
-    } else {
-      this._value = value
-    }
-  }
-
-}.define()
+}
+  .define()
+  .properties({
+    disabled: 'any',
+    required: 'any',
+    messages: 'any',
+    errors: 'any',
+  })

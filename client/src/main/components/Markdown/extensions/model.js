@@ -1,5 +1,5 @@
 const { Model } = require('modeling/types')
-const componentsService = require('modeling-client/componentsService')
+const componentsService = require('modeling-hedera/componentsService')
 const markdownService = require('../service')
 const { parse } = require('core/utils/json')
 const childs = Model

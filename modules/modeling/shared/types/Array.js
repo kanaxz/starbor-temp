@@ -9,6 +9,11 @@ const Template = require('./Template')
 const template = Template.of(Any)
 
 class Array extends mixer.extends(BaseArray, [Any]) {
+
+  constructor(...values){
+    super({}, ...values)
+  }
+
   static parse(object, owner, property) {
     if (!object) {
       return object
@@ -37,8 +42,6 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     return true
   }
 
-
-
   setIndex(index, value) {
 
     value = this.constructor.definition.template.parse(value)
@@ -61,7 +64,6 @@ class Array extends mixer.extends(BaseArray, [Any]) {
 }
 
 const fnArg = { type: Function, args: [template] }
-
 
 Array
   .define({

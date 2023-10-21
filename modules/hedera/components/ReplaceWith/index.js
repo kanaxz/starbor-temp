@@ -1,15 +1,14 @@
 const Component = require('../../Component')
-const renderer = require('../../renderer')
 
 /**
  * This component cannot be used as a root of a v-for
  */
 module.exports = class ReplaceWith extends Component {
-  process(scope) {
+  async process(scope) {
     const div = document.createElement('div')
     const elementAttribute = this.getAttribute(':element')
     div.setAttribute(':element', elementAttribute)
-    renderer.process(div, scope)
+    scope.process(div)
     const element = div.element;
     [...this.attributes]
       .forEach((attr) => {
@@ -18,7 +17,8 @@ module.exports = class ReplaceWith extends Component {
       })
     this.replaceWith(element)
     element.setAttribute('selectable', '')
-    renderer.render(element, scope)
+    await scope.render(element)
+    this.scope = scope
     return false
   }
 }

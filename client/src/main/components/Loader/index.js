@@ -1,19 +1,11 @@
-const Component = require('hedera/Component')
 const template = require('./template.html')
+const BaseLoader = require('hedera/loading/BaseLoader')
 require('./style.scss')
 
-module.exports = class Loader extends Component {
-  constructor() {
-    super()
-    this.loading = true
-  }
+module.exports = class Loader extends BaseLoader {
+
 }
   .define({
     name: 'app-loader',
     template,
-    transclude: true,
-  })
-  .properties({
-    loading: 'any',
-    size: 'any',
   })

@@ -3,13 +3,10 @@ const { match } = require('../index')
 
 module.exports = class ModelState extends State {
 
-  constructor(values) {
-    super({
-      filters: [],
-      ...values,
-    })
+  reset(){
+    super.reset()
+    this.filters = []
   }
-
 
   async validate() {
     super.validate()

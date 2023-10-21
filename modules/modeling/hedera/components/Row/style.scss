@@ -1,0 +1,27 @@
+.app-row {
+  cursor: pointer;
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 30px;
+  background-color: #ecf0f1;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  height: 30px;
+
+  &.selected,
+  &:hover {
+    background-color: aquamarine;
+  }
+
+  img, svg {
+    height: 100%;
+    margin-right: 7px;
+  }
+
+  label {
+  }
+}

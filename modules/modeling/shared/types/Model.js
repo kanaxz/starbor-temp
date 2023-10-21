@@ -11,6 +11,12 @@ const config = setup.model
 
 class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Indexable, ...config.before]) {
 
+  static async buildAndLoad(values){
+    const model = this.parse(values)
+    await model.load()
+    return model
+  }
+
   async innerLoad(context, paths) {
     const index = this.getFirstUniqueIndex()
     if (!index) {
@@ -55,7 +61,7 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
   }
 
   toString() {
-    return this._id || this
+    return this._id
   }
 }
 

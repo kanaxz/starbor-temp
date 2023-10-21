@@ -1,0 +1,14 @@
+.action {
+  background-color: $lightBackground;
+  color: #a1a1a1;
+  &.warning {
+    background-color: #c55;
+    color: #fff;
+  }
+
+  &.active,
+  &:hover {
+    background-color: lighten(#3498db, 0.3);
+    color: #fff;
+  }
+}

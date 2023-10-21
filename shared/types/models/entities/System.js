@@ -1,7 +1,10 @@
 const GameEntity = require('./GameEntity')
 
 module.exports = class System extends GameEntity {
-
+  destroy(){
+    console.warn('destroying', this)
+    super.destroy()
+  }
 }
   .define({
     name: 'system',

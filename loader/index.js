@@ -1,4 +1,5 @@
-require('core-client/setup')
+require('core/setup')
+require('modeling-client-shared/setup')
 const loadersNames = [
   require('./loaders/collections'),
   require('./loaders/starmap')

@@ -4,8 +4,11 @@ const Listening = require('./mixins/Listening')
 const mixer = require('core/mixer')
 const Scope = require("./Scope")
 const { base } = require('./setup')
+const Destroyable = require('core/mixins/Destroyable')
 
-module.exports = mixer.mixin([Bindeable, Propertiable, Listening, ...base], (base) => {
+console.log({ base })
+
+const Base = mixer.mixin([Destroyable, Bindeable, Propertiable, Listening], (base) => {
   return class Base extends base {
 
     static variables(variables) {
@@ -21,22 +24,23 @@ module.exports = mixer.mixin([Bindeable, Propertiable, Listening, ...base], (bas
       this.isInitialized = false
     }
 
-    attach(scope) {
+    async attach(scope) {
       this.scope = new Scope({
         parent: scope,
         source: this,
         variables: this.constructor._variables
       })
 
-      this.initialize()
+      await this.initialize()
     }
 
-    initialize() {
-      this.onInit()
+    async initialize() {
+      await this.onInit()
       this.isInitialized = true
     }
 
-    onInit() { }
+
+    async onInit() { }
 
     propertyChanged(...args) {
       if (!this.isInitialized) {
@@ -46,12 +50,20 @@ module.exports = mixer.mixin([Bindeable, Propertiable, Listening, ...base], (bas
       return super.propertyChanged(...args)
     }
 
-    destroy() { }
+    destroy() {
+      this.scope.destroy()
+      super.destroy()
+    }
+
   }
 
 })
   .define()
+
+
+
+module.exports = mixer.mixin([Base, ...base], (base) => class extends base { })
+  .define()
   .properties({
     isInitialized: { type: 'any' }
   })
-

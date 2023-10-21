@@ -6,6 +6,7 @@ module.exports = mixer.mixin((base) => {
   return class ArrayHasTransformable extends base {
     tryRemoveTransformable(value) {
       if (!value || !mixer.is(value, Transformable)) { return }
+      if (!this[symbol]) { return }
 
       const index = this[symbol].findIndex(({ transformable }) => transformable === value)
       if (index === -1) { return }

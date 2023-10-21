@@ -5,6 +5,7 @@ class Module {
   constructor(options) {
     this.name = options.name
     this.options = options
+    this.afters = []
   }
 
   getRoot() {
@@ -24,14 +25,12 @@ class Module {
 
   loadIndex() {
     const { path } = this.options
-    //console.log(path)
     this.index = Object.assign({
       name: this.name,
       dependancies: [],
       construct: () => ({})
     }, require.main.require(path))
     this.name = this.index.name
-    console.log(this.name)
   }
 
   loadModules() {
@@ -86,9 +85,9 @@ class Module {
   }
 
   async processIndex() {
-
     const { dependancies, construct } = this.index
     const root = this.getRoot()
+
     this.dependancies = dependancies.map((dependancyName) => {
       const module = root.getModule(dependancyName)
       if (!module) {
@@ -114,10 +113,25 @@ class Module {
     }
   }
 
+  async loadAfter() {
+    const { after } = this.index
+    if (after) {
+      const module = this.getRoot().getModule(after)
+      module.afters.push(this)
+    }
+    for (const module of this.modules) {
+      module.loadAfter()
+    }
+  }
+
   async process() {
     if (this.isProcessed) { return }
     await this.processIndex()
     this.isProcessed = true
+
+    for (const after of this.afters) {
+      await after.process()
+    }
     await this.processModules()
   }
 }

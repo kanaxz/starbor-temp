@@ -31,6 +31,7 @@ const mixin = mixer.mixin((base) => {
             || !mixer.is(lastTemplate.prototype, mixin.Template)
             || !mixer.is(template.prototype, lastTemplate.definition.template)
           ) {
+            //console.log(lastTemplate, template, template instanceof lastTemplate, template.prototype instanceof lastTemplate.definition.template)
             console.error(lastTemplate.name, template.name)
             throw new Error('Invalid template')
           }

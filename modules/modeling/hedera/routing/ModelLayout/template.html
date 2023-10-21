@@ -1,0 +1,26 @@
+<self>
+  <header>
+    <div class="before" :v-for="fragment of this.@beforeHeader">
+      <div
+        :inner-html="fragment.fragment">
+      </div>
+    </div>
+    <div class="infos">
+      <h3>{{ this.@model.@title }}</h3>
+    </div>
+  </header>
+  <div class="content">
+    <div class="actions" :v-for="action of this.@actions">
+      <a
+        :class="`action ${action.class || ''}`"
+        :v-link="action.url !== undefined ? this.@model.url + action.url : null"
+        :on-click="this.onActionClicked(action, event)"
+        :inner-html="action.content">
+      </a>
+    </div>
+    <div 
+      :v-loader="!this.@contentReady size '50px'" 
+      class="container" 
+      as="container"></div>
+  </div>
+</self>

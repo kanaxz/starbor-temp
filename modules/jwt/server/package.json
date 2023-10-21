@@ -1,0 +1,21 @@
+{
+  "name": "jwt-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core": "file:../core/shared",
+    "core-server": "file:../../core/server",
+    "jsonwebtoken": "^9.0.2",
+    "jwt": "file:../shared",
+    "management-server": "file:../../management/server",
+    "modeling": "file:../modeling/shared",
+    "moment": "^2.29.4",
+    "processing-server": "file:../../processing/server"
+  }
+}

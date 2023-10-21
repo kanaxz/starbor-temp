@@ -1,11 +1,15 @@
 const { Model, String } = require('modeling/types')
+const mixer = require('core/mixer')
+const Pageable = require('modeling/mixins/Pageable')
+const Wikiable = require('wiki/mixins/Wikiable')
 
 const isSelfOrAdmin = async (context, user) => {
+  console.log({ context, user })
   if (!context.user) { return false }
-  return await context.user.equals(user) || context.user.is('admin')
+  return context.user.equals(user) || await context.user.is('admin')
 }
 
-module.exports = class User extends Model {
+module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable]) {
   async is(name) {
     await this.load({
       memberships: {
@@ -20,6 +24,9 @@ module.exports = class User extends Model {
     name: 'user',
     pluralName: 'users',
     root: true,
+    codeField: 'username',
+    searchField: 'username',
+    titleField: 'username',
   })
   .indexes({
     username: {

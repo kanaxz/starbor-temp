@@ -1,0 +1,84 @@
+model-show-page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  align-items: flex-start;
+
+  overflow-y: scroll;
+  content-summary {
+    position: sticky;
+    top: 20px;
+    width: 200px;
+  }
+
+  > .left {
+    padding: 25px;
+    padding-left: 0;
+    flex: 1;
+
+    padding-bottom: 150px;
+
+    .description {
+      background-color: hsl(210, 17%, 98%);
+      border-radius: 10px;
+      color: #72777d;
+      max-width: 1500px;
+      padding: 10px;
+      text-align: justify;
+      font-size: 26px;
+      font-weight: 300;
+      margin-left: calc(25px + 22px);
+    }
+
+    .childs {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-top: 20px;
+      .child {
+        padding-bottom: 15px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+    }
+
+    .map {
+      margin-top: 30px;
+      app-map {
+        margin-top: 10px;
+        border: 1px solid #e1e1e1;
+        width: 100%;
+        height: 1000px;
+        background-color: rgba(#e1e1e1, 0.1);
+      }
+    }
+  }
+
+  > .right {
+    position: sticky;
+    top: 50px;
+    width: 300px;
+
+    .infos {
+      display: flex;
+      flex-direction: column;
+
+      .main-image {
+        width: 100%;
+        min-height: 250px;
+        object-fit: contain;
+        background-color: #e1e1e1;
+      }
+
+      > .content {
+        border: 1px solid #e1e1e1;
+        border-top: none;
+        padding: 10px;
+      }
+    }
+  }
+}

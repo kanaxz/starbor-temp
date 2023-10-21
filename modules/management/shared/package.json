@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../../core",
-    "modeling": "file:../../modeling/shared"
+    "core": "file:../../core/shared",
+    "modeling": "file:../../modeling/shared",
+    "wiki": "file:../../wiki/shared"
   }
 }

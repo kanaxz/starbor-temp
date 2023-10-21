@@ -4,15 +4,16 @@ const mixer = require('core/mixer')
 const Pageable = require('modeling/mixins/Pageable')
 const { String, Markdown } = require('modeling/types')
 const { Folder, File, Image } = require('storage')
+const Imageable = require('storage/mixins/Imageable')
+const Folderable = require('storage/mixins/Folderable')
+const Wikiable = require('wiki/mixins/Wikiable')
 
 const isAdmin = async (context) => {
   return await context.user?.is('admin')
 }
 
-module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
-  toString() {
-    return this.name || this.code || this._id
-  }
+module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Folderable, Imageable, Wikiable]) {
+
 }
   .define({
     name: 'gameEntity',
@@ -36,25 +37,10 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
         required: true,
       }
     },
-    description: {
-      type: Markdown,
-      state: {
-        required: true
-      }
-    },
     starmap: Starmap,
-    image: {
-      type: Image,
-      state: {
-        required: true,
-      }
-    },
-    folder: {
-      type: Folder,
-      state: {
-        disabled: true,
-      }
-    }
+  })
+  .set({
+    codeField: 'code',
   })
   .controllers({
     create: {
@@ -82,6 +68,7 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable]) {
         return isAdmin(context)
       },
       logic(context, states) {
+        states.folder.disabled = true
         states.code.value = states.code.value.toUpperCase()
       }
     }

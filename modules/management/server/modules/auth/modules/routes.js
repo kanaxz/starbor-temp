@@ -1,10 +1,11 @@
 const { User } = require('management')
 const bcrypt = require('bcrypt')
 const exp = require('express')
-const { encryptPassword } = require('../utils')
+const { encryptPassword, matchPassword } = require('../utils')
 
 module.exports = {
   name: null,
+  after: 'express',
   dependancies: ['sessions', 'express', 'mongo', 'processing'],
   async construct({ sessions, express, mongo, processing }) {
     const { collections } = processing
@@ -40,7 +41,6 @@ module.exports = {
         }
       }
       await req.user?.load(req, load)
-      console.log(req.user.username, req.user.memberships.length)
       const user = req.user?.toJSON(load)
       res.json({
         me: user,
@@ -48,7 +48,10 @@ module.exports = {
     })
 
     router.post('/logout', async (req, res) => {
-      await sessions.destroy(req, res)
+      if (req.user) {
+        await sessions.destroy(req, res)
+      }
+
       res.json({
         success: true,
       })
@@ -75,7 +78,7 @@ module.exports = {
           _id: req.user._id,
         })
 
-        const match = await bcrypt.compare(req.body.currentPassword, user.password)
+        const match = await matchPassword(req.body.currentPassword, user.password)
         if (!match) {
           throw new Error('Invalid credentials')
         }
@@ -98,6 +101,7 @@ module.exports = {
 
 
     router.post('/login', loggedOut, async (req, res) => {
+      console.log('login')
       try {
         const { username, password } = req.body
         if (!username || !password) {
@@ -127,7 +131,6 @@ module.exports = {
           me: userModel.toJSON()
         })
       } catch (err) {
-        console.error(err)
         handleError(res, err)
       }
     })

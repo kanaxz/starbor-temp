@@ -16,6 +16,7 @@ const Destroyable = mixer.mixin([Eventable], (base) => {
 
     destroy() {
       if (this[destroyed]) {
+        console.error(this)
         throw new Error('Already destroyed')
       }
       this[destroyed] = true

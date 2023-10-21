@@ -11,9 +11,23 @@ module.exports = class ModalContainer extends Component {
     this.constructor.instance = this
   }
 
+  removeListener() {
+    if (this.modal) {
+      this.modal.off('destroyed', this.b(this.onModalDestroyed))
+    }
+  }
 
   show(modal) {
+    this.removeListener()
     this.modal = modal
+    if (this.modal) {
+      this.modal.on('destroyed', this.b(this.onModalDestroyed))
+    }
+  }
+
+  onModalDestroyed() {
+    this.removeListener()
+    this.modal = null
   }
 
   close() {

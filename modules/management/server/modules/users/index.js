@@ -18,7 +18,7 @@ module.exports = {
         delete user.password
       },
       async update(req, user, oldUser, next) {
-        if (user.password !== oldUser.password) {
+        if (user.password) {
           user.password = await encryptPassword(user.password)
         }
         await next()

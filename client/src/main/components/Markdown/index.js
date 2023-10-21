@@ -1,8 +1,8 @@
 const Component = require('hedera/Component')
-const renderer = require('hedera/renderer')
 const showdown = require('showdown')
 const extensions = require('./extensions')
 const service = require('./service')
+const Scope = require('hedera/Scope')
 require('./style.scss')
 
 const converter = new showdown.Converter({
@@ -30,12 +30,18 @@ module.exports = class Markdown extends Component {
   }
 
   update() {
-    renderer.destroyContent(this)
+    if (this.contentScope) {
+      this.contentScope.destroy()
+      this.contentScope = null
+    }
+    if (!this.value) { return }
+
     const html = converter.makeHtml(this.value)
     this.innerHTML = html
     const scope = this.scope.child()
     scope.variables.this = service.variables
-    renderer.renderContent(this, scope)
+    scope.renderContent(this)
+    this.contentScope = scope
   }
 }
   .define({

@@ -1,4 +1,5 @@
 const Virtual = require('../Virtual')
+const { navigator } = require('../global')
 
 module.exports = class Link extends Virtual {
   constructor(el, value) {
@@ -9,19 +10,17 @@ module.exports = class Link extends Virtual {
 
       event.preventDefault()
       if (this.href) {
-        this.navigator.navigate(this.href)
+        navigator.navigate(this.href)
       }
     })
 
     this.on('propertyChanged:href', () => {
       this.updateHref()
     })
-
   }
 
   onInit() {
-    this.navigator = this.scope.variables.navigator
-    this.navigator.on('change', () => {
+    navigator.on('change', () => {
       this.updateActive()
     })
 
@@ -34,7 +33,7 @@ module.exports = class Link extends Virtual {
   }
 
   updateActive() {
-    const isActive = this.href === this.navigator.url
+    const isActive = this.href === navigator.currentUrl
     this.el.classList[isActive ? 'add' : 'remove']('active')
   }
 }

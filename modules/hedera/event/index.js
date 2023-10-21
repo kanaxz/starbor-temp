@@ -1,4 +1,4 @@
-const { workers } = require('../renderer')
+const { workers } = require('../global')
 const { createFunction, dashToCamel } = require('../utils')
 
 const prefix = ':on-'

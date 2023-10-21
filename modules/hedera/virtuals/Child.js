@@ -1,5 +1,4 @@
 const Virtual = require('../Virtual')
-const renderer = require('../renderer')
 
 module.exports = class Child extends Virtual {
   constructor(el, value) {
@@ -8,16 +7,16 @@ module.exports = class Child extends Virtual {
     this.on('propertyChanged:node', this.b(this.update))
   }
 
-  onInit() {
-    this.update()
+  async onInit() {
+    await this.update()
   }
 
-  update() {
-    renderer.destroyContent(this.el)
+  async update() {
+    //this.scope.destroyContent(this.el)
     this.el.innerHTML = ''
     if (!this.node) { return }
     this.el.appendChild(this.node)
-    renderer.renderContent(this.el, this.scope.parent)
+    await this.scope.renderContent(this.el)
   }
 }
   .define({

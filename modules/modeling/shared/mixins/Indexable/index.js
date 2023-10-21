@@ -11,14 +11,18 @@ module.exports = mixer.mixin([Equalable], (base) => {
     }
 
     static equals(value1, value2) {
-      return value1.anyUniqueIndexMatch(value2)
+      if (value1.constructor !== value2.constructor) { return false }
+      const doesEquals = value1.anyUniqueIndexMatch(value2)
+      return doesEquals
     }
 
     anyUniqueIndexMatch(object) {
       return this.constructor.indexes
         .filter((index) => index.unique)
-        .find((index) => {
-          const matchingProperties = index.properties.filter((p) => this[p] === object[p] && this[p] != undefined)
+        .some((index) => {
+          const undefinedProperties = index.properties.filter((p) => this[p] === object[p] && this[p] == undefined)
+          if (undefinedProperties.length) { return false }
+          const matchingProperties = index.properties.filter((p) => this[p] === object[p])
           return matchingProperties.length === index.properties.length
         })
     }

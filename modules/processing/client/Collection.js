@@ -1,5 +1,6 @@
 const axios = require('axios')
 const Context = require('modeling-client/Context')
+const Models = require('./Models')
 
 const getArgs = (args) => {
   return args.filter((arg) => !(arg instanceof Context))
@@ -62,13 +63,14 @@ module.exports = class Collection {
 
     const [query, options = {}] = getArgs(args)
     const modelsJson = await this.request('/find', { query, options })
-    const models = modelsJson.map((modelJson) => {
+    const modelsArray = modelsJson.map((modelJson) => {
 
       const model = this.type.parse(modelJson)
       model.setLoadState(options.load || {})
       this.hold(model)
       return model
     })
+    const models = new (Models.of(this.type))(modelsArray, { query, options })
     return models
   }
 
@@ -80,6 +82,10 @@ module.exports = class Collection {
     const resultModel = this.type.parse(json)
     this.hold(resultModel)
     return resultModel
+  }
+
+  onModelUpdated(query) {
+    Models.instances.forEach((i) => i.onModelUpdated(model))
   }
 
   async update(query, patches) {

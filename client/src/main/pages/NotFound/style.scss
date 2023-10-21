@@ -1,0 +1,25 @@
+not-found-page {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  > div {
+    border: 3px solid #2980b9;
+    background-color: #202a44;
+    padding: 35px;
+    min-width: 350px;
+    min-height: 250px;
+    > p {
+      border-top: 3px solid #fff;
+      background-color: rgba(#fff, 0.3);
+      padding: 10px;
+      color: #fff;
+      font-size: 27px;
+      > span {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -4,9 +4,7 @@ module.exports = {
   for: String,
   methods: {
     match({ value }, regex) {
-
       const regExp = new RegExp(regex.toUpperCase())
-      console.log('matching', { value, regex })
       return value.toUpperCase().match(regExp)
     },
     toUpperCase({ value }) {

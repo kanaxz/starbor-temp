@@ -31,15 +31,21 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "client": "file:../modules/client",
     "client-shared": "file:../client-shared",
     "core-client": "file:../modules/core-client",
+    "core-hedera": "file:../modules/core/hedera",
     "hedera": "file:../modules/hedera",
-    "management-client": "file:../modules/management/client",
+    "jwt-hedera": "file:../modules/jwt/hedera",
+    "management-hedera": "file:../modules/management/hedera",
     "modeling": "file:../modules/modeling/shared",
     "modeling-client": "file:../modules/modeling/client",
+    "modeling-hedera": "file:../modules/modeling/hedera",
     "processing": "file:../modules/processing/shared",
     "processing-client": "file:../modules/processing/client",
     "showdown": "^2.1.0",
-    "storage-client": "file:../modules/storage/client"
+    "storage-client": "file:../modules/storage/client",
+    "storage-hedera": "file:../modules/storage/hedera",
+    "wiki-hedera": "file:../modules/wiki/hedera"
   }
 }

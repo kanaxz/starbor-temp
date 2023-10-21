@@ -3,14 +3,14 @@ const setup = require('./setup')
 
 module.exports = {
   name: 'processing',
-  dependancies: ['app', 'express', 'modeling'],
-  async construct({ app, express, modeling }) {
+  dependancies: ['core', 'express', 'modeling'],
+  async construct({ core, express, modeling }) {
     const collections = {}
     const map = []
     const router = new exp.Router()
     express.use('/api/collections', router)
 
-    app.onReady(() => setup({ collections, map, router, modeling }))
+    core.onReady(() => setup({ collections, map, router, modeling }))
 
     return {
       collections,

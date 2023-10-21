@@ -92,7 +92,6 @@ const mixer = {
     return buildBase(base, dependencies)
   },
   is(object, mixinOrClass) {
-    if (!object) { return false }
     if (object.constructor === mixinOrClass) { return true }
     const dependencies = object.constructor?.allDependencies
 

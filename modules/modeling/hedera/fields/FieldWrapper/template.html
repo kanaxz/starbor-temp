@@ -1,0 +1,22 @@
+<self :class="`${this.field.state.@required ? 'required' : ''}`">
+  <header>
+    <label :style.display="this.field.state.property.name ? null : 'none'">
+      {{this.field.state.property.name || ''}}
+    </label>
+    <div class="field-header" :v-child="this.field.@header"></div>
+  </header>
+
+  <div class="transclude" as="transclude"></div>
+  <div
+    class="errors"
+    :v-for="error of this.field.state.@errors"
+    :style.display="this.field.@touched === true ? null : 'none'"
+  >
+    <div class="error">{{error}}</div>
+  </div>
+  <div class="messages" :v-for="message of this.field.state.@messages">
+    <div class="message" :on-click="this.field.messages.tryRemove(message)">
+      {{message.text}}
+    </div>
+  </div>
+</self>

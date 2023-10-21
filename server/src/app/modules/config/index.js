@@ -1,12 +1,15 @@
 const { join } = require('path')
 module.exports = {
   construct() {
-    const root = join(__dirname, '../../..')
+    const root = join(__dirname, '../../../..')
     return {
       root,
       dist: join(root, './dist'),
       management: {
-        superAdminName: 'system',
+        systemUser: {
+          username: 'system',
+          password: '123',
+        }
       },
       express: {
         port: 8000,

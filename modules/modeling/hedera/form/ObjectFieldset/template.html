@@ -1,0 +1,16 @@
+<self>
+  <field-wrapper :field="this">
+    <div as="header">
+      <select :v-for="option of this.@types">
+        <option 
+          :option-value="option"
+          :selected="this.@types.find((t)=> this.value === t.value || (t.value && this.state.@value instanceof t.value))">
+            {{ option.definition.name }}
+        </option>
+      </select>
+    </div>
+    <fieldset
+      :v-for="field of Object.values(this.@fields) with (f) => f"
+    ></fieldset>
+  </field-wrapper>
+</self>

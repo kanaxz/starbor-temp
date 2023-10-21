@@ -3,8 +3,8 @@ const setup = require('./setup')
 
 module.exports = {
   name: 'management',
-  dependancies: ['app'],
-  async construct({ app }) {
-    app.onReady(setup)
+  dependancies: ['core', 'config',],
+  async construct({ core, config }) {
+    core.onReady((req) => setup(req, config))
   }
 }

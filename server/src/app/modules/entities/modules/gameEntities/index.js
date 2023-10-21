@@ -2,9 +2,9 @@ const { Entity, GameEntity, Folder, Group, FolderAccess, Image, Access } = requi
 const setup = require('./setup')
 
 module.exports = {
-  dependancies: ['app', 'modeling', 'storage', 'management', 'processing'],
-  async construct({ app, modeling }) {
-    app.onReady(setup)
+  dependancies: ['core', 'modeling', 'storage', 'management', 'processing'],
+  async construct({ core, modeling }) {
+    core.onReady(setup)
 
     modeling.controller(GameEntity, {
       async create(req, gameEntity, next) {

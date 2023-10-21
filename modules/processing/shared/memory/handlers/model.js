@@ -7,7 +7,7 @@ module.exports = {
       return value.equals(other)
     },
   },
-  parse(scope, value) {
+  parse(scope, value, context) {
     let model
     if (typeof value === 'string') {
       model = {
@@ -15,6 +15,11 @@ module.exports = {
       }
     } else {
       model = value
+    }
+
+    const type = context.definition.type
+    if (!(model instanceof type)) {
+      model = new type(model)
     }
 
     return {

@@ -1,0 +1,18 @@
+explorer-models-panel {
+  display: block;
+
+  .models {
+    padding: 10px;
+    .model {
+      background-color: #ecf0f1;
+      cursor: pointer;
+      margin-bottom: 10px;
+      label {
+      }
+
+      &:hover {
+        background-color: rgba(#3599db, 0.3);
+      }
+    }
+  }
+}

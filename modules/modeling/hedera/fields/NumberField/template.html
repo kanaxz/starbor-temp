@@ -1,0 +1,9 @@
+<field-wrapper :field="this">
+  <input 
+    :name="this.state.property.name"
+    type="number"
+    :value="this.state.@value"
+    :step="this.state.@step || 1" 
+    :on-change="this.setValue(parseFloat(node.value))">
+  </input>
+</field-wrapper>

@@ -5,10 +5,11 @@ const StorageCollection = require('./StorageCollection')
 
 module.exports = {
   name: 'storage',
-  dependancies: ['app', 'express', 'config', 'processing', 'mongo'],
-  async construct({ app, express, config, processing, mongo }) {
+  after: 'auth',
+  dependancies: ['core', 'express', 'config', 'processing', 'mongo'],
+  async construct({ core, express, config, processing, mongo }) {
     processing.map.unshift([FileSystemObject, (type, controllers) => new StorageCollection(type, mongo.db, controllers, config)])
     routes({ express, config })
-    app.onReady(setup)
+    core.onReady(setup)
   }
 }

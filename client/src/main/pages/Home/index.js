@@ -1,12 +1,11 @@
-const Page = require('hedera/page/Page')
-const Main = require('@app/layouts/Main')
-const notifications = require('@app/notifications')
+const { notifications } = require('@app/global')
 const Array = require('core/types/Array')
 const template = require('./template.html')
 const { System, LandingZone, Planet, Entity, GameEntity } = require('shared/types')
+const Component = require('hedera/Component')
 require('./style.scss')
 
-module.exports = class Home extends Page {
+module.exports = class Home extends Component {
   constructor() {
     super()
     this.objects = new Array()
@@ -14,26 +13,11 @@ module.exports = class Home extends Page {
   }
 
   async onReady() {
-    /*
-    const query = [{
-      $match: ['$name', 'a']
-    }]
-    const formData = new FormData()
-    formData.append('body', JSON.stringify({ query }))
-    const xhr = new XMLHttpRequest()
-    xhr.open("POST", '/api/collections/entities/find', true);
 
-    xhr.send(formData)
-    console.log('xhr')
-    return
-    
-    const system = await System.collection.findOne([
-      {
-        $match: ['$name', 'a']
-      }
-    ])
-    console.log({ system })
-    */
+  }
+
+  reset() {
+    this.objects = new Array()
   }
 
 
@@ -57,7 +41,9 @@ module.exports = class Home extends Page {
   .define({
     name: 'app-home',
     template,
-    layout: Main,
+  })
+  .properties({
+    objects: 'any',
   })
   .variables({
     System,

@@ -1,15 +1,15 @@
-const Router = require('./Router')
+const Router = require('./routers/Router')
 
 module.exports = class Navigator extends Router {
   constructor() {
     super()
-    this.root = new Router()
+    this.use((req, res, next) => {
+      res.navigate = (...args) => this.navigate(...args)
+      return next()
+    })
   }
 
   async start() {
-
-    this.root.use(this)
-
     window.addEventListener('popstate', async () => {
       await this.processCurrent()
     })
@@ -18,8 +18,13 @@ module.exports = class Navigator extends Router {
   }
 
   async processCurrent() {
-    this.url = window.location.pathname
-    await this.root.execute()
+    this.currentUrl = window.location.pathname
+    const req = {
+      url: this.currentUrl,
+    }
+
+    const res = {}
+    await this.process(req, res)
     await this.emit('change')
   }
 

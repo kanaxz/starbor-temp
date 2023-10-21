@@ -1,4 +1,4 @@
-const { workers } = require('../renderer')
+const { workers } = require('../global')
 const utils = require('../utils')
 const Event = require('core/types/Event')
 const { set } = require('core/utils/path')
@@ -93,7 +93,6 @@ class BindingFunction {
       let value = this.variables
       segments.forEach((segment) => {
         if (!value) { return }
-        onBindingGetProperty.trigger(this, value)
 
         const propertyName = segment.replace(/[@?]+/g, '')
         if (segment.startsWith('@')) {
@@ -107,6 +106,9 @@ class BindingFunction {
           this.listeners.push(listener)
         }
         value = value[propertyName]
+        if(value){
+          onBindingGetProperty.trigger(this, value)
+        }
       })
     })
 

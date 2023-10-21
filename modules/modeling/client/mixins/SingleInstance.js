@@ -25,6 +25,7 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
         for (const j of instances) {
           if (i === j) { continue }
           if (i.equals(j)) {
+            console.log('equals', i.toJSON(), j.toJSON())
             Object.assign(i, j)
             j.tranform(i)
             console.info('Transformation completed', i, j)
@@ -33,25 +34,23 @@ const SingleInstance = mixer.mixin([Destroyable, Equalable, Transformable], (bas
       }
     }
 
-    static onObjectParsed(object) {
-      console.log('objectParsed', object)
-      object[symbol] = id++
-      instances.push(object)
-      this.checkDuplicates()
-    }
-
     static parse(object, ...args) {
-      if (!object) {
+      if (!object || object instanceof this) {
         return object
       }
-      console.log(...instances)
-      const instance = instances.find((instance) => instance.equals(object))
+      const newInstance = super.parse(object, ...args)
+      const instance = instances.find((instance) => instance.equals(newInstance))
+
       if (instance) {
         Object.assign(instance, object)
+        newInstance.destroy()
+        object[symbol] = id++
         return instance
       }
 
-      return super.parse(object, ...args)
+      instances.push(newInstance)
+      this.checkDuplicates()
+      return newInstance
     }
 
     destroy() {

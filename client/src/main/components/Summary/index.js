@@ -24,12 +24,8 @@ module.exports = class Summary extends Component {
   update() {
     if (!this.root) { return }
     const root = this.root
-    this.sections = [...root.querySelectorAll('[summary-section],summary-section')]
-      .map((element) => ({
-        element,
-        title: element.querySelector('h1,h2,h3,h4,h5,h6'),
-      }))
-    this.current = this.sections[0].element
+    this.sections = [...root.querySelectorAll('[summary-section]')]
+    this.current = this.sections[0]
 
     root.addEventListener('scroll', () => {
       const rootBound = [root.scrollTop, root.clientHeight + root.scrollTop]

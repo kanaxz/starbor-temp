@@ -56,7 +56,6 @@ const log = () => {
 }
 
 const loop = () => {
-  return
   log()
   circulars = []
   instances

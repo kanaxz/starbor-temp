@@ -1,0 +1,16 @@
+<self>
+  <content-summary :root="this" as="summary"></content-summary>
+  <div class="left" :v-for="fragment of this.@left">
+    <section 
+      summary-section
+      :title="fragment.name" 
+      :inner-html="fragment.fragment">
+        
+    </section>
+
+  </div>
+  <div class="right" :v-for="fragment of this.@right">
+    <div :inner-html="fragment.fragment">
+    </div> 
+  </div>
+</self>

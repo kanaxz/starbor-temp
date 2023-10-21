@@ -28,8 +28,21 @@ const filter = (type, fn) => {
   return result
 }
 
+const find = (type, fn) => {
+  let result = null
+  forEach(type, (parent) => {
+    const match = fn(parent)
+    if (match) {
+      result = parent
+      return true
+    }
+  })
+  return result
+}
+
 module.exports = {
   get,
   forEach,
   filter,
+  find,
 }

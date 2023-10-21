@@ -2,7 +2,6 @@ const mixer = require('core/mixer')
 const Bindeable = require('core/mixins/Bindeable')
 
 const Array = require('core/types/Array')
-const renderer = require('../../renderer')
 const Eventable = require('core/mixins/Eventable')
 
 module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, Eventable]) {
@@ -74,7 +73,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     }
   }
 
-  processModifications() {
+  async processModifications() {
     this.timeout = null
     const modifs = [...this.modifs]
     this.modifs = []
@@ -97,7 +96,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
         } else {
           const itToInsert = this.repeater.iteration(modif.newValue, modif.index)
           this.insertIt(itToInsert)
-          renderer.render(itToInsert.element, itToInsert.scope)
+          await itToInsert.scope.render(itToInsert.element)
         }
       }
     }

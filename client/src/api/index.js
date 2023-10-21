@@ -1,6 +1,6 @@
 require('shared/types')
 const config = require('@app/config')
-const { buildCollections } = require('processing-client')
+const { buildCollections } = require('../../../modules/processing/client')
 
 const collections = buildCollections(config.server.url)
 

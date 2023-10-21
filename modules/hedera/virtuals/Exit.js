@@ -1,3 +1,4 @@
+const Destroyable = require('core/mixins/Destroyable')
 const Virtual = require('../Virtual')
 
 module.exports = class Exit extends Virtual {
@@ -29,6 +30,7 @@ module.exports = class Exit extends Virtual {
   }
 
   trigger() {
+    if (this[Destroyable.symbol]) { return }
     if (!this.when) { return }
     this.callback()
   }

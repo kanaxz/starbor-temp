@@ -1,0 +1,14 @@
+<self>
+  <div class="panels" :v-for="panel of this.panels">
+    <div class="panel">
+      <header>
+        <h4>{{ panel.title }}</h4>
+      </header>
+      
+      <div
+        :v-child="panel">
+
+      </div>
+    </div>
+  </div>
+</self>

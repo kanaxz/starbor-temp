@@ -1,5 +1,4 @@
 const Virtual = require('./Virtual')
-const renderer = require('./renderer')
 
 const { getElementFromTemplate } = require('./utils/template')
 
@@ -13,19 +12,22 @@ module.exports = class Render extends Virtual {
     this.on('propertyChanged', this.b(this.update))
   }
 
-  onInit() {
+  async onInit() {
     this.update()
   }
 
-  update() {
-    renderer.destroyContent(this.el)
+  async update() {
+    if(this.contentScope){
+      this.contentScope.destroyContent(this.el)
+    }
     this.innerHTML = ''
     const scope = this.scope.parent.child({
       variables: this.args,
     })
     const template = getElementFromTemplate(this.template)
     this.el.appendChild(template)
-    renderer.render(template, scope)
+    await scope.render(template)
+    this.contentScope = scope
   }
 }
   .define({

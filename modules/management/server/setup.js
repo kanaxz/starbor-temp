@@ -1,21 +1,18 @@
 const { Group, Membership, User } = require('management')
 
-const password = "123"
-const superAdminName = 'admin'
-module.exports = async (req) => {
-
-  let superAdmin = await User.collection.findOne(req, [{
-    $eq: ['$username', superAdminName]
+module.exports = async (req, config) => {
+  const systemUserValues = config.management.systemUser
+  let systemUser = await User.collection.findOne(req, [{
+    $eq: ['$username', systemUserValues.username]
   }])
-  if (!superAdmin) {
-    superAdmin = await User.collection.create(req, {
+  if (!systemUser) {
+    systemUser = await User.collection.create(req, {
       '@type': 'user',
-      username: superAdminName,
-      password,
+      ...systemUserValues,
     })
   }
 
-  req.user = superAdmin
+  req.user = systemUser
   
   let adminGroup = await Group.collection.findOne(req, [{ $eq: ['$name', 'admin'] }])
   if (!adminGroup) {
@@ -29,7 +26,7 @@ module.exports = async (req) => {
 
   let adminMembership = await Membership.collection.findOne(req, [
     {
-      $eq: ['$user', superAdmin._id]
+      $eq: ['$user', systemUser._id]
     },
     {
       $eq: ['$group', adminGroup._id]
@@ -39,12 +36,12 @@ module.exports = async (req) => {
   if (!adminMembership) {
     await Membership.collection.create(req, {
       '@type': 'membership',
-      user: superAdmin.toJSON(),
+      user: systemUser.toJSON(),
       group: adminGroup.toJSON()
     })
   }
 
-  await superAdmin.load(req, {
+  await systemUser.load(req, {
     memberships: {
       group: true,
     }

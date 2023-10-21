@@ -8,10 +8,6 @@ const utils = require('../utils')
 
 module.exports = mixer.mixin([Propertiable, Methodable, Buildable, Templateable], (base) => {
   return class Any extends base {
-    constructor(...args) {
-      super(...args)
-    }
-
     static getType(type) {
       return this
     }

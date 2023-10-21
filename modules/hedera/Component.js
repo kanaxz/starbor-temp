@@ -1,6 +1,6 @@
 const mixer = require('core/mixer')
 const Base = require('./Base')
-const renderer = require('./renderer')
+const { workers } = require('./global')
 class temp extends HTMLElement {
 
 }
@@ -30,23 +30,24 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     this.scope = null
   }
 
-  process(scope) {
+  async process(scope) {
     if (this.processed) {
       console.warn('Already processed', this)
-      return
+      return false
     }
     this.processed = true
-    renderer.process(this.el, scope)
-    if (renderer.renderVirtuals(this, scope)) {
+    await scope.process(this.el)
+    if (await scope.renderVirtuals(this)) {
       throw new Error('Incompatible')
     }
-    this.attach(scope)
+    await this.attach(scope)
+    return true
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeContent()
-    this.initializeTemplate()
+  async initialize() {
+    await super.initialize()
+    await this.initializeContent()
+    await this.initializeTemplate()
     Promise.resolve(this.onReady())
       .catch((err) => {
         console.error(err)
@@ -55,19 +56,20 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
 
   onReady() { }
 
-  initializeContent() {
+  async initializeContent() {
     if (this.definition.transclude) {
       this.transcludeContent = [
         ...this.childNodes
       ]
-    } else
-      renderer.renderContent(this, this.scope)
+    } else {
+      await this.scope.renderContent(this)
+    }
   }
 
-  initializeTemplate() {
+  async initializeTemplate() {
     if (this.definition.template) {
       this.innerHTML = this.definition.template
-      renderer.renderContent(this, this.scope)
+      await this.scope.renderContent(this)
     }
 
     if (this.definition.transclude) {
@@ -75,7 +77,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
       this.transcludeContent.forEach((n) => {
         container.appendChild(n)
       })
-      renderer.renderContent(container, this.scope.parent)
+      await this.scope.parent.renderContent(container)
     }
   }
 
@@ -88,14 +90,15 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
   }
 
   destroy() {
-    console.log('component destroyed', this, { ...this })
-    renderer.workers.forEach((w) => w.destroy && w.destroy(this))
-    this.childNodes.forEach(renderer.destroy)
+    workers.forEach((w) => w.destroy && w.destroy(this))
     if (this.v) {
       for (const virtual of Object.values(this.v)) {
-        virtual.destroy()
+        virtual.destroy(true)
       }
     }
     super.destroy()
+    console.warn('component destroyed', this)
   }
+
+
 }

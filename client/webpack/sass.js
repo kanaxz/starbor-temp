@@ -1,4 +1,3 @@
-
 module.exports = () => {
   return {
     module: {
@@ -9,7 +8,10 @@ module.exports = () => {
         }, {
           loader: 'css-loader'
         }, {
-          loader: 'sass-loader'
+          loader: 'sass-loader',
+          options: {
+            additionalData: '@import "@app/global.scss";',
+          },
         }]
       }]
     }

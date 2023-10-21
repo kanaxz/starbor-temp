@@ -11,6 +11,7 @@
   "dependencies": {
     "core": "file:../modules/core/shared",
     "modeling": "file:../modules/modeling/shared",
-    "storage": "file:../modules/storage/shared"
+    "storage": "file:../modules/storage/shared",
+    "wiki": "file:../modules/wiki/shared"
   }
 }

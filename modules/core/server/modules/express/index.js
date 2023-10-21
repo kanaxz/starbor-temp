@@ -6,8 +6,8 @@ const cors = require('cors')
 const { join } = require('path')
 
 module.exports = {
-  dependancies: ['app', 'config'],
-  construct({ app, config }) {
+  dependancies: ['core', 'config'],
+  construct({ core, config }) {
     const expressApp = express()
 
     expressApp.use((req, res, next) => {
@@ -30,7 +30,7 @@ module.exports = {
       res.send('pong')
     })
 
-    app.onReady(() => {
+    core.onReady(() => {
       console.log(`Listening on port ${config.express.port}`)
       expressApp.use('/*', (req, res) => {
         console.log('here')

@@ -33,8 +33,8 @@ module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable
   }
 
   indexDeleted(index, value) {
-    this.emit('indexDeleted', index, value)
-    this.emit('propertyChanged:length', this.length)
+    this.emit('indexDeleted', [index, value])
+    this.emit('propertyChanged:length', [this.length])
   }
 
   setIndex(index, value) {
@@ -44,8 +44,8 @@ module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable
   }
 
   indexSet(index, value, oldValue) {
-    this.emit('indexSet', index, value, oldValue)
-    this.emit('propertyChanged:length', this.length)
+    this.emit('indexSet', [index, value, oldValue])
+    this.emit('propertyChanged:length', [this.length])
   }
 
   remove(object) {

@@ -1,0 +1,19 @@
+explorer-model-panel {
+  display: block;
+
+  .properties {
+    padding: 10px;
+    .property {
+      background-color: #ecf0f1;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      label {
+      }
+
+      &:hover {
+        background-color: rgba(#3599db, 0.3);
+      }
+    }
+  }
+}

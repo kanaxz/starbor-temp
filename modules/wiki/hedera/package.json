@@ -1,0 +1,10 @@
+{
+  "name": "wiki-hedera",
+  "dependencies": {
+    "core": "file:../../core/shared",
+    "hedera": "file:../../hedera",
+    "modeling": "file:../../modeling/shared",
+    "modeling-hedera": "file:../../modeling/hedera",
+    "wiki": "file:../shared"
+  }
+}

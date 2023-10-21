@@ -1,15 +1,16 @@
 const Destroyable = require('core/mixins/Destroyable')
 const mixer = require('core/mixer')
 const Propertiable = require('core/mixins/Propertiable')
+const Equalable = require('core/mixins/Equalable')
 const typeKey = '@type'
 
 const ignore = {}
 
-const Buildable = mixer.mixin([Destroyable, Propertiable], (base) => {
+const Buildable = mixer.mixin([Destroyable, Propertiable, Equalable], (base) => {
   return class extends base {
 
-    constructor(values = {}) {
-      super()
+    constructor(values = {}, ...args) {
+      super(...args)
       // disable the possibility to assign @type on buildables
       // we don't want to throw an error
       Object.defineProperty(this, '@type', { get() { }, set() { } })
@@ -22,8 +23,6 @@ const Buildable = mixer.mixin([Destroyable, Propertiable], (base) => {
         this[property.name] = value
       })
     }
-
-    static onObjectParsed(object) { }
 
     static parse(object, owner, property) {
       if (object == null || object instanceof this) {
@@ -40,7 +39,6 @@ const Buildable = mixer.mixin([Destroyable, Propertiable], (base) => {
       }
       try {
         const instance = new type()
-        this.onObjectParsed(instance)
         Object.assign(instance, object)
         return instance
       } catch (err) {
@@ -48,19 +46,15 @@ const Buildable = mixer.mixin([Destroyable, Propertiable], (base) => {
       }
     }
 
-    equals(object){
+    equals(object) {
       return this.constructor.equals(this, object)
     }
-
 
     static toJSON(value, paths, context) {
       return value && value.toJSON(paths, context)
     }
 
     setPropertyValue(property, value) {
-      if (!property.type.parse) {
-        console.log(property)
-      }
       const parsedValue = property.type.parse(value, this, property)
       if (parsedValue === ignore) { return }
 

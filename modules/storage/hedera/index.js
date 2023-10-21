@@ -1,0 +1,10 @@
+require('./components')
+require('./index.scss')
+const { collectionsTypesMap } = require('processing-client')
+const FileSystemObject = require('storage/FileSystemObject')
+const FileCollection = require('./FileCollection')
+const ObjectFieldset = require('modeling-hedera/form/ObjectFieldset')
+const FileField = require('./components/FileField')
+
+ObjectFieldset.typesFieldmapping.unshift([FileSystemObject, FileField])
+collectionsTypesMap.unshift([FileSystemObject, FileCollection])

@@ -1,12 +1,10 @@
-const Page = require('hedera/page/Page')
-const Main = require('@app/layouts/Main')
 const template = require('./template.html')
+const Component = require('hedera/Component')
 require('./style.scss')
 
-module.exports = class NotFound extends Page {
+module.exports = class NotFound extends Component {
 
 }.define({
-  name: 'app-not-found',
+  name: 'not-found-page',
   template,
-  layout: Main,
 })

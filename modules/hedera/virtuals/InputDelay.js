@@ -1,5 +1,4 @@
 const Virtual = require('../Virtual')
-const renderer = require('../renderer')
 
 module.exports = class InputDelay extends Virtual {
   constructor(el, value) {

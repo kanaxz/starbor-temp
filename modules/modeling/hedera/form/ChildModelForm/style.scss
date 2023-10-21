@@ -1,0 +1,16 @@
+child-model-form {
+  width: 100%;
+  form {
+    object-fieldset {
+    }
+    .bottom {
+      display: flex; 
+      justify-content: flex-end;
+      margin-top: 15px;
+      button {
+        font-size: 26px;
+        padding: 5px;
+      }
+    }
+  }
+}

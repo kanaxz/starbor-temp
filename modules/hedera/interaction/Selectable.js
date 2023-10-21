@@ -1,5 +1,4 @@
 const Virtual = require('../Virtual')
-const renderer = require('../renderer')
 const symbol = Symbol('selectable')
 const { select, getSelectables, getSelected, selectFirst, interact } = require('./utils')
 
@@ -16,7 +15,6 @@ const initContainer = (virtual, el) => {
 
   const triggers = el.querySelectorAll('[selectable-trigger]')
   el.setAttribute('tabindex', '0')
-  console.log({ triggers })
   triggers.forEach((trigger) => {
     virtual.listen(trigger, 'click', () => interact(el))
   })

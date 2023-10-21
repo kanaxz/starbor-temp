@@ -1,6 +1,6 @@
 const Component = require('hedera/Component')
 const mixer = require('core/mixer')
-const Registerable = require('../mixins/Registerable')
+const Registerable = require('../../hedera/mixins/Registerable')
 const Interactable = require('hedera/mixins/Interactable')
 
 module.exports = class ModelComponent extends mixer.extends(Component, [Registerable]) {
@@ -15,7 +15,6 @@ module.exports = class ModelComponent extends mixer.extends(Component, [Register
   }
 
   async update() {
-    console.log(this, this.model)
     if (!this.model) { return }
     await this.model.load()
   }
