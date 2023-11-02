@@ -1,0 +1,65 @@
+storage-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  .tree {
+    width: 250px;
+    height: 100%;
+    padding: 10px;
+    border-right: 1px solid #e1e1e1;
+    .folder {
+      > .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        folder-row {
+          flex: 1;
+        }
+      }
+      > .folders {
+        display: none;
+        margin-left: 13px;
+        border-left: 2px dashed #e1e1e1;
+        > .folder {
+          > .row {
+            &::before {
+              content: " ";
+              width: 10px;
+              border-bottom: 2px dashed #e1e1e1;
+              margin-top: 2px;
+            }
+
+            > folder-row {
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+
+      &.active {
+        > .folders {
+          display: block;
+          border-color: aquamarine !important;
+        }
+
+        > .row {
+          &::before {
+            border-color: aquamarine !important;
+          }
+        }
+      }
+    }
+  }
+
+  .folder-explorer {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    padding-top: 10px;
+    > * {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}

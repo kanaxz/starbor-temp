@@ -36,6 +36,7 @@ module.exports = class ModelForm extends Component {
   .properties({
     model: 'any',
     type: 'any',
+    states: 'any',
   })
 
 

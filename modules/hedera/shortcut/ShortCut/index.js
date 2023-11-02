@@ -107,7 +107,6 @@ module.exports = class ShortCut extends Component {
   .define({
     name: 'short-cut',
     template,
-    transclude: true,
   })
   .properties({
     callback: 'any',

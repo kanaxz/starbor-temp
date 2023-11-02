@@ -1,9 +1,9 @@
-const Card = require('modeling-hedera/components/Card')
+const Row = require('modeling-hedera/components/Row')
 const template = require('./template.html')
 const { System } = require('shared/types')
 require('./style.scss')
 
-module.exports = class SystemRow extends Card {
+module.exports = class SystemRow extends Row {
 
 }
   .define({

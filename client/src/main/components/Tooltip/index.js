@@ -8,6 +8,10 @@ module.exports = class Tooltip extends Component {
   constructor() {
     super()
     this.show = false
+
+  }
+
+  onInit() {
     this.listen(this.parentElement, 'mouseenter', this.onMouseEnter)
     this.listen(this.parentElement, 'mouseleave', this.onMouseLeave)
   }
@@ -23,7 +27,6 @@ module.exports = class Tooltip extends Component {
   .define({
     name: 'tool-tip',
     template,
-    transclude: true,
   })
   .properties({
     show: 'any',

@@ -39,10 +39,10 @@
           class="results" 
           :v-for="result of searchable.@results">
           <a :on-click="this.stop()" :v-link="result.@url">
-            <replace-with 
-              :element="this.templateRow(result)" 
+            <model-row 
+              :model="result" 
               :v-selectable="node.click() within this">
-            </replace-with>
+            </model-row>
           </a>
         </div>
       </div>

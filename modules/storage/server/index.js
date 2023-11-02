@@ -1,4 +1,5 @@
-const { FileSystemObject } = require('storage')
+require('storage')
+const FileSystemObject = require('storage/FileSystemObject')
 const routes = require('./routes')
 const setup = require('./setup')
 const StorageCollection = require('./StorageCollection')

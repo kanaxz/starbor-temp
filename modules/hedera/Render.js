@@ -6,18 +6,21 @@ const { getElementFromTemplate } = require('./utils/template')
 module.exports = class Render extends Virtual {
   constructor(el, value) {
     super(el)
-    const [args, template] = value.split(/ with /)
+    const [template, args] = value.split(/ with /)
     this.el.setAttribute(':v.render.template', `${template}`)
     this.el.setAttribute(':v.render.args', `${args}`)
-    this.on('propertyChanged', this.b(this.update))
   }
 
   async onInit() {
     this.update()
   }
 
+  preventRender(){
+    return true
+  }
+
   async update() {
-    if(this.contentScope){
+    if (this.contentScope) {
       this.contentScope.destroyContent(this.el)
     }
     this.innerHTML = ''
@@ -33,7 +36,6 @@ module.exports = class Render extends Virtual {
   .define({
     name: 'render'
   })
-  .takeControl()
   .properties({
     args: 'any',
     template: 'any',

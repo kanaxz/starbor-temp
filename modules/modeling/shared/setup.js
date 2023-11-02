@@ -1,4 +1,7 @@
 const setup = {
+  object: {
+    before: [],
+  },
   model: {
     before: [],
     after: []

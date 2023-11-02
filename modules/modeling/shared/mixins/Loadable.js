@@ -1,9 +1,11 @@
 const mixer = require('core/mixer')
 const loadingQueue = Symbol('loadingQueue')
 const stateKey = Symbol('loadableState')
+const Propertiable = require('core/mixins/Propertiable')
+const Bool = require('../types/Bool')
 
-const Loadable = mixer.mixin((base) => {
-  return class Loadable extends base {
+const Loadable = mixer.mixin([Propertiable], (base) => {
+  return class extends base {
     constructor(...args) {
       super(...args)
 
@@ -28,11 +30,13 @@ const Loadable = mixer.mixin((base) => {
         }
       }
 
+
+      this.loaded = state === 'loaded'
+
       if (state === this[stateKey]) {
         return
       }
       this[stateKey] = state
-
       if (state === 'error') {
         //console.error(err)
         this[loadingQueue].forEach(({ reject }) => reject(err))
@@ -51,6 +55,10 @@ const Loadable = mixer.mixin((base) => {
       throw new Error(`innerLoad not implemented on ${this.constructor.definition.name}`)
     }
 
+    async loadAssociation(context, propertyName, paths) {
+      await this[propertyName].load(context, paths)
+    }
+
     async load(context, paths = {}) {
       if (this.state === 'error') {
         this.state = 'empty'
@@ -59,7 +67,7 @@ const Loadable = mixer.mixin((base) => {
       if (state === 'loaded') {
         if (paths === true) { return }
         for (const [propertyName, subPaths] of Object.entries(paths)) {
-          await this[propertyName].load(context, subPaths)
+          await this.loadAssociation(context, propertyName, subPaths)
         }
         return
       }
@@ -89,6 +97,13 @@ const Loadable = mixer.mixin((base) => {
     }
   }
 })
+  .define()
+  .properties({
+    loaded: {
+      type: Bool,
+      context: false,
+    }
+  })
 
 Loadable.stateSymbol = stateKey
 module.exports = Loadable

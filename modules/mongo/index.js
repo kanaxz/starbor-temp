@@ -6,9 +6,7 @@ module.exports = {
   name: 'mongo',
   dependancies: ['processing', 'config'],
   async construct({ processing, config }) {
-    const client = await mongo.MongoClient.connect(config.mongo.url, {
-      useUnifiedTopology: true
-    })
+    const client = await mongo.MongoClient.connect(config.mongo.url)
 
     const db = client.db(config.mongo.db)
 

@@ -1,6 +1,7 @@
-const ObjectState = require("./ObjectState");
+const RootObjectState = require('./RootObjectState')
 
-module.exports = class RootModelState extends ObjectState {
+module.exports = class RootModelState extends RootObjectState {
+
   async validate() {
     await super.validate()
     const type = this.property.type
@@ -11,7 +12,7 @@ module.exports = class RootModelState extends ObjectState {
         acc[propertyName] = this.states[propertyName].value
         return acc
       }, {})
- 
+
       const filledValues = Object.values(values).filter((v) => v != null)
       if (filledValues.length !== index.properties.length) {
         continue
@@ -26,7 +27,9 @@ module.exports = class RootModelState extends ObjectState {
           $neq: ['$_id', this.value._id]
         })
       }
-      const existingModel = await type.collection.findOne(filters, {
+
+      console.log('root validation', JSON.stringify(filters, null, ' '), index.owner.definition.name)
+      const existingModel = await type.collection.findOne(this.context, filters, {
         type: index.owner.definition.name,
       })
 

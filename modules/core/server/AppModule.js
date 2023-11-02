@@ -4,7 +4,7 @@ module.exports = class AppModule extends Module {
   async start() {
     this.load()
     this.loadAfter()
-    await this.process()
+    await this.process(true)
     const core = this.getModule('core')
     await core.object.onReady.trigger({
       setup: true

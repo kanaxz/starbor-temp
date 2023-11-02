@@ -1,20 +1,17 @@
 <self>
   <div class="content">
     <h3>Login</h3>
-    <form as="form" :on-submit.prevent="this.onSubmit()">
-      <text-field 
-        :label="'Username'" 
-        :required="true"
-        :name="'username'">
-      </text-field>
-      <text-field  
-        :label="'Password'" 
-        :name="'password'" 
-        :required="true"
-        :type="'password'">
-      </text-field>
-      <button type="submit">Submit</button>
-    </form>
+    <object-form 
+      :type="Credentials"
+      :on-submit="this.onSubmit(event)">
+      <slot name="bottom">
+         <button 
+          class="submit" 
+          type="submit">
+            Login
+        </button>
+      </slot>
+    </object-form>
     <a :v-link="'/signup'">Signup</a>
   </div>
 </self>

@@ -4,14 +4,13 @@ const Pageable = require('modeling/mixins/Pageable')
 const Wikiable = require('wiki/mixins/Wikiable')
 
 const isSelfOrAdmin = async (context, user) => {
-  console.log({ context, user })
   if (!context.user) { return false }
-  return context.user.equals(user) || await context.user.is('admin')
+  return context.user.equals(user) || await context.user.is(context, 'admin')
 }
 
 module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable]) {
-  async is(name) {
-    await this.load({
+  async is(context, name) {
+    await this.load(context, {
       memberships: {
         group: true
       }
@@ -51,7 +50,7 @@ module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable]) {
   .controllers({
     create: {
       async check(context) {
-        return !context.user || await context.user.is('admin')
+        return !context.user || await context.user.is(context, 'admin')
       },
     },
     update: {

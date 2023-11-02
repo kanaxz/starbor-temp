@@ -65,6 +65,7 @@ const getElementFromTemplate = (template) => {
   } else if (template instanceof HTMLElement || template instanceof SVGElement) {
     return template.cloneNode(true)
   } else {
+    console.error(template)
     throw new Error("Cannot get content of template")
   }
 }

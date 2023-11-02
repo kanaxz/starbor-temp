@@ -1,7 +1,6 @@
 const MemoryScope = require('./memory/MemoryScope')
 
 const match = async (context, object, filters) => {
-  console.log('match', object, object.constructor)
   if (object.load) {
     await object.load()
   }

@@ -12,7 +12,8 @@ const getSystemPosition = (object) => {
 
 module.exports = ({ collections }) => {
   const save = async (entity) => {
-    await collections.entities.createOrUpdate(entity)
+    console.log({ ...entity })
+    await collections.entities.create(entity)
   }
 
   const types = {

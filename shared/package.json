@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "core": "file:../modules/core/shared",
+    "jwt": "file:../modules/jwt/shared",
     "modeling": "file:../modules/modeling/shared",
     "storage": "file:../modules/storage/shared",
     "wiki": "file:../modules/wiki/shared"

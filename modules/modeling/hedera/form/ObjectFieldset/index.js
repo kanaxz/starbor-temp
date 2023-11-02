@@ -4,6 +4,7 @@ const { TextField, BoolField, DateField, NumberField, MarkdownField } = require(
 const ModelField = require('../ModelField')
 const Field = require('../../fields/Field')
 const Markdown = require('modeling/types/Markdown')
+
 require('./style.scss')
 
 const typesFieldmapping = [
@@ -22,11 +23,15 @@ class ObjectFieldset extends Field {
   static typesFieldmapping = typesFieldmapping
 
   onInit() {
-    this.updateTypes()  
+    this.updateTypes()
     if (!this.state.value && this.state.required) {
-      this.setValue(new (this.types[0].value)())
+      this.create()
     }
     super.onInit()
+  }
+
+  create() {
+    this.setValue(new (this.types[0])())
   }
 
   onSelectedTypeChanged(type) {
@@ -50,7 +55,7 @@ class ObjectFieldset extends Field {
   }
 
   onValueChanged() {
-    if(!this.state.value){
+    if (!this.state.value) {
       this.fields = []
       return
     }
@@ -89,6 +94,7 @@ class ObjectFieldset extends Field {
         }
       })
   }
+
 }
 
 typesFieldmapping.push([ObjectType, ObjectFieldset])

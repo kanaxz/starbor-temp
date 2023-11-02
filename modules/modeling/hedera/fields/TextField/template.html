@@ -1,9 +1,9 @@
-<field-wrapper :field="this">
+<super>
   <input 
     :name="this.state.property.name"
-    type="text"
+    :type="this.type"
     :value="this.state.@value || ''"
-    :disabled="this.state.@disabled"
+    :disabled="this.state.@readOnly"
     :on-change="this.setValue(node.value)">
   </input>
-</field-wrapper>
+</super>

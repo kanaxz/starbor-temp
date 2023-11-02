@@ -3,9 +3,9 @@
     <h3 class="title">{{this.@title}}</h3>
     <div class="actions">
       <div :on-click="this.close()">
-        <i class="fa-solid fa-x"></i>
+        <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
   </header>
-  <div class="transclude" as="transclude"></div>
+  <div class="transclude" slot></div>
 </self>

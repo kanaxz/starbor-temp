@@ -3,9 +3,9 @@ const { join } = require('path')
 const fs = require('fs').promises
 
 const updatePath = async (folder) => {
-  if (folder.parent) {
-    await folder.parent.load()
-    folder.path = `${folder.parent.path}/${folder.name}`
+  if (folder.folder) {
+    await folder.folder.load()
+    folder.path = `${folder.folder.path}/${folder.name}`
   } else {
     folder.path = `/${folder.name}`
   }

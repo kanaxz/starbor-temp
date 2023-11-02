@@ -1,8 +1,7 @@
 const mixer = require('../mixer')
-const Eventable = require('./Eventable')
 const destroyed = Symbol('destroyed')
 
-const Destroyable = mixer.mixin([Eventable], (base) => {
+const Destroyable = mixer.mixin((base) => {
   return class Destroyable extends base {
 
     constructor(...args) {
@@ -20,7 +19,6 @@ const Destroyable = mixer.mixin([Eventable], (base) => {
         throw new Error('Already destroyed')
       }
       this[destroyed] = true
-      this.emit('destroyed')
     }
   }
 })

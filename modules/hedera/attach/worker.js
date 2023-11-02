@@ -24,7 +24,7 @@ const _in = (node, { this: thisArg }) => {
 }
 
 module.exports = {
-  process(node, variables) {
+  process(scope, node, variables) {
     if (node.nodeType !== Node.ELEMENT_NODE) { return }
     as(node, variables)
     attach(node, variables)

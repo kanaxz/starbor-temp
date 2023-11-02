@@ -10,7 +10,7 @@ module.exports = {
     const collectionName = type.definition.pluralName
     const on = `${property.on}._id`
 
-    const id = makeId()
+    const id = `var${makeId()}`
     const propertyName = property.name
     return [
       {

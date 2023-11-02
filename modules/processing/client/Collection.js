@@ -1,9 +1,9 @@
 const axios = require('axios')
-const Context = require('modeling-client/Context')
+const context = require('core-client/context')
 const Models = require('./Models')
 
 const getArgs = (args) => {
-  return args.filter((arg) => !(arg instanceof Context))
+  return args.filter((arg) => arg !== context)
 }
 
 module.exports = class Collection {
@@ -24,22 +24,18 @@ module.exports = class Collection {
     this.instances = []
   }
 
-  async request(action, body, options = {}) {
-
-    //console.log(`Requesting /api${action}`, body)
-    const url = `${this.url}/api/collections/${this.type.definition.pluralName}${action}`
-    console.log(action, body, options)
+  async request(options) {
     try {
+      let headers = options.headers
+      if (this.headersBuilder) {
+        const additionalHeaders = await this.headersBuilder()
+        Object.assign(headers, additionalHeaders)
+      }
       const response = await axios({
-        url,
+        ...options,
         method: 'POST',
-        //mode: 'no-cors',
-        data: body,
         withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        headers
       })
       const result = response.data
       //console.log(action, ...args, result)
@@ -47,6 +43,21 @@ module.exports = class Collection {
     } catch (err) {
       throw new Error(`API error: ${err.message}`,)
     }
+  }
+
+  async apiRequest(action, body, options = {}) {
+    const url = `${this.url}/api/collections/${this.type.definition.pluralName}${action}`
+    console.log(action, body, options)
+
+    const result = await this.request({
+      url,
+      data: body,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+
+    return result
   }
 
   async findOne(...args) {
@@ -62,7 +73,7 @@ module.exports = class Collection {
   async find(...args) {
 
     const [query, options = {}] = getArgs(args)
-    const modelsJson = await this.request('/find', { query, options })
+    const modelsJson = await this.apiRequest('/find', { query, options })
     const modelsArray = modelsJson.map((modelJson) => {
 
       const model = this.type.parse(modelJson)
@@ -78,18 +89,22 @@ module.exports = class Collection {
     if (modelJson.toJSON) {
       modelJson = modelJson.toJSON()
     }
-    const json = await this.request('/create', modelJson, options)
+    const json = await this.apiRequest('/create', modelJson, options)
     const resultModel = this.type.parse(json)
+    resultModel.setLoadState(true)
     this.hold(resultModel)
+    await this.onModelUpdated(resultModel)
     return resultModel
   }
 
-  onModelUpdated(query) {
-    Models.instances.forEach((i) => i.onModelUpdated(model))
+  async onModelUpdated(model) {
+    for (const instance of Models.instances) {
+      await instance.onModelUpdated(model)
+    }
   }
 
   async update(query, patches) {
-    const json = await this.request('/update', { query, patches })
+    const json = await this.apiRequest('/update', { query, patches })
     const resultModel = this.type.parse(json)
     this.hold(resultModel)
     return resultModel
@@ -114,9 +129,10 @@ module.exports = class Collection {
     if (modelJson.toJSON) {
       modelJson = modelJson.toJSON()
     }
-    const json = await this.request('/create-or-update', { query, modelJson })
+    const json = await this.apiRequest('/create-or-update', { query, modelJson })
     console.log('create-or-update', json)
     const resultModel = this.type.parse(json)
+    resultModel.setLoadState(true)
     this.hold(resultModel)
     return resultModel
   }

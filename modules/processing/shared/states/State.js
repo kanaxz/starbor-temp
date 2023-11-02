@@ -2,8 +2,9 @@ const Array = require('core/types/Array')
 const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
 const Bindeable = require('core/mixins/Bindeable')
+const setup = require('../setup')
 
-module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
+class BaseState extends mixer.extends([Propertiable, Bindeable]) {
   constructor(values) {
     super()
     Object.assign(this, values)
@@ -12,6 +13,8 @@ module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
   reset() {
     this.errors = new Array()
     this.message = new Array()
+    this.disabled = false
+    this.required = false
   }
 
   async valueChanged() {
@@ -29,7 +32,7 @@ module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
     }
   }
 
-  get value(){
+  get value() {
     if (this.objectState) {
       const parent = this.objectState.value
       return parent && parent[this.property.name]
@@ -39,15 +42,17 @@ module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
   }
 
   validate() {
+    if (this.disabled) {
+      this.value = undefined
+      return
+    }
     if (this.required && !this.value) {
       this.errors.push('This field is required')
     }
-
-    if (this.disabled) {
-      this.value = undefined
-    }
   }
 }
+
+BaseState
   .define()
   .properties({
     disabled: 'any',
@@ -55,3 +60,6 @@ module.exports = class State extends mixer.extends([Propertiable, Bindeable]) {
     messages: 'any',
     errors: 'any',
   })
+
+module.exports = class State extends mixer.extends(BaseState, setup.state) { }
+  .define()

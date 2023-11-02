@@ -12,8 +12,10 @@
     "axios": "^1.5.1",
     "core": "file:../../core/shared",
     "hedera": "file:../../hedera",
+    "modeling": "file:../../modeling/shared",
     "modeling-hedera": "file:../../modeling/hedera",
     "processing-client": "file:../../processing/client",
-    "storage": "file:../shared"
+    "storage": "file:../shared",
+    "storage-client": "file:../client"
   }
 }

@@ -19,7 +19,9 @@ module.exports = class Models extends mixer.extends(Array, [Destroyable, ...setu
   }
 
   async onModelUpdated(model) {
-    if (await match(context, model, this.queryParams)) {
+    const isInsanceOfTemplate = model instanceof this.constructor.definition.template
+    if (!isInsanceOfTemplate) { return }
+    if (await match(context, model, this.queryParams.query)) {
       this.push(model)
     }
   }

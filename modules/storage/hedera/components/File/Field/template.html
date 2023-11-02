@@ -1,0 +1,43 @@
+<super>
+  <div
+    class="inner"
+    :on-dragenter="this.onDragEnter(event)"
+    :on-dragover="this.onDragOver(event)"
+    :on-drop="this.onDrop(event)">
+    <div class="progress-bar" :style.display="this.progress != null ? 'block' : 'none'">
+      <div class="bar" :style.width="`${this.@progress}%`"></div>
+    </div>
+    <div class="value">
+      <img :src="this.state.@value?.@path" />
+      <div class="actions">
+        <div :on-click="this.onClick()">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <div>
+          <i class="fa-solid mark"></i>
+        </div>
+      </div>
+    </div>
+    <div 
+      class="area" 
+      :class="`${this.@hover ? 'hover' : ''}`"
+      :on-click="this.onClick()">
+        <i class="fa-solid fa-plus"></i>
+    </div>
+  </div>
+  <input
+    
+    as="input"
+    type="file"
+    :on-change="this.onInputChanged()"
+  />
+  <mo-dal dettach style="width: 50%" :title="'Select a file'" as="modal">
+    <file-selector 
+      as="fileSelector" 
+      :type="this.type" 
+      :accept="this.state.property.type.accept"
+      :on-selected="this.fileSelected()">
+
+    </file-selector>
+  </mo-dal>
+</super>

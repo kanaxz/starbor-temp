@@ -1,7 +1,6 @@
 const mixer = require('core/mixer')
 const { Model, String } = require('modeling/types')
 const User = require('management/User')
-const { secretLength, idLength } = require('./utils')
 const securityStrategy = require('management/securityStrategy')
 
 module.exports = class Jwt extends mixer.extends(Model) {
@@ -41,7 +40,7 @@ module.exports = class Jwt extends mixer.extends(Model) {
   .controllers({
     create: {
       requires: [securityStrategy],
-      check() { return !!req.user },
+      check(context) { return !!context.user },
     },
     update: {
       requires: [securityStrategy],

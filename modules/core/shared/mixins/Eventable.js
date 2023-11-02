@@ -1,4 +1,5 @@
 const mixer = require("../mixer")
+const Destroyable = require("./Destroyable")
 const events = Symbol("events")
 const otherEvents = Symbol("otherEvents")
 
@@ -13,7 +14,7 @@ class Listener {
 }
 
 
-module.exports = mixer.mixin((baseClass) => {
+const Eventable = mixer.mixin([Destroyable], (baseClass) => {
   return class Eventable extends baseClass {
     constructor(...args) {
       super(...args)
@@ -85,6 +86,7 @@ module.exports = mixer.mixin((baseClass) => {
     }
 
     destroy() {
+      super.destroy()
       Object.values(events)
         .forEach((event) => {
           event.listeners.forEach((listener) => {
@@ -93,7 +95,15 @@ module.exports = mixer.mixin((baseClass) => {
         })
 
       this[otherEvents].forEach((listener) => listener.remove())
-      super.destroy()
+      this[otherEvents] = null
+      this.emit('destroyed')
     }
   }
 })
+
+Object.assign(Eventable, {
+  events,
+  otherEvents
+})
+
+module.exports = Eventable

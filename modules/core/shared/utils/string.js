@@ -7,7 +7,7 @@ const makeId = (length = 12) => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
     counter += 1;
   }
-  return `var${result}`
+  return result
 }
 
 

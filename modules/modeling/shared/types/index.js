@@ -18,5 +18,6 @@ module.exports = {
   HasMany: require('./HasMany'),
   ArrayAssociation: require('./ArrayAssociation'),
   Markdown: require('./Markdown'),
+  Password: require('./Password'),
 }
 

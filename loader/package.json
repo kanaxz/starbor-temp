@@ -14,10 +14,13 @@
     "glob": "^9.3.4",
     "in": "^0.19.0",
     "ini": "^4.0.0",
-    "modeling-client-shared": "file:../modules/modeling/client-shared",
-    "processing-client-shared": "file:../modules/processing/client-shared",
+    "jwt": "file:../modules/jwt/shared",
+    "modeling": "file:../modules/modeling/shared",
+    "modeling-client": "file:../modules/modeling/client",
+    "processing-client": "file:../modules/processing/client",
     "request-promise": "^4.2.6",
     "shared": "file:../shared",
+    "storage-client": "file:../modules/storage/client",
     "xml2json": "^0.12.0"
   }
 }

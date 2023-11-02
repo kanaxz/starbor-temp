@@ -10,8 +10,6 @@ module.exports = async (services) => {
 
   const loadAffiliations = async () => {
     for (const starmapObject of bootup.affiliations.resultset) {
-      console.log(JSON.stringify(starmapObject, null, ' '))
-      process.exit()
       const code = codify(starmapObject.code)
       const organization = Organization.parse({
         code,
@@ -20,10 +18,11 @@ module.exports = async (services) => {
         starmap: new Starmap({
           type: 'affiliation',
           id: starmapObject.id
-        })
+        }),
+        wiki: starmapObject.name,
       })
 
-      await collections.organizations.createOrUpdate(organization)
+      await collections.organizations.create(organization)
     }
   }
 
@@ -41,12 +40,12 @@ module.exports = async (services) => {
         })
       })
 
-      await collections.organizations.createOrUpdate(organization)
+      await collections.organizations.create(organization)
     }
   }
-  
-  await loadAffiliations()
-  await loadSpecies()
+
+  //await loadAffiliations()
+  //await loadSpecies()
   /**/
-  //await systemsLoader(bootup, services)
+  await systemsLoader(bootup, services)
 }

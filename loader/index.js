@@ -1,5 +1,10 @@
 require('core/setup')
-require('modeling-client-shared/setup')
+require('modeling-client/setup')
+require('modeling/setup')
+require('storage-client/setup')
+require('shared/types')
+require('jwt/setup')
+
 const loadersNames = [
   require('./loaders/collections'),
   require('./loaders/starmap')

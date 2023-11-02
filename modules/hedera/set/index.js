@@ -1,14 +1,17 @@
 const { workers } = require('../global')
-const utils = require('../utils')
-const Event = require('core/types/Event')
 const { set } = require('core/utils/path')
-const { createFunction, dashToCamel } = utils
+const { dashToCamel } = require('../utils')
+const BindingFunction = require('./BindingFunction')
+const BindingExpression = require('./BindingExpression')
 
 const attributes = {
   class: (() => {
     const caches = []
     return (node, value, key) => {
-      const classes = value.split(' ').filter((o) => o)
+      if(!value){
+        value = ''
+      }
+      const classes = value.split(' ').filter((o) => o && ['undefined', 'false'].indexOf(o) === -1)
       let cache = caches.find((c) => c.node === node && c.key === key)
       if (cache) {
         for (const cssClass of cache.classes) {
@@ -40,130 +43,11 @@ const setAttr = (node, path, value, key) => {
   set(node, path, value)
 }
 
-const expressionRegex = /{{.*?}}/g
 const PREFIX = ':'
-
-const processFunctionString = (string) => {
-  let sanitized = string
-  const paths = string.match(/([\w?@.]+)/g) || []
-  //.filter((p) => p.indexOf('@') !== -1)
-  paths
-    .forEach((p) => {
-      sanitized = sanitized.replace(p, p.replace(/@/g, ''))
-    })
-
-  return {
-    sanitized,
-    paths,
-  }
-}
-
-const onBindingGetProperty = new Event()
-const onBindingDestroyed = new Event()
-
-class BindingFunction {
-  constructor(functionString, variables, callback, trigger) {
-    this.functionString = functionString
-    this.variables = variables
-    this.callback = callback
-    this.listeners = []
-    this.holdables = []
-    const { sanitized, paths } = processFunctionString(functionString)
-    this.paths = paths
-    const vars = {
-      ...variables
-    }
-    delete vars.this
-    this.sanitizedFunctionString = sanitized
-    this.function = createFunction('return ' + sanitized, vars)
-    this.update(trigger)
-  }
-
-  getValue() {
-    const thisArg = this.variables.this
-    const value = this.function.call(thisArg)
-    return value
-  }
-
-  update(trigger = true) {
-    this.destroy()
-    this.listeners = []
-    this.paths.forEach((path) => {
-      const segments = path.split('.')
-      let value = this.variables
-      segments.forEach((segment) => {
-        if (!value) { return }
-
-        const propertyName = segment.replace(/[@?]+/g, '')
-        if (segment.startsWith('@')) {
-          if (!value.on) {
-            console.log(path, { value })
-            throw new Error()
-          }
-          const listener = value.on(`propertyChanged:${propertyName}`, () => {
-            this.update()
-          })
-          this.listeners.push(listener)
-        }
-        value = value[propertyName]
-        if(value){
-          onBindingGetProperty.trigger(this, value)
-        }
-      })
-    })
-
-    if (trigger) {
-      const value = this.getValue()
-      this.callback(value)
-    }
-  }
-
-  destroy() {
-    this.listeners.forEach((l) => l.remove())
-    onBindingDestroyed.trigger(this)
-  }
-}
-
-
-
-class BindingExpression {
-  constructor(expression, variables, callback) {
-    this.expression = expression
-    this.variables = variables
-    this.callback = callback
-    this.functions = []
-    this.update()
-  }
-
-  update() {
-    let value = this.expression
-    this.destroy()
-    this.functions = this.expression.match(expressionRegex)
-      .map((path) => {
-
-        const sanitizePath = path.replace('{{', '').replace('}}', '')
-        const bindingFunction = new BindingFunction(sanitizePath, this.variables, () => {
-          this.update()
-        }, false)
-
-        value = value.replace(path, bindingFunction.getValue())
-        return bindingFunction
-      })
-
-    this.expression.match(expressionRegex)
-    this.callback(value)
-  }
-
-  destroy() {
-    this.functions.forEach((p) => p.destroy())
-  }
-}
-
-
 
 workers.push({
   expressions: [],
-  process(node, variables) {
+  process(scope, node, variables) {
     if (!node.attributes) { return }
     [...node.attributes]
       .filter((attr) => attr.name.startsWith('::'))
@@ -188,7 +72,7 @@ workers.push({
   }
 }, {
   expressions: [],
-  process(node, variables) {
+  process(scope, node, variables) {
     if (node.nodeType !== Node.TEXT_NODE) { return }
     if (node.textContent.indexOf('{{') === -1) { return }
 
@@ -207,7 +91,7 @@ workers.push({
   }
 }, {
   paths: [],
-  process(node, variables) {
+  process(scope, node, variables) {
     if (!node.attributes) { return }
     [...node.attributes]
       .filter((attr) => attr.name.startsWith(PREFIX))
@@ -232,7 +116,3 @@ workers.push({
   }
 })
 
-module.exports = {
-  onBindingDestroyed,
-  onBindingGetProperty
-}

@@ -43,4 +43,5 @@ module.exports = {
   Group,
   User,
   Membership,
+  Credentials: require('./Credentials'),
 }

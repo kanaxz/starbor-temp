@@ -40,15 +40,7 @@ const processObjectFilter = (scope, object) => {
 }
 
 const processObject = async (scope, object, context) => {
-  if (typeof object === 'object' && !Array.isArray(object)) {
-    const keys = Object.keys(object)
-    if (keys.length === 1 && keys[0].startsWith('$')) {
-      return await processFunctionCall(scope, object)
-    } else {
-      return await processObjectFilter(scope, object)
-    }
-
-  } else if (typeof object === 'string' && object.startsWith('$')) {
+  if (typeof object === 'string' && object.startsWith('$')) {
     const path = object.substring(1)
     const [sourceName, ...propertiesNames] = path.split('.')
     //console.log('getting variable', sourceName, propertiesNames, scope)
@@ -73,6 +65,15 @@ const processObject = async (scope, object, context) => {
     if (source) {
       return source
     }
+  }
+  if (typeof object === 'object' && !Array.isArray(object)) {
+    const keys = Object.keys(object)
+    if (keys.length === 1 && keys[0].startsWith('$')) {
+      return await processFunctionCall(scope, object)
+    } else {
+      return await processObjectFilter(scope, object)
+    }
+
   }
   console.error(object)
   throw new Error('Could not process object')

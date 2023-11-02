@@ -1,8 +1,7 @@
-<field-wrapper :field="this">
+<super>
   <textarea 
-    :name="this.@name"
-    :value="this.@value || ''"
-    :disabled="this.@disabled"
+    :name="this.state.property.name"
+    :value="this.state.@value || ''"
     :on-change="this.setValue(node.value)">
   </textarea>
-</field-wrapper>
+</super>

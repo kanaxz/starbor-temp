@@ -1,3 +1,22 @@
 <self>
-  
+  <model-form 
+    :type="Jwt" 
+    :states="this.createStates"
+    :on-saved="this.onSaved(event)">
+  </model-form>
+  <div class="jwts" :v-for="jwt of this.jwts">
+    <div :class="`jwt`">
+      <model-form 
+        :mode="'read'" 
+        :deletable="true"
+        :editable="true" 
+        :disable-nested="true"
+        :model="jwt" 
+        :type="Jwt" 
+        :states="this.@newModel === jwt ? this.newModelStates : this.states">
+
+      </model-form>  
+    </div>
+    
+  </div>
 </self>

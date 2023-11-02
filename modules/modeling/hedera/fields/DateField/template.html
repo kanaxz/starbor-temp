@@ -1,4 +1,4 @@
-<field-wrapper :field="this">
+<super>
   <input 
     :name="this.@name"
     type="date"
@@ -6,4 +6,4 @@
     :required="this.@required"
     :on-change="this.value = node.value">
   </input>
-</field-wrapper>
+</super>

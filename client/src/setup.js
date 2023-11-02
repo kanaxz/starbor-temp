@@ -1,6 +1,8 @@
 require('core/setup')
 require('modeling/setup')
 require('modeling-hedera/setup')
+require('processing/setup')
+require('processing-hedera/setup')
 require('storage-hedera/setup')
 require('wiki-hedera/setup')
 require('jwt-hedera/setup')
@@ -9,6 +11,7 @@ require('hedera/setup')
 require('core-hedera/index')
 require('./global')
 
+require('jwt/setup')
 
 require('hedera')
 require('management-hedera')

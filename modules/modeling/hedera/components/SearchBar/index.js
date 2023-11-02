@@ -89,12 +89,6 @@ module.exports = class Search extends Component {
     this.search()
   }
 
-  templateRow(result) {
-    const rowComponent = componentsService.get(result.constructor, 'row')
-    return new rowComponent(result)
-  }
-
-
 }
   .define({
     name: 'app-search',

@@ -1,0 +1,34 @@
+<self :on-keyup="this.onKeyUp(event)">
+  <template as="treeTemplate">
+    <div
+      :class="`folder ${$.@active && 'active'}`">
+      <vars :active="this.@currentFolder === folder || this.@currentFolder.branch.indexOf(folder) !== -1"></vars>
+      <div class="row">
+        <folder-row
+          :model="folder"
+          :class="`${ $.@active && 'focus open'} ${ folder === this.@currentFolder && 'selected'}`"
+          :on-click="this.focusFolder(folder)">
+        </folder-row>
+      </div>
+
+      <div
+        class="folders"
+        :v-for="folder of folder.children.filterLink((f)=>f instanceof Folder) with this.treeTemplate">
+      </div>
+    </div>
+  </template>
+  <div
+    class="tree"
+    :v-render="this.treeTemplate with { folder: this.folder }">
+  </div>
+  <div
+    class="folder-explorer"
+    :v-for="fileObject of this.@currentFolder.children">
+      <model-card
+        :model="fileObject"
+        :on-click="this.onFileObjectClicked(fileObject)"
+        :v-selectable="node.click() within this"
+        :v.selectable.mode="'horizontal'">
+    </model-card>
+  </div>
+</self>

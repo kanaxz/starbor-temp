@@ -3,7 +3,6 @@ const Pageable = require('modeling/mixins/Pageable')
 const { Model } = require("modeling/types")
 const LayoutRouter = require('hedera/routing/routers/LayoutRouter')
 const { actions } = require('./setup')
-
 const types = Model.getAllChilds()
   .filter((t) => mixer.is(t.prototype, Pageable))
   .filter((t) => !t.definition.abstract)

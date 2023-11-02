@@ -25,9 +25,7 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
   }
 
   static parse(array, owner, property) {
-
     let instance = owner[property.name]
-
     if (!instance) {
       instance = new this(owner, property)
     }
@@ -38,6 +36,12 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
     }
 
     return instance
+  }
+
+  async loadAssociation(context, property, paths) {
+    for (const model of this) {
+      await model[property].load(context, paths)
+    }
   }
 
   toJSON(paths, context) {
@@ -51,6 +55,7 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
   }
 }
 
+BaseArrayAssociation.define()
 
 
 

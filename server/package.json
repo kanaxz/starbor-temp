@@ -11,7 +11,9 @@
   "dependencies": {
     "core": "file:../modules/core/shared",
     "core-server": "file:../modules/core/server",
+    "jwt": "file:../modules/jwt/shared",
     "jwt-server": "file:../modules/jwt/server",
+    "management": "file:../modules/management/shared",
     "management-server": "file:../modules/management/server",
     "modeling": "file:../modules/modeling/shared",
     "modeling-server": "file:../modules/modeling/server",

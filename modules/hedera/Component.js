@@ -30,23 +30,27 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     this.scope = null
   }
 
-  async process(scope) {
-    if (this.processed) {
-      console.warn('Already processed', this)
-      return false
+  async render(scope) {
+    if (this.rendered) {
+      console.warn('Already rendered', this)
+      return null
     }
-    this.processed = true
+    this.rendered = true
     await scope.process(this.el)
     if (await scope.renderVirtuals(this)) {
-      throw new Error('Incompatible')
+      console.warn('Virtual taking control')
+      return
+      //throw new Error('Incompatible')
     }
+    scope.nodes.push(this)
     await this.attach(scope)
-    return true
+    return this
   }
 
   async initialize() {
+    this.scope.type = this.constructor
     await super.initialize()
-    await this.initializeContent()
+    this.initialContent = [...this.childNodes]
     await this.initializeTemplate()
     Promise.resolve(this.onReady())
       .catch((err) => {
@@ -56,29 +60,14 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
 
   onReady() { }
 
-  async initializeContent() {
-    if (this.definition.transclude) {
-      this.transcludeContent = [
-        ...this.childNodes
-      ]
-    } else {
-      await this.scope.renderContent(this)
-    }
-  }
-
   async initializeTemplate() {
-    if (this.definition.template) {
-      this.innerHTML = this.definition.template
+    const definition = this.constructor.definitions.find((d) => d.template)
+    if (definition) {
+      this.innerHTML = definition.template
       await this.scope.renderContent(this)
     }
 
-    if (this.definition.transclude) {
-      const container = this.transclude || this
-      this.transcludeContent.forEach((n) => {
-        container.appendChild(n)
-      })
-      await this.scope.parent.renderContent(container)
-    }
+    await this.scope.renderSlots(this.initialContent, this.scope.parent)
   }
 
   event(name, arg) {
@@ -97,7 +86,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
       }
     }
     super.destroy()
-    console.warn('component destroyed', this)
+    //console.warn('component destroyed', this)
   }
 
 

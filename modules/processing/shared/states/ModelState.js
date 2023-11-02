@@ -12,7 +12,6 @@ module.exports = class ModelState extends State {
     super.validate()
     if (!this.value || !this.filters.length) { return }
     await this.value.load()
-    console.log('validating filters', this.value.toJSON(), JSON.stringify(this.filters, null, ' '))
     const doesMatch = await match(this.root.context, this.value, this.filters)
     if (!doesMatch) {
       this.errors.push('Value is not matching filters')

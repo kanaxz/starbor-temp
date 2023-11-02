@@ -1,0 +1,57 @@
+.object-form {
+  width: 100%;
+
+  > form {
+    > .bottom {
+      display: flex;
+      flex-direction: row;
+
+      width: fit-content;
+      margin-left: auto;
+      margin-right: 0;
+      .submit {
+        display: block;
+      }
+    }
+  }
+
+  &.read {
+    > form {
+      > .bottom {
+        .submit {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.editable.read {
+    > form {
+      > .bottom {
+        .edit {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.editable.edit {
+    > form {
+      > .bottom {
+        .cancel {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.deletable {
+    > form {
+      > .bottom {
+        .delete {
+          display: block;
+        }
+      }
+    }
+  }
+}

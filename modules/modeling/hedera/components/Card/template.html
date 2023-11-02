@@ -1,3 +1,24 @@
-<self :class="'app-card'">
-  {{this.model.@name}}
+<self :class="'model-card'">
+  <header slot="header">
+    {{this.model.@name}}
+  </header>
+  <div class="content" slot>
+
+  </div>
+  <context-menu slot="context-menu">
+    <div :v-if="mixer.is(this.model, Pageable)">
+      <context-menu-item :on-selected="navigator.navigate(this.model.url)">
+        Open
+      </context-menu-item>
+      <context-menu-item :on-selected="console.log(this.model, '_blank')">
+        Open in a new tab
+      </context-menu-item>
+      <context-menu-item :on-selected="navigator.navigate(this.model.url + '/edit')">
+        Edit
+      </context-menu-item>
+    </div>
+    <context-menu-item :v-if="this.model.canDelete()">
+      Delete
+    </context-menu-item>
+  </context-menu>
 </self>

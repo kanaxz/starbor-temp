@@ -11,6 +11,11 @@ const keys = [
   [(e) => e.key === 'Tab' && e.shiftKey, -1],
 ]
 
+const modes = {
+  horizontal: ['ArrowRight', 'ArrowLeft', 'Tab'],
+  vertical: ['ArrowUp', 'ArrowDown', 'Tab']
+}
+
 const initContainer = (virtual, el) => {
 
   const triggers = el.querySelectorAll('[selectable-trigger]')
@@ -37,9 +42,13 @@ const initContainer = (virtual, el) => {
       interact(el)
       return
     }
+    const mode = virtual.mode || 'vertical'
+    if (modes[mode].indexOf(e.key) === -1) { return }
 
     const key = keys.find(([check]) => check(e))
     if (!key) { return }
+
+
 
     e.preventDefault()
     const current = getSelected(el)
@@ -59,7 +68,7 @@ const initContainer = (virtual, el) => {
         select(el, next)
       }
     }
-  })
+  }, true)
 
   const focus = () => {
     const current = getSelected(el)
@@ -97,5 +106,6 @@ module.exports = class Selectable extends Virtual {
   })
   .properties({
     callback: 'any',
+    mode: 'any',
     within: 'any',
   })

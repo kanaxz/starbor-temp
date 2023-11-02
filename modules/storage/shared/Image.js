@@ -8,4 +8,5 @@ module.exports = class Image extends File {
     name: 'image',
   })
   .properties({
+
   })

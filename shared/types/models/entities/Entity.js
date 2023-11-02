@@ -33,6 +33,11 @@ Entity
     }
   })
   .controllers({
+    create:{
+      check(context){
+        return !!context.user
+      }
+    },
     update: {
       logic(context, states, oldValue) {
         console.log(states.parent)

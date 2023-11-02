@@ -18,7 +18,7 @@ module.exports = {
 
     expressApp.use(cookieParser())
     expressApp.use(bodyParser.json())
-    expressApp.use(bodyParser.urlencoded())
+    expressApp.use(bodyParser.urlencoded({ extended: false }))
 
     expressApp.use((req, res, next) => {
       console.log(req.method, req.url, JSON.stringify(req.body, null, ' '))

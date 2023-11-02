@@ -17,7 +17,7 @@ module.exports = {
       model = value
     }
 
-    const type = context.definition.type
+    const type = context.definition.type.getType(context.source.type)
     if (!(model instanceof type)) {
       model = new type(model)
     }

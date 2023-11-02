@@ -4,7 +4,12 @@ const Bool = require('./Bool')
 const Real = require('./Real')
 const NativeObject = Object
 
-module.exports = class Object extends mixer.extends(Real) {
+const setup = require('../setup')
+const Controlleable = require('../controlling/Controlleable')
+const config = setup.object
+
+
+module.exports = class Object extends mixer.extends(Real, [Controlleable, ...config.before]) {
   static equals(o1, o2) {
     if (o1.constructor !== o2.constructor) {
       return false
@@ -24,10 +29,8 @@ module.exports = class Object extends mixer.extends(Real) {
 
   shadowClone() {
     const json = this.toJSON()
-    console.log({ json })
     const shadowClone = new this.constructor()
     NativeObject.assign(shadowClone, json)
-    console.log({ shadowClone })
     return shadowClone
   }
 }

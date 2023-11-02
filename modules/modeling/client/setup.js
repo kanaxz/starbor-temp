@@ -10,9 +10,11 @@ const ArrayHasTransformable = require('./mixins/ArrayHasTransformable')
 
 
 const Controlleable = require('./mixins/Controlleable')
-const { model, arrayAssociation } = modelingSetup
+const { object, model, arrayAssociation } = modelingSetup
 
-model.before.push(Controlleable, Holdable, Holder, Transformable, HasTransformable, SingleInstance)
+
+object.before.push(Controlleable)
+model.before.push(Holdable, Holder, Transformable, HasTransformable, SingleInstance)
 model.after.push(Loadable)
 
 arrayAssociation.before.push(ArrayHolder, Holdable, ArrayHasTransformable)

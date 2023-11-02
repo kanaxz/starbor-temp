@@ -1,7 +1,7 @@
 const setup = require('modeling-hedera/setup')
 const context = require('core-client/context')
 
-setup.routing.actions.jwt = {
+setup.routing.actions.push({
   url: '/jwt',
   content: '<i class="fa-solid fa-key"></i>',
   check(user) {
@@ -10,4 +10,4 @@ setup.routing.actions.jwt = {
   async execute(req, res, next) {
     await res.page(import('./pages/Jwt'))
   }
-}
+})

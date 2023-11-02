@@ -1,4 +1,6 @@
-const { Entity, GameEntity, Folder, Group, FolderAccess, Image, Access } = require('shared/types')
+const { Entity, GameEntity } = require('shared/types')
+const { File, Folder, FolderAccess, Access } = require('storage')
+const { Group } = require('management')
 const setup = require('./setup')
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
         const folder = new Folder({
           group: admins,
           name: gameEntity.name,
-          parent: entitiesFolder,
+          folder: entitiesFolder,
           access: new FolderAccess({
             read: 'parent',
             edit: 'parent',
@@ -23,13 +25,14 @@ module.exports = {
 
         await Folder.collection.create(req, folder)
         gameEntity.folder = folder
-
-        gameEntity.image = await Image.collection.move(req, image, folder, {
-          access: new Access({
-            read: 'parent',
-            edit: 'parent'
+        if (gameEntity.image) {
+          gameEntity.image = await File.collection.move(req, gameEntity.image, folder, {
+            access: new Access({
+              read: 'parent',
+              edit: 'parent'
+            })
           })
-        })
+        }
         await next()
       },
     })

@@ -9,10 +9,16 @@ module.exports = class File extends FileSystemObject {
     name: 'file',
   })
   .properties({
-    type: {
+    mimetype: {
       type: String,
       state: {
-        disabled: true,
+        required: true,
+      }
+    },
+    source: {
+      type: String,
+      state:{
+        required: true
       }
     },
   })

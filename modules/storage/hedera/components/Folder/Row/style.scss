@@ -1,0 +1,17 @@
+folder-row {
+  svg {
+    color: #f1c40f;
+    &.open {
+      display: none;
+    }
+  }
+
+  &.open {
+    svg {
+      display: none;
+      &.open {
+        display: block;
+      }
+    }
+  }
+}

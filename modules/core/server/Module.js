@@ -109,7 +109,7 @@ class Module {
 
   async processModules() {
     for (const module of this.modules) {
-      await module.process()
+      await module.process(true)
     }
   }
 
@@ -124,15 +124,19 @@ class Module {
     }
   }
 
-  async process() {
-    if (this.isProcessed) { return }
-    await this.processIndex()
-    this.isProcessed = true
+  async process(processChilds = false) {
+    if (!this.isProcessed) {
+      await this.processIndex()
+      this.isProcessed = true
 
-    for (const after of this.afters) {
-      await after.process()
+      for (const after of this.afters) {
+        await after.process()
+      }
     }
-    await this.processModules()
+
+    if (processChilds) {
+      await this.processModules()
+    }
   }
 }
 

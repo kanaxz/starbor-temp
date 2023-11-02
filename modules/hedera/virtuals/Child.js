@@ -12,11 +12,19 @@ module.exports = class Child extends Virtual {
   }
 
   async update() {
-    //this.scope.destroyContent(this.el)
-    this.el.innerHTML = ''
+    this.processedOnce = true
+    if (this.processedOnce) {
+      this.scope.destroyContent(this.el)
+      this.el.innerHTML = ''
+    }
+    this.processedOnce = true
     if (!this.node) { return }
     this.el.appendChild(this.node)
     await this.scope.renderContent(this.el)
+  }
+
+  preventRender(){
+    return true
   }
 }
   .define({
@@ -25,4 +33,3 @@ module.exports = class Child extends Virtual {
   .properties({
     node: 'any',
   })
-  .takeControl()

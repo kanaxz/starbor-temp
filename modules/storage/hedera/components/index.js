@@ -1,2 +1,3 @@
-require('./FileSelector')
-require('./FileCard')
+require('./File')
+require('./Folder')
+require('./Image')

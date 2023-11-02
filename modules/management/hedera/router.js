@@ -1,6 +1,5 @@
 const Router = require('hedera/routing/routers/Router')
 const context = require('core-client/context')
-const profileRouter = require('./profileRouter')
 const { auth } = require('hedera/global')
 
 const router = new Router()
@@ -24,7 +23,5 @@ router.route('/logout', (req, res) => {
   auth.logout()
   return res.navigate('/')
 })
-
-router.use(profileRouter)
 
 module.exports = router

@@ -11,7 +11,7 @@ module.exports = class Root extends Layout {
 
   async start(variables) {
     const scope = new Scope({ source: this, variables })
-    await this.process(scope)
+    await this.render(scope)
   }
 
   async loadLayouts(req, layouts) {
@@ -30,7 +30,6 @@ module.exports = class Root extends Layout {
         layoutType = layoutType.default
       }
       if (!(current.content instanceof layoutType)) {
-        console.log({layoutType})
         const layout = new layoutType()
         Object.assign(layout, args)
         await current.setContent(layout)

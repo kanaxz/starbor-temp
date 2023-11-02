@@ -56,10 +56,11 @@ module.exports = class For extends Virtual {
   }
 
   async onSourceChanged() {
+    //console.warn('source changed', this.el)
     this.reset()
     this.iterations = []
     if (!this.source) { return }
-
+    
     const handler = handlers.find((handler) => handler.handle(this.source))
     if (handler) {
       this.handler = new handler(this)
@@ -69,8 +70,12 @@ module.exports = class For extends Virtual {
     for (let i = 0; i < this.source.length; i++) {
       const it = this.iteration(this.source[i], i)
       this.el.appendChild(it.element)
-      await it.scope.render(it.element)
+      it.element = await it.scope.render(it.element)
     }
+  }
+
+  preventRender(){
+    return true
   }
 
   destroy(){
@@ -81,7 +86,6 @@ module.exports = class For extends Virtual {
   .define({
     name: 'for'
   })
-  .takeControl()
   .properties({
     source: 'any',
     name: 'any',

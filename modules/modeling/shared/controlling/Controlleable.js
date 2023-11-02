@@ -9,6 +9,19 @@ module.exports = mixer.mixin((base) => {
       return this
     }
 
+    static async canCreate(context) {
+      for (const controller of this.controllers) {
+        const check = controller.create?.check
+        if (check) {   
+          const result = await check.call(this, context)
+          if (!result) {
+            return false
+          }
+        }
+      }
+      return true
+    }
+
     async canUpdate(context) {
       for (const controller of this.constructor.controllers) {
         if (controller.update?.check) {

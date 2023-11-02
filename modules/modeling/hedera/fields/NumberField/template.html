@@ -1,4 +1,4 @@
-<field-wrapper :field="this">
+<super>
   <input 
     :name="this.state.property.name"
     type="number"
@@ -6,4 +6,4 @@
     :step="this.state.@step || 1" 
     :on-change="this.setValue(parseFloat(node.value))">
   </input>
-</field-wrapper>
+</super>

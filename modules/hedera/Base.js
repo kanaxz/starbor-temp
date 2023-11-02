@@ -6,8 +6,6 @@ const Scope = require("./Scope")
 const { base } = require('./setup')
 const Destroyable = require('core/mixins/Destroyable')
 
-console.log({ base })
-
 const Base = mixer.mixin([Destroyable, Bindeable, Propertiable, Listening], (base) => {
   return class Base extends base {
 
@@ -51,7 +49,9 @@ const Base = mixer.mixin([Destroyable, Bindeable, Propertiable, Listening], (bas
     }
 
     destroy() {
-      this.scope.destroy()
+      if(this.scope){
+        this.scope.destroy()
+      }
       super.destroy()
     }
 
@@ -59,7 +59,6 @@ const Base = mixer.mixin([Destroyable, Bindeable, Propertiable, Listening], (bas
 
 })
   .define()
-
 
 
 module.exports = mixer.mixin([Base, ...base], (base) => class extends base { })

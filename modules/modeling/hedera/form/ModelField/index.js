@@ -33,7 +33,7 @@ module.exports = class ModelField extends Field {
   }
 
   async onFocus() {
-    await this.search('')
+    await this.search()
   }
 
   templateSuggestion(suggestion) {
@@ -42,7 +42,10 @@ module.exports = class ModelField extends Field {
     return new componentType(suggestion)
   }
 
-  async search(value) {
+  async search() {
+    const value = this.input.value
+    if (value == this.lastValue) { return }
+    this.lastValue = value
     const type = this.state.property.type
     const searchField = type.definition.searchField || 'name'
     this.suggestions = await type.collection.find([
@@ -51,7 +54,6 @@ module.exports = class ModelField extends Field {
         $match: [`$${searchField}`, value]
       }
     ], {
-
       limit: 3,
     })
     this.suggestionsOpen = true
@@ -61,7 +63,7 @@ module.exports = class ModelField extends Field {
     this.mode = 'create'
     const form = new ChildModelForm({
       type: this.state.type,
-      model: null,
+      object: null,
       label: this.label,
     })
 
@@ -73,11 +75,6 @@ module.exports = class ModelField extends Field {
 
   onSaved({ model }) {
     this.setValue(model)
-  }
-
-  template(model) {
-    const componentType = componentsService.get(model.constructor, 'card')
-    return new componentType(model)
   }
 }
   .define({

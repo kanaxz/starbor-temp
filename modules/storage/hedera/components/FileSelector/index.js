@@ -1,7 +1,6 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const { FileSystemObject } = require('storage')
-const componentsService = require('modeling-hedera/componentsService')
+const FileSystemObject = require('storage/FileSystemObject')
 require('./style.scss')
 
 
@@ -10,11 +9,6 @@ module.exports = class FileSelector extends Component {
   constructor() {
     super()
     this.listen(this, 'focus', this.onFocus)
-  }
-
-  template(object) {
-    const type = componentsService.get(object.constructor, 'card')
-    return new type(object)
   }
 
   onFocus() {
@@ -48,7 +42,6 @@ module.exports = class FileSelector extends Component {
     }], {
       type: this.type.definition.name,
     })
-    console.log('finished search', this.objects)
   }
 
 }

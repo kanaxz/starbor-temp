@@ -1,0 +1,23 @@
+folder-card {
+  .content{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  svg {
+    color: #f1c40f;
+    font-size: 85px;
+    &.open {
+      display: none;
+    }
+  }
+
+  &.open {
+    svg {
+      display: none;
+      &.open {
+        display: block;
+      }
+    }
+  }
+}

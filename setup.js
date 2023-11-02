@@ -7,13 +7,11 @@ const processed = []
 const filePrefix = 'file:'
 
 const processFolder = (path) => {
-  if (processed.indexOf(path) !== -1) {
-    return
-  }
+  if (processed.indexOf(path) !== -1) { return }
+
   const packagePath = join(path, 'package.json')
   const hasPackage = fs.existsSync(packagePath)
   if (!hasPackage) { return }
-  
 
   const package = require(packagePath)
   const dependencies = [package.dependencies, package.devDependencies]

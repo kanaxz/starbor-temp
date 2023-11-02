@@ -9,9 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core": "file:../../core",
+    "core": "file:../../core/shared",
     "core-server": "file:../../core/server",
     "express-fileupload": "^1.4.1",
+    "mmmagic": "^0.5.3",
     "mongo": "file:../../mongo",
     "storage": "file:../shared"
   }

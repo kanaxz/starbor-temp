@@ -1,6 +1,7 @@
-.app-row {
+.model-row {
   cursor: pointer;
   padding: 7px;
+  padding-left: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,14 +13,25 @@
   text-transform: uppercase;
   height: 30px;
 
+  border-left: 5px solid transparent;
+
+  &.focus {
+    border-left-color: aquamarine;
+  }
+
   &.selected,
   &:hover {
     background-color: aquamarine;
   }
 
-  img, svg {
-    height: 100%;
+  img,
+  svg,
+  .icon {
     margin-right: 7px;
+  }
+
+  img,svg{
+    height: 100%;
   }
 
   label {

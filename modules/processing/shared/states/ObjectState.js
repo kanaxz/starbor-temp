@@ -28,7 +28,17 @@ class ObjectState extends State {
 
   onValueChanged() {
     if (!this.value) { return }
-    this.value.on('propertyChanged', this.b(this.onChildValueChanged))
+    this.on(this.value, 'propertyChanged', this.b(this.onChildValueChanged))
+  }
+
+  reset() {
+    super.reset()
+
+    Object.values(this.states).forEach((s) => {
+      s.reset()
+      const state = getState({ property: this.property }, s.property)
+      Object.assign(s, state)
+    })
   }
 
   async onChildValueChanged(property, value) {
@@ -48,13 +58,10 @@ class ObjectState extends State {
       })
       .reduce((acc, property) => {
         const stateType = getStateType(property.type)
-        const state = getState({ property: this.property }, property)
-        
         acc[property.name] = new stateType({
           objectState: this,
           property,
           root: this.root || this,
-          ...state,
         })
         return acc
       }, {})
@@ -78,9 +85,7 @@ class ObjectState extends State {
     return null
   }
 
-  reset() {
-    Object.values(this.states).forEach((s) => s.reset())
-  }
+
 }
 ObjectState
   .define()

@@ -1,0 +1,18 @@
+<self :class="`object-form ${this.@mode} ${this.@editable ? 'editable' : ''}  ${this.@deletable && this.model ? 'deletable' : ''}`">
+  <form :on-submit="this.onSubmit(event)">
+    <object-fieldset 
+      as="fieldset" 
+      :child-form="this"
+      :form="this.@form"
+      :state="this.state"
+      :on-changed="this.onFieldsetChanged()">
+    </object-fieldset>
+    <div class="bottom" slot="bottom">
+      <button 
+        class="submit" 
+        type="submit">
+          Save
+      </button>
+    </div>
+  </form>
+</self>   

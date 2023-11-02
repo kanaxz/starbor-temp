@@ -2,54 +2,45 @@ const Component = require('hedera/Component')
 const template = require('./template.html')
 const context = require('core-client/context')
 const RootModelState = require('processing/states/RootModelState')
+const ObjectForm = require('../ObjectForm')
 require('./style.scss')
 
-module.exports = class ChildModelForm extends Component {
-  constructor(values = {}) {
-    super()
-    Object.assign(this, values)
-  }
+const applyStates = (targetStates, statesPatch) => {
+  Object.entries(statesPatch)
+    .forEach(([k, patch]) => {
+      const target = targetStates[k]
+      Object.assign(target, patch)
+      if (patch.states) {
+        applyStates(target.states, patch.states)
+      }
+    })
+}
 
-  async onInit() {
-    let value
-    if (!this.model) {
-      value = new this.type()
-    } else {
-      value = this.model.shadowClone()
-    }
+const propagate = (state, patch) => {
+  Object.values(state.states)
+    .forEach((childState) => {
+      Object.assign(childState, patch)
+      if (childState.states) {
+        propagate(childState, patch)
+      }
+    })
+}
 
-    console.log({ value })
-    this.state = new RootModelState({
+module.exports = class ChildModelForm extends ObjectForm {
+
+  buildState(value) {
+    return new RootModelState({
       property: {
         type: value.constructor,
       },
       value,
+      isEdit: !!this.model,
       required: true,
-      context
+      context,
     })
-
-    console.log(this.state)
-
-    await this.updateStates()
   }
 
-  handleFieldError() {
-    const state = this.state.findFirstStateWithError()
-    if (!state) { return false }
-
-    const field = this.fieldset.fields[state.property.name]
-    field.focus()
-    field.scrollTo()
-    return true
-  }
-
-  async onSubmit(e) {
-    e.preventDefault()
-    await this.updateAndImportState()
-    this.fieldset.showErrors()
-    if (this.handleFieldError()) { return }
-
-    const value = this.state.value
+  async onSubmitSuccess(value) {
     try {
       let model
       if (this.model) {
@@ -72,36 +63,21 @@ module.exports = class ChildModelForm extends Component {
 
   isCreate() { return !this.model }
 
-  async updateAndImportState() {
-    await this.updateStates()
-    
-  }
-
   async updateStates() {
-    this.state.reset()
-    for (const controller of this.state.value.constructor.controllers) {
-      const isCreate = this.isCreate()
-      const logic = isCreate ? controller.create?.logic : controller.update?.logic
-      if (logic) {
-        await logic(context, this.state.states, this.state.value)
-      }
-    }
+    await this.state.applyLogics()
 
+    if (this.states) {
+      applyStates(this.state.states, this.states)
+    }
     await this.state.validate()
   }
 
   async onFieldsetChanged() {
-    await this.updateAndImportState()
+    await this.updateStates()
   }
 }
   .define({
     name: 'child-model-form',
     template,
   })
-  .properties({
-    model: 'any',
-    type: 'any',
-    clone: 'any',
-  })
-
 

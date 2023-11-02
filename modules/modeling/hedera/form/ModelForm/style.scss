@@ -1,10 +1,30 @@
 model-form {
   width: 100%;
+  &.disable-nested {
+    .breadcrumb {
+      display: none;
+    }
+  }
   .breadcrumb {
-    label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    div {
+      label {
+        display: inline-block;
+        background-color: rgba(#e1e1e1, 0.5);
+        cursor: pointer;
+        padding: 5px;
+        &:hover {
+          background-color: aquamarine;
+        }
+      }
       &:not(:last-child) {
         &::after {
+          font-size: 22px;
+          font-weight: bold;
           content: ">";
+          margin: 5px;
         }
       }
     }

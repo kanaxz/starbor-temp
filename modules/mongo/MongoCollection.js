@@ -184,7 +184,10 @@ module.exports = class MongoCollection {
       model = this.type.parse(modelJson)
     }
     model._id = nanoid()
-    await validate(req, model.constructor, 'create', model)
+    if (!await model.constructor.canCreate(req)) {
+      throw new Error(`Cannot create ${model.constructor.definition.name}`)
+    }
+    await validate(req, model.constructor, false, model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.create) {
@@ -206,7 +209,7 @@ module.exports = class MongoCollection {
     if (editModel.constructor !== model.constructor) {
       throw new Error('Type not matching')
     }
-    await validate(req, model.constructor, 'update', editModel, model)
+    await validate(req, model.constructor, true, editModel, model)
     const controllers = this.getTypeControllers(model.constructor)
     await chain(controllers, async (controller, next) => {
       if (!controller.update) {
@@ -243,11 +246,13 @@ module.exports = class MongoCollection {
     }
     const [existingModel] = await this.find(req, query, { limit: 1, type })
     if (existingModel) {
+      console.log('doing update')
       const result = await this.innerUpdate(req, existingModel, {
         $set: modelJson
       })
       return result
     } else {
+      console.log('doing created')
       const result = await this.create(req, modelJson)
       return result
     }

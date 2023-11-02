@@ -15,6 +15,10 @@ module.exports = async (bootup, services) => {
       })
       await organization.load()
     }
+    let image
+    if (json.thumbnail) {
+      image = await services.collections.storage.uploadUrl(json.thumbnail.source)
+    }
     return {
       code: codify(name),
       starmap: new Starmap({
@@ -25,9 +29,10 @@ module.exports = async (bootup, services) => {
       }),
       organization,
       name,
+      wiki: json.description || name,
       designation: json.designation,
       description: json.description,
-      image: json.thumbnail?.source,
+      image,
       parent,
     }
   }
@@ -39,7 +44,7 @@ module.exports = async (bootup, services) => {
       isStar = true
     }
     for (const celestialObject of celestialObjects) {
-      
+
       console.log(
         celestialObject.id,
         celestialObject.code,
@@ -84,6 +89,7 @@ module.exports = async (bootup, services) => {
     const entity = await buildFromJson(json)
     const system = await types.system.process(entity, json)
     systems.push({ system, json })
+    process.exit()
   }
   console.log('STARTING CELESTIAL OBJECTS')
   return

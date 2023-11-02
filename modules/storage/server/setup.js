@@ -25,7 +25,7 @@ module.exports = async (req) => {
   if (!upload) {
     upload = await Folder.collection.create(req, {
       '@type': 'folder',
-      parent: storageFolder,
+      folder: storageFolder,
       group: req.adminGroup,
       name: uploadName,
       path: uploadPath,

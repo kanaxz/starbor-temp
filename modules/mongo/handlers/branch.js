@@ -7,14 +7,14 @@ module.exports = {
   getType: (type) => type.template,
   load(property, pipeline) {
     const type = property.type.definition.template
-    const collectionName = type.definition.pluralName
+    const { pluralName } = type.definitions.find((d) => d.pluralName)
     const on = `${property.on}._id`
-    const tempId = makeId()
+    const tempId = `var${makeId()}`
     const propertyName = property.name
     return [
       {
         $graphLookup: {
-          from: collectionName,
+          from: pluralName,
           as: property.name,
           startWith: `$${on}`,
           connectFromField: on,

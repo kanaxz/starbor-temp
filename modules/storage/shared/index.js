@@ -1,6 +1,7 @@
 const Folder = require('./Folder')
 const FileSystemObject = require('./FileSystemObject')
 const { Branch } = require('modeling/types')
+const HasMany = require('modeling/types/HasMany')
 
 FileSystemObject.properties({
   folder: {
@@ -11,14 +12,21 @@ FileSystemObject.properties({
   },
   branch: {
     type: Branch.of(Folder),
-    on: 'parent',
+    on: 'folder',
+  }
+})
+
+Folder.properties({
+  children: {
+    type: HasMany.of(FileSystemObject),
+    on: 'folder',
   }
 })
 
 module.exports = {
   File: require('./File'),
   Folder,
-  Image: require('./Image'),
   FileSystemObject,
-  ...require('./access')
+  ...require('./access'),
+  Image:require('./Image')
 }

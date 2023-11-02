@@ -17,6 +17,10 @@ const get = (type) => {
   return result
 }
 
+const getParent = (type)=>{
+  return type.prototype.__proto__.constructor
+}
+
 const filter = (type, fn) => {
   const result = []
   forEach(type, (parent) => {
@@ -45,4 +49,5 @@ module.exports = {
   forEach,
   filter,
   find,
+  getParent,
 }

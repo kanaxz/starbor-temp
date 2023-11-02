@@ -4,8 +4,8 @@ const exp = require('express')
 const { encryptPassword, matchPassword } = require('../utils')
 
 module.exports = {
-  name: null,
-  after: 'express',
+  name: 'auth-routes',
+  after: 'sessions',
   dependancies: ['sessions', 'express', 'mongo', 'processing'],
   async construct({ sessions, express, mongo, processing }) {
     const { collections } = processing

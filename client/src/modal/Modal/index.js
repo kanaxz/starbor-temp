@@ -25,7 +25,6 @@ module.exports = class Modal extends Component {
   .define({
     name: "mo-dal",
     template,
-    transclude: true,
   })
   .properties({
     title: 'any',

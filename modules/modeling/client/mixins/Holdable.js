@@ -60,13 +60,14 @@ const loop = () => {
   circulars = []
   instances
     .filter(shouldDestroy)
-    .forEach((i) => i.released())
+    .forEach((i) => {
+      i.destroy()
+    })
   setTimeout(loop, HOLD_DURATION / 3 * 1000)
 }
 
-module.exports = mixer.mixin([Destroyable], (base) => {
+const mixin = mixer.mixin([Destroyable], (base) => {
   return class Holdable extends base {
-
     constructor(...args) {
       super(...args)
       Object.defineProperty(this, state, {
@@ -112,10 +113,6 @@ module.exports = mixer.mixin([Destroyable], (base) => {
       this[state].lastDate = new Date()
     }
 
-    released(){
-      this.destroy()
-    }
-
     destroy() {
       const index = instances.indexOf(this)
       if (index !== -1) {
@@ -125,5 +122,6 @@ module.exports = mixer.mixin([Destroyable], (base) => {
     }
   }
 })
-
+mixin.state = state
+module.exports = mixin
 loop()

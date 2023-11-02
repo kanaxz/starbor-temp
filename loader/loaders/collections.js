@@ -1,10 +1,17 @@
 const config = require('../config')
-const { buildCollections } = require('../../modules/processing/client')
+const { buildCollections } = require('processing-client')
 module.exports = (services) => {
   let tokenInfos = null
   const headersBuilder = async () => {
-    if (!tokenInfos || tokenInfos.expireDate < new Date()) {
-      tokenInfos = await fetch(`${config.server}/jwt-token`, config.jwt)
+    if (!tokenInfos || moment(tokenInfos.expireDate).toDate() < new Date()) {
+      const res = await fetch(`${config.server}/jwt-token`, {
+        method: 'POST',
+        body: JSON.stringify(config.jwt),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      tokenInfos = await res.json()
     }
 
     return {

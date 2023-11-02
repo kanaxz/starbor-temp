@@ -57,8 +57,6 @@ const buildLookup = async (scope, property, paths) => {
   if(type.prototype instanceof Array){
     type = type.definition.template
   }
-  console.log('type___', type.definition.name, property.name)
-  console.log('handler', handler.for.definition.name)
   let subPipeline = []
   const query = {}
   const controllers = await findController(scope, type, subPipeline, query)
@@ -110,7 +108,6 @@ const processQuery = async (parentScope, type, query, options) => {
     options.load = {}
   }
   const { load, unload } = merge(scope.root.paths, options.load)
-  console.log({ load, unload }, options.load, scope.root.paths)
   const loadLookups = await buildLookups(scope, type, load)
   const lookupsPipeline = loadLookups.flatMap(({ pipeline }) => pipeline)
   pipeline.push(

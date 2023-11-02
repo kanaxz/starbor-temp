@@ -5,6 +5,7 @@ const Holdable = require('./Holdable')
 module.exports = mixer.mixin([Propertiable], (base) => {
   return class Holder extends base {
     propertyChanged(property, value, oldValue) {
+
       if (oldValue && mixer.is(oldValue, Holdable)) {
         oldValue.release(this)
       }

@@ -10,7 +10,6 @@ module.exports = class RootRoute extends Router {
     res.layouts = []
     const self = this
     res.page = async function (pageImport, ...args) {
-      console.log('page', this.layouts, ...args)
       await self.root.setPage(this.req, this.layouts, pageImport, args)
     }
 

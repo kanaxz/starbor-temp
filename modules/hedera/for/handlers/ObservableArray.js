@@ -3,7 +3,9 @@ const Bindeable = require('core/mixins/Bindeable')
 
 const Array = require('core/types/Array')
 const Eventable = require('core/mixins/Eventable')
+const Destroyable = require('core/mixins/Destroyable')
 
+let id = 0
 module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, Eventable]) {
   static handle(source) {
     return source instanceof Array
@@ -11,6 +13,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
 
   constructor(repeater) {
     super()
+    this.id = id++
     this.repeater = repeater
     this.source = this.repeater.source
     this.on(this.source, 'indexDeleted', this.b(this.onIndexDeleted))
@@ -27,6 +30,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
   }
 
   onIndexDeleted(index) {
+    console.log('index deleted', this.repeater, index)
     this.modifs.push({
       type: 'delete',
       index,
@@ -35,6 +39,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
   }
 
   onIndexSet(index, newValue, oldValue) {
+    console.log('index set', this.repeater, newValue)
     this.modifs.push({
       type: 'set',
       oldValue,
@@ -74,6 +79,8 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
   }
 
   async processModifications() {
+    // with the setTimeout, we might already be destroyed  
+    if (this[Destroyable.symbol]) { return }
     this.timeout = null
     const modifs = [...this.modifs]
     this.modifs = []
@@ -96,7 +103,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
         } else {
           const itToInsert = this.repeater.iteration(modif.newValue, modif.index)
           this.insertIt(itToInsert)
-          await itToInsert.scope.render(itToInsert.element)
+          itToInsert.element = await itToInsert.scope.render(itToInsert.element)
         }
       }
     }

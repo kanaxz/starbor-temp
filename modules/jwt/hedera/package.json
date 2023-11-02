@@ -11,6 +11,7 @@
   "dependencies": {
     "core-client": "file:../../core/client",
     "hedera": "file:../../hedera",
+    "jwt": "file:../shared",
     "modeling-hedera": "file:../../modeling/hedera"
   }
 }

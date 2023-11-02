@@ -1,7 +1,9 @@
 const mixer = require('../mixer')
+const Bindeable = require('../mixins/Bindeable')
+const Destroyable = require('../mixins/Destroyable')
 const Eventable = require('../mixins/Eventable')
 
-module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable]) {
+module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable, Destroyable, Bindeable]) {
   constructor(...args) {
     super(...args)
 
@@ -61,5 +63,37 @@ module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable
       return true
     } else
       return false
+  }
+
+  onLinkUpdated() {
+    if (this.linkTimeout) {
+      clearTimeout(this.linkTimeout)
+    }
+    this.linkTimeout = setTimeout(() => {
+      const { source, fn, args } = this.linkOptions
+      while (this.length) {
+        this.splice(0, 1)
+      }
+      const result = source[fn](...args)
+      this.push(...result)
+    })
+  }
+
+  link(source, fn, ...args) {
+    this.linkOptions = {
+      source,
+      fn,
+      args,
+    }
+    this.on(source, 'indexSet', this.b(this.onLinkUpdated))
+    this.on(source, 'indexDeleted', this.b(this.onLinkUpdated))
+  }
+
+  filterLink(fn) {
+    const array = new IntermediateArray()
+    array.link(this, 'filter', fn)
+    const result = this.filter(fn)
+    array.push(...result)
+    return array
   }
 }

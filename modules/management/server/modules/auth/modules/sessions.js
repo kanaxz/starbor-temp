@@ -6,6 +6,7 @@ const TOKEN_KEY = 'sessionToken'
 const TOKEN_AGE = 30
 module.exports = {
   dependancies: ['express', 'mongo'],
+  after: 'express',
   async construct({ express, mongo }) {
     const collection = mongo.db.collection('sessions')
     const userCollection = mongo.db.collection('users')
@@ -38,7 +39,6 @@ module.exports = {
       delete user.password
       req.user = User.parse(user)
     }
-
     express.use(async (req, res, next) => {
       try {
         await processCookie(req)

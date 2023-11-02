@@ -29,6 +29,7 @@ module.exports = class FileSystemObject extends Model {
       type: User,
       state: {
         disabled: true,
+        required: true,
       }
     },
     group: {
@@ -50,6 +51,9 @@ module.exports = class FileSystemObject extends Model {
   })
   .controllers({
     create: {
+      check(context) {
+        return !!context.user
+      },
       logic(context, states) {
         if (Object.values(states.access).some((v) => v === 'group')) {
           states.group.required = true

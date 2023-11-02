@@ -4,7 +4,7 @@ const { dashToCamel } = require('../utils')
 const virtuals = []
 
 workers.push({
-  process(node, variables) {
+  process(scope, node, variables) {
     if (!node.attributes) { return }
     [...node.attributes]
       .filter((attr) => attr.name.startsWith(':v-'))

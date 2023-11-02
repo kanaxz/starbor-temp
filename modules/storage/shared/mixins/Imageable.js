@@ -1,7 +1,6 @@
 const mixer = require('core/mixer')
-const Image = require('../Image')
-const Folderable = require('./Folderable')
 const Propertiable = require('core/mixins/Propertiable')
+const Image = require('../Image')
 module.exports = mixer.mixin([Propertiable], (base) => {
   return class Imageable extends base {
 
@@ -11,10 +10,6 @@ module.exports = mixer.mixin([Propertiable], (base) => {
   .properties({
     image: {
       type: Image,
-      state: {
-        required: true,
-      }
     },
-
   })
 

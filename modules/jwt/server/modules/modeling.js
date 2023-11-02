@@ -1,7 +1,7 @@
 const Jwt = require('jwt/Jwt')
 const crypto = require('crypto')
 const { encryptPassword } = require('management-server/modules/auth/utils')
-
+const { makeId } = require('core/utils/string')
 module.exports = {
   name: 'jwt-modeling',
   dependancies: ['modeling', 'management', 'express'],
@@ -11,10 +11,11 @@ module.exports = {
         if (!req.user) {
           throw new Error('Cannot access')
         }
+
         query = [{
           $and: [
             {
-              $eq: ['$user', req.user]
+              $eq: ['$user', req.user.getIndex('id')]
             },
             ...query
           ]
@@ -23,14 +24,16 @@ module.exports = {
         pipeline.unshift({
           $unset: ['key']
         })
-
         return next(query)
       },
       async create(req, jwt, next) {
         const keyHex = crypto.randomBytes(64).toString('hex')
         const key = await encryptPassword(keyHex)
+        console.log({ keyHex, key })
+        const id = makeId()
         Object.assign(jwt, {
           user: req.user,
+          id,
           key
         })
         await next()

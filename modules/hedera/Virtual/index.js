@@ -11,19 +11,14 @@ module.exports = class Virtual extends mixer.extends([Base]) {
     return super.define(definition)
   }
 
-  static takeControl() {
-    this.doesTakeControl = true
-    return this
+
+  preventRender() {
+    return false
   }
 
   attach(scope) {
     super.attach(scope)
-    return this.constructor.doesTakeControl
-  }
-
-  destroy() {
-    console.warn('virtual destroyed', this)
-    super.destroy()
+    return this.preventRender()
   }
 
   constructor(el) {

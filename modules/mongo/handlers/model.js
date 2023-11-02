@@ -36,12 +36,12 @@ module.exports = {
   },
   getType: (type) => type,
   load(property, pipeline) {
-    const collectionName = property.type.definition.pluralName
+    const { pluralName } = property.type.definitions.find((d) => d.pluralName)
     const name = property.name
-    const id = makeId()
+    const id = `var${makeId()}`
     return [{
       $lookup: {
-        from: collectionName,
+        from: pluralName,
         as: name,
         let: { [id]: `$${name}` },
         pipeline: [

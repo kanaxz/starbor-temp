@@ -24,10 +24,32 @@ const createFunction = (stringFunction, variables = {}) => {
 
 const dashToCamel = (string) => string.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
 
+const attributes = {
+  class(node, value) {
+    value.split(' ').forEach((cssClass) => {
+      node.classList.add(cssClass)
+    })
+  },
+}
+
+const moveAttributes = (from, to) => {
+  [...from.attributes]
+    .forEach((attr) => {
+      from.removeAttribute(attr.name)
+      const attrType = attributes[attr.name]
+      if (attrType) {
+        attrType(from, attr.value)
+      } else {
+        to.setAttribute(attr.name, attr.nodeValue)
+      }
+
+    })
+}
 
 module.exports = {
   dashToCamel,
   createFunction,
   isCustomElement,
-  template: require('./template')
+  template: require('./template'),
+  moveAttributes
 }

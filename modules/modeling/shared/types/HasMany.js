@@ -1,7 +1,7 @@
 const mixer = require('core/mixer')
 const ArrayAssociation = require('./ArrayAssociation')
 
-module.exports = class HasMany extends mixer.extends(ArrayAssociation) {
+module.exports = class HasMany extends ArrayAssociation {
 
   async innerLoad(context, paths = {}) {
     await this.owner.load(context)

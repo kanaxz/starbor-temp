@@ -10,6 +10,6 @@ module.exports = class Row extends ModelComponent {
 }
   .define({
     name: 'model-row',
+    type: 'row',
     template
   })
-  .register(Model, 'row')

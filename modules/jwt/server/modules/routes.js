@@ -3,6 +3,8 @@ const { tokenDuration } = require('../utils')
 const moment = require('moment')
 const { handleError } = require('core-server/errors')
 const { matchPassword } = require('management-server/modules/auth/utils')
+const crypto = require('crypto')
+const User = require('management/User')
 
 module.exports = {
   name: 'jwt-routes',
@@ -20,6 +22,7 @@ module.exports = {
           next()
           return
         }
+
         const { authorization } = req.headers
         const [, token] = authorization?.split(' ') || []
         if (token == null) {
@@ -33,24 +36,25 @@ module.exports = {
 
         if (!tokenInfos) { throw new Error('Invalid token') }
 
-        const userId = await jwt.verify(token, tokenInfos.secret)
+        const { userId } = await jsonwebtoken.verify(token, tokenInfos.secret)
 
         const user = await users.findOne({
           _id: userId,
         })
-        req.user = user
+        req.user = User.parse(user)
         next()
       } catch (err) {
-        handleError(err)
+        handleError(res, err)
       }
     })
 
-    express.route('/jwt-token', async (req, res, next) => {
+    express.post('/jwt-token', async (req, res, next) => {
       try {
         const { id, key } = req.body
         const jwt = await jwts.findOne({
           id,
         })
+
         if (!jwt) {
           throw new Error('Jwt not found')
         }
@@ -58,9 +62,9 @@ module.exports = {
         if (!await matchPassword(key, jwt.key)) {
           throw new Error('Jwt not found')
         }
-        const expireDate = moment().add(tokenDuration, 'seconds')
+        const expireDate = moment().add(tokenDuration - 60, 'seconds')
         const secret = crypto.randomBytes(64).toString('hex')
-        const token = jsonwebtoken.sign(jwt.user._id, secret, { expiresIn: `${tokenDuration}s` })
+        const token = jsonwebtoken.sign({ userId: jwt.user._id }, secret, { expiresIn: tokenDuration })
         const tokenInfos = {
           expireDate,
           token,
@@ -72,7 +76,7 @@ module.exports = {
         })
         res.json(tokenInfos)
       } catch (err) {
-        handleError(err)
+        handleError(res, err)
       }
     })
   }

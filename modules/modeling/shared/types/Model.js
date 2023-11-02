@@ -4,12 +4,11 @@ const Loadable = require('../mixins/Loadable')
 const Bool = require('./Bool')
 const Indexable = require('../mixins/Indexable')
 const String = require('./String')
-const Controlleable = require('../controlling/Controlleable')
 const setup = require('../setup')
 const This = require('./This')
 const config = setup.model
 
-class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Indexable, ...config.before]) {
+class BaseModel extends mixer.extends(ObjectType, [Loadable, Indexable, ...config.before]) {
 
   static async buildAndLoad(values){
     const model = this.parse(values)
@@ -64,6 +63,8 @@ class BaseModel extends mixer.extends(ObjectType, [Controlleable, Loadable, Inde
     return this._id
   }
 }
+
+BaseModel.define()
 
 class Model extends mixer.extends(BaseModel, config.after) {
 
