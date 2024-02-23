@@ -1,19 +1,35 @@
 const mixer = require('core/mixer')
 const ObjectType = require('./Object')
 const Loadable = require('../mixins/Loadable')
-const Bool = require('./Bool')
-const Indexable = require('../mixins/Indexable')
-const String = require('./String')
 const setup = require('../setup')
-const This = require('./This')
+const ModelMixin = require('./ModelMixin')
+const { objectToFilter } = require('../processing/utils')
 const config = setup.model
 
-class BaseModel extends mixer.extends(ObjectType, [Loadable, Indexable, ...config.before]) {
+class BaseModel extends mixer.extends(ObjectType, [ModelMixin, Loadable, ...config.before]) {
 
-  static async buildAndLoad(values){
-    const model = this.parse(values)
-    await model.load()
-    return model
+  setPathsState(state, paths, err) {
+    for (const [propertyName, value] of Object.entries(paths)) {
+      if (value && this[propertyName]) {
+        this[propertyName].setState(state, value, err)
+      }
+    }
+  }
+
+  handleLoadResult(model) {
+    if(model){
+      Object.assign(this, model)
+    } else {
+      console.warn(`Model ${this.constructor.definition.name} not found`, this._id)
+    }
+  }
+
+  async loadAssociation(context, propertyName, paths) {
+    if (!this[propertyName]) {
+      return
+    }
+
+    await this[propertyName].load(context, paths)
   }
 
   async innerLoad(context, paths) {
@@ -23,20 +39,15 @@ class BaseModel extends mixer.extends(ObjectType, [Loadable, Indexable, ...confi
       throw new Error('Could not load')
     }
 
-    const [result] = await this.constructor.collection.find(context, [
-      index
-    ], {
-      type: this.constructor.definition.name,
-      limit: 1,
-      load: paths,
-    })
+    const result = await this.constructor.collection.findOne(
+      context,
+      objectToFilter(index)
+      , {
+        type: this.constructor.definition.name,
+        load: paths,
+      })
 
-    if (!result) {
-      throw new Error(`Could not load ${this.constructor.definition.name} with index ${JSON.stringify(index)} `)
-      this.transform(null)
-      return
-    }
-    Object.assign(this, result)
+    return this.handleLoadResult(result)
   }
 
   // we do nothing ..
@@ -66,7 +77,7 @@ class BaseModel extends mixer.extends(ObjectType, [Loadable, Indexable, ...confi
 
 BaseModel.define()
 
-class Model extends mixer.extends(BaseModel, config.after) {
+class Model extends mixer.extends(BaseModel, [ModelMixin, ...config.after]) {
 
 }
 
@@ -74,22 +85,4 @@ module.exports = Model
   .define({
     name: 'model',
     abstract: true,
-  })
-  .indexes({
-    id: {
-      properties: ['_id'],
-      unique: true,
-      build: false,
-    }
-  })
-  .properties({
-    _id: {
-      type: String,
-      state: {
-        disabled: true,
-      }
-    },
-  })
-  .methods({
-    eq: [[This], Bool]
   })

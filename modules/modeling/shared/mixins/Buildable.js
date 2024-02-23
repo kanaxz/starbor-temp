@@ -14,36 +14,35 @@ const Buildable = mixer.mixin([Destroyable, Propertiable, Equalable], (base) => 
       // disable the possibility to assign @type on buildables
       // we don't want to throw an error
       Object.defineProperty(this, '@type', { get() { }, set() { } })
-      this.constructor.properties.forEach((property) => {
-        let value = values[property.name]
-
-        if (value === undefined) {
-          value = null
-        }
-        this[property.name] = value
+      const undefinedValues = this.constructor.properties.reduce((acc, property) => {
+        acc[property.name] = undefined
+        return acc
+      }, {})
+      this.set({
+        ...undefinedValues,
+        ...values
       })
     }
 
-    static parse(object, owner, property) {
-      if (object == null || object instanceof this) {
+
+    static parse(object, options, context) {
+      if (object == null || object instanceof this) { return object }
+      if (object.constructor?.hasMixin && object.constructor.hasMixin(this)) {
         return object
       }
       const typeName = object[typeKey]
       let type = this
       if (typeName && this.definition.name !== typeName) {
         type = this.findChild((c) => c.definition.name === typeName)
+        if (!type) {
+          throw new Error(`Type ${typeName} not find from ${this.definition.name}`)
+        }
       }
 
-      if (!type) {
-        throw new Error(`Type ${typeName} not find from ${this.definition.name}`)
-      }
-      try {
-        const instance = new type()
-        Object.assign(instance, object)
-        return instance
-      } catch (err) {
-        throw err
-      }
+      const instance = new type()
+      instance.set(object, options)
+
+      return instance
     }
 
     equals(object) {
@@ -54,12 +53,14 @@ const Buildable = mixer.mixin([Destroyable, Propertiable, Equalable], (base) => 
       return value && value.toJSON(paths, context)
     }
 
-    setPropertyValue(property, value) {
-      const parsedValue = property.type.parse(value, this, property)
+    setPropertyValue(property, value, options) {
+      const parsedValue = property.type.parse(value, options, { owner: this, property })
       if (parsedValue === ignore) { return }
 
       super.setPropertyValue(property, parsedValue)
     }
+
+
 
     toJSON(paths = {}, context = null) {
       const values = Object.entries(this)

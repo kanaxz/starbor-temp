@@ -5,12 +5,15 @@ module.exports = {
   dependancies: ['modeling'],
   async construct({ modeling }) {
     modeling.controller(User, {
-      async find(req, pipeline, query, next) {
-        pipeline.unshift({
-          $unset: ['password']
-        })
-
-        return next()
+      async query(req, stages) {
+        return [
+          {
+            mongo: {
+              $unset: ['password']
+            }
+          },
+          ...stages
+        ]
       },
       async create(req, user, next) {
         user.password = await encryptPassword(user.password)

@@ -11,6 +11,7 @@ module.exports = class Event extends ExtensibleFunction {
   }
 
   async trigger(...args) {
+    let i = 0
     for (const listener of this.listeners) {
       await listener(...args)
     }

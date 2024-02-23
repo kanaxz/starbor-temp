@@ -1,4 +1,4 @@
-<self :class="`${this.@open ? 'open' : ''}`" :v-exit="this.stop()">
+<self :class="`${this.@open ? 'open' : ''}`" :v-exit="this.stop()" :v-selectable-root>
 
   <div class="search-bar">
     <div class="search-icon">
@@ -41,7 +41,7 @@
           <a :on-click="this.stop()" :v-link="result.@url">
             <model-row 
               :model="result" 
-              :v-selectable="node.click() within this">
+              :v-selectable="node.click()">
             </model-row>
           </a>
         </div>

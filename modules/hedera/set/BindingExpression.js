@@ -8,26 +8,26 @@ module.exports = class BindingExpression {
     this.variables = variables
     this.callback = callback
     this.functions = []
-    this.update()
   }
 
-  update() {
+  async update() {
     let value = this.expression
     this.destroy()
-    this.functions = this.expression.match(expressionRegex)
-      .map((path) => {
-
-        const sanitizePath = path.replace('{{', '').replace('}}', '')
-        const bindingFunction = new BindingFunction(sanitizePath, this.variables, () => {
-          this.update()
-        }, false)
-
-        value = value.replace(path, bindingFunction.getValue())
-        return bindingFunction
+    this.functions = []
+    for (const path of this.expression.match(expressionRegex)) {
+      const sanitizePath = path.replace('{{', '').replace('}}', '')
+      const bindingFunction = new BindingFunction(sanitizePath, this.variables, async () => {
+        await this.update()
       })
 
+      bindingFunction.update(false)
+      const initialValue = await bindingFunction.getValue()
+      value = value.replace(path, initialValue)
+      this.functions.push(bindingFunction)
+    }
+
     this.expression.match(expressionRegex)
-    this.callback(value)
+    await this.callback(value)
   }
 
   destroy() {

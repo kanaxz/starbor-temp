@@ -16,38 +16,11 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     this.id = id++
     this.repeater = repeater
     this.source = this.repeater.source
-    this.on(this.source, 'indexDeleted', this.b(this.onIndexDeleted))
-    this.on(this.source, 'indexSet', this.b(this.onIndexSet))
+    this.on(this.source, 'changed', this.b(this.onSourceChanged))
     this.timeout = null
     this.modifs = []
   }
 
-  updateTimeout() {
-    if (this.timeout) {
-      clearTimeout(this.timeout)
-    }
-    this.timeout = setTimeout(() => this.processModifications(), 1)
-  }
-
-  onIndexDeleted(index) {
-    console.log('index deleted', this.repeater, index)
-    this.modifs.push({
-      type: 'delete',
-      index,
-    })
-    this.updateTimeout()
-  }
-
-  onIndexSet(index, newValue, oldValue) {
-    console.log('index set', this.repeater, newValue)
-    this.modifs.push({
-      type: 'set',
-      oldValue,
-      newValue,
-      index,
-    })
-    this.updateTimeout()
-  }
 
   insertIt(itToInsert) {
     const { index, element } = itToInsert
@@ -60,51 +33,37 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
     }
   }
 
-  moveIt(itToMove) {
-    this.insertIt(itToMove)
-  }
-
-  removeIt(it) {
-    it.destroy()
-    const itIndex = this.repeater.iterations.indexOf(it)
-    if (itIndex === -1) { return }
-    this.repeater.iterations.splice(itIndex, 1)
-  }
-
-  removeItIfValueNotUsed(itToCheck) {
-    const exists = this.source.find((object) => object === itToCheck.object)
-    if (!exists) {
-      this.removeIt(itToCheck)
+  onSourceChanged() {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
     }
+    this.timeout = setTimeout(() => this.updateIterations())
   }
 
-  async processModifications() {
-    // with the setTimeout, we might already be destroyed  
-    if (this[Destroyable.symbol]) { return }
-    this.timeout = null
-    const modifs = [...this.modifs]
-    this.modifs = []
-    for (const modif of modifs) {
-      if (modif.type === 'delete') {
-        const oldIt = this.repeater.iterations.find((it) => it.index === modif.index)
-        if (oldIt) {
-          this.removeItIfValueNotUsed(oldIt)
-        }
+  async updateIterations() {
+    if (this['@destroyed']) { return }
+    const processedIts = []
+    for (const object of this.source) {
+      const index = this.source.indexOf(object)
+      let it = this.repeater.iterations.find((it) => it.object === object)
+      if (it) {
+        it.index = index
+        this.insertIt(it)
+      } else {
+        it = this.repeater.iteration(object, index)
+        this.insertIt(it)
+        it.element = await it.scope.render(it.element)
+      }
+      processedIts.push(it)
+    }
 
-      } else if (modif.type === 'set') {
-        const newIt = this.repeater.iterations.find((it) => it.object === modif.newValue)
-        if (modif.oldValue) {
-          const oldIt = this.repeater.iterations.find((it) => it.object === modif.oldValue)
-          this.removeItIfValueNotUsed(oldIt)
-        }
-        if (newIt) {
-          newIt.index = modif.index
-          this.moveIt(newIt)
-        } else {
-          const itToInsert = this.repeater.iteration(modif.newValue, modif.index)
-          this.insertIt(itToInsert)
-          itToInsert.element = await itToInsert.scope.render(itToInsert.element)
-        }
+    const its = [...this.repeater.iterations]
+    for (const it of its) {
+      const index = processedIts.indexOf(it)
+      if (index === -1) {
+        it.destroy()
+        const i = this.repeater.iterations.indexOf(it)
+        this.repeater.iterations.splice(i, 1)
       }
     }
   }

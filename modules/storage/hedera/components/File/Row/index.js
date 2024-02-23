@@ -1,6 +1,6 @@
 const Card = require('modeling-hedera/components/Card')
 const template = require('./template.html')
-const FileSystemObject = require('storage/FileSystemObject')
+const StorageObject = require('storage/StorageObject')
 require('./style.scss')
 
 module.exports = class FileRow extends Card {
@@ -17,5 +17,5 @@ module.exports = class FileRow extends Card {
   .properties({
     imgSrc: 'any',
   })
-  .register(FileSystemObject, 'row')
+  .register(StorageObject, 'row')
 

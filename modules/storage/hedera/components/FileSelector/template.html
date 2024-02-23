@@ -1,4 +1,4 @@
-<self tabindex="0">
+<self :v-selectable-root>
   <header>
     <input type="text" as="input" :on-input="this.search(node.value)" />
     <input type="file" as="inputFile" :on-change="this.uploadFile(node.files[0])" />
@@ -12,7 +12,7 @@
     <div>
       <model-card 
         :model="this.template(object)"
-        :v-selectable="this.selectFile(object) within this" 
+        :v-selectable="this.selectFile(object)" 
         :class="`${this.@file === object ? 'selected' : ''}`">
       </model-card>    
     </div>

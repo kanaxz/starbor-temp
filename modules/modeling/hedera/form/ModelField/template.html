@@ -1,10 +1,10 @@
-<super :class="`${this.@mode}`">
+<super :class="`${this.@mode}`" :v-selectable-root>
   <div class="inner" :v-exit="this.default(true)">
     <div class="input">
       <div 
         class="value" 
-        :on-click="this.edit()"
-        :v-child="this.templateSuggestion(this.state.@value)" >
+        :on-click="this.edit()">
+          {{= this.templateSuggestion(this.state.@value) }}
       </div>
       <input 
         as="input" 
@@ -27,7 +27,7 @@
           :on-click="this.selectSuggestion(suggestion)">
             <model-row 
               :model="suggestion"
-              :v-selectable="node.click() within this">
+              :v-selectable="node.click()">
             </model-row>
         </div>
     </div>

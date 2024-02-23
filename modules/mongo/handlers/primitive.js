@@ -13,11 +13,10 @@ module.exports = {
         $ne: [value, other]
       }
     },
-  },
-  parse(scope, value) {
-    return {
-      scope,
-      value,
+    in({ value }, array) {
+      return {
+        $in: [value, array]
+      }
     }
-  }
+  },
 }

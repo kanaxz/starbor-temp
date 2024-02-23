@@ -2,21 +2,22 @@ const { Model, String } = require('modeling/types')
 const mixer = require('core/mixer')
 const Pageable = require('modeling/mixins/Pageable')
 const Wikiable = require('wiki/mixins/Wikiable')
+const ControllerError = require('modeling/controlling/ControllerError')
+const setup = require('./setup')
 
 const isSelfOrAdmin = async (context, user) => {
-  if (!context.user) { return false }
-  return context.user.equals(user) || await context.user.is(context, 'admin')
+  if (!context.user) {
+    throw new ControllerError('User is not logged in')
+  }
+  if (!context.user.equals(user) && !await context.user.is(context, 'admin')) {
+    throw new ControllerError(`User doesn't have sufficient rights`)
+  }
 }
 
-module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable]) {
+module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable, ...setup.user]) {
   async is(context, name) {
-    await this.load(context, {
-      memberships: {
-        group: true
-      }
-    })
-
-    return this.memberships.some(({ group }) => group.name === name)
+    await this.groups.load(context)
+    return this.groups.some((group) => group.name === name)
   }
 }
   .define({
@@ -50,7 +51,9 @@ module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable]) {
   .controllers({
     create: {
       async check(context) {
-        return !context.user || await context.user.is(context, 'admin')
+        if (!context.setup && (!context.user || !await context.user.is(context, 'admin'))) {
+          throw new ControllerError(`You cannot create an user`)
+        }
       },
     },
     update: {

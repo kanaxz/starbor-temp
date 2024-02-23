@@ -11,10 +11,12 @@
   "dependencies": {
     "axios": "^1.5.1",
     "core": "file:../../core/shared",
+    "core-client": "file:../../core/client",
     "hedera": "file:../../hedera",
     "modeling": "file:../../modeling/shared",
     "modeling-hedera": "file:../../modeling/hedera",
-    "processing-client": "file:../../processing/client",
+    "modeling-client": "file:../../modeling/client",
+    "ressourcing": "file:../../ressourcing",
     "storage": "file:../shared",
     "storage-client": "file:../client"
   }

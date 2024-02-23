@@ -3,6 +3,7 @@ const Pageable = require('modeling/mixins/Pageable')
 const { Model } = require("modeling/types")
 const LayoutRouter = require('hedera/routing/routers/LayoutRouter')
 const { actions } = require('./setup')
+
 const types = Model.getAllChilds()
   .filter((t) => mixer.is(t.prototype, Pageable))
   .filter((t) => !t.definition.abstract)
@@ -19,9 +20,14 @@ router.use(async (req, res, next) => {
   const code = req.match[2]
   const type = types.find((t) => t.definition.name === typeName)
   const { codeField } = type.definitions.find((d) => d.codeField)
-  const model = await type.buildAndLoad({
-    [codeField]: code,
+  const model = await type.collection.findByUniqueIndex({
+    [codeField]: code
+  }, {
+    type: type.definition.name,
   })
+  if (!model) {
+    return res.notFound()
+  }
   Object.assign(req, {
     type,
     model

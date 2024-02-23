@@ -11,7 +11,7 @@ module.exports = class Root extends Layout {
 
   async start(variables) {
     const scope = new Scope({ source: this, variables })
-    await this.render(scope)
+    await scope.render(this)
   }
 
   async loadLayouts(req, layouts) {

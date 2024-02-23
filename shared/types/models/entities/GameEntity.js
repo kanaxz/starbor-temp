@@ -6,9 +6,13 @@ const { String, Markdown } = require('modeling/types')
 const Imageable = require('storage/mixins/Imageable')
 const Folderable = require('storage/mixins/Folderable')
 const Wikiable = require('wiki/mixins/Wikiable')
+const ControllerError = require('modeling/controlling/ControllerError')
 
-const isAdmin = (context) => {
-  return context.user?.is(context, 'admin')
+const isAdmin = async (context) => {
+  console.log(context.user._id)
+  if (!await context.user?.is(context, 'admin')) {
+    throw new ControllerError('You are not admin')
+  }
 }
 
 module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Folderable, Imageable, Wikiable]) {
@@ -18,6 +22,7 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Folde
     name: 'gameEntity',
     abstract: true,
     searchField: 'name',
+    codeField: 'code',
   })
   .indexes({
     code: {
@@ -37,9 +42,6 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Folde
       }
     },
     starmap: Starmap,
-  })
-  .set({
-    codeField: 'code',
   })
   .controllers({
     create: {

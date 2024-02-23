@@ -18,8 +18,9 @@
     "modeling": "file:../modules/modeling/shared",
     "modeling-server": "file:../modules/modeling/server",
     "mongo": "file:../modules/mongo",
-    "processing-server": "file:../modules/processing/server",
+    "ressourcing": "file:../modules/ressourcing",
     "shared": "file:../shared",
+    "sharp": "^0.33.1",
     "storage": "file:../modules/storage/shared",
     "storage-server": "file:../modules/storage/server"
   }

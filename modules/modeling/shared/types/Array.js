@@ -2,15 +2,19 @@ const BaseArray = require('core/types/Array')
 const mixer = require('core/mixer')
 const utils = require('../utils')
 const Any = require('./Any')
-const Bool = require('./Bool')
 const Function = require('./Function')
 const Template = require('./Template')
 
 const template = Template.of(Any)
 
+const fnArg = { type: Function, args: [template] }
+
 class Array extends mixer.extends(BaseArray, [Any]) {
 
-  constructor(...values){
+  static template = template
+  static fnArg = fnArg
+
+  constructor(...values) {
     super({}, ...values)
   }
 
@@ -42,14 +46,6 @@ class Array extends mixer.extends(BaseArray, [Any]) {
     return true
   }
 
-  setIndex(index, value) {
-
-    value = this.constructor.definition.template.parse(value)
-    super.setIndex(index, value)
-  }
-
-
-
   toJSON(paths, context) {
     const result = [...this].map((object) => {
       return this.constructor.definition.template.toJSON(object, paths, context)
@@ -63,8 +59,6 @@ class Array extends mixer.extends(BaseArray, [Any]) {
   }
 }
 
-const fnArg = { type: Function, args: [template] }
-
 Array
   .define({
     name: 'array',
@@ -72,9 +66,8 @@ Array
   })
   .methods({
     find: [[fnArg], template],
-    has: [[template], Bool],
-    some: [[fnArg], Bool],
   })
+
 
 utils.propertySanitizers.push((property) => {
   if (!Array.isArray(property.type)) { return }

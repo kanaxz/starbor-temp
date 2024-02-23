@@ -1,22 +1,31 @@
-const modelingSetup = require('modeling/setup')
-const Holdable = require('./mixins/Holdable')
-const Holder = require('./mixins/Holder')
+
+const Holdable = require('./mixins/holding/Holdable')
+const HoldableFragment = require('./mixins/holding/HoldableFragment')
+const Holder = require('./mixins/holding/Holder')
+const ArrayHolder = require('./mixins/holding/ArrayHolder')
+const Transformable = require('./mixins/transforming/Transformable')
+const Referenceable = require('./mixins/Referenceable')
+const ClientHasMany = require('./mixins/ClientHasMany')
 const SingleInstance = require('./mixins/SingleInstance')
-const ArrayHolder = require('./mixins/ArrayHolder')
-const Loadable = require('./mixins/Loadable')
-const Transformable = require('./mixins/Transformable')
-const HasTransformable = require('./mixins/HasTransformable')
-const ArrayHasTransformable = require('./mixins/ArrayHasTransformable')
+const ClientQueryResult = require('./mixins/ClientQueryResult')
+const context = require('core-client')
+const ClientModel = require('./mixins/ClientModel')
+const setup = require('modeling/setup')
+
+const { object, model, arrayAssociation, baseModels, models, hasMany, queryResult } = setup
 
 
-const Controlleable = require('./mixins/Controlleable')
-const { object, model, arrayAssociation } = modelingSetup
+model.before.push(Holdable, Holder, Transformable, SingleInstance)
 
+baseModels.before.push(ArrayHolder, Referenceable)
+models.before.push(Holdable, ClientModel)
+arrayAssociation.before.push(HoldableFragment)
+hasMany.before.push(ClientHasMany)
+queryResult.before.push(ClientQueryResult)
 
-object.before.push(Controlleable)
-model.before.push(Holdable, Holder, Transformable, HasTransformable, SingleInstance)
-model.after.push(Loadable)
-
-arrayAssociation.before.push(ArrayHolder, Holdable, ArrayHasTransformable)
-arrayAssociation.after.push(Loadable)
-
+setup.getArgs = (args) => {
+  if (args[0] !== context) {
+    args.unshift(context)
+  }
+  return args
+}

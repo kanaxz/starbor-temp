@@ -1,4 +1,4 @@
-const RootModelState = require('processing/states/RootModelState')
+const RootModelState = require('modeling/states/RootModelState')
 
 const getErrors = (states) => {
   return Object

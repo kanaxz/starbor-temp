@@ -3,6 +3,11 @@ const Definitions = require('./Definitions')
 
 module.exports = mixer.mixin((base) => {
   return class Base extends base {
+
+    static hasMixin(mixin) {
+      return this.allDependencies.some((d) => d === (mixin.mixin || mixin))
+    }
+
     static define(definition = {}) {
       if (this.definition?.owner === this) {
         throw new Error(`Class ${this.name} already defined`)
@@ -32,7 +37,7 @@ module.exports = mixer.mixin((base) => {
       return this
     }
 
-    static set(values){
+    static set(values) {
       Object.assign(this, values)
       return this
     }

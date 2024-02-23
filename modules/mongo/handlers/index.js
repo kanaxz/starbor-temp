@@ -12,4 +12,6 @@ module.exports = [
   require('./model'),
   require('./type'),
   require('./hasMany'),
+  require('./scope'),
+  require('./ownMany')
 ]

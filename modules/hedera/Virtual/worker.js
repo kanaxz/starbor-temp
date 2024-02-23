@@ -4,9 +4,12 @@ const { dashToCamel } = require('../utils')
 const virtuals = []
 
 workers.push({
-  process(scope, node, variables) {
+  process(scope, state) {
+    const { node } = state
     if (!node.attributes) { return }
-    [...node.attributes]
+
+    state.virtuals = [];
+    ([...node.attributes])
       .filter((attr) => attr.name.startsWith(':v-'))
       .forEach((attr) => {
         const [virtualName, ...args] = dashToCamel(attr.name.replace(':v-', '')).split('.')
@@ -16,15 +19,17 @@ workers.push({
           acc[arg] = true
           return acc
         }, {})
-        const virtual = new virtualClass(node, attr.value, params)
-        if (!node.v) {
-          node.v = {}
-        }
-
-
-        node.v[virtualName] = virtual
+        const virtual = new virtualClass(scope, {...scope.variables}, node, attr.value, params)
+        state.virtuals.push(virtual)
         node.removeAttribute(attr.name)
       })
+  },
+  destroy(state) {
+    if (!state.virtuals) { return }
+    state.virtuals.forEach((virtual) => {
+      virtual.destroy()
+    })
+    state.virtuals = null
   }
 })
 

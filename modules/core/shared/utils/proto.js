@@ -17,7 +17,7 @@ const get = (type) => {
   return result
 }
 
-const getParent = (type)=>{
+const getParent = (type) => {
   return type.prototype.__proto__.constructor
 }
 
@@ -44,10 +44,28 @@ const find = (type, fn) => {
   return result
 }
 
+const getCommonAncestor = (...types) => {
+  let target = types[0]
+  while (target) {
+    let good = true
+    for (const type of types) {
+      if (type !== target && !(type.prototype instanceof target) && !(target.prototype instanceof type)) {
+        good = false
+      }
+    }
+    if (good) {
+      return target
+    }
+    target = target.prototype.__proto__.constructor
+  }
+  return null
+}
+
 module.exports = {
   get,
   forEach,
   filter,
   find,
   getParent,
+  getCommonAncestor,
 }

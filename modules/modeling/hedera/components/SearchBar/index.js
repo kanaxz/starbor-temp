@@ -75,7 +75,6 @@ module.exports = class Search extends Component {
       await searchable.search(this.input.value)
     })
     await Promise.all(promises)
-    interaction.selectFirst(this)
   }
 
   selectSuggestion(suggestion) {
@@ -83,12 +82,10 @@ module.exports = class Search extends Component {
     this.stop()
   }
 
-
   empty() {
     this.input.value = ''
     this.search()
   }
-
 }
   .define({
     name: 'app-search',

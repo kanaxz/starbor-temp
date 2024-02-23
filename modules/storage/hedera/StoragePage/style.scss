@@ -3,63 +3,102 @@ storage-page {
   height: 100%;
   display: flex;
   flex-direction: row;
-  .tree {
-    width: 250px;
+  position: relative;
+  .left {
+    width: fit-content;
     height: 100%;
-    padding: 10px;
     border-right: 1px solid #e1e1e1;
-    .folder {
-      > .row {
+  }
+
+  > .right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    > .bar {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 35px;
+      border-bottom: 1px solid #e1e1e1;
+      input {
+        font-size: 16px;
+        height: 100%;
+        border: none;
+        border-right: 1px solid #e1e1e1;
+      }
+
+      .actions {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        folder-row {
-          flex: 1;
-        }
-      }
-      > .folders {
-        display: none;
-        margin-left: 13px;
-        border-left: 2px dashed #e1e1e1;
-        > .folder {
-          > .row {
-            &::before {
-              content: " ";
-              width: 10px;
-              border-bottom: 2px dashed #e1e1e1;
-              margin-top: 2px;
-            }
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-right: 1px solid #e1e1e1;
+          padding: 5px;
+          cursor: pointer;
 
-            > folder-row {
-              margin-top: 5px;
-            }
+          &:hover {
+            background-color: aquamarine;
           }
-        }
-      }
+          svg {
+            font-size: 20px;
+          }
 
-      &.active {
-        > .folders {
-          display: block;
-          border-color: aquamarine !important;
-        }
-
-        > .row {
-          &::before {
-            border-color: aquamarine !important;
+          &.upload {
+            input {
+              display: none;
+            }
           }
         }
       }
     }
-  }
 
-  .folder-explorer {
-    display: flex;
-    flex-direction: row;
-    padding-left: 10px;
-    padding-top: 10px;
-    > * {
-      margin-right: 10px;
-      margin-bottom: 10px;
+    editable-grid {
+      .folder-panel {
+        .folders {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-left: 10px;
+          .branch {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+
+            .folder {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              &::after {
+                font-size: 26px;
+                font-weight: 600;
+                content: " ";
+                width: 15px;
+                border-bottom: 1px dashed #e1e1e1;
+              }
+            }
+          }
+        }
+        .storage-objects {
+          display: flex;
+          flex: 1;
+          flex-direction: row;
+          flex-wrap: wrap;
+          padding-left: 10px;
+          padding-top: 10px;
+          > * {
+            margin-right: 10px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      .file {
+        border: none;
+        width: 100%;
+        height: 100%;
+        background-color: #e1e1e1;
+      }
     }
   }
 }

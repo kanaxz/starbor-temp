@@ -1,5 +1,7 @@
 const config = require('../config')
-const { buildCollections } = require('processing-client')
+const { buildCollections } = require('modeling-client')
+const moment = require('moment')
+
 module.exports = (services) => {
   let tokenInfos = null
   const headersBuilder = async () => {

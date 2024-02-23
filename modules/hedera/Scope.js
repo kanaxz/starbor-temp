@@ -5,9 +5,10 @@ const Eventable = require('core/mixins/Eventable')
 const Vars = require('./Vars')
 const { moveAttributes } = require('./utils')
 const BindingFunction = require('./set/BindingFunction')
+const { getElementFromTemplate } = require('./utils/template')
 
 workers.push({
-  process(scope, node, variables) {
+  process(scope, { node }) {
     if (node.nodeType !== Node.ELEMENT_NODE) { return }
     if (!node.hasAttribute('slot')) { return }
     const slotName = node.getAttribute('slot') || 'main'
@@ -39,12 +40,9 @@ const processors = [
     // move attributes
     const component = scope.variables.this
     moveAttributes(node, component)
-    scope.process(component)
+    await scope.process(component)
 
     // process
-    if (await scope.renderVirtuals(component)) {
-      return true
-    }
     await scope.renderContent(parent)
     return true
   },
@@ -56,7 +54,7 @@ const processors = [
     // process super attributes
     const component = scope.variables.this
     moveAttributes(node, component)
-    scope.process(component)
+    await scope.process(component)
 
     // process super template
     const nextDefinition = scope.type.definitions.filter((d) => d.template)[1]
@@ -80,15 +78,10 @@ const processors = [
     }
 
     // process super content
-    await scope.renderVirtuals(component)
     await childScope.renderSlots(initialContent)
-
-
     return true
   },
   async (scope, node) => {
-
-    //console.log('before super-slot', node.nodeName, node.nodeName === 'SUPER-SLOT')
     if (node.nodeName !== 'SUPER-SLOT') {
       return false
     }
@@ -97,26 +90,25 @@ const processors = [
     return true
   },
   async (scope, node) => {
-    //console.log('before super-slot', node.nodeName, node.nodeName === 'SUPER-SLOT')
     if (node.nodeName !== 'VARS') {
       return false
     }
     const vars = scope.variables.$
     for (const attribute of node.attributes) {
-      console.log({ attribute })
       const propertyName = attribute.name.replace(':', '')
-      vars.defineProperty({
-        name: propertyName
-      })
+      if (!vars.hasOwnProperty(propertyName)) {
+        vars.defineProperty({
+          name: propertyName
+        })
+      }
+
 
       const bindingFunction = new BindingFunction(attribute.value, scope.variables, (value) => {
-        console.log('updating', scope, vars, propertyName, value)
         vars[propertyName] = value
       })
 
-      vars.on(`propertyChanged:${propertyName}`, () => {
-        console.log(propertyName, 'was changed', vars)
-      })
+      await bindingFunction.update()
+
       vars.bindingFunctions.push(bindingFunction)
     }
     node.remove()
@@ -138,23 +130,27 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
   constructor({ source, parent, variables }) {
     super()
     this.parent = parent
-    this.nodes = []
+    this.states = []
     this.variables = {
       ...(this.parent?.variables || {}),
       ...(variables || {}),
+      scope: this,
     }
     if (source) {
       this.variables.this = source
     }
     this.variables.$ = new Vars()
     this.slots = {}
+    this.childs = []
   }
 
   child(options = {}) {
-    return new Scope({
+    const child = new Scope({
       parent: this,
       ...options
     })
+    this.childs.push(child)
+    return child
   }
 
   async renderSlots(nodes, renderScope) {
@@ -194,102 +190,125 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
       const slots = [...nodes].filter((n) => n.nodeType === Node.ELEMENT_NODE)
       for (const slot of slots) {
         const slotName = slot.getAttribute('name') || 'main'
-        console.log([...slot.childNodes], slotName)
+        slot.removeAttribute('name')
         await renderSlot(slotName, [...slot.childNodes])
       }
     }
 
   }
 
-  process(node) {
-    const variables = {
-      ...this.variables,
-      node,
+  async process(node) {
+
+    const state = { node, scope: this }
+    if (!node.hederaStates) {
+      node.hederaStates = []
     }
-    workers.forEach((w) => w.process(this, node, variables))
+    node.hederaStates.push(state)
+    this.states.push(state)
+    this.variables.node = node
+    for (const worker of workers) {
+      await worker.process(this, state)
+    }
+    await this.initializeVirtuals(state)
+    this.variables.node = null
+    return state
   }
 
+  async renderTemplate(template, variables) {
+    const node = getElementFromTemplate(template)
+    return this.render(node, variables)
+  }
+
+  getState(node) {
+    const state = this.states.find((state) => state.node === node)
+    if (state) { return state }
+
+    return this.parent.getState(node)
+  }
 
   async renderContent(node) {
-    for (const child of [...node.childNodes]) {
-      await this.render(child)
+    for (const n of node.childNodes) {
+      await this.render(n)
     }
-    //await Promise.all([...node.childNodes].map((n) => this.render(n)))
   }
 
-  async render(node) {
+  async render(node, variables = {}) {
+    Object.assign(this.variables, variables)
     for (const processor of processors) {
       if (await processor(this, node)) {
-        return
+        return null
       }
     }
-
-    if (node.render) {
-      node = await node.render(this)
-      if (!node) {
-        return
-      }
-    } else {
-      if (node.processedScope) {
-        return
-      }
-      // We apply processedScope before process so that if a worker/virtual (like v-child) move an element, it wont be processed again
-      node.processedScope = this
-      this.process(node)
-      if (!await this.renderVirtuals(node)) {
-        await this.renderContent(node)
-      }
-      this.nodes.push(node)
+    if (node.rendered) { return node }
+    node.rendered = true
+    if (node.attach) {
+      node = await node.attach(this)
     }
+    if (!node) { return null }
 
+    const state = await this.process(node)
+    await this.initialize(state)
     return node
   }
 
-  async renderVirtuals(node) {
-    let preventRender = false
-    if (node.v) {
-      for (const virtual of Object.values(node.v)) {
-        if (await virtual.attach(this)) {
-          preventRender = true
-        }
-      }
+  async initialize(state) {
+    if (!state.node) {
+      state = this.states.find(({ node }) => node === state)
     }
-    return preventRender
-  }
-
-  destroyChild(node) {
-
-    const index = this.nodes.indexOf(node)
-    if (index === -1) {
+    const { node } = state
+    if (node.isInitialized) {
+      //console.warn('Already initialized', node)
       return
     }
-    if (node.destroy) {
-      node.destroy()
-    } else {
-      workers.forEach((w) => w.destroy && w.destroy(node))
-      if (node.v) {
-        for (const virtual of Object.values(node.v)) {
-          virtual.destroy(true)
+    if (state.virtuals) {
+      for (const virtual of state.virtuals) {
+        if (await virtual.preventInitialize()) {
+          return
         }
       }
-      this.destroyContent(node)
     }
-
-    this.nodes.splice(index, 1)
+    if (node.initialize) {
+      await node.initialize()
+    } else {
+      await this.renderContent(node)
+      node.isInitialized = true
+    }
   }
 
-  destroyContent(node) {
-    if (node.childNodes) {
-      const nodes = [...node.childNodes]
-      nodes.forEach((n) => this.destroyChild(n))
+  async initializeVirtuals(state) {
+    if (!state.virtuals) { return }
+
+    for (const virtual of state.virtuals) {
+      if (!virtual.isInitialized) {
+        await virtual.initialize()
+      }
     }
+  }
+
+  release(node) {
+    const index = this.states.findIndex((state) => state.node === node)
+    if (index === -1) {
+      throw new Error()
+    }
+    const state = this.states[index]
+    workers.forEach((w) => w.destroy && w.destroy(state))
+    this.states.splice(index, 1)
   }
 
   destroy() {
     super.destroy()
-    while (this.nodes.length) {
-      this.destroyChild(this.nodes[0])
+    while (this.childs.length) {
+      this.childs[0].destroy()
     }
+    while (this.states.length) {
+      this.release(this.states[0].node)
+    }
+    if (this.parent) {
+      this.parent.childs.splice(this.parent.childs.indexOf(this), 1)
+    }
+
+    this.parent = null
+    this.childs = null
     this.nodes = null
   }
 }

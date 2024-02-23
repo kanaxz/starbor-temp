@@ -5,6 +5,7 @@ const setup = {
       before: []
     }
   },
+  types: [],
   actions: [
     {
       name: 'explorer',
@@ -19,10 +20,10 @@ const setup = {
       url: '/edit',
       content: '<i class="fa-solid fa-pen"></i>',
       async check(model) {
-        return await model.canUpdate()
+        await model.canUpdate()
+        return true
       },
       async execute(req, res, next) {
-        console.log('editing', req.model)
         await res.page(import('./pages/Edit'), req.model)
       }
     },
@@ -31,7 +32,8 @@ const setup = {
       content: '<i class="red fa-solid fa-trash"></i>',
       class: 'warning',
       async check(model) {
-        return await model.canDelete()
+        await model.canDelete()
+        return true
       },
       async execute(model) {
         await model.delete()

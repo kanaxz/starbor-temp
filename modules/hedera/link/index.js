@@ -2,12 +2,10 @@ const Virtual = require('../Virtual')
 const { navigator } = require('../global')
 
 module.exports = class Link extends Virtual {
-  constructor(el, value) {
-    super(el)
-    this.el.setAttribute(':v.link.href', value)
+  async onInit() {
+    await this.bind('href', this.initialValue)
 
     this.el.addEventListener('click', (event) => {
-
       event.preventDefault()
       if (this.href) {
         navigator.navigate(this.href)
@@ -17,9 +15,6 @@ module.exports = class Link extends Virtual {
     this.on('propertyChanged:href', () => {
       this.updateHref()
     })
-  }
-
-  onInit() {
     navigator.on('change', () => {
       this.updateActive()
     })

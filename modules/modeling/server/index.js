@@ -1,8 +1,15 @@
+const setup = require('../../modeling/server/setup')
+
+
 module.exports = {
   name: 'modeling',
-  async construct() {
-
+  dependancies: ['core'],
+  async construct({ core }) {
+    const collections = {}
     const controllers = []
+    const map = []
+
+    core.onReady(() => setup({ collections, map, controllers }))
 
     const controller = (type, controller) => {
       controllers.push({
@@ -13,7 +20,9 @@ module.exports = {
 
     return {
       controller,
-      controllers
+      controllers,
+      map,
+      collections
     }
   }
 }

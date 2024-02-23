@@ -12,6 +12,8 @@
   font-weight: 600;
   text-transform: uppercase;
   height: 30px;
+  width: fit-content;
+  min-width: 150px;
 
   border-left: 5px solid transparent;
 
@@ -30,7 +32,8 @@
     margin-right: 7px;
   }
 
-  img,svg{
+  img,
+  svg {
     height: 100%;
   }
 

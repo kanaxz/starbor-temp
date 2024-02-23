@@ -2,6 +2,7 @@ const mixer = require('core/mixer')
 const { Model, String } = require('modeling/types')
 const User = require('management/User')
 const securityStrategy = require('management/securityStrategy')
+const ControllerError = require('modeling/controlling/ControllerError')
 
 module.exports = class Jwt extends mixer.extends(Model) {
 
@@ -18,9 +19,9 @@ module.exports = class Jwt extends mixer.extends(Model) {
         required: true,
       }
     },
-    name:{
+    name: {
       type: String,
-      state:{
+      state: {
         required: true
       }
     },
@@ -40,10 +41,18 @@ module.exports = class Jwt extends mixer.extends(Model) {
   .controllers({
     create: {
       requires: [securityStrategy],
-      check(context) { return !!context.user },
+      check(context) {
+        if (!context.user) {
+          throw new ControllerError(`You must be connected to create a jwt'`)
+        }
+      },
     },
     update: {
       requires: [securityStrategy],
-      check(context, jwt) { return jwt.user.equals(context.user) },
+      check(context, jwt) {
+        if (!jwt.user.equals(context.user)) {
+          throw new ControllerError(`User don't have sufficient rights`)
+        }
+      },
     }
   })

@@ -17,7 +17,6 @@
     "management": "file:../../management/shared",
     "management-server": "file:../../management/server",
     "modeling": "file:../modeling/shared",
-    "moment": "^2.29.4",
-    "processing-server": "file:../../processing/server"
+    "moment": "^2.29.4"
   }
 }

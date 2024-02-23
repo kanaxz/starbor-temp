@@ -11,8 +11,5 @@ module.exports = mixer.mixin([Propertiable], (base) => {
   .properties({
     wiki: {
       type: Markdown,
-      state: {
-        required: true,
-      }
     }
   })

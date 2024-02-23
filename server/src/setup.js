@@ -1,4 +1,5 @@
 require('core/setup')
 require('modeling/setup')
+require('ressourcing/setup')
 require('shared')
 require('jwt/setup')

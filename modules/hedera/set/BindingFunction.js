@@ -26,7 +26,7 @@ module.exports = class BindingFunction {
 
   static onBindingGetProperty = onBindingGetProperty
   static onBindingDestroyed = onBindingDestroyed
-  constructor(functionString, variables, callback, trigger) {
+  constructor(functionString, variables, callback) {
     this.functionString = functionString
     this.variables = variables
     this.callback = callback
@@ -40,16 +40,15 @@ module.exports = class BindingFunction {
     delete vars.this
     this.sanitizedFunctionString = sanitized
     this.function = createFunction('return ' + sanitized, vars)
-    this.update(trigger)
   }
 
-  getValue() {
+  async getValue() {
     const thisArg = this.variables.this
-    const value = this.function.call(thisArg)
+    const value = await this.function.call(thisArg)
     return value
   }
 
-  update(trigger = true) {
+  async update(trigger = true) {
     this.destroy()
     this.listeners = []
     this.paths.forEach((path) => {
@@ -64,8 +63,8 @@ module.exports = class BindingFunction {
             console.log(path, { value })
             throw new Error()
           }
-          const listener = value.on(`propertyChanged:${propertyName}`, () => {
-            this.update()
+          const listener = value.on(`propertyChanged:${propertyName}`, async () => {
+            await this.update()
           })
           this.listeners.push(listener)
         }
@@ -75,10 +74,10 @@ module.exports = class BindingFunction {
         }
       })
     })
-
     if (trigger) {
-      const value = this.getValue()
-      this.callback(value)
+      const value = await this.getValue()
+      await this.callback(value)
+      return value
     }
   }
 

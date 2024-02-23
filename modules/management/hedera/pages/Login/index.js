@@ -11,7 +11,7 @@ module.exports = class Home extends Component {
   }
 
   async onSubmit({ object }) {
-    
+    console.trace('onSubmit')
 
     await auth.login(object)
     await navigator.navigate('/')

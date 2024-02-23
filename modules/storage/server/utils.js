@@ -1,12 +1,8 @@
 
-const rootName = 'storage'
+const storageName = 'storage'
 const uploadName = 'upload'
-const rootPath = `/${rootName}`
-const uploadPath = `${rootPath}/${uploadName}`
 
 module.exports = {
-  rootName,
+  storageName,
   uploadName,
-  rootPath,
-  uploadPath,
 }

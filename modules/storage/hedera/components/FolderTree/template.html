@@ -1,0 +1,24 @@
+<self :v-loader="this.@loading size '50px'" >
+   <template as="treeTemplate">
+    <div
+      :class="`folder ${$.@active && 'active'}`">
+      <vars :active="this.@folder === folder || this.folder.branch.indexOf(folder) !== -1"></vars>
+      <div class="row">
+        <folder-row
+          :model="folder"
+          :class="`${ $.@active && 'focus open'}`"
+          :on-click="this.select(folder)">
+        </folder-row>
+      </div>
+
+      <div
+        class="folders"
+        :v-for="folder of folder.children.filterLink((f)=>f instanceof Folder) with this.treeTemplate">
+      </div>
+    </div>
+  </template>
+  <div 
+      class="root">
+      {{= scope.renderTemplate(this.treeTemplate, { folder: this.@root || this.@calculatedRoot }) }}
+  </div>
+</self>

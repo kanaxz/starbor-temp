@@ -1,9 +1,13 @@
 
-const FileSystemObject = require('./FileSystemObject')
-const { String } = require('modeling/types')
+const StorageObject = require('./StorageObject')
+const { String, Number } = require('modeling/types')
 
-module.exports = class File extends FileSystemObject {
+module.exports = class File extends StorageObject {
   static accept = []
+
+  get path() {
+    return `/api/storage/${this._id}`
+  }
 }
   .define({
     name: 'file',
@@ -15,9 +19,13 @@ module.exports = class File extends FileSystemObject {
         required: true,
       }
     },
+    size: {
+      type: Number,
+      required: true,
+    },
     source: {
       type: String,
-      state:{
+      state: {
         required: true
       }
     },

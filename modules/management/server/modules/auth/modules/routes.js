@@ -2,13 +2,14 @@ const { User } = require('management')
 const bcrypt = require('bcrypt')
 const exp = require('express')
 const { encryptPassword, matchPassword } = require('../utils')
+const { defaultLoad } = require('management/utils')
 
 module.exports = {
   name: 'auth-routes',
   after: 'sessions',
-  dependancies: ['sessions', 'express', 'mongo', 'processing'],
-  async construct({ sessions, express, mongo, processing }) {
-    const { collections } = processing
+  dependancies: ['sessions', 'express', 'mongo', 'modeling'],
+  async construct({ sessions, express, mongo, modeling }) {
+    const { collections } = modeling
     const userCollection = mongo.db.collection('users')
     const router = exp.Router()
     const loggedOut = (req, res, next) => {
@@ -34,17 +35,22 @@ module.exports = {
         })
     }
 
-    router.post('/me', async (req, res) => {
-      const load = {
-        memberships: {
-          group: true
-        }
+    const sendMe = async (req) => {
+      const { res, user } = req
+      if (!user) {
+        return res.send({
+          me: null
+        })
       }
-      await req.user?.load(req, load)
-      const user = req.user?.toJSON(load)
-      res.json({
-        me: user,
+      await user.load(req, defaultLoad)
+      const me = user.toJSON(defaultLoad)
+      res.send({
+        me
       })
+    }
+
+    router.post('/me', async (req, res) => {
+      await sendMe(req)
     })
 
     router.post('/logout', async (req, res) => {
@@ -58,21 +64,18 @@ module.exports = {
     })
 
     router.post('/signup', loggedOut, async (req, res) => {
-      console.log('signup')
       try {
         const user = await collections.users.create(req, req.body)
         req.user = user
+
         await sessions.update(req, res)
-        res.json({
-          me: user.toJSON()
-        })
+        await sendMe(req)
       } catch (err) {
         handleError(res, err)
       }
     })
 
     router.post('/change-password', loggedIn, async (req, res) => {
-      console.log('change-password')
       try {
         const user = await userCollection.findOne({
           _id: req.user._id,
@@ -101,7 +104,6 @@ module.exports = {
 
 
     router.post('/login', loggedOut, async (req, res) => {
-      console.log('login')
       try {
         const { username, password } = req.body
         if (!username || !password) {
@@ -124,12 +126,9 @@ module.exports = {
         delete user.password
         const userModel = new User(user)
         req.user = userModel
-        console.log('updating session')
-        await sessions.update(req, res)
 
-        res.json({
-          me: userModel.toJSON()
-        })
+        await sessions.update(req, res)
+        await sendMe(req)
       } catch (err) {
         handleError(res, err)
       }

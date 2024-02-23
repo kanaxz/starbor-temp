@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "processing-client": "file:../../processing/client",
+    "modeling-client": "file:../../modeling/client",
     "storage": "file:../shared"
   }
 }

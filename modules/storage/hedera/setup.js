@@ -6,9 +6,9 @@ const Imageable = require('storage/mixins/Imageable')
 
 setup.routing.layout.header.before.push(async (model) => {
   if (!mixer.is(model, Imageable)) { return null }
-  await model.image?.load()
+  console.log(model, model.image)
   return {
-    fragment: '<img class="imageable-image" :src="this.@model?.image?.path">'
+    fragment: '<img class="imageable-image" :src="`${this.@model?.image?.path}?width=200&height=90`">'
   }
 })
 

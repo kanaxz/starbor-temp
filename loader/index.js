@@ -1,4 +1,5 @@
 require('core/setup')
+require('ressourcing/setup')
 require('modeling-client/setup')
 require('modeling/setup')
 require('storage-client/setup')

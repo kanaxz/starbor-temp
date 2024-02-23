@@ -7,24 +7,29 @@ module.exports = {
   dependancies: ['modeling', 'management', 'express'],
   construct({ modeling, express }) {
     modeling.controller(Jwt, {
-      async find(req, pipeline, query, next) {
+      async find(req, stages) {
         if (!req.user) {
           throw new Error('Cannot access')
         }
 
-        query = [{
-          $and: [
-            {
-              $eq: ['$user', req.user.getIndex('id')]
-            },
-            ...query
-          ]
-        }]
-
-        pipeline.unshift({
-          $unset: ['key']
-        })
-        return next(query)
+        return [
+          {
+            mongo: {
+              $unset: ['key']
+            }
+          },
+          ...stages,
+          {
+            filter: [{
+              $and: [
+                {
+                  $eq: ['$user', req.user.getIndex('id')]
+                },
+                ...query
+              ]
+            }]
+          }
+        ]
       },
       async create(req, jwt, next) {
         const keyHex = crypto.randomBytes(64).toString('hex')

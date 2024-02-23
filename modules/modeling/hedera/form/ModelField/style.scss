@@ -17,6 +17,9 @@ model-field {
       padding: 5px;
       .value {
         width: 100%;
+        .model-row{
+          width: 100%;
+        }
       }
 
       input {

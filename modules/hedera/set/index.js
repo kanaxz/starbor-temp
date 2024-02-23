@@ -8,10 +8,10 @@ const attributes = {
   class: (() => {
     const caches = []
     return (node, value, key) => {
-      if(!value){
+      if (!value) {
         value = ''
       }
-      const classes = value.split(' ').filter((o) => o && ['undefined', 'false'].indexOf(o) === -1)
+      const classes = value.split(' ').filter((o) => o && ['undefined', 'false', 'null'].indexOf(o) === -1)
       let cache = caches.find((c) => c.node === node && c.key === key)
       if (cache) {
         for (const cssClass of cache.classes) {
@@ -45,74 +45,73 @@ const setAttr = (node, path, value, key) => {
 
 const PREFIX = ':'
 
-workers.push({
-  expressions: [],
-  process(scope, node, variables) {
-    if (!node.attributes) { return }
-    [...node.attributes]
-      .filter((attr) => attr.name.startsWith('::'))
-      .forEach((attr) => {
-        const path = dashToCamel(attr.name.replace('::', ''))
-        const bindingExpression = new BindingExpression(attr.nodeValue, variables, (value) => {
-          setAttr(node, path, value, attr.nodeValue)
-        })
-        this.expressions.push({
-          node,
-          bindingExpression
-        })
-        node.removeAttribute(attr.name)
-      })
-  },
-  destroy(node) {
-    this.expressions
-      .filter((p) => p.node === node)
-      .forEach((p) => {
-        p.bindingExpression.destroy()
-      })
+const initBindings = (state) => {
+  if (!state.bindings) {
+    state.bindings = []
   }
-}, {
-  expressions: [],
-  process(scope, node, variables) {
-    if (node.nodeType !== Node.TEXT_NODE) { return }
-    if (node.textContent.indexOf('{{') === -1) { return }
+}
 
-    const bindingExpression = new BindingExpression(node.textContent, variables, (value) => {
+const destroy = (state) => {
+  if (!state.bindings) { return }
+  state.bindings.forEach((b) => b.destroy())
+  state.bindings = null
+}
+
+workers.push({
+  async process(scope, state) {
+    const { node } = state
+    if (node.nodeType !== Node.TEXT_NODE) { return }
+    if (node.textContent.indexOf('{{=') === -1) { return }
+    initBindings(state)
+    const functionContent = node.textContent.replace('{{=', '').replace('}}', '').trim()
+    let child
+    const parent = node.parentElement
+    const binding = new BindingFunction(functionContent, { ...scope.variables }, async (value) => {
+      if (child) {
+        child.destroy()
+        parent.innerHTML = ''
+        child = null
+      }
+      if (!value) { return }
+      child = scope.child()
+      parent.appendChild(value)
+      await child.render(value)
+    })
+    await binding.update()
+    node.remove()
+    state.bindings.push(binding)
+  },
+  destroy
+}, {
+  async process(scope, state) {
+    const { node } = state
+    if (node.nodeType !== Node.TEXT_NODE) { return }
+    if (node.textContent.search('{{[^=]') === -1) { return }
+    initBindings(state)
+    const bindingExpression = new BindingExpression(node.textContent, { ...scope.variables }, (value) => {
       node.textContent = value
     })
-
-    this.expressions.push({ node, bindingExpression })
+    await bindingExpression.update()
+    state.bindings.push(bindingExpression)
   },
-  destroy(node) {
-    this.expressions
-      .filter((p) => p.node === node)
-      .forEach((p) => {
-        p.bindingExpression.destroy()
-      })
-  }
+  destroy
 }, {
-  paths: [],
-  process(scope, node, variables) {
+  async process(scope, state) {
+    const { node } = state
     if (!node.attributes) { return }
-    [...node.attributes]
+    initBindings(state)
+    const attributes = [...node.attributes]
       .filter((attr) => attr.name.startsWith(PREFIX))
-      .forEach((attr) => {
-        const path = dashToCamel(attr.name.replace(PREFIX, ''))
-        const bindingFunction = new BindingFunction(attr.nodeValue, variables, (value) => {
-          setAttr(node, path, value, attr.nodeValue)
-        })
-        this.paths.push({
-          node,
-          bindingFunction
-        })
-        node.removeAttribute(attr.name)
+    for (const attr of attributes) {
+      const path = dashToCamel(attr.name.replace(PREFIX, ''))
+      const bindingFunction = new BindingFunction(attr.nodeValue, { ...scope.variables }, (value) => {
+        setAttr(node, path, value, attr.nodeValue)
       })
+      await bindingFunction.update()
+      state.bindings.push(bindingFunction)
+      node.removeAttribute(attr.name)
+    }
   },
-  destroy(node) {
-    this.paths
-      .filter((p) => p.node === node)
-      .forEach((p) => {
-        p.bindingFunction.destroy()
-      })
-  }
+  destroy
 })
 

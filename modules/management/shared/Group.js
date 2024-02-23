@@ -1,12 +1,15 @@
+const ControllerError = require('modeling/controlling/ControllerError')
 const { Model, String } = require('modeling/types')
+const setup = require('./setup')
+const mixer = require('core/mixer')
 
-const isAdminOrSelf = (context, user) => {
-  if (!context.user.roles.admin && context.user.id !== user._id) {
-    throw new Error('Cannot update user')
+const isAdminOrSelf = async (context, user) => {
+  if (!context.user.equals(user) && !await context.user.is(context, 'admin')) {
+    throw new ControllerError('You cannot manage user')
   }
 }
 
-module.exports = class Group extends Model {
+module.exports = class Group extends mixer.extends(Model, [...setup.group]) {
 
 }
   .define({
@@ -31,10 +34,12 @@ module.exports = class Group extends Model {
   .controllers({
     create: {
       check(context) {
-        return !!context.user
+        if (!context.setup && !context.user) {
+          throw new ControllerError(`You cannot create groups`)
+        }
       },
       logic(context, user) {
-        
+
       }
     },
     update: {

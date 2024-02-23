@@ -11,6 +11,7 @@
   "dependencies": {
     "core": "file:../../core/shared",
     "management": "file:../../management/shared",
-    "modeling": "file:../../modeling/shared"
+    "modeling": "file:../../modeling/shared",
+    "ressourcing": "file:../../ressourcing"
   }
 }

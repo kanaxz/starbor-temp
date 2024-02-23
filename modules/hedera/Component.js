@@ -1,49 +1,30 @@
 const mixer = require('core/mixer')
 const Base = require('./Base')
 const { workers } = require('./global')
+const Scope = require('./Scope')
 class temp extends HTMLElement {
 
 }
 
 module.exports = class Component extends mixer.extends(temp, [Base]) {
   static define(definition) {
-
     if (definition?.name) {
       customElements.define(definition.name, this)
     }
     return super.define(definition)
   }
 
-
-
-  get el() {
-    return this
-  }
-
-  get definition() {
-    return this.constructor.definition;
-  }
-
-
   constructor() {
     super()
     this.scope = null
   }
 
-  async render(scope) {
-    if (this.rendered) {
-      console.warn('Already rendered', this)
-      return null
-    }
-    this.rendered = true
-    await scope.process(this.el)
-    if (await scope.renderVirtuals(this)) {
-      console.warn('Virtual taking control')
-      return
-      //throw new Error('Incompatible')
-    }
-    scope.nodes.push(this)
-    await this.attach(scope)
+  attach(scope) {
+    //this.upScope = scope
+    this.scope = scope.child({
+      source: this,
+      variables: this.constructor._variables
+    })
     return this
   }
 
@@ -77,17 +58,4 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     Object.assign(event, arg)
     return this.dispatchEvent(event)
   }
-
-  destroy() {
-    workers.forEach((w) => w.destroy && w.destroy(this))
-    if (this.v) {
-      for (const virtual of Object.values(this.v)) {
-        virtual.destroy(true)
-      }
-    }
-    super.destroy()
-    //console.warn('component destroyed', this)
-  }
-
-
 }

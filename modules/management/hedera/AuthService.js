@@ -2,7 +2,7 @@ const axios = require('axios')
 const Service = require('hedera/Service')
 const { User } = require('management')
 const context = require('core-client/context')
-
+const { defaultLoad } = require('management/utils')
 module.exports = class AuthService extends Service {
   constructor(url) {
     super()
@@ -13,6 +13,12 @@ module.exports = class AuthService extends Service {
 
   onMeChanged() {
     context.user = this.me
+  }
+
+  parseUser(json) {
+    const user = User.parse(json, { singleInstance: true })
+    user.setLoadState(defaultLoad)
+    return user
   }
 
   async request(action, payload) {
@@ -29,12 +35,13 @@ module.exports = class AuthService extends Service {
 
   async getMe() {
     const { me } = await this.request('/me')
-    this.me = User.parse(me)
+    if (!me) { return null }
+    this.me = this.parseUser(me)
   }
 
   async login(user) {
     const { me } = await this.request('/login', user)
-    this.me = User.parse(me)
+    this.me = this.parseUser(me)
   }
 
   async changePassword(user) {
@@ -44,7 +51,7 @@ module.exports = class AuthService extends Service {
 
   async signup(user) {
     const { me } = await this.request('/signup', user)
-    this.me = User.parse(me)
+    this.me = this.parseUser(me)
   }
 
   async logout() {

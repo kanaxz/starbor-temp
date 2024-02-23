@@ -1,19 +1,18 @@
 const { Group, Membership, User } = require('management')
+const { StorageObject } = require('../../storage/shared')
 
-module.exports = async (req, config) => {
+module.exports = async ({ req, config, modeling }) => {
+
+
   const systemUserValues = config.management.systemUser
-  let systemUser = await User.collection.findOne(req, [{
-    $eq: ['$username', systemUserValues.username]
-  }])
-  if (!systemUser) {
-    systemUser = await User.collection.create(req, {
-      '@type': 'user',
-      ...systemUserValues,
-    })
-  }
+  /*
+  let test = await StorageObject.collection.find(req, [])
 
-  req.user = systemUser
-  
+  console.log(test.toJSON())
+  process.exit()
+
+  /**/
+
   let adminGroup = await Group.collection.findOne(req, [{ $eq: ['$name', 'admin'] }])
   if (!adminGroup) {
     adminGroup = await Group.collection.create(req, {
@@ -24,26 +23,30 @@ module.exports = async (req, config) => {
 
   req.adminGroup = adminGroup
 
-  let adminMembership = await Membership.collection.findOne(req, [
-    {
-      $eq: ['$user', systemUser._id]
-    },
-    {
-      $eq: ['$group', adminGroup._id]
-    }
-  ])
+  /**/
+  let systemUser = await User.collection.findOne(req, [{
+    $eq: ['$username', systemUserValues.username]
+  }])
 
-  if (!adminMembership) {
-    await Membership.collection.create(req, {
-      '@type': 'membership',
-      user: systemUser.toJSON(),
-      group: adminGroup.toJSON()
+  if (!systemUser) {
+    systemUser = await User.collection.create(req, {
+      '@type': 'user',
+      ...systemUserValues,
+      groups: [
+        adminGroup
+      ]
     })
   }
 
-  await systemUser.load(req, {
-    memberships: {
-      group: true,
-    }
-  })
+  req.user = systemUser
+
+  /*
+
+  const { collections } = modeling
+  const objects = await collections.storage.find(req, [{ $eq: ['$path', '/storage/upload'] }])
+
+  console.log(objects.map((o) => o.toJSON()))
+
+  process.exit()
+  /**/
 }

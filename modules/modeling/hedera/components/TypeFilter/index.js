@@ -63,9 +63,6 @@ module.exports = class TypeFilter extends Component {
   constructor() {
     super()
     this.sources = new Array()
-    this.scope = new Scope({
-      
-    })
   }
 
   addSource() {

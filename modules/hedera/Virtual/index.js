@@ -11,18 +11,19 @@ module.exports = class Virtual extends mixer.extends([Base]) {
     return super.define(definition)
   }
 
-
-  preventRender() {
-    return false
-  }
-
-  attach(scope) {
-    super.attach(scope)
-    return this.preventRender()
-  }
-
-  constructor(el) {
+  constructor(scope, variables, el, initialValue) {
     super()
+    this.scope = scope
+    this.variables = variables
     this.el = el
+    this.initialValue = initialValue
+  }
+
+  getVariables() {
+    return this.variables
+  }
+
+  preventInitialize() {
+    return false
   }
 }

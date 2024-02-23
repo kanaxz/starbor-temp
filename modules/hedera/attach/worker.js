@@ -1,33 +1,35 @@
 const { set } = require('core/utils/path')
 
-const as = (node, { this: thisArg }) => {
-  const as = node.getAttribute("as")
+const as = (scope, node) => {
+  const as = node.getAttribute('as')
   if (!as) { return }
   //console.log('as',thisArg, as, node)
-  set(thisArg, as, node)
+  node.removeAttribute('as')
+  set(scope.variables.this, as, node)
 }
 
-const attach = (node, { this: thisArg }) => {
+const attach = (scope, node) => {
   if (!node.getAttribute('attach') || !node.id) { return }
 
-  set(thisArg, node.id, node)
+  set(scope.variables.this, node.id, node)
 }
 
-const _in = (node, { this: thisArg }) => {
+const _in = (scope, node) => {
   const attr = node.getAttribute('in')
   if (!attr) { return }
-
-  if(!thisArg[attr]){
+  const thisArg = scope.variables.this
+  if (!thisArg[attr]) {
     thisArg[attr] = []
   }
   thisArg[attr].push(node)
 }
 
 module.exports = {
-  process(scope, node, variables) {
+  process(scope, { node }) {
     if (node.nodeType !== Node.ELEMENT_NODE) { return }
-    as(node, variables)
-    attach(node, variables)
-    _in(node, variables)
+
+    as(scope, node)
+    attach(scope, node)
+    _in(scope, node)
   }
 }

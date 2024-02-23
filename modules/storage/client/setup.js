@@ -1,6 +1,6 @@
 require('storage')
-const { collectionsTypesMap } = require('processing-client')
-const FileCollection = require('./FileCollection')
-const FileSystemObject = require('storage/FileSystemObject')
+const { collectionsTypesMap } = require('modeling-client')
+const StorageCollection = require('./StorageCollection')
+const StorageObject = require('storage/StorageObject')
 
-collectionsTypesMap.unshift([FileSystemObject, FileCollection])
+collectionsTypesMap.unshift([StorageObject, StorageCollection])

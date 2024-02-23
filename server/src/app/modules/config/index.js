@@ -9,6 +9,7 @@ module.exports = {
         systemUser: {
           username: 'system',
           password: '123',
+          wiki: 'abc',
         }
       },
       express: {

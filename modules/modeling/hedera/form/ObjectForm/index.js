@@ -1,13 +1,15 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
 const context = require('core-client/context')
-const RootObjectState = require('processing/states/RootObjectState')
+const RootObjectState = require('modeling/states/RootObjectState')
 require('./style.scss')
 
 const applyStates = (targetStates, statesPatch) => {
+  console.log({ targetStates, statesPatch })
   Object.entries(statesPatch)
     .forEach(([k, patch]) => {
       const target = targetStates[k]
+      console.log({ target, patch })
       Object.assign(target, patch)
       if (patch.states) {
         applyStates(target.states, patch.states)
@@ -25,7 +27,7 @@ const propagate = (state, patch) => {
     })
 }
 
-module.exports = class ChildModelForm extends Component {
+module.exports = class ObjectForm extends Component {
   constructor(values = {}) {
     super()
     Object.assign(this, values)
@@ -81,12 +83,13 @@ module.exports = class ChildModelForm extends Component {
     return true
   }
 
-  onSubmitSuccess(){
+  onSubmitSuccess() {
 
   }
 
   async onSubmit(e) {
     console.log('submit', e)
+    e.stopPropagation()
     e.preventDefault()
     await this.updateStates()
     this.fieldset.showErrors()

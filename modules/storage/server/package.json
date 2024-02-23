@@ -9,11 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@img/sharp-linux-x64": "^0.33.1",
     "core": "file:../../core/shared",
     "core-server": "file:../../core/server",
     "express-fileupload": "^1.4.1",
     "mmmagic": "^0.5.3",
+    "modeling": "file:../../modeling/shared",
     "mongo": "file:../../mongo",
+    "ressourcing": "file:../../ressourcing",
+    "sharp": "^0.33.1",
     "storage": "file:../shared"
   }
 }

@@ -3,19 +3,37 @@ const { Global } = require('modeling/types')
 module.exports = {
   for: Global,
   methods: {
-    and(scope, args = []) {
+    and(scope, $and = []) {
       return {
-        $and: args,
+        $and,
       }
     },
-    or(scope, args = []) {
+    or(scope, $or = []) {
       return {
-        $or: args,
+        $or,
       }
     },
-    if(scope, $if, $then, $else) {
+    if(scope, ...$cond) {
       return {
-        $cond: [$if, $then, $else],
+        $cond,
+      }
+    },
+    async let(scope, vars, body) {
+      const child = scope.child()
+      Object.entries(vars)
+        .forEach(([k, v]) => {
+          child.variables[k] = {
+            value: `$${k}`,
+            sourceType: 'let',
+            letArg: v,
+          }
+        })
+      const $in = await child.process(body)
+      return {
+        $let: {
+          vars,
+          in: $in,
+        }
       }
     }
   }

@@ -3,9 +3,11 @@ const { nanoid } = require('nanoid')
 const { chain } = require('core/utils/array')
 const mixer = require('core/mixer')
 const handlers = require('./handlers')
-const { processQuery, makePath } = require('./queryUtils')
+const { processStages } = require('./queryUtils')
 const { get } = require('core/utils/path')
 const { validate } = require('./utils')
+const { Array } = require('modeling/types')
+const QueryResult = require('modeling/types/QueryResult')
 
 const patchesMap = {
   '$set': (object, value) => {
@@ -20,36 +22,21 @@ const applyPatches = (object, pathes) => {
     })
 }
 
-const collect = (models, path) => {
-  const array = models
-    .flatMap((model) => {
-      const array = get(model, path)
-      return Array.isArray(array) ? [...array] : [array]
-    })
-    .filter((o) => o)
-
-  return array
-}
-
-const applyLookups = async (models, lookups, paths, path) => {
-  for (const [propertyName, subPaths] of Object.entries(paths)) {
-    const lookup = lookups.find(({ property }) => property.name === propertyName)
-    if (!lookup) {
-      throw new Error(`Lookup not found for property ${propertyName}`)
-    }
-
-    const currentPath = makePath(path, propertyName)
-    await applyLookups(models, lookup.lookups, subPaths, currentPath)
-
-    const subModels = collect(models, currentPath)
-    lookup.controllers.tip.resolve(subModels)
-    await lookup.controllers.rightToLeft
-  }
-}
-
 const DELETE_MANY_SIZE = 100
 
 module.exports = class MongoCollection {
+
+  static methods = [
+    'findOne',
+    'find',
+    'query',
+    'create',
+    'update',
+    'createOrUpdate',
+    'delete',
+    'deleteMany'
+  ]
+
   constructor(type, mongodb, controllers) {
     this.type = type
     this.mongodb = mongodb
@@ -108,8 +95,8 @@ module.exports = class MongoCollection {
     return controllers
   }
 
-  async findOne(req, query, options) {
-    const [result] = await this.find(req, query, {
+  async findOne(req, filter, options) {
+    const [result] = await this.find(req, filter, {
       ...options,
       limit: 1,
     })
@@ -117,13 +104,37 @@ module.exports = class MongoCollection {
     return result
   }
 
-  async find(req, query = [], options = {}) {
+  async queryController(req, type, stages, detail) {
+    const controllers = this.getTypeControllers(type)
+    for (const controller of controllers) {
+      if (controller.query) {
+        const result = await controller.query(req, stages, detail)
+        if (result) {
+          stages = result
+        }
+      }
+    }
+
+    return stages
+  }
+
+  async find(req, filter = [], options) {
+    return this.query(req, [{
+      filter
+    }], options)
+  }
+
+
+  async query(req, stages = [], options = {}) {
+
     let type = this.type
     if (options.type) {
       type = this.type.findChild((c) => c.definition.name === options.type)
       if (type !== this.type) {
-        query.push({
-          $is: ['$this', type.definition.name]
+        stages.unshift({
+          filter: [{
+            $is: ['$this', type.definition.name]
+          }]
         })
       }
     }
@@ -131,52 +142,47 @@ module.exports = class MongoCollection {
     if (!type) {
       throw new Error('Type not found')
     }
+    stages = await this.queryController(req, type, stages)
+    //console.log(JSON.stringify(stages, null, ' '))
 
-    const initPipeline = []
-    let models
-    const controllers = this.getTypeControllers(type)
-    await chain(controllers, async (controller, next) => {
-      if (!controller.find) {
-        return next()
-      }
-      return controller.find(req, initPipeline, query, (newQuery) => {
-        if (newQuery) {
-          query = newQuery
-        }
-        return next()
-      })
-    }, async () => {
-      const rootScope = new MongoScope({
-        req,
-        handlers,
-        collection: this,
-      })
-      const { pipeline, lookups } = await processQuery(rootScope, type, query, options)
-      pipeline.unshift(...initPipeline)
-      console.log(JSON.stringify(pipeline, null, ' '))
-
-      const modelsJson = await this.mongoCollection
-        .aggregate(pipeline)
-        .toArray()
-      /*
-      console.log(JSON.stringify({ modelsJson }, null, ' '))
-      process.exit()
-      /**/
-
-
-      models = modelsJson.map((m) => {
-        const model = type.parse(m)
-        model.setLoadState(options.load)
-        return model
-      })
-      await applyLookups(models, lookups, options.load)
-      return models
+    const rootScope = new MongoScope({
+      req,
+      handlers,
+      collection: this,
     })
+
+    rootScope.variables = {
+      this: {
+        sourceType: 'var',
+        name: 'this',
+        value: '$$CURRENT',
+        type: type,
+      }
+    }
+
+    const pipeline = await processStages(rootScope, stages, options)
+    console.log(JSON.stringify(pipeline, null, ' '))
+
+    const modelsJson = await this.mongoCollection
+      .aggregate(pipeline)
+      .toArray()
+    /*
+    console.log(JSON.stringify({ modelsJson }, null, ' '))
+    process.exit()
+    /**/
+
+
+    const models = new (QueryResult.of(type))(modelsJson.map((m) => {
+      const model = type.parse(m)
+      model.setLoadState(options.load || {})
+      return model
+    }), { stages, options })
 
     return models
   }
 
   async create(req, modelJson) {
+    console.log('create', modelJson)
     let model
     if (modelJson instanceof this.type) {
       model = modelJson
@@ -231,10 +237,11 @@ module.exports = class MongoCollection {
 
 
   async update(req, query, patches) {
-    const [model] = await this.find(req, query, { limit: 1 })
+    const model = await this.findOne(req, query, { limit: 1 })
     if (!model) {
       throw new Error()
     }
+    console.log('update', model)
     const result = await this.innerUpdate(req, model, patches)
     return result
   }

@@ -23,12 +23,30 @@ const get = (object, path) => {
   return object
 }
 
+const pathsCopy = (paths) => {
+  const copy = Object.entries(paths)
+    .reduce((acc, [k, v]) => {
+      if (typeof v === 'object') {
+        v = pathsCopy(v)
+      }
+      acc[k] = v
+      return acc
+    }, {})
+  return copy
+}
+
+/**
+ * 
+ * @param {*} paths1 
+ * @param {*} paths2 
+ * @returns a - b 
+ */
 const pathsDiff = (paths1, paths2) => {
   const diff = Object.entries(paths1)
     .reduce((acc, [propertyName, value1]) => {
       let value2 = paths2[propertyName]
       if (!value2) {
-        if(value1){
+        if (value1) {
           acc[propertyName] = value1
         }
       } else {
@@ -38,7 +56,7 @@ const pathsDiff = (paths1, paths2) => {
         if (value1 === true) {
           value1 = {}
         }
-        const subDiff = objectDiff(value1, value2)
+        const subDiff = pathsDiff(value1, value2)
         if (Object.keys(subDiff).length) {
           acc[propertyName] = subDiff
         }
@@ -54,4 +72,5 @@ module.exports = {
   set,
   get,
   pathsDiff,
+  pathsCopy,
 }

@@ -3,11 +3,13 @@
     <div class="inner"></div>
   </div>
   <div class="preview">
-    <div class="app-row">
+    <div class="model-row">
       <loading-content></loading-text>
     </div>
   </div>
   <div :v-for="model of this.branch" class="list">
-    <a class="model" :v-link="model.@url" :v-child="this.template(model)"></a>
+    <a class="model" :v-link="model.@url">
+      <model-row :model="model"></model-row>
+    </a>
   </div>
 </self>

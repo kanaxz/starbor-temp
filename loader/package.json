@@ -15,11 +15,14 @@
     "in": "^0.19.0",
     "ini": "^4.0.0",
     "jwt": "file:../modules/jwt/shared",
+    "management": "file:../modules/management/shared",
     "modeling": "file:../modules/modeling/shared",
     "modeling-client": "file:../modules/modeling/client",
-    "processing-client": "file:../modules/processing/client",
+    "moment": "^2.30.1",
     "request-promise": "^4.2.6",
+    "ressourcing": "file:../modules/ressourcing",
     "shared": "file:../shared",
+    "storage": "file:../modules/storage/shared",
     "storage-client": "file:../modules/storage/client",
     "xml2json": "^0.12.0"
   }

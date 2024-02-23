@@ -16,7 +16,7 @@ module.exports = class ModelComponent extends Component {
 
   }
 
-  replace(scope) {
+  async replace(scope) {
     const parent = getParent(this.constructor)
     if (parent !== ModelComponent) { return null }
     let model = this.model
@@ -27,7 +27,7 @@ module.exports = class ModelComponent extends Component {
         throw new Error('Cannot replace')
       }
       div.setAttribute(':model', modelAttribute)
-      scope.process(div)
+      await scope.process(div)
       model = div.model
     }
     const typeName = this.constructor.definition.type
@@ -46,17 +46,17 @@ module.exports = class ModelComponent extends Component {
     return this
   }
 
-  async render(scope) {
-    let replace = this.replace(scope)
+  async attach(scope) {
+    let replace = await this.replace(scope)
     if (replace) {
       if (!this.parentElement) {
         throw new Error('Cannot replace')
       }
       this.replaceWith(replace)
-      return scope.render(replace)
+      return replace.attach(scope)
     }
 
-    return super.render(scope)
+    return super.attach(scope)
   }
 
   async onReady() {

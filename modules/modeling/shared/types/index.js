@@ -19,5 +19,6 @@ module.exports = {
   ArrayAssociation: require('./ArrayAssociation'),
   Markdown: require('./Markdown'),
   Password: require('./Password'),
+  OwnMany: require('./OwnMany'),
 }
 

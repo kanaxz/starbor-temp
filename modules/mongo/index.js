@@ -4,13 +4,14 @@ const { Model } = require('modeling/types')
 
 module.exports = {
   name: 'mongo',
-  dependancies: ['processing', 'config'],
-  async construct({ processing, config }) {
+  dependancies: ['modeling', 'config'],
+  async construct({ modeling, config }) {
+    console.log({ modeling })
     const client = await mongo.MongoClient.connect(config.mongo.url)
 
     const db = client.db(config.mongo.db)
 
-    processing.map.push([
+    modeling.map.push([
       Model, (type, controllers) => new MongoCollection(type, db, controllers),
     ])
 

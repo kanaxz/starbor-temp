@@ -1,5 +1,5 @@
 const Branch = require.main.require('modeling/types/Branch')
-const { makeId } = require('core/utils/string')
+const { unwind } = require('./utils')
 
 module.exports = {
   for: Branch,
@@ -9,8 +9,9 @@ module.exports = {
     const type = property.type.definition.template
     const { pluralName } = type.definitions.find((d) => d.pluralName)
     const on = `${property.on}._id`
-    const tempId = `var${makeId()}`
     const propertyName = property.name
+    const [before, after] = unwind(propertyName)
+
     return [
       {
         $graphLookup: {
@@ -21,50 +22,9 @@ module.exports = {
           connectToField: '_id',
         }
       },
-      {
-        $unwind: {
-          path: `$${propertyName}`,
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $addFields: {
-          [`${propertyName}.${tempId}`]: '$$ROOT',
-        }
-      },
-      {
-        $replaceRoot: {
-          newRoot: `$${propertyName}`
-        }
-      },
+      ...before,
       ...pipeline,
-      {
-        $group: {
-          _id: `$${tempId}._id`,
-          [tempId]: { $first: `$${tempId}` },
-          [propertyName]: {
-            $push: {
-              $cond: {
-                if: { $not: { $not: ["$_id"] } },
-                then: '$$CURRENT',
-                else: '$$REMOVE',
-              }
-            },
-          }
-        },
-      },
-      {
-        $replaceRoot: {
-          newRoot: {
-            $mergeObjects: [
-              `$${tempId}`,
-              {
-                [propertyName]: `$${propertyName}`
-              }
-            ]
-          }
-        }
-      }
+      ...after,
     ]
   },
   unload(property, path) {

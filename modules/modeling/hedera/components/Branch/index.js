@@ -14,11 +14,6 @@ module.exports = class Branch extends Component {
 
   }
 
-  template(model) {
-    const rowComponent = componentsService.get(model.constructor, 'row')
-    return new rowComponent(model)
-  }
-
   async update() {
     this.loading = true
     await this.branch.load()

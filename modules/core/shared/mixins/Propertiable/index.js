@@ -15,8 +15,7 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
           return this.values[property.name]
         },
         set: async function (newValue) {
-          //console.log('setting', property, newValue)
-          if (this[Destroyable.symbol]) { return }
+          if (this['@destroyed']) { return }
           if (newValue === this[property.name]) { return }
           await this.setPropertyValue(property, newValue)
         },
@@ -45,10 +44,11 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
       Object.defineProperty(this, 'values', { enumerable: false, writable: true, value: {} })
     }
 
-    async set(values) {
+    async set(values, options) {
       await Promise.all(Object.entries(values).map(async ([k, v]) => {
         const property = this.constructor.properties.find((p) => p.name === k)
-        await this.setPropertyValue(property, v)
+        if (!property) { return }
+        await this.setPropertyValue(property, v, options)
       }))
     }
 
@@ -59,16 +59,17 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
       ])
     }
 
-    async setPropertyValue(property, value) {
+    async setPropertyValue(property, value, options) {
       if (!this.values) {
         this.values = {}
       }
       const oldValue = this.values[property.name]
       this.values[property.name] = value
-      await this.propertyChanged(property, value, oldValue)
+      await this.propertyChanged(property, value, oldValue, options)
     }
 
     destroy() {
+      // we set null before super.destroy as we want it to trigger the events
       this.constructor.properties.forEach((p) => {
         this[p.name] = null
       })

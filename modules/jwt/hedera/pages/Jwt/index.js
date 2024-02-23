@@ -10,13 +10,11 @@ module.exports = class JwtPage extends Component {
     this.states = { user: { hidden: true, value: context.user }, id: { readOnly: true, disabled: false } }
     this.newModelStates = { ...this.states, key: { disabled: false, readOnly: true } }
     //console.log('here', this.newModelstates)
-    this.jwts = await Jwt.collection.find(
-      [
-        {
-          $eq: ['$user', context.user.getIndex('id')]
-        }
-      ]
-    )
+    this.jwts = await Jwt.collection.find([
+      {
+        $eq: ['$user._id', context.user._id]
+      }
+    ])
   }
   async onReady() {
 

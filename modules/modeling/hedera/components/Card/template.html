@@ -1,6 +1,8 @@
 <self :class="'model-card'">
   <header slot="header">
-    {{this.model.@name}}
+    <label>
+      {{this.model.@name}}
+    </label>
   </header>
   <div class="content" slot>
 
@@ -17,7 +19,7 @@
         Edit
       </context-menu-item>
     </div>
-    <context-menu-item :v-if="this.model.canDelete()">
+    <context-menu-item :on-selected="this.delete()" :v-if="this.model.canDelete()">
       Delete
     </context-menu-item>
   </context-menu>

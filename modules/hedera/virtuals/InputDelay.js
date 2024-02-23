@@ -1,11 +1,10 @@
 const Virtual = require('../Virtual')
 
 module.exports = class InputDelay extends Virtual {
-  constructor(el, value) {
-    super(el)
+  async onInit(){
     this.timeout = null
-    this.el.setAttribute(':v.input-delay.on-input-callback', `()=>${value}`)
-    this.listen(el, 'input', this.onChange)
+    await this.bind('callback', `()=>${this.initialValue}`)
+    this.listen(this.el, 'input', this.onChange)
   }
 
   onChange() {
@@ -14,7 +13,7 @@ module.exports = class InputDelay extends Virtual {
     }
 
     this.timeout = setTimeout(() => {
-      this.onInputCallback()
+      this.callback()
     }, 500)
   }
 }
@@ -22,5 +21,5 @@ module.exports = class InputDelay extends Virtual {
     name: 'inputDelay'
   })
   .properties({
-    onInputCallback: 'any',
+    callback: 'any',
   })

@@ -1,7 +1,7 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
 const context = require('core-client/context')
-const RootModelState = require('processing/states/RootModelState')
+const RootModelState = require('modeling/states/RootModelState')
 const ObjectForm = require('../ObjectForm')
 require('./style.scss')
 

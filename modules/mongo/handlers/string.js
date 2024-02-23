@@ -21,6 +21,9 @@ module.exports = {
       }
     },
   },
+  check(value) {
+    return typeof value === 'string'
+  },
   parse(scope, value) {
     if (typeof value !== 'string') {
       throw new Error()
@@ -28,6 +31,7 @@ module.exports = {
     return {
       scope,
       value,
+      type: String,
     }
   }
 }

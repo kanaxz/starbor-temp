@@ -51,26 +51,26 @@ const str2DOMElement = (html) => {
 const isTemplate = (template) => {
   return (template instanceof HTMLScriptElement || template instanceof HTMLTemplateElement || typeof template === "string");
 }
-const getElementFromTemplate = (template) => {
-  if (template instanceof HTMLScriptElement) {
-    var clearInnerHTML = template.innerHTML.trim();
 
-    var result = str2DOMElement(clearInnerHTML);
-    return result;
-  } else if (template instanceof HTMLTemplateElement) {
-    var clone = document.importNode(template.content, true)
-    return [...clone.childNodes].find((child) => child.nodeType === Node.ELEMENT_NODE)
+const getElementFromTemplate = (template) => {
+  const clone = document.importNode(template.content, true)
+  return [...clone.childNodes].find((child) => child.nodeType === Node.ELEMENT_NODE)
+}
+
+const getElementFromObject = (template) => {
+  if (template instanceof HTMLTemplateElement) {
+    return getElementFromTemplate(template)
   } else if (typeof template === "string") {
     return str2DOMElement(template)
   } else if (template instanceof HTMLElement || template instanceof SVGElement) {
     return template.cloneNode(true)
   } else {
-    console.error(template)
-    throw new Error("Cannot get content of template")
+    throw new Error()
   }
 }
 
 module.exports = {
   isTemplate,
   getElementFromTemplate,
+  getElementFromObject,
 }

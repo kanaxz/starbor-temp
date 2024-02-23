@@ -1,7 +1,7 @@
 const Primitive = require('./Primitive')
-const utils = require('../utils')
 const Real = require('./Real')
 const This = require('./This')
+const Array = require('./Array')
 
 class Bool extends Primitive {
   static parse(value, owner, property) {
@@ -23,7 +23,13 @@ Real.methods({
 
 Primitive.methods({
   eq: [[This], Bool],
-  neq: [[This], Bool]
+  neq: [[This], Bool],
+  in: [[Array.of(This)], Bool]
+})
+
+Array.methods({
+  has: [[Array.template], Bool],
+  some: [[Array.fnArg], Bool],
 })
 
 

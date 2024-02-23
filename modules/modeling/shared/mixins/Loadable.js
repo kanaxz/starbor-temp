@@ -1,8 +1,9 @@
 const mixer = require('core/mixer')
-const loadingQueue = Symbol('loadingQueue')
-const stateKey = Symbol('loadableState')
+const loadingQueue = '@loadingQueue'
+const stateKey = '@loadState'
 const Propertiable = require('core/mixins/Propertiable')
 const Bool = require('../types/Bool')
+const setup = require('../setup')
 
 const Loadable = mixer.mixin([Propertiable], (base) => {
   return class extends base {
@@ -23,28 +24,29 @@ const Loadable = mixer.mixin([Propertiable], (base) => {
       })
     }
 
-    setState(state, paths, err) {
-      for (const [propertyName, value] of Object.entries(paths)) {
-        if (value && this[propertyName]) {
-          this[propertyName].setState(state, value, err)
-        }
+    setPathsState(state, paths, err) {
+      throw new Error('Not implemented')
+    }
+
+    setState(state, paths, err, fromSelf, result) {
+      this.setPathsState(state, paths, err, fromSelf)
+
+
+      if (state === this[stateKey] || this[stateKey] === 'loaded') {
+        return false
       }
-
-
       this.loaded = state === 'loaded'
-
-      if (state === this[stateKey]) {
-        return
-      }
       this[stateKey] = state
       if (state === 'error') {
         //console.error(err)
         this[loadingQueue].forEach(({ reject }) => reject(err))
         this[loadingQueue] = null
       } else if (state === 'loaded') {
-        this[loadingQueue].forEach(({ resolve }) => resolve())
+        this[loadingQueue].forEach(({ resolve }) => resolve(result))
         this[loadingQueue] = null
       }
+
+      return true
     }
 
     setLoadState(...args) {
@@ -56,14 +58,16 @@ const Loadable = mixer.mixin([Propertiable], (base) => {
     }
 
     async loadAssociation(context, propertyName, paths) {
-      await this[propertyName].load(context, paths)
+      throw new Error('Load association not implemented')
     }
 
-    async load(context, paths = {}) {
-      if (this.state === 'error') {
+    async load(...args) {
+      const [context, paths = {}] = setup.getArgs(args)
+      const state = this[stateKey]
+      if (state === 'error') {
         this.state = 'empty'
       }
-      const state = this[stateKey]
+      //console.warn('load', this, state, paths )
       if (state === 'loaded') {
         if (paths === true) { return }
         for (const [propertyName, subPaths] of Object.entries(paths)) {
@@ -79,12 +83,14 @@ const Loadable = mixer.mixin([Propertiable], (base) => {
         // make sure the paths are loaded
         await this.load(context, paths)
       } else if (state === 'empty') {
-        this.setState('loading', paths)
+        this.setState('loading', paths, null, true)
         try {
-          await this.innerLoad(context, paths)
-          this.setState('loaded', paths)
+          const result = await this.innerLoad(context, paths)
+          //console.log(this, 'loaded')
+          this.setState('loaded', paths, null, true, result)
+          return result
         } catch (err) {
-          this.setState('error', paths, err)
+          this.setState('error', paths, err, null, true)
           throw err
         }
       } else {
@@ -106,4 +112,8 @@ const Loadable = mixer.mixin([Propertiable], (base) => {
   })
 
 Loadable.stateSymbol = stateKey
+Object.assign(Loadable, {
+  loadingQueue,
+  stateKey,
+})
 module.exports = Loadable

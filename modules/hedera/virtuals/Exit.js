@@ -2,16 +2,15 @@ const Destroyable = require('core/mixins/Destroyable')
 const Virtual = require('../Virtual')
 
 module.exports = class Exit extends Virtual {
-  constructor(el, value) {
-    super(el)
-    const [callback, when] = value.split(/ when /)
-    this.el.setAttribute(':v.exit.callback', `()=>${callback}`)
-    this.el.setAttribute(':v.exit.when', when)
+  async onInit() {
+    const [callback, when] = this.initialValue.split(/ when /)
+    await this.bind('callback', `()=>${callback}`)
+    if(when){
+      await this.bind('when', when)
+    }
+    
     this.listen(window, 'click', this.onWindowClicked, true)
     this.listen(window, 'keydown', this.onWindowKeyDown, true)
-  }
-
-  onInit() {
     if (this.when === undefined) {
       this.when = true
     }
@@ -30,7 +29,7 @@ module.exports = class Exit extends Virtual {
   }
 
   trigger() {
-    if (this[Destroyable.symbol]) { return }
+    if (this['@destroyed']) { return }
     if (!this.when) { return }
     this.callback()
   }

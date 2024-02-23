@@ -1,34 +1,67 @@
-<self :on-keyup="this.onKeyUp(event)">
-  <template as="treeTemplate">
-    <div
-      :class="`folder ${$.@active && 'active'}`">
-      <vars :active="this.@currentFolder === folder || this.@currentFolder.branch.indexOf(folder) !== -1"></vars>
-      <div class="row">
-        <folder-row
-          :model="folder"
-          :class="`${ $.@active && 'focus open'} ${ folder === this.@currentFolder && 'selected'}`"
-          :on-click="this.focusFolder(folder)">
-        </folder-row>
-      </div>
-
-      <div
-        class="folders"
-        :v-for="folder of folder.children.filterLink((f)=>f instanceof Folder) with this.treeTemplate">
-      </div>
+<self 
+  :v-selectable-root="'horizontal'" 
+  :v-loader="this.@loading size '50px'">
+    <div class="left">
+      <folder-tree 
+        :folder="this.@currentFolder"
+        :root="this.initialFolder"
+        :on-selected="this.focusFolder(event.folder)">
+      </folder-tree>
     </div>
-  </template>
-  <div
-    class="tree"
-    :v-render="this.treeTemplate with { folder: this.folder }">
-  </div>
-  <div
-    class="folder-explorer"
-    :v-for="fileObject of this.@currentFolder.children">
-      <model-card
-        :model="fileObject"
-        :on-click="this.onFileObjectClicked(fileObject)"
-        :v-selectable="node.click() within this"
-        :v.selectable.mode="'horizontal'">
-    </model-card>
-  </div>
+    <div class="right">
+      <div class="bar">
+        <input as="input" :v-input-delay="this.search(node.value)" placeholder="search">
+        <div class="actions">
+          <div :on-click="this.inputFile.click()" class="upload">
+            <input type="file" as="inputFile" :on-change="this.uploadFile(node.files[0])" />
+            <i class="fa-solid fa-file-arrow-up"></i>
+          </div>
+          <div>
+            <i class="fa-solid fa-link"></i>
+          </div>
+          <div :on-click="this.createFolder()">
+            <i class="fa-solid fa-folder-plus" ></i>
+          </div>
+        </div>
+      </div>
+      <template in="templates" :for="File" :as="'file'">
+        <iframe class="file"
+          :src="file?.@path">
+        </iframe>
+      </template>
+      <editable-grid 
+        class="content" 
+        as="grid" 
+        :templates="this.templates" 
+        :directions="{left: false, top: false}"
+        :max-deepth="2">  
+          <grid-panel class="folder-panel">
+              <slot name="header">
+                <div class="folders">
+                  <div class="branch" :v-for="folder of this.@currentFolder.branch.filterLink((f)=>f === this.initialFolder || f.branch.indexOf(this.initialFolder) !== -1)">
+                    <div class="folder">
+                      <folder-row 
+                        :on-click="this.focusFolder(folder)" 
+                        :model="folder">
+                      </folder-row>
+                    </div>
+                  </div>
+                  <folder-row 
+                    class="selected open"
+                    :model="this.@currentFolder">
+                  </folder-row>
+                </div>
+              </slot>
+              <slot>
+                <div class="storage-objects" :v-for="storageObject of this.@storageObjects.sortLink((o1, o2)=> (o1 instanceof Folder ? 0 : 1) - (o2 instanceof Folder ? 0 : 1))">
+                  <model-card
+                    :model="storageObject"
+                    :v-selectable="this.onFileObjectClicked(storageObject)">
+                  </model-card>
+                </div>
+              </slot>
+          </grid-panel>
+      </editable-grid>
+    </div>
+    
 </self>

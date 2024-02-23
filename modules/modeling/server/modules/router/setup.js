@@ -1,0 +1,22 @@
+const { handleError } = require('core-server/errors')
+const { Model } = require('modeling/types')
+
+module.exports = async ({ modeling, router }) => {
+  const { collections } = modeling
+  Object.entries(collections)
+    .forEach(([collectionName, collection]) => {
+      collection.constructor.methods.forEach((methodName) => {
+        const route = `/${collectionName}/${methodName}`
+        router.post(route, async (req, res) => {
+          const args = req.body
+          try {
+            const result = await collection[methodName](req, ...args)
+            const response = result.toJSON()
+            res.send(response)
+          } catch (err) {
+            handleError(res, err)
+          }
+        })
+      })
+    })
+}

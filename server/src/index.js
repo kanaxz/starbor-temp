@@ -15,19 +15,18 @@ const start = async () => {
       'management-server',
       'storage-server',
       'modeling-server',
-      'processing-server',
     ]
   })
 
   await app.start()
- 
+  return app
 }
 
-start().catch((err) => {
-  if (err.detail) {
-    console.error(JSON.stringify(err.detail, null, ' '))
-  } else {
-    console.error(err)
-  }
-  process.exit()
-})
+module.exports = start()
+  .catch((err) => {
+    if (err.detail) {
+      console.error(JSON.stringify(err.detail, null, ' '))
+    } else {
+      console.error(err)
+    }
+  })

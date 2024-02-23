@@ -1,4 +1,4 @@
-const Holder = require('modeling-client/mixins/Holder')
+const Holder = require('modeling-client/mixins/holding/Holder')
 const mixer = require('core/mixer')
 const ViewModel = require('hedera/ViewModel')
 

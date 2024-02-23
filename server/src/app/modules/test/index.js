@@ -1,18 +1,19 @@
-
 module.exports = {
-  dependancies: ['processing'],
-  async construct({ processing }) {
-    const { collections } = processing
+  dependancies: ['core', 'modeling'],
+  async construct({ core, modeling }) {
+    // DEBUGTESTDEBUGTEST
     return
-    const req = {}
-    const load = { memberships: { group: true } }
-    const user = await collections.users.findOne(req, [],)
-    await user.load(req, load)
-    console.log("user", JSON.stringify(user.toJSON({
-      memberships: {
-        group: true
-      }
-    }), null, ' '))
-    process.exit()
+    core.onReady(async (req) => {
+      const { collections } = modeling
+      console.log(collections)
+      const load = { }
+      const objects = await collections.storage.find(req, [],  {
+        load
+      })
+
+      console.log("objects", JSON.stringify(objects.map((o) => o.toJSON(load)), null, ' '))
+      process.exit()
+    })
+
   }
 }

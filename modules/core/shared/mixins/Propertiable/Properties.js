@@ -1,11 +1,10 @@
 const Tree = require('../../types/Tree')
 const Mixin = require('../../Mixin')
 module.exports = class Properties extends Tree {
-  constructor(propertiable) {
+  constructor(owner) {
     super()
-    this.propertiable = propertiable
-    this.isMixin = propertiable instanceof Mixin
-    propertiable.definition.parents
+    this.owner = owner
+    owner.definition.parents
       .filter((p) => p.properties)
       .forEach((parent) => {
         this.push(parent.properties)
@@ -14,21 +13,17 @@ module.exports = class Properties extends Tree {
 
   call(...args) {
     super.call(...args)
-    return this.propertiable
+    return this.owner
   }
 
-  defineProperty(property) {
-    //this.propertiable.defineProperty(property)
+  shouldIterateTree(it, tree) {
+    const shouldIterateTree = !(this.owner.prototype instanceof Mixin) || !it.from || !(tree instanceof Properties)
+    return shouldIterateTree
   }
 
   push(...args) {
     args.forEach((arg) => {
       if (arg instanceof Properties) {
-        if (arg.isMixin && !this.isMixin) {
-          arg.forEach((property) => {
-            this.defineProperty(property)
-          })
-        }
         super.push(arg)
         return
       }
@@ -42,10 +37,7 @@ module.exports = class Properties extends Tree {
             }
             property.name = name
             super.push(property)
-            if (!this.isMixin) {
-              this.defineProperty(property)
-            }
-            this.propertiable.sanitizeProperty(property)
+            this.owner.sanitizeProperty(property)
           })
         return
       }

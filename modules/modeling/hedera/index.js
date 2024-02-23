@@ -2,10 +2,10 @@ require('./components')
 require('./form')
 const mixer = require('core/mixer')
 const { onBindingDestroyed, onBindingGetProperty } = require('hedera/set/BindingFunction')
-const Holdable = require('modeling-client/mixins/Holdable')
+const BaseHoldable = require('modeling-client/mixins/holding/BaseHoldable')
 
 onBindingGetProperty((binding, value) => {
-  if (!mixer.is(value, Holdable)) { return }
+  if (!mixer.is(value, BaseHoldable)) { return }
   if (!binding.holdables) {
     binding.holdables = []
   }

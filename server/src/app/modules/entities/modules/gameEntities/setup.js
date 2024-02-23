@@ -1,17 +1,21 @@
-const { Folder, FolderAccess } = require('storage')
+const { Folder } = require('storage')
+const Right = require('ressourcing/Right')
 
 module.exports = async (req) => {
-  let entitiesFolder = await Folder.collection.findOne(req, [{ $eq: ['$path', '/storage/entities'] }])
+  let entitiesFolder = await Folder.collection.findOne(req, [{ $eq: ['$name', 'entities'] }, { $eq: ['$folder', null] }])
   if (!entitiesFolder) {
-    console.log('has user ?', !!req.user)
     await Folder.collection.create(req, new Folder({
       name: 'entities',
-      group: req.adminGroup,
-      folder: req.storageFolder,
-      access: new FolderAccess({
-        read: 'public',
-        edit: 'owner',
-        add: 'group',
+      read: new Right({
+        type: 'public',
+      }),
+      edit: new Right({
+        type: 'private',
+        owners: [req.user]
+      }),
+      add: new Right({
+        type: 'private',
+        owners: [req.adminGroup]
       })
     }))
   }

@@ -1,6 +1,6 @@
 const Component = require('hedera/Component')
 const template = require('./template.html')
-const FileSystemObject = require('storage/FileSystemObject')
+const StorageObject = require('storage/StorageObject')
 require('./style.scss')
 
 
@@ -24,7 +24,7 @@ module.exports = class FileSelector extends Component {
       console.log('progress', this.progress)
     }
 
-    const file = await FileSystemObject.collection.upload(nativeFile, this.type, { onUploadProgress })
+    const file = await StorageObject.collection.upload(nativeFile, this.type, { onUploadProgress })
     this.progress = null
     this.selectFile(file)
   }
@@ -37,7 +37,7 @@ module.exports = class FileSelector extends Component {
   async search(value) {
     if (value === this.lastSearchValue) { return }
     this.lastSearchValue = value
-    this.objects = await FileSystemObject.collection.find([{
+    this.objects = await StorageObject.collection.find([{
       $match: ['$name', value]
     }], {
       type: this.type.definition.name,

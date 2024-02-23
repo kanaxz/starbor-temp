@@ -1,12 +1,12 @@
 const Loadable = require('../mixins/Loadable')
 const mixer = require('core/mixer')
-const Array = require('./Array')
 const Bindeable = require('core/mixins/Bindeable')
 const Abstractable = require('core/mixins/Abstractable')
 const setup = require('../setup')
+const BaseModels = require('./BaseModels')
 const config = setup.arrayAssociation
 
-class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable, Bindeable, ...config.before]) {
+class BaseArrayAssociation extends mixer.extends(BaseModels, [Abstractable, Loadable, Bindeable, ...config.before]) {
   constructor(owner, property) {
     /*
   * when using native array functions like map, filter etc, it will return an instance of the current array class, which branch in this case
@@ -18,13 +18,14 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
     super()
     this.owner = owner
     this.property = property
+    this.owner.on('destroyed', this.b(this.destroy))
   }
 
   toString() {
     return `${this.property.name} of ${this.owner.toString()}`
   }
 
-  static parse(array, owner, property) {
+  static parse(array, options, { owner, property }) {
     let instance = owner[property.name]
     if (!instance) {
       instance = new this(owner, property)
@@ -32,21 +33,24 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
 
     if (array) {
       instance.splice(0, instance.length)
-      instance.push(...array)
+      instance.push(...array.map((o) =>
+        this.definition.template.parse(o, options, { property: this.property, owner: this }))
+      )
     }
 
     return instance
+  }
+
+  setPathsState(state, paths, err) {
+    for (const object of this) {
+      object.setState(state, paths, err)
+    }
   }
 
   async loadAssociation(context, property, paths) {
     for (const model of this) {
       await model[property].load(context, paths)
     }
-  }
-
-  toJSON(paths, context) {
-    if (!paths) { return undefined }
-    return super.toJSON(paths, context)
   }
 
   unload() {
@@ -56,8 +60,6 @@ class BaseArrayAssociation extends mixer.extends(Array, [Abstractable, Loadable,
 }
 
 BaseArrayAssociation.define()
-
-
 
 module.exports = class ArrayAssociation extends mixer.extends(BaseArrayAssociation, config.after) {
 
