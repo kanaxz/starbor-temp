@@ -4,7 +4,7 @@ const { encryptPassword } = require('management-server/modules/auth/utils')
 const { makeId } = require('core/utils/string')
 module.exports = {
   name: 'jwt-modeling',
-  dependancies: ['modeling', 'management', 'express'],
+  dependencies: ['modeling', 'management', 'express'],
   construct({ modeling, express }) {
     modeling.controller(Jwt, {
       async find(req, stages) {

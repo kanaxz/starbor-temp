@@ -1,13 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const http = require('http')
+const https = require('https')
 const cors = require('cors')
 const { join } = require('path')
+const helmet = require('helmet')
 
 module.exports = {
-  dependancies: ['core', 'config'],
-  construct({ core, config }) {
+  dependencies: ['core'],
+  construct({ core }, config) {
     const expressApp = express()
 
     expressApp.use((req, res, next) => {
@@ -24,13 +25,16 @@ module.exports = {
       console.log(req.method, req.url, JSON.stringify(req.body, null, ' '))
       next()
     })
-    const server = http.createServer(expressApp)
+    const server = https.createServer({
+      ...config.express.options
+    }, expressApp)
 
     expressApp.get('/ping', (req, res) => {
       res.send('pong')
     })
+    expressApp.use(express.static(config.dist))
 
-    core.onReady(() => {
+    core.on('ready', () => {
       console.log(`Listening on port ${config.express.port}`)
       expressApp.use('/*', (req, res) => {
         res.sendFile(join(config.dist, 'index.html'))

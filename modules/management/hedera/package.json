@@ -14,6 +14,7 @@
     "core-hedera": "file:../../core/hedera",
     "hedera": "file:../../hedera",
     "management": "file:../shared",
+    "management-client": "file:../client",
     "modeling-hedera": "file:../../modeling/hedera"
   }
 }

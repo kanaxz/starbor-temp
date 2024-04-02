@@ -1,5 +1,6 @@
 const { codify } = require('../../utils')
-const { System, Star, Planet, LandingZone, Moon, Position3D, GroundLocation } = require('shared/types')
+const { gePositionFromLatLon } = require('./utils')
+const { System, Star, Planet, LandingZone, Moon, Position3D, GroundLocation, Entity } = require('../../../modules/starbor/shared/types')
 const getSystemPosition = (object) => {
   const values = ['x', 'y', 'z'].reduce((acc, axis) => {
     acc[axis] = parseFloat(object[`position_${axis}`])
@@ -10,10 +11,10 @@ const getSystemPosition = (object) => {
 }
 
 
-module.exports = ({ collections }) => {
+module.exports = () => {
   const save = async (entity) => {
     console.log({ ...entity })
-    await collections.entities.create(entity)
+    await Entity.collection.create(entity)
   }
 
   const types = {
@@ -21,7 +22,7 @@ module.exports = ({ collections }) => {
       check: ({ type }) => false,
       async process(entity, json) {
         const system = System.parse(entity)
-        system.starmap.position = getSystemPosition(json)
+        system.position = getSystemPosition(json)
         await save(system)
         return system
       }
@@ -43,8 +44,12 @@ module.exports = ({ collections }) => {
     },
     planet: {
       check: ({ type }) => type === 'PLANET',
-      async process(entity) {
-        const planet = Planet.parse(entity)
+      async process(entity, json) {
+        const planet = Planet.parse({
+          ...entity,
+          position: gePositionFromLatLon(json),
+          orbitPeriod: json.orbit_period && parseFloat(json.orbit_period),
+        })
         await save(planet)
         return planet
       }

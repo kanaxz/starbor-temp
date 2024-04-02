@@ -1,12 +1,11 @@
 const { starmapRequest } = require('./utils')
 const systemsLoader = require('./systems')
-const { Starmap, Organization } = require('shared/types')
+const { Organization } = require('../../../modules/starbor/shared/types')
 const { codify } = require('../../utils')
 
 module.exports = async (services) => {
   const bootup = await starmapRequest('bootup')
   //console.log(Object.keys(bootup), bootup.config)
-  const { collections } = services
 
   const loadAffiliations = async () => {
     for (const starmapObject of bootup.affiliations.resultset) {
@@ -15,14 +14,10 @@ module.exports = async (services) => {
         code,
         name: starmapObject.name,
         color: starmapObject.color,
-        starmap: new Starmap({
-          type: 'affiliation',
-          id: starmapObject.id
-        }),
         wiki: starmapObject.name,
       })
 
-      await collections.organizations.create(organization)
+      await Organization.collection.create(organization)
     }
   }
 
@@ -34,18 +29,14 @@ module.exports = async (services) => {
         type: 'species',
         name: starmapSpecies.name,
         color: null,
-        starmap: new Starmap({
-          id: starmapSpecies.id,
-          type: 'species',
-        })
       })
 
-      await collections.organizations.create(organization)
+      await Organization.collection.create(organization)
     }
   }
-
-  //await loadAffiliations()
-  //await loadSpecies()
+  /*
+  await loadAffiliations()
+  await loadSpecies()
   /**/
   await systemsLoader(bootup, services)
 }

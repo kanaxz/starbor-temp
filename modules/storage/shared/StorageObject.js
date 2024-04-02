@@ -12,6 +12,12 @@ module.exports = class StorageObject extends Model {
     abstract: true,
     root: true,
   })
+  .indexes({
+    path: {
+      properties: ['name', 'folder'],
+      unique: true,
+    }
+  })
   .properties({
     name: {
       type: String,

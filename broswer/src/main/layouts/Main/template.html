@@ -1,0 +1,33 @@
+<self :class="`${ this.@open && 'open' || '' }`">
+  <div class="top-bar">
+    <div class="burger" :on-click="this.open = !this.open">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <a :v-link="'/'">
+      <img class="logo" src="./Logo-removebg-preview.png">
+      <h3>Starbor</h3>
+    </a>
+    
+    <div class="search">
+      <app-search></app-search>
+    </div>
+    <user-menu></user-menu>
+  </div>
+
+  <div class="row">
+    <div class="left-bar">
+      <div class="menu" :v-for="link of menu.links">
+        <a class="link" :v-link="link.url">
+          <div class="image">
+            <i :class="link.class"></i>
+          </div>
+          <label>{{ link.label }}</label>
+        </a>
+      </div>
+    </div>
+    <div 
+      :v-loader="!this.@contentReady size '50px'" 
+      class="container" 
+      as="container"></div>
+  </div>
+</self>

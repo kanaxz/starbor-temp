@@ -13,6 +13,7 @@
     "core": "file:../../core/shared",
     "core-server": "file:../../core/server",
     "express-fileupload": "^1.4.1",
+    "management": "file:../../management/shared",
     "mmmagic": "^0.5.3",
     "modeling": "file:../../modeling/shared",
     "mongo": "file:../../mongo",

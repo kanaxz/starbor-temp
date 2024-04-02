@@ -34,9 +34,7 @@ module.exports = class AuthService extends Service {
   }
 
   async getMe() {
-    const { me } = await this.request('/me')
-    if (!me) { return null }
-    this.me = this.parseUser(me)
+    this.me = await User.collection.getMe()
   }
 
   async login(user) {

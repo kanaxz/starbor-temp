@@ -5,7 +5,7 @@ const { User } = require('management')
 const TOKEN_KEY = 'sessionToken'
 const TOKEN_AGE = 30
 module.exports = {
-  dependancies: ['express', 'mongo'],
+  dependencies: ['express', 'mongo'],
   after: 'express',
   async construct({ express, mongo }) {
     const collection = mongo.db.collection('sessions')
@@ -36,6 +36,7 @@ module.exports = {
       const user = await userCollection.findOne({
         _id: session.userId,
       })
+      if (!user) { return }
       delete user.password
       req.user = User.parse(user)
     }

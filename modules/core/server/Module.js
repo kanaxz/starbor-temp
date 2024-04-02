@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { join } = require('path')
+const moment = require('moment')
 
 class Module {
   constructor(options) {
@@ -27,7 +28,7 @@ class Module {
     const { path } = this.options
     this.index = Object.assign({
       name: this.name,
-      dependancies: [],
+      dependencies: [],
       construct: () => ({})
     }, require.main.require(path))
     this.name = this.index.name
@@ -85,25 +86,25 @@ class Module {
   }
 
   async processIndex() {
-    const { dependancies, construct } = this.index
+    const { dependencies, construct } = this.index
     const root = this.getRoot()
 
-    this.dependancies = dependancies.map((dependancyName) => {
+    this.dependencies = dependencies.map((dependancyName) => {
       const module = root.getModule(dependancyName)
       if (!module) {
         throw new Error(`Module '${dependancyName}' not found from '${this.options.path}'`)
       }
       return module
     })
-    for (const dependancy of this.dependancies) {
+    for (const dependancy of this.dependencies) {
       await dependancy.process()
     }
 
-    const params = this.dependancies.reduce((acc, dependancy) => {
+    this.dependenciesObject = this.dependencies.reduce((acc, dependancy) => {
       acc[dependancy.name] = dependancy.object
       return acc
     }, {})
-    this.object = await construct(params)
+    this.object = await construct(this.dependenciesObject, root.options.config)
     console.info(`Module ${this.name} processed`)
   }
 

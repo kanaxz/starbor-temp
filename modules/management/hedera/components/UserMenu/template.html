@@ -4,7 +4,7 @@
       <label>{{context.@user?.@username}}</label>
     </header>
     <div class="list">
-      <a :v-link="'/myprofile'">My profile</a>
+      <a :v-link="`/user/${context.@user?.username}`">My profile</a>
       <a :v-link="'/logout'">Logout</a>
     </div>
   </div>

@@ -9,7 +9,7 @@ const User = require('management/User')
 module.exports = {
   name: 'jwt-routes',
   after: 'express',
-  dependancies: ['mongo', 'express'],
+  dependencies: ['mongo', 'express'],
   construct({ express, mongo }) {
     const { db } = mongo
     const tokens = db.collection('tokens')

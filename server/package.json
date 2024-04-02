@@ -4,23 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --inspect src"
+    "dev": "node --inspect index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "core": "file:../modules/core/shared",
     "core-server": "file:../modules/core/server",
+    "helmet": "^7.1.0",
     "jwt": "file:../modules/jwt/shared",
     "jwt-server": "file:../modules/jwt/server",
     "management": "file:../modules/management/shared",
     "management-server": "file:../modules/management/server",
+    "migrations": "file:../modules/migrations",
     "modeling": "file:../modules/modeling/shared",
     "modeling-server": "file:../modules/modeling/server",
     "mongo": "file:../modules/mongo",
     "ressourcing": "file:../modules/ressourcing",
-    "shared": "file:../shared",
     "sharp": "^0.33.1",
+    "starbor-server": "file:../modules/starbor/server",
+    "starbor-shared": "file:../modules/starbor/shared",
     "storage": "file:../modules/storage/shared",
     "storage-server": "file:../modules/storage/server"
   }

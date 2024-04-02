@@ -6,6 +6,7 @@ const mixer = require('core/mixer')
 const Bindeable = require('core/mixins/Bindeable')
 const { objectToFilter } = require('modeling/processing/utils')
 
+
 const getArgs = (args) => {
   return args.filter((arg) => arg !== context)
 }
@@ -27,15 +28,23 @@ module.exports = class Collection extends mixer.extends([Bindeable]) {
 
       const response = await axios({
         ...options,
+        ...this.axiosOptions,
         method: 'POST',
         withCredentials: true,
-        headers
+        headers,
       })
       const result = response.data
       //console.log(action, ...args, result)
       return result
     } catch (err) {
-      throw new Error(`API error on url ${options.url}: ${JSON.stringify(err.response.data, null, ' ')} `,)
+      if (err.cause) {
+        console.error(err.cause)
+        throw err
+      }
+      if (err.response) {
+        throw new Error(`API error on url ${options.url}: ${JSON.stringify(err.response.data, null, ' ')} `,)
+      }
+      throw err
     }
   }
 
@@ -43,7 +52,7 @@ module.exports = class Collection extends mixer.extends([Bindeable]) {
     const url = `${this.url}/api/collections/${this.type.definition.pluralName}${action}`
     //console.log(action, JSON.stringify(body, null, ' '), JSON.stringify(options, null, ' '))
 
-    const result = await this.request({
+    const { result } = await this.request({
       url,
       data: body,
       headers: {

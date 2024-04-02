@@ -1,0 +1,6 @@
+require('core/setup')
+require('modeling/setup')
+require('ressourcing/setup')
+require('storage/setup')
+require('../modules/starbor/shared')
+require('jwt/setup')

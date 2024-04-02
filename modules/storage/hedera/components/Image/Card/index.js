@@ -6,8 +6,6 @@ require('./style.scss')
 module.exports = class ImageCard extends Card {
   async update() {
     await super.update()
-    if (!this.model) { return }
-    this.imgSrc = this.model.path
   }
 }
   .define({

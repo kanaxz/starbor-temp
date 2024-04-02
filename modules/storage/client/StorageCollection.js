@@ -3,6 +3,14 @@ const File = require('storage/File')
 
 
 module.exports = class StorageCollection extends Collection {
+
+  async getByPath(path) {
+    const json = await this.apiRequest('/getByPath', [path])
+    const instance = this.type.parse(json, { singleInstance: true })
+    instance.setLoadState(true)
+    return instance
+  }
+
   async upload(file, fileObject, options = {}) {
     if (fileObject) {
       if (!(fileObject instanceof File)) {

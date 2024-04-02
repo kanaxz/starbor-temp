@@ -3,9 +3,7 @@ const Bindeable = require('core/mixins/Bindeable')
 
 const Array = require('core/types/Array')
 const Eventable = require('core/mixins/Eventable')
-const Destroyable = require('core/mixins/Destroyable')
 
-let id = 0
 module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, Eventable]) {
   static handle(source) {
     return source instanceof Array
@@ -13,12 +11,10 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
 
   constructor(repeater) {
     super()
-    this.id = id++
     this.repeater = repeater
     this.source = this.repeater.source
     this.on(this.source, 'changed', this.b(this.onSourceChanged))
     this.timeout = null
-    this.modifs = []
   }
 
 

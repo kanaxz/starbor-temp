@@ -10,9 +10,12 @@ module.exports = async ({ modeling, router }) => {
         router.post(route, async (req, res) => {
           const args = req.body
           try {
+            const start = new Date()
             const result = await collection[methodName](req, ...args)
-            const response = result.toJSON()
-            res.send(response)
+            res.send({
+              result: result?.toJSON()
+            })
+            //console.log('end', new Date() - start, collectionName, methodName)
           } catch (err) {
             handleError(res, err)
           }

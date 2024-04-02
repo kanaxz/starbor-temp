@@ -3,10 +3,10 @@ const setup = require('./setup')
 
 module.exports = {
   name: 'modeling-router',
-  dependancies: ['core', 'express', 'modeling'],
+  dependencies: ['core', 'express', 'modeling'],
   async construct({ core, express, modeling }) {
     const router = new exp.Router()
     express.use('/api/collections', router)
-    core.onReady(() => setup({ modeling, router }))
+    core.on('ready', () => setup({ modeling, router }))
   }
 }

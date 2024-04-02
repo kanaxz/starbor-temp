@@ -5,19 +5,26 @@ module.exports = {
   for: Model,
   methods: {
     eq(source, other) {
-      return {
-        $eq: [{
-          $getField: {
-            input: source.value,
-            field: '_id',
-          }
-        }, {
-          $getField: {
-            input: other,
-            field: '_id',
-          }
-        }]
+      if (other) {
+        return {
+          $eq: [{
+            $getField: {
+              input: source.value,
+              field: '_id',
+            }
+          }, {
+            $getField: {
+              input: other,
+              field: '_id',
+            }
+          }]
+        }
+      } else {
+        return {
+          $ifNull: [source.value, true, false]
+        }
       }
+
     },
   },
   parse(scope, value) {

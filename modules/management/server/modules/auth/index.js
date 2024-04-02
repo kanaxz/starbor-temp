@@ -1,3 +1,3 @@
 module.exports = {
-  dependancies: [ 'sessions'],
+  dependencies: [ 'sessions'],
 }

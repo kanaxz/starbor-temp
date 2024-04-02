@@ -23,4 +23,6 @@ module.exports = async ({ collections, map, controllers }) => {
   for (const collection of Object.values(collections)) {
     await collection.build()
   }
+
+  //process.exit()
 }

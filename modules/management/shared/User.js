@@ -12,12 +12,17 @@ const isSelfOrAdmin = async (context, user) => {
   if (!context.user.equals(user) && !await context.user.is(context, 'admin')) {
     throw new ControllerError(`User doesn't have sufficient rights`)
   }
+  
 }
 
 module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable, ...setup.user]) {
   async is(context, name) {
     await this.groups.load(context)
     return this.groups.some((group) => group.name === name)
+  }
+
+  toString(){
+    return this.username
   }
 }
   .define({
@@ -44,14 +49,14 @@ module.exports = class User extends mixer.extends(Model, [Pageable, Wikiable, ..
     password: {
       type: String,
       state: {
-        required: true,
+        required: false,
       }
     },
   })
   .controllers({
     create: {
       async check(context) {
-        if (!context.setup && (!context.user || !await context.user.is(context, 'admin'))) {
+        if (!context.signup && !context.setup && (!context.user || !await context.user.is(context, 'admin'))) {
           throw new ControllerError(`You cannot create an user`)
         }
       },

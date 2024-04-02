@@ -1,15 +1,13 @@
-const { Organization, Starmap, Star } = require('shared/types')
-const { starmapRequest, gePositionFromLatLon } = require('./utils')
+const { Organization, Star } = require('../../../modules/starbor/shared/types')
+const { starmapRequest } = require('./utils')
 const { codify } = require('../../utils')
 const Folder = require('storage/Folder')
-const Right = require('ressourcing/Right')
 const User = require('management/User')
 
 module.exports = async (bootup, services) => {
   const types = require('./types')(services)
-
-  const uploadFolder = await Folder.collection.findOne([{ $eq: ['$path', '/storage/upload'] }])
-  const systemUser = await User.collection.findOne([{ $eq: ['$username', 'system'] }])
+  const systemUser = await User.collection.getMe()
+  const uploadFolder = await Folder.collection.getByPath(`/users/${systemUser._id}/private/upload`)
 
   const buildFromJson = async (json, parent) => {
     const name = (json.name || json.designation).split('(')[0].trim()
@@ -22,25 +20,12 @@ module.exports = async (bootup, services) => {
     }
     let image
     if (json.thumbnail) {
-      image = await services.collections.storage.uploadUrl(json.thumbnail.source, {
+      image = await Folder.collection.uploadUrl(json.thumbnail.source, {
         folder: uploadFolder.toJSON(null),
-        read: new Right({
-          type: 'public',
-        }),
-        edit: new Right({
-          type: 'private',
-          owners: [systemUser]
-        })
       })
     }
     return {
       code: codify(name),
-      starmap: new Starmap({
-        id: json.id,
-        position: gePositionFromLatLon(json),
-        orbitPeriod: json.orbit_period && parseFloat(json.orbit_period),
-        code: json.code,
-      }),
       organization,
       name,
       wiki: json.description || name,

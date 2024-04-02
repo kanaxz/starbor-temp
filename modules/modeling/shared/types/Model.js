@@ -6,6 +6,7 @@ const ModelMixin = require('./ModelMixin')
 const { objectToFilter } = require('../processing/utils')
 const config = setup.model
 
+
 class BaseModel extends mixer.extends(ObjectType, [ModelMixin, Loadable, ...config.before]) {
 
   setPathsState(state, paths, err) {
@@ -17,7 +18,7 @@ class BaseModel extends mixer.extends(ObjectType, [ModelMixin, Loadable, ...conf
   }
 
   handleLoadResult(model) {
-    if(model){
+    if (model) {
       Object.assign(this, model)
     } else {
       console.warn(`Model ${this.constructor.definition.name} not found`, this._id)
@@ -68,6 +69,15 @@ class BaseModel extends mixer.extends(ObjectType, [ModelMixin, Loadable, ...conf
       '@type': this.constructor.definition.name,
       ...index,
     }
+  }
+
+  async apply(...args) {
+    const [context, $set] = setup.getArgs(args)
+    return this.constructor.collection.update(context, {
+      _id: this._id,
+    }, {
+      $set
+    })
   }
 
   toString() {

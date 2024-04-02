@@ -7,7 +7,7 @@ const { defaultLoad } = require('management/utils')
 module.exports = {
   name: 'auth-routes',
   after: 'sessions',
-  dependancies: ['sessions', 'express', 'mongo', 'modeling'],
+  dependencies: ['sessions', 'express', 'mongo', 'modeling'],
   async construct({ sessions, express, mongo, modeling }) {
     const { collections } = modeling
     const userCollection = mongo.db.collection('users')
@@ -49,9 +49,6 @@ module.exports = {
       })
     }
 
-    router.post('/me', async (req, res) => {
-      await sendMe(req)
-    })
 
     router.post('/logout', async (req, res) => {
       if (req.user) {
@@ -65,6 +62,7 @@ module.exports = {
 
     router.post('/signup', loggedOut, async (req, res) => {
       try {
+        req.signup = true
         const user = await collections.users.create(req, req.body)
         req.user = user
 

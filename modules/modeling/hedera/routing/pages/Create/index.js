@@ -2,7 +2,7 @@ const Page = require('hedera/page/Page')
 const template = require('./template.html')
 const defaultImage = require('../../assets/defaultImage.jpg')
 const navigator = require('@app/navigator')
-const { Entity } = require('shared/types')
+const { Entity } = require('starbor-shared/types')
 
 require('./style.scss')
 

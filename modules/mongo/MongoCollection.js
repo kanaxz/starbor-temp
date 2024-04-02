@@ -37,21 +37,27 @@ module.exports = class MongoCollection {
     'deleteMany'
   ]
 
-  constructor(type, mongodb, controllers) {
+  constructor(type, db, controllers) {
     this.type = type
-    this.mongodb = mongodb
+    this.db = db
+    this.name = type.definition.pluralName
     this.type.collection = this
-    this.mongoCollection = mongodb.collection(type.definition.pluralName)
+    this.mongoCollection = this.db.collection(type.definition.pluralName)
     this.controllers = controllers
   }
 
+
+  async exists() {
+    const collections = await this.db.listCollections().toArray()
+    const exist = collections.some(c => c.name === this.name)
+    return exist
+  }
+
   async build() {
-    const name = this.type.definition.pluralName
-    const collections = await this.mongodb.listCollections().toArray()
-    const exist = collections.some(c => c.name === name)
-    if (!exist) {
-      await this.mongodb.createCollection(name)
+    if (!await this.exists()) {
+      await this.db.createCollection(this.name)
     }
+
     const indexes = await this.mongoCollection.listIndexes().toArray()
     const types = this.type.getAllChilds()
     for (const type of types) {
@@ -161,11 +167,13 @@ module.exports = class MongoCollection {
     }
 
     const pipeline = await processStages(rootScope, stages, options)
-    console.log(JSON.stringify(pipeline, null, ' '))
+    //console.log(JSON.stringify(pipeline, null, ' '))
+
 
     const modelsJson = await this.mongoCollection
       .aggregate(pipeline)
       .toArray()
+
     /*
     console.log(JSON.stringify({ modelsJson }, null, ' '))
     process.exit()
@@ -182,13 +190,13 @@ module.exports = class MongoCollection {
   }
 
   async create(req, modelJson) {
-    console.log('create', modelJson)
     let model
     if (modelJson instanceof this.type) {
       model = modelJson
     } else {
       model = this.type.parse(modelJson)
     }
+    console.log('create', model.toJSON())
     model._id = nanoid()
     if (!await model.constructor.canCreate(req)) {
       throw new Error(`Cannot create ${model.constructor.definition.name}`)
@@ -241,7 +249,7 @@ module.exports = class MongoCollection {
     if (!model) {
       throw new Error()
     }
-    console.log('update', model)
+    console.log('update', model.toJSON())
     const result = await this.innerUpdate(req, model, patches)
     return result
   }
@@ -299,5 +307,9 @@ module.exports = class MongoCollection {
         await this.delete(req, model)
       }
     } while (models.length === DELETE_MANY_SIZE)
+  }
+
+  async purge() {
+    await this.mongoCollection.deleteMany({})
   }
 }

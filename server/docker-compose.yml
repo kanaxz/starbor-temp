@@ -10,8 +10,6 @@ services:
       - "3001:3001"
     depends_on:
       - mongodb
-    environment:
-      DATABASE_URL: postgres://todoapp@postgres/todos
     working_dir: /app
   mongodb:
     image: mongo:6.0.4

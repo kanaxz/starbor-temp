@@ -11,8 +11,5 @@ module.exports = mixer.mixin([Propertiable], (base) => {
   .properties({
     folder: {
       type: Folder,
-      state: {
-        disabled: true,
-      }
     },
   })

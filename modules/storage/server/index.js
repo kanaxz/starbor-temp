@@ -1,16 +1,22 @@
 require('storage')
-const StorageObject = require('storage/StorageObject')
-const routes = require('./routes')
-const setup = require('./setup')
-const StorageCollection = require('./StorageCollection')
+
+const modules = [
+  require('./lib/init'),
+  require('./lib/file'),
+  require('./lib/folder'),
+  require('./lib/storageObject'),
+  require('./lib/user'),
+  require('./lib/routes'),
+  
+]
 
 module.exports = {
   name: 'storage',
   after: 'auth',
-  dependancies: ['core', 'express', 'config', 'modeling', 'mongo', 'management'],
-  async construct({ core, express, config, modeling, mongo }) {
-    modeling.map.unshift([StorageObject, (type, controllers) => new StorageCollection(type, mongo.db, controllers, config)])
-    routes({ express, config })
-    core.onReady(setup)
+  dependencies: ['express', 'modeling', 'mongo', 'management'],
+  async construct(dependencies, config) {
+    for (const module of modules) {
+      await module(dependencies, config)
+    }
   }
 }

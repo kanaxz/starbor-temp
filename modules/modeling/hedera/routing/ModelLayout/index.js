@@ -3,7 +3,6 @@ const template = require('./template.html')
 const setup = require('../setup')
 require('./style.scss')
 
-Object.entries(setup.actions).forEach(([k, v]) => v.name = k)
 
 module.exports = class ModelLayout extends Layout {
 
@@ -21,13 +20,16 @@ module.exports = class ModelLayout extends Layout {
     await action.execute(this.model)
   }
 
-  async onModelChanged() {    
+  async onModelChanged() {
     if (!this.model) { return }
     const setupActions = Object.values(setup.actions).sort((a, b) => (b.position || 1) - (a.position || 1))
     const actions = []
     for (const action of setupActions) {
-      if (!action.check || await action.check(this.model)) {
+      try {
+        await action?.check(this.model)
         actions.push(action)
+      } catch (err) {
+
       }
     }
     this.actions = actions

@@ -1,10 +1,13 @@
-
-const setup = require('./setup')
+const modules = [
+  require('./lib/init')
+]
 
 module.exports = {
   name: 'management',
-  dependancies: ['core', 'config','modeling'],
-  async construct(dependencies) {
-    dependencies.core.onReady((req) => setup({ req, ...dependencies }))
+  dependencies: ['modeling', 'mongo'],
+  async construct(dependencies, config) {
+    for (const module of modules) {
+      await module(dependencies, config)
+    }
   }
 }

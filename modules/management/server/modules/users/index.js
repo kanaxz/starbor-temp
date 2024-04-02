@@ -2,7 +2,7 @@ const { User } = require('management')
 const { encryptPassword } = require('../auth/utils')
 
 module.exports = {
-  dependancies: ['modeling'],
+  dependencies: ['modeling'],
   async construct({ modeling }) {
     modeling.controller(User, {
       async query(req, stages) {

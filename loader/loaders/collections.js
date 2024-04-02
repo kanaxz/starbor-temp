@@ -1,25 +1,36 @@
 const config = require('../config')
 const { buildCollections } = require('modeling-client')
 const moment = require('moment')
+const https = require('https')
+const httpsAgent = new https.Agent(config.server.agent)
+const axios = require('axios')
 
 module.exports = (services) => {
   let tokenInfos = null
   const headersBuilder = async () => {
     if (!tokenInfos || moment(tokenInfos.expireDate).toDate() < new Date()) {
-      const res = await fetch(`${config.server}/jwt-token`, {
+      const res = await axios({
+        url: `${config.server.url}/jwt-token`,
         method: 'POST',
-        body: JSON.stringify(config.jwt),
+        data: config.jwt,
         headers: {
           'Content-Type': 'application/json'
         },
+        httpsAgent
       })
-      tokenInfos = await res.json()
+      tokenInfos = res.data
     }
 
     return {
       authorization: `Bearer ${tokenInfos.token}`
     }
   }
-  const collections = buildCollections(config.server, { autoHold: true, headersBuilder })
-  services.collections = collections
+  buildCollections(config.server.url,
+    {
+      autoHold: true,
+      headersBuilder,
+      axiosOptions: {
+        httpsAgent
+      }
+    })
 }

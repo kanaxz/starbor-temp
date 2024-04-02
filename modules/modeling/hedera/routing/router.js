@@ -40,11 +40,9 @@ actions
   .filter((action) => action.url !== undefined)
   .forEach((action) => {
     router.route(action.url, async (req, res, next) => {
-      if (action.check && !await action.check(req.model)) {
-        return next()
-      }
-
+      await action.check(req.model)
       await action.execute(req, res, next)
+      document.title = `${req.model.constructor.definition.name} ${req.model.toString()} - ${action.name}`
     })
   })
 

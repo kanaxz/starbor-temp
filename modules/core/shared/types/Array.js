@@ -35,6 +35,12 @@ module.exports = class IntermediateArray extends mixer.extends(Array, [Eventable
     return result
   }
 
+  sort(...args) {
+    const result = super.sort(...args)
+    this.changed()
+    return result
+  }
+
   async changed() {
     await Promise.all([
       this.emit('changed'),

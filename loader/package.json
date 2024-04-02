@@ -16,6 +16,7 @@
     "ini": "^4.0.0",
     "jwt": "file:../modules/jwt/shared",
     "management": "file:../modules/management/shared",
+    "management-client": "file:../modules/management/client",
     "modeling": "file:../modules/modeling/shared",
     "modeling-client": "file:../modules/modeling/client",
     "moment": "^2.30.1",
