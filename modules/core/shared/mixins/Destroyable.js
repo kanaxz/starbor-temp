@@ -5,7 +5,7 @@ const Destroyable = mixer.mixin((base) => {
 
     constructor(...args) {
       super(...args)
-      Object.defineProperty(this, '@destroyed', {
+      Object.defineProperty(this, 'destroyed', {
         enumerable: false,
         writable: true,
         value: false
@@ -13,15 +13,14 @@ const Destroyable = mixer.mixin((base) => {
     }
 
     onAlreadyDestroyed() {
-      console.error(this)
       throw new Error('Already destroyed')
     }
 
     destroy() {
-      if (this['@destroyed']) {
+      if (this.destroyed) {
         this.onAlreadyDestroyed()
       }
-      this['@destroyed'] = true
+      this.destroyed = true
     }
   }
 })

@@ -1,4 +1,4 @@
-<self :class="`${context.@user ? 'has-user' : ''}`">
+<super :class="`${context.@user ? 'has-user' : ''}`">
   <div :class="`logged-in ${this.@isOpen ? 'is-open' : '' }`">
     <header :on-click="this.isOpen = !this.isOpen">
       <label>{{context.@user?.@username}}</label>
@@ -13,4 +13,4 @@
       Login
     </a>
   </div>
-</self>
+</super>

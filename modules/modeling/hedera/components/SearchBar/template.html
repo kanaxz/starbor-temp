@@ -1,5 +1,4 @@
-<self :class="`${this.@open ? 'open' : ''}`" :v-exit="this.stop()" :v-selectable-root>
-
+<super :class="`${this.@open ? 'open' : ''}`" :v-exit="this.stop()" :v-selectable-root>  
   <div class="search-bar">
     <div class="search-icon">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -22,7 +21,8 @@
       </tool-tip>
     </div>
   </div>
-  <div class="searchables">
+  <div class="searchables" :v-projection>
+    <div class="background"></div>
     <div class="list" :v-for="searchable of this.searchables">
       <div class="searchable" :class="`${searchable.@error ? 'error' : ''} ${searchable.@results?.length ? '' : 'hide'}`"">
         <header>
@@ -59,4 +59,4 @@
     <short-cut :key="'alt+x'" :callback="() => this.empty()" :target="this.input">Erase</short-cut>
     <short-cut :key="'alt+f'" :callback="() => this.input.focus()" :target="window">Focus</short-cut>
   </short-cuts>
-</self>
+</super>

@@ -1,6 +1,6 @@
 object-fieldset {
   display: block;
-  width: 100%;
+  width: 100% !important;
   flex: 100% !important;
 
   &:not(.empty) {
@@ -87,7 +87,6 @@ object-fieldset {
     > fieldset {
       display: none;
       //border: 1px solid #a1a1a1;
-      background-color: rgba(#a1a1a1, 0.2);
       margin-top: 5px;
       padding: 15px;
       flex-direction: row;

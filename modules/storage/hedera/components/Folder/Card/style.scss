@@ -1,11 +1,13 @@
 folder-card {
-  .content{
-    display:flex;
+  .content {
+    transform: translateZ(30px);
+    display: flex;
     align-items: center;
+    z-index: 1;
     justify-content: center;
   }
   svg {
-    color: #f1c40f;
+    color: rgba(#f1c40f, 0.6);
     font-size: 85px;
     &.open {
       display: none;

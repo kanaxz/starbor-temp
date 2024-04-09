@@ -11,16 +11,16 @@ const start = async () => {
       'core-server',
       'migrations',
       'mongo',
-      'jwt-server',
       'management-server',
       'storage-server',
       'modeling-server',
       'starbor-server',
+      'jwt-server',
     ]
   })
 
   await core.start()
-  //await core.trigger('purge')
+  await core.object.trigger('purge')
   await core.object.trigger('migrate')
   return core
 }

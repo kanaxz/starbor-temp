@@ -7,7 +7,7 @@ services:
       - .:/app/
       - /app/node_modules
     ports:
-      - "3001:3001"
+      - "7001:7001"
     depends_on:
       - mongodb
     working_dir: /app

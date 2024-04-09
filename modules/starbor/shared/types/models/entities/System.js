@@ -3,7 +3,6 @@ const Position3D = require('../../objects/Position3D')
 
 module.exports = class System extends GameEntity {
   destroy() {
-    console.warn('destroying', this)
     super.destroy()
   }
 }

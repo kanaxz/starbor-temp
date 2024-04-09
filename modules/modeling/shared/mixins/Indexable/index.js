@@ -49,7 +49,7 @@ module.exports = mixer.mixin([Equalable], (base) => {
 
       const values = index.properties.reduce((acc, p) => {
         const value = this[p]
-        if (value != null) {
+        if (value !== undefined) {
           acc[p] = this[p]
         }
         return acc

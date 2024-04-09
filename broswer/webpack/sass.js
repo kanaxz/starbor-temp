@@ -10,7 +10,7 @@ module.exports = () => {
         }, {
           loader: 'sass-loader',
           options: {
-            additionalData: '@import "@app/global.scss";',
+            //additionalData: '@import "starbor-hedera/global.scss";',
           },
         }]
       }]

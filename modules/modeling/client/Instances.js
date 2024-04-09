@@ -1,6 +1,4 @@
 const singleInstanceOptions = { singleInstance: true }
-
-
 const arrayInstances = []
 
 const loop = () => {

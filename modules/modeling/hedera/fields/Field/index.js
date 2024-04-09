@@ -1,9 +1,9 @@
-const Component = require('hedera/Component')
+const { components: { Interface } } = require('hedera/global')
 const Array = require('core/types/Array')
 const template = require('./template.html')
 require('./style.scss')
 
-module.exports = class Field extends Component {
+module.exports = class Field extends Interface {
   constructor(values = {}) {
     super()
     Object.assign(this, values)

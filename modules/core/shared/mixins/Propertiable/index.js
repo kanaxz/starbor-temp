@@ -15,7 +15,7 @@ const mixin = mixer.mixin([Eventable, Destroyable], (base) => {
           return this.values[property.name]
         },
         set: async function (newValue) {
-          if (this['@destroyed']) { return }
+          if (this.destroyed) { return }
           if (newValue === this[property.name]) { return }
           await this.setPropertyValue(property, newValue)
         },

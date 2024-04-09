@@ -8,6 +8,8 @@ const { get } = require('core/utils/path')
 const { validate } = require('./utils')
 const { Array } = require('modeling/types')
 const QueryResult = require('modeling/types/QueryResult')
+const { objectToFilter } = require('modeling/processing/utils')
+const FindOrCreateResult = require('./FindOrCreateResult')
 
 const patchesMap = {
   '$set': (object, value) => {
@@ -34,7 +36,8 @@ module.exports = class MongoCollection {
     'update',
     'createOrUpdate',
     'delete',
-    'deleteMany'
+    'deleteMany',
+    'findOrCreate',
   ]
 
   constructor(type, db, controllers) {
@@ -196,7 +199,6 @@ module.exports = class MongoCollection {
     } else {
       model = this.type.parse(modelJson)
     }
-    console.log('create', model.toJSON())
     model._id = nanoid()
     if (!await model.constructor.canCreate(req)) {
       throw new Error(`Cannot create ${model.constructor.definition.name}`)
@@ -249,7 +251,6 @@ module.exports = class MongoCollection {
     if (!model) {
       throw new Error()
     }
-    console.log('update', model.toJSON())
     const result = await this.innerUpdate(req, model, patches)
     return result
   }
@@ -271,6 +272,25 @@ module.exports = class MongoCollection {
       const result = await this.create(req, modelJson)
       return result
     }
+  }
+
+  async findOrCreate(context, json){
+    const tempModel = this.type.parse(json)
+    const index = tempModel.getFirstUniqueIndex()
+    if(!index){
+      throw new Error('Index not found')
+    }
+
+    let model = await this.findOne(context, objectToFilter(index))
+    let created = false
+    if(!model){
+      created = true
+      model = await this.create(context, json)
+    }
+    return new FindOrCreateResult({
+      created,
+      model,
+    })    
   }
 
   async delete(req, arg) {

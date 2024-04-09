@@ -34,7 +34,6 @@ module.exports = {
       async create(req, jwt, next) {
         const keyHex = crypto.randomBytes(64).toString('hex')
         const key = await encryptPassword(keyHex)
-        console.log({ keyHex, key })
         const id = makeId()
         Object.assign(jwt, {
           user: req.user,

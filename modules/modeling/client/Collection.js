@@ -112,6 +112,19 @@ module.exports = class Collection extends mixer.extends([Bindeable]) {
     return instance
   }
 
+  async findOrCreate(modelJson) {
+    if (modelJson.toJSON) {
+      modelJson = modelJson.toJSON()
+    }
+    const { created, model } = await this.apiRequest('/findOrCreate', [modelJson])
+    const instance = this.type.parse(model, { singleInstance: true })
+    instance.setLoadState(true)
+    if (created) {
+      await this.onModelCreated(instance)
+    }
+    return instance
+  }
+
   async onModelCreated(model) {
     for (const ref of Models.references) {
       if (ref.onModelCreated) {
@@ -153,7 +166,6 @@ module.exports = class Collection extends mixer.extends([Bindeable]) {
       modelJson = modelJson.toJSON()
     }
     const json = await this.apiRequest('/create-or-update', [query, modelJson])
-    console.log('create-or-update', json)
     const resultModel = this.type.parse(json)
     resultModel.setLoadState(true)
     this.hold(resultModel)

@@ -40,7 +40,6 @@ Entity
     },
     update: {
       logic(context, states, oldValue) {
-        console.log(states.parent)
         states.parent.filters.push({
           $neq: ['$_id', oldValue._id]
         })

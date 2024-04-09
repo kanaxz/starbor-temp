@@ -24,7 +24,7 @@ module.exports = mixer.mixin([Buildable], (base) => {
     }
     toJSON(...args) {
       const json = super.toJSON(...args)
-      json['@type'] = this.constructor.definition.name
+      //json['@type'] = this.constructor.definition.name
       return json
     }
   }

@@ -8,7 +8,7 @@ const Referenceable = require('./mixins/Referenceable')
 const ClientHasMany = require('./mixins/ClientHasMany')
 const SingleInstance = require('./mixins/SingleInstance')
 const ClientQueryResult = require('./mixins/ClientQueryResult')
-const context = require('core-client')
+const context = require('core-client/context')
 const ClientModel = require('./mixins/ClientModel')
 const setup = require('modeling/setup')
 

@@ -11,7 +11,7 @@
     "core-server": "file:../../core-server",
     "management": "file:../../management/shared",
     "ressourcing": "file:../../ressourcing",
-    "starbor-shared": "file:../shared",
+    "starbor": "file:../shared",
     "storage": "file:../../storage/shared"
   },
   "author": "",

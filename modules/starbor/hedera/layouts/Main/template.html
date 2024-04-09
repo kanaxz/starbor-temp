@@ -1,0 +1,39 @@
+<self>
+  <div class="top-bar">
+    <div class="left">
+      <a :v-link="'/'">
+        <app-interface class="logo">
+          <img :v-projection="0" src="./Logo-removebg-preview.png">
+        </app-interface>
+        <app-interface class="title">
+          <h3 >Starbor</h3>
+        </app-interface>
+      </a>
+      <search-bar></search-bar>
+    </div>
+    <user-menu ></user-menu>
+  </div>
+
+  <div class="row">
+    <div class="left-bar">
+      <div class="menu widget projection-root">
+        <widget-projections></widget-projections>
+        <div class="menu" :v-for="link of menu.links">
+          <app-interface class="interactable clickable activable"  :v-link="link.url">
+            <div class="image">
+              <i :class="link.class"></i>
+            </div>
+            <label>{{ link.label }}</label>
+          </app-interface>
+        </div>
+      </div >
+    </div>
+    <div class="outer-container">
+      <widget-projections></widget-projections>
+      <div 
+         
+        class="container" 
+        as="container">
+      </div>
+  </div>
+</self>

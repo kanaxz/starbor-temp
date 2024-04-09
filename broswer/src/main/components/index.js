@@ -1,7 +1,0 @@
-require('./EditableText')
-require('./Loader')
-require('./Tooltip')
-require('./LoadingContent')
-require('./Summary')
-require('./Markdown')
-require('./WheelSelect')

@@ -73,9 +73,15 @@ workers.push({
         child = null
       }
       if (!value) { return }
+      if (typeof value === 'string') {
+        parent.innerHTML = value
+      } else {
+        parent.appendChild(value)
+
+      }
+
       child = scope.child()
-      parent.appendChild(value)
-      await child.render(value)
+      await child.renderContent(parent)
     })
     await binding.update()
     node.remove()

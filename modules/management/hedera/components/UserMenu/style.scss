@@ -1,4 +1,6 @@
 user-menu {
+  display: block;
+  color: #fff;
   &.has-user {
     position: relative;
     .logged-in {
@@ -30,7 +32,6 @@ user-menu {
       a {
         padding-bottom: 5px;
         &:hover {
-          background-color: rgba(#55c, 0.1);
           font-weight: bold;
           cursor: pointer;
         }
@@ -39,7 +40,6 @@ user-menu {
 
     header {
       border: 2px solid #55c;
-      background-color: #fff;
       padding: 5px 10px;
       display: flex;
       align-items: center;

@@ -20,7 +20,7 @@ folder-tree {
     > .folders {
       display: none;
       margin-left: 13px;
-      width: fit-content;
+      width: calc(100% - 13px);
       border-left: 2px dashed #e1e1e1;
       > .folder {
         > .row {

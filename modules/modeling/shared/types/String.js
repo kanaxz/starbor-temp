@@ -1,6 +1,7 @@
 const Primitive = require('./Primitive')
 const utils = require('../utils')
 const Bool = require('./Bool')
+const Object = require('./Object')
 
 class String extends Primitive {
   static parse(value, owner, property) {
@@ -24,6 +25,10 @@ String
     match: [[String], Bool],
     toUpperCase: [[], String]
   })
+
+Object.properties({
+  '@type': String
+})
 
 
 module.exports = String

@@ -13,14 +13,14 @@ const Buildable = mixer.mixin([Destroyable, Propertiable, Equalable], (base) => 
       super(...args)
       // disable the possibility to assign @type on buildables
       // we don't want to throw an error
-      Object.defineProperty(this, '@type', { get() { }, set() { } })
       const undefinedValues = this.constructor.properties.reduce((acc, property) => {
         acc[property.name] = undefined
         return acc
       }, {})
       this.set({
         ...undefinedValues,
-        ...values
+        ...values,
+        '@type': this.constructor.definition.name,
       })
     }
 
@@ -77,10 +77,7 @@ const Buildable = mixer.mixin([Destroyable, Propertiable, Equalable], (base) => 
           return acc
         }, {})
 
-      return {
-        '@type': this.constructor.definition.name,
-        ...values,
-      }
+      return values
     }
   }
 })

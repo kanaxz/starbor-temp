@@ -3,11 +3,11 @@ const Folder = require('storage/Folder')
 
 const router = new Router()
 
-router.route(/\/explorer(.+)/, async (req, res) => {
-  const [, _id] = req.match
-  const storageFolder = await Folder.collection.findByUniqueIndex({
-    _id,
-  })
+router.route(/\/explorer\/(.+)/, async (req, res) => {
+  const [, name] = req.match
+  const storageFolder = await Folder.collection.findOne([{
+    $eq: ['$name', name],
+  }])
   res.page(import('./StoragePage'), storageFolder)
 })
 

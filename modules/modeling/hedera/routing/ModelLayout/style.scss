@@ -1,5 +1,5 @@
 model-layout {
-  $backgroundColor: rgba(#ecf0f1, 0.2);
+  display: block;
   width: 100%;
   height: 100%;
 
@@ -9,8 +9,6 @@ model-layout {
     align-items: center;
     width: 100%;
     height: 90px;
-    background-color: $backgroundColor;
-    border-bottom: 1px solid #e1e1e1;
     > .before {
       height: 100%;
       > div {
@@ -29,17 +27,17 @@ model-layout {
     display: flex;
     flex-direction: row;
     align-items: start;
-    height: 100%;
+    height: calc(100% - 90px);
 
     .actions {
       display: flex;
       flex-direction: column;
       height: 100%;
-      $border: 1px solid #e1e1e1;
-      background-color: $lightBackground;
-      border-right: $border;
       width: fit-content;
-
+      app-interface {
+        margin: 10px;
+        color: #fff;
+      }
       a {
         $size: 60px;
         width: $size;
@@ -54,6 +52,7 @@ model-layout {
     }
 
     > .container {
+      position: relative;
       width: 100%;
       height: 100%;
       flex: 1;

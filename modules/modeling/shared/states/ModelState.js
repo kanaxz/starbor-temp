@@ -3,7 +3,7 @@ const { match } = require('../processing/index')
 
 module.exports = class ModelState extends State {
 
-  reset(){
+  reset() {
     super.reset()
     this.filters = []
   }
@@ -12,7 +12,7 @@ module.exports = class ModelState extends State {
     super.validate()
     if (!this.value || !this.filters.length) { return }
     await this.value.load()
-    const doesMatch = await match(this.root.context, this.value, this.filters)
+    const doesMatch = await match(this.root.context, this.value, [{ filter: this.filters }])
     if (!doesMatch) {
       this.errors.push('Value is not matching filters')
     }

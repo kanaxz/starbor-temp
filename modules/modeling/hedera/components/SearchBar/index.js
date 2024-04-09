@@ -1,9 +1,7 @@
-const Component = require('hedera/Component')
+const { components: { Interface } } = require('hedera/global')
 const template = require('./template.html')
 const Propertiable = require('core/mixins/Propertiable')
 const mixer = require('core/mixer')
-const componentsService = require('../../componentsService')
-const interaction = require('hedera/interaction')
 const Pageable = require('modeling/mixins/Pageable')
 const Mixin = require('core/Mixin')
 
@@ -47,7 +45,7 @@ const childs = Pageable
   .getAllChilds()
   .filter((c) => !c.definition.abstract && !(c.prototype instanceof Mixin))
 
-module.exports = class Search extends Component {
+module.exports = class Search extends Interface {
   constructor() {
     super()
     this.searchables = childs.map((type) => {
@@ -88,7 +86,7 @@ module.exports = class Search extends Component {
   }
 }
   .define({
-    name: 'app-search',
+    name: 'search-bar',
     template,
   })
   .properties({

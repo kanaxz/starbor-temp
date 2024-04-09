@@ -26,4 +26,6 @@ module.exports = class Virtual extends mixer.extends([Base]) {
   preventInitialize() {
     return false
   }
+
+  onReady() { }
 }

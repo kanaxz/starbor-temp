@@ -8,6 +8,7 @@ module.exports = mixer.mixin((base) => {
       return this.allDependencies.some((d) => d === (mixin.mixin || mixin))
     }
 
+
     static define(definition = {}) {
       if (this.definition?.owner === this) {
         throw new Error(`Class ${this.name} already defined`)

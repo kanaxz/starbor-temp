@@ -33,6 +33,7 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     await super.initialize()
     this.initialContent = [...this.childNodes]
     await this.initializeTemplate()
+    this.event('ready')
     Promise.resolve(this.onReady())
       .catch((err) => {
         console.error(err)
@@ -49,6 +50,21 @@ module.exports = class Component extends mixer.extends(temp, [Base]) {
     }
 
     await this.scope.renderSlots(this.initialContent, this.scope.parent)
+  }
+
+  async awaitConnect() {
+    if (this.isConnected) { return }
+
+    return new Promise((resolve) => {
+      const listener = this.on('connected', () => {
+        resolve()
+        listener.remove()
+      })
+    })
+  }
+
+  connectedCallback() {
+    this.emit('connected')
   }
 
   event(name, arg) {

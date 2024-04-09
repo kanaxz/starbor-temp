@@ -1,7 +1,9 @@
 .object-form {
+  display: block;
   width: 100%;
 
   > form {
+    width: 100%;
     > .bottom {
       display: flex;
       flex-direction: row;

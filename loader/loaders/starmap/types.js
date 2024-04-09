@@ -11,10 +11,11 @@ const getSystemPosition = (object) => {
 }
 
 
+
 module.exports = () => {
-  const save = async (entity) => {
-    console.log({ ...entity })
-    await Entity.collection.create(entity)
+  const save = async (json) => {
+    const entity = await Entity.collection.create(json)
+    return entity
   }
 
   const types = {
@@ -23,8 +24,7 @@ module.exports = () => {
       async process(entity, json) {
         const system = System.parse(entity)
         system.position = getSystemPosition(json)
-        await save(system)
-        return system
+        return save(system)
       }
     },
     star: {
@@ -38,8 +38,7 @@ module.exports = () => {
         })
 
         const star = Star.parse(entity)
-        await save(star)
-        return star
+        return await save(star)        
       }
     },
     planet: {
@@ -50,16 +49,14 @@ module.exports = () => {
           position: gePositionFromLatLon(json),
           orbitPeriod: json.orbit_period && parseFloat(json.orbit_period),
         })
-        await save(planet)
-        return planet
+        return save(planet)
       }
     },
     moon: {
       check: ({ subtype }) => subtype?.name === 'Planetary Moon',
       async process(entity) {
         const moon = Moon.parse(entity)
-        await save(moon)
-        return moon
+        return save(moon)        
       }
     },
 
@@ -67,16 +64,14 @@ module.exports = () => {
       check: ({ type }) => type === 'LZ',
       async process(entity) {
         const lz = LandingZone.parse(entity)
-        await save(lz)
-        return lz
+        return save(lz)
       }
     },
     poi: {
       check: ({ type }) => type === 'POI',
       async process(location) {
         const entity = GroundLocation.parse(entity)
-        await save(entity)
-        return entity
+        return save(entity)
       }
     },
     /*

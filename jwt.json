@@ -1,0 +1,11 @@
+{
+ "@type": "jwt",
+ "_id": "v-yg2JB98mSFblXsoYKOZ",
+ "user": {
+  "@type": "user",
+  "_id": "_c8-TQnQIrUn17BpfeP4q"
+ },
+ "name": "system jwt",
+ "id": "g0pw8AMZtl0B",
+ "key": "6a828b0cb05aed92c075067b549ed4f8ae75dcbe2eb1a71c368c14c480c573a22c2295a696036cdcc68d3d011d6907aad0d22dd33f84e16677dc60b76f099f14"
+}

@@ -69,17 +69,21 @@ module.exports = class For extends Virtual {
     }
 
     let i = 0
-    while (i < this.source.length) {
-      await new Promise(async(resolve) => {
-        setTimeout(async () => {
-          const it = this.iteration(this.source[i], i)
-          this.el.appendChild(it.element)
-          it.element = await it.scope.render(it.element)
-          i++
-          resolve()
-        }, 0)
-      })
-    }
+    setTimeout(async () => {
+      const source = this.source
+      while (i < source.length && source === this.source) {
+        await new Promise(async (resolve) => {
+          setTimeout(async () => {
+            const it = this.iteration(this.source[i], i)
+            this.el.appendChild(it.element)
+            it.element = await it.scope.render(it.element)
+            i++
+            resolve()
+          }, 0)
+        })
+      }
+    })
+
   }
 
   preventInitialize() {

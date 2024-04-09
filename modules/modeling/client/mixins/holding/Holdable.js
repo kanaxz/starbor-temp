@@ -118,7 +118,6 @@ const mixin = mixer.mixin([Destroyable, BaseHoldable], (base) => {
     }
 
     destroy() {
-      console.log('destroying', this)
       const index = instances.indexOf(this)
       if (index !== -1) {
         instances.splice(index, 1)

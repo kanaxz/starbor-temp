@@ -5,10 +5,15 @@ module.exports = class Link extends Virtual {
   async onInit() {
     await this.bind('href', this.initialValue)
 
-    this.el.addEventListener('click', (event) => {
+    this.el.addEventListener('click', async (event) => {
       event.preventDefault()
       if (this.href) {
-        navigator.navigate(this.href)
+        console.log('link', this.el, this.href)
+        this.el.classList.add('loading')
+        const start = new Date()
+        await navigator.navigate(this.href)
+        this.el.classList.remove('loading')
+        console.log(new Date() - start)
       }
     })
 

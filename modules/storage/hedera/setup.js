@@ -1,6 +1,6 @@
+require('storage-client/setup')
 const mixer = require('core/mixer')
 const setup = require('modeling-hedera/setup')
-require('storage')
 const Folderable = require('storage/mixins/Folderable')
 const Imageable = require('storage/mixins/Imageable')
 

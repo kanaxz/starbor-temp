@@ -6,8 +6,8 @@ module.exports = () => {
   return {
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.html',
-        favicon: './src/assets/favicon.ico',
+        template: './index.html',
+        favicon: './assets/favicon.ico',
       }),
       /*
         new CopyWebpackPlugin(

@@ -11,7 +11,7 @@ const map = [
 module.exports = class TextField extends Field {
   onInit() {
     
-      console.log(this)
+
     this.type = map.find(([t]) => {
       const type = this.state.property.type
       return type === t || type.prototype instanceof t

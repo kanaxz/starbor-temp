@@ -5,7 +5,7 @@ require('modeling/setup')
 require('management-client/setup')
 require('storage-client/setup')
 require('../modules/starbor/shared/types')
-require('jwt/setup')
+require('jwt')
 
 const loadersNames = [
   require('./loaders/collections'),

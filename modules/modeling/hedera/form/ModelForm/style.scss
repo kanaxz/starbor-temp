@@ -12,12 +12,8 @@ model-form {
     div {
       label {
         display: inline-block;
-        background-color: rgba(#e1e1e1, 0.5);
         cursor: pointer;
         padding: 5px;
-        &:hover {
-          background-color: aquamarine;
-        }
       }
       &:not(:last-child) {
         &::after {

@@ -7,97 +7,80 @@ storage-page {
   .left {
     width: fit-content;
     height: 100%;
-    border-right: 1px solid #e1e1e1;
   }
 
   > .right {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    height: 100%;
     > .bar {
       display: flex;
       flex-direction: row;
+      align-items: center;
       width: 100%;
       height: 35px;
-      border-bottom: 1px solid #e1e1e1;
       input {
+        border: none;
         font-size: 16px;
         height: 100%;
-        border: none;
-        border-right: 1px solid #e1e1e1;
       }
 
-      .actions {
+      app-interface {
         display: flex;
-        flex-direction: row;
-        div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-right: 1px solid #e1e1e1;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        cursor: pointer;
+
+        svg {
+          font-size: 20px;
+        }
+
+        > .content {
           padding: 5px;
-          cursor: pointer;
+        }
 
-          &:hover {
-            background-color: aquamarine;
-          }
-          svg {
-            font-size: 20px;
-          }
-
-          &.upload {
-            input {
-              display: none;
-            }
+        &.upload {
+          input {
+            display: none;
           }
         }
       }
     }
 
-    editable-grid {
-      .folder-panel {
-        .folders {
+    > .content {
+      height: calc(100% - 35px);
+      .folders {
+        margin-left: 10px;
+        .branch {
           display: flex;
-          flex-direction: row;
+          flex-direction: row-reverse;
           align-items: center;
-          margin-left: 10px;
-          .branch {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
 
-            .folder {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              &::after {
-                font-size: 26px;
-                font-weight: 600;
-                content: " ";
-                width: 15px;
-                border-bottom: 1px dashed #e1e1e1;
-              }
+          .folder {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            &::after {
+              font-size: 26px;
+              font-weight: 600;
+              content: " ";
+              width: 15px;
             }
           }
         }
-        .storage-objects {
-          display: flex;
-          flex: 1;
-          flex-direction: row;
-          flex-wrap: wrap;
-          padding-left: 10px;
-          padding-top: 10px;
-          > * {
-            margin-right: 10px;
-            margin-bottom: 10px;
-          }
-        }
       }
-      .file {
-        border: none;
-        width: 100%;
-        height: 100%;
-        background-color: #e1e1e1;
+      .storage-objects {
+        height: calc(100% - 35px);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 10px;
+        padding-top: 10px;
+        overflow: auto;
+        > * {
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
       }
     }
   }

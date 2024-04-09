@@ -47,18 +47,17 @@ module.exports = async (bootup, services) => {
       console.log(
         celestialObject.id,
         celestialObject.code,
+        celestialObject.name,
         celestialObject.parent_id,
-        parent.starmap.id,
+        parent.starmapId,
         parent.name,
       )
       /**/
 
-      if (celestialObject.type !== 'STAR' && celestialObject.parent_id !== parent.starmap.id && !isStar) {
+      if (celestialObject.type !== 'STAR' && celestialObject.parent_id !== parent.starmapId && !isStar) {
         continue
       }
-
-
-
+  
       const type = Object.values(types).find((type) => type.check(celestialObject))
       if (!type) {
 
@@ -73,6 +72,7 @@ module.exports = async (bootup, services) => {
 
       const entity = await type.process(entityJson, json)
       if (!entity) { continue }
+      entity.starmapId = json.id
       if (json.children) {
         await processChilds(json.children, entity)
       }
@@ -87,6 +87,7 @@ module.exports = async (bootup, services) => {
     const { resultset: [json] } = await starmapRequest('star-systems/' + starmapSystem.code)
     const entity = await buildFromJson(json)
     const system = await types.system.process(entity, json)
+    system.starmapId = json.id
     systems.push({ system, json })
     
   }

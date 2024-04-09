@@ -28,16 +28,17 @@ module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Mapea
   .define({
     name: 'gameEntity',
     abstract: true,
+    pluralName:'gameEntities',
     searchField: 'name',
     codeField: 'code',
   })
   .indexes({
     code: {
-      properties: ['code'],
+      properties: ['code', '@type'],
       unique: true,
     },
     name: {
-      properties: ['name'],
+      properties: ['name', '@type'],
       unique: true,
     }
   })

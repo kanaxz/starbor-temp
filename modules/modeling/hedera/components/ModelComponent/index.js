@@ -1,11 +1,12 @@
-const Component = require('hedera/Component')
+const { components: { Interface } } = require('hedera/global')
 const componentsService = require('../../componentsService')
 const { moveAttributes } = require('hedera/utils')
 const { getParent } = require('core/utils/proto')
 
-module.exports = class ModelComponent extends Component {
+module.exports = class ModelComponent extends Interface {
   constructor(model) {
     super()
+    this.classList.add('interactable')
     this.model = model
     if (model && !this.parentElement) {
       const parent = getParent(this.constructor)
@@ -29,6 +30,9 @@ module.exports = class ModelComponent extends Component {
       div.setAttribute(':model', modelAttribute)
       await scope.process(div)
       model = div.model
+    }
+    if (!model) {
+      return null
     }
     const typeName = this.constructor.definition.type
     if (!typeName) {
@@ -60,6 +64,7 @@ module.exports = class ModelComponent extends Component {
   }
 
   async onReady() {
+    await super.onReady()
     await this.update()
   }
 

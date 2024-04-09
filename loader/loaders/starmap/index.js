@@ -34,9 +34,9 @@ module.exports = async (services) => {
       await Organization.collection.create(organization)
     }
   }
-  /*
+  
   await loadAffiliations()
-  await loadSpecies()
+  //await loadSpecies()
   /**/
   await systemsLoader(bootup, services)
 }

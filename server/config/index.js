@@ -13,11 +13,11 @@ module.exports = {
     }
   },
   express: {
-    port: 3001,
+    port: 7001,
     options: {
       rejectUnauthorized: false,
-      key: fs.readFileSync(join(root, '../certificate/key.pem')),
-      cert: fs.readFileSync(join(root, '../certificate/cert.pem')),
+      key: fs.readFileSync(join(root, './certificate/key.pem')),
+      cert: fs.readFileSync(join(root, './certificate/cert.pem')),
       //ca: fs.readFileSync(join(root, '../certificate/Starbor-RootCA.crt'), 'utf-8'),
     }
   },

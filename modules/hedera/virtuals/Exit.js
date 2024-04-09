@@ -29,7 +29,7 @@ module.exports = class Exit extends Virtual {
   }
 
   trigger() {
-    if (this['@destroyed']) { return }
+    if (this.destroyed) { return }
     if (!this.when) { return }
     this.callback()
   }

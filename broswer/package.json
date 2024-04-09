@@ -25,30 +25,10 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1",
-    "webpack-merge": "^5.8.0"
-  },
-  "dependencies": {
-    "axios": "^1.4.0",
-    "client": "file:../modules/client",
-    "client-shared": "file:../client-shared",
-    "core-client": "file:../modules/core/client",
-    "core-hedera": "file:../modules/core/hedera",
-    "hedera": "file:../modules/hedera",
-    "jwt": "file:../modules/jwt/shared",
-    "jwt-hedera": "file:../modules/jwt/hedera",
-    "management": "file:../modules/management/shared",
-    "management-hedera": "file:../modules/management/hedera",
-    "modeling": "file:../modules/modeling/shared",
-    "modeling-client": "file:../modules/modeling/client",
-    "modeling-hedera": "file:../modules/modeling/hedera",
-    "ressourcing": "file:../modules/ressourcing",
+    "webpack-merge": "^5.8.0",
     "sass-loader": "^13.3.3",
-    "showdown": "^2.1.0",
-    "starbor-shared": "file:../modules/starbor/shared",
-    "storage": "file:../modules/storage/shared",
-    "storage-client": "file:../modules/storage/client",
-    "storage-hedera": "file:../modules/storage/hedera",
-    "three": "^0.163.0",
-    "wiki-hedera": "file:../modules/wiki/hedera"
+    "starbor-hedera": "file:../modules/starbor/hedera"
+  },
+  "dependencies": {    
   }
 }

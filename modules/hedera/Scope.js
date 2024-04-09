@@ -13,9 +13,7 @@ workers.push({
     if (!node.hasAttribute('slot')) { return }
     const slotName = node.getAttribute('slot') || 'main'
     node.removeAttribute('slot')
-    if (scope.slots[slotName]) {
-      throw new Error(`Slot ${slotName} already exists`)
-    }
+
     scope.slots[slotName] = {
       node,
       children: [...node.childNodes]
@@ -40,7 +38,8 @@ const processors = [
     // move attributes
     const component = scope.variables.this
     moveAttributes(node, component)
-    await scope.process(component)
+    const state = await scope.process(component)
+    await scope.readyVirtuals(state)
 
     // process
     await scope.renderContent(parent)
@@ -50,7 +49,6 @@ const processors = [
     if (node.nodeName !== 'SUPER') {
       return false
     }
-
     // process super attributes
     const component = scope.variables.this
     moveAttributes(node, component)
@@ -73,6 +71,7 @@ const processors = [
     const childScope = scope.child()
     childScope.type = nextDefinition.owner
     childScope.slots = {}
+    scope.slots.__proto__ = childScope.slots
     for (const node of superNodes) {
       await childScope.render(node)
     }
@@ -139,6 +138,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
     if (source) {
       this.variables.this = source
     }
+    this.level = (parent?.level || 0) + 1
     this.variables.$ = new Vars()
     this.slots = {}
     this.childs = []
@@ -154,6 +154,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
   }
 
   async renderSlots(nodes, renderScope) {
+    if (this.destroyed) { return }
     if (!nodes.length) { return }
     if (!renderScope) {
       renderScope = this
@@ -161,6 +162,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
     const renderSlot = async (slotName, nodes) => {
       const slot = this.slots[slotName]
       if (!slot) {
+        console.log(this)
         throw new Error(`Slot ${slotName} not found`)
       }
       this.currentSlot = slot
@@ -169,14 +171,6 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
       node.replaceChildren(...nodes)
       for (const node of nodes) {
         await renderScope.render(node)
-      }
-
-      // it means it wasn't called in the initialize of the component
-      if (renderScope === this) {
-        this.parent.slots[slotName] = {
-          node,
-          children: [...node.childNodes],
-        }
       }
 
     }
@@ -198,7 +192,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
   }
 
   async process(node) {
-
+    if (this.destroyed) { return }
     const state = { node, scope: this }
     if (!node.hederaStates) {
       node.hederaStates = []
@@ -233,6 +227,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
   }
 
   async render(node, variables = {}) {
+    if (this.destroyed) { return }
     Object.assign(this.variables, variables)
     for (const processor of processors) {
       if (await processor(this, node)) {
@@ -252,6 +247,7 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
   }
 
   async initialize(state) {
+    if (this.destroyed) { return }
     if (!state.node) {
       state = this.states.find(({ node }) => node === state)
     }
@@ -273,9 +269,25 @@ module.exports = class Scope extends mixer.extends([Destroyable, Eventable]) {
       await this.renderContent(node)
       node.isInitialized = true
     }
+
+  }
+
+  async readyVirtuals(state) {
+    if (state.virtuals) {
+      for (const virtual of state.virtuals) {
+        //await virtual.onReady()
+
+        Promise.resolve(virtual.onReady())
+          .catch((err) => {
+            console.error(err)
+          })
+        /**/
+      }
+    }
   }
 
   async initializeVirtuals(state) {
+    if (this.destroyed) { return }
     if (!state.virtuals) { return }
 
     for (const virtual of state.virtuals) {

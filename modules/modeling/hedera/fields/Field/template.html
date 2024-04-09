@@ -1,11 +1,11 @@
-<self :class="`field ${this.state.@required && 'required'} ${!this.state.@value && 'empty'} ${this.state.@disabled && 'disabled'} ${this.state.@hidden && 'hidden'}`">
+<super :class="`field ${this.state.@required && 'required'} ${!this.state.@value && 'empty'} ${this.state.@disabled && 'disabled'} ${this.state.@hidden && 'hidden'}`">
   <header slot="header">
     <label :style.display="this.state.property.name ? null : 'none'">
       {{this.state.property.name || ''}}
     </label>
   </header>
 
-  <div class="main" slot></div>
+  <div class="main" slot="main"></div>
   <div
     class="errors"
     :v-for="error of this.state.@errors"
@@ -17,4 +17,4 @@
       {{message.text}}
     </div>
   </div>
-</self>
+</super>

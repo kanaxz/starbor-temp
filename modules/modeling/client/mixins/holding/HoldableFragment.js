@@ -4,9 +4,6 @@ const BaseHoldable = require('./BaseHoldable')
 module.exports = mixer.mixin([BaseHoldable], (base) => {
   return class HoldableFragment extends base {
     hold(reference) {
-      if(!this.owner){
-        console.log(this)
-      }
       this.owner.hold(reference)
     }
 

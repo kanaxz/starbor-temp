@@ -37,7 +37,7 @@ module.exports = class ObservableArrayHandler extends mixer.extends([Bindeable, 
   }
 
   async updateIterations() {
-    if (this['@destroyed']) { return }
+    if (this.destroyed) { return }
     const processedIts = []
     for (const object of this.source) {
       const index = this.source.indexOf(object)

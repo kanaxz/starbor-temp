@@ -19,7 +19,7 @@ module.exports = class Layout extends mixer.extends(Component, [LocalStorageable
     await this.scope.render(this.content)
     if (oldContent) {
       this.scope.release(oldContent)
-      this.container.removeChild(oldContent)
+      oldContent.remove()
     }
     this.container.appendChild(this.content)
     this.contentReady = true

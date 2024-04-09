@@ -1,8 +1,14 @@
-const { GameEntity } = require('starbor-shared/types')
+const { GameEntity } = require('starbor')
 const { File, Folder } = require('storage')
 const { Group } = require('management')
 const Right = require('ressourcing/Right')
 const { extname } = require('path')
+
+
+const getPath = (type) => {
+  const { parent } = type.definition
+  return `${(parent ? getPath(parent) : '')}/${type.definition.pluralName}`
+}
 
 module.exports = {
   dependencies: ['modeling', 'storage', 'management'],
@@ -11,8 +17,10 @@ module.exports = {
     modeling.controller(GameEntity, {
       async create(req, gameEntity, next) {
         const admins = await Group.collection.findOne(req, [{ $eq: ['$name', 'admin'] }])
-        const entitiesFolder = await Folder.collection.findOne(req, [{ $eq: ['$name', 'entities'] }, { $eq: ['$folder', null] }])
-        const folder = new Folder({
+        const entitiesFolder = await Folder.collection.getByPath(req, getPath(gameEntity.constructor))
+
+        const { model: folder } = await Folder.collection.findOrCreate(req, {
+          '@type': 'folder',
           name: gameEntity.name,
           folder: entitiesFolder,
           read: new Right({
@@ -27,8 +35,6 @@ module.exports = {
             owners: [admins]
           })
         })
-
-        await Folder.collection.create(req, folder)
         const { image } = gameEntity
         gameEntity.folder = folder
         if (image) {
