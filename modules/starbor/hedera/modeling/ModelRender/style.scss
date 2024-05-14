@@ -1,0 +1,8 @@
+model-render {
+  display: block;
+  position: relative;
+
+  .projection-background {
+    z-index: -1;
+  }
+}

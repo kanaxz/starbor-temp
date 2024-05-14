@@ -73,9 +73,9 @@ class BaseModel extends mixer.extends(ObjectType, [ModelMixin, Loadable, ...conf
 
   async apply(...args) {
     const [context, $set] = setup.getArgs(args)
-    return this.constructor.collection.update(context, {
-      _id: this._id,
-    }, {
+    return this.constructor.collection.update(context, [{
+      $eq: ['$_id', this._id],
+    }], {
       $set
     })
   }

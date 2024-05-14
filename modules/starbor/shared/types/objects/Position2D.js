@@ -1,4 +1,5 @@
 const { Object, Number } = require('modeling/types')
+const Position = require('./Position')
 
 const getDimensionState = ({ property }, ownProperty) => {
   return {
@@ -6,7 +7,7 @@ const getDimensionState = ({ property }, ownProperty) => {
   }
 }
 
-class Position2D extends Object {
+class Position2D extends Position {
 
 }
 

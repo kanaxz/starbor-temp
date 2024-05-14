@@ -19,3 +19,4 @@ module.exports = class Card extends ModelComponent {
     navigator,
     mixer,
   })
+  .register(Model, 'card')

@@ -4,43 +4,38 @@ const { moveAttributes } = require('hedera/utils')
 const { getParent } = require('core/utils/proto')
 
 module.exports = class ModelComponent extends Interface {
-  constructor(model) {
+  constructor(model, type) {
     super()
     this.classList.add('interactable')
-    this.model = model
-    if (model && !this.parentElement) {
-      const parent = getParent(this.constructor)
-      if (parent === ModelComponent) {
-        throw new Error('Cannot instanciate')
-      }
-    }
-
+    Object.assign(this, {
+      model,
+      type
+    })
   }
 
   async replace(scope) {
-    const parent = getParent(this.constructor)
-    if (parent !== ModelComponent) { return null }
-    let model = this.model
-    if (!model) {
+    if (this.constructor !== ModelComponent) { return null }
+
+    let infos = this
+    if (!infos.model || !infos.type) {
       const div = document.createElement('div')
-      const modelAttribute = this.getAttribute(':model')
-      if (!modelAttribute) {
-        throw new Error('Cannot replace')
+      for (const attributeName of ['model', 'type']) {
+        const attribute = this.getAttribute(`:${attributeName}`)
+        if (!attribute) {
+          throw new Error('Cannot replace')
+        }
+        div.setAttribute(`:${attributeName}`, attribute)
       }
-      div.setAttribute(':model', modelAttribute)
+
       await scope.process(div)
-      model = div.model
+      infos = div
     }
-    if (!model) {
+    if (!infos.model || !infos.type) {
       return null
     }
-    const typeName = this.constructor.definition.type
-    if (!typeName) {
-      throw new Error('Cannot replace')
-    }
-    const type = componentsService.get(model.constructor, typeName)
-    const replace = new type(model)
-    moveAttributes(this, replace)
+    const type = componentsService.get(infos.model.constructor, infos.type)
+    const replace = new type()
+    moveAttributes(this, replace, ['type'])
     this.destroy()
     return replace
   }
@@ -75,7 +70,9 @@ module.exports = class ModelComponent extends Interface {
 
 
 }
-  .define()
+  .define({
+    name: 'model-component',
+  })
   .properties({
     model: 'any',
   })

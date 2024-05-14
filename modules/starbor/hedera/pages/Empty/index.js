@@ -1,5 +1,6 @@
 const template = require('./template.html')
 const Component = require('hedera/Component')
+const { Entity } = require('starbor')
 const Folder = require('storage/Folder')
 require('./style.scss')
 
@@ -7,9 +8,13 @@ module.exports = class EmptyPage extends Component {
 
   async onInit() {
     //const folder = new Folder()
+    /*
     const folder = await Folder.collection.findByUniqueIndex({ name: 'storage', folder: null })
-    console.log({ folder })
     this.folder = folder
+    */
+    this.entity = await Entity.collection.findOne([{ $eq: ['$code', 'PORT-OLISAR'] }], {
+      type: 'spaceStation'
+    })
   }
 
   clicked() {

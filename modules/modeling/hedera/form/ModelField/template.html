@@ -25,10 +25,11 @@
         <div 
           class="suggestion" 
           :on-click="this.selectSuggestion(suggestion)">
-            <model-row 
+            <model-component 
+              :type="'row'"
               :model="suggestion"
               :v-selectable="node.click()">
-            </model-row>
+            </model-component>
         </div>
     </div>
   </div>

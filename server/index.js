@@ -20,8 +20,12 @@ const start = async () => {
   })
 
   await core.start()
+  console.log('PURGE START')
   await core.object.trigger('purge')
+  console.log('PURGE END')
+  console.log('MIGRATE START')
   await core.object.trigger('migrate')
+  console.log('MIGRATE END')
   return core
 }
 

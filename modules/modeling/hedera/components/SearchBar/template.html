@@ -34,15 +34,15 @@
             </tool-tip>
           </div>
         </header>
-        <div 
-          :v-loader="searchable.@loading size '50px'"  
+        <div  
           class="results" 
           :v-for="result of searchable.@results">
           <a :on-click="this.stop()" :v-link="result.@url">
-            <model-row 
-              :model="result" 
+            <model-component 
+              :model="result"
+              :type="'row'" 
               :v-selectable="node.click()">
-            </model-row>
+            </model-component>
           </a>
         </div>
       </div>

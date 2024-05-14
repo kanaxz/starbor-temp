@@ -7,6 +7,7 @@ const modules = [
   require('./lib/storageObject'),
   require('./lib/user'),
   require('./lib/routes'),
+  require('./lib/folderable')
   
 ]
 

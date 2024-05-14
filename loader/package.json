@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.3.4",
+    "collada2gltf-nodejs": "file:../collada2gltf-nodejs",
     "core": "file:../modules/core/shared",
+    "form-data": "^4.0.0",
     "glob": "^9.3.4",
     "in": "^0.19.0",
     "ini": "^4.0.0",
@@ -23,6 +25,7 @@
     "request-promise": "^4.2.6",
     "ressourcing": "file:../modules/ressourcing",
     "shared": "file:../shared",
+    "starbor": "file:../modules/starbor/shared",
     "storage": "file:../modules/storage/shared",
     "storage-client": "file:../modules/storage/client",
     "xml2json": "^0.12.0"

@@ -9,7 +9,7 @@
   </div>
   <div :v-for="model of this.branch" class="list">
     <a class="model" :v-link="model.@url">
-      <model-row :model="model"></model-row>
+      <model-component :type="'row'" :model="model"></model-component>
     </a>
   </div>
 </self>

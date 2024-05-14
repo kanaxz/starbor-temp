@@ -1,4 +1,6 @@
+const mixer = require('core/mixer')
 const GameEntity = require('./GameEntity')
+const Sphereable = require('../../../mixins/Sphereable')
 
 const parentLogic = (states) => {
   states.parent.filters.push({
@@ -6,7 +8,7 @@ const parentLogic = (states) => {
   })
 }
 
-module.exports = class Moon extends GameEntity {
+module.exports = class Moon extends mixer.extends(GameEntity, [Sphereable]) {
 
 }
   .define({

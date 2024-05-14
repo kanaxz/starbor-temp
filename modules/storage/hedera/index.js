@@ -13,5 +13,5 @@ ObjectFieldset.typesFieldmapping.unshift([StorageObject, FileField])
 menu.links.push({
   class: 'fa-solid fa-folder',
   label: 'storage',
-  url: '/explorer/storage',
+  url: '/explorer/',
 })

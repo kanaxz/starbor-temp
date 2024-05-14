@@ -2,14 +2,10 @@ const { join } = require("path");
 const MongoCollection = require('mongo/MongoCollection');
 const { objectToFilter } = require('modeling/processing/utils');
 const { storageName } = require("../../utils");
-const fs = require('fs').promises
+const { copyFile } = require('fs/promises')
 
 module.exports = class StorageCollection extends MongoCollection {
 
-  static methods = [
-    ...MongoCollection.methods,
-    'getByPath'
-  ]
 
   constructor(type, mongo, controllers, config) {
     super(type, mongo, controllers)
@@ -22,10 +18,11 @@ module.exports = class StorageCollection extends MongoCollection {
     await file.load(context, {
       folder: true
     })
-    if (file.folder.equals(folder) || file.folder.path === '/storage/upload') {
+    const userUploadFolder = await context.user.folder.getByPath(context, '/private/upload')
+    if (file.folder.equals(folder) || file.folder.equals(userUploadFolder)) {
       await file.apply(context, {
         ...values,
-        folder,
+        folder: folder.toJSON(null),
       })
 
       return file
@@ -41,25 +38,10 @@ module.exports = class StorageCollection extends MongoCollection {
       context.fromUploadAPI = true
       await this.create(context, copy)
       Object.assign(context, { fromUploadAPI })
-      await fs.copyFile(join(root, storageName, file._id), join(root, storageName, copy._id))
+      await copyFile(join(root, storageName, file._id), join(root, storageName, copy._id))
       return copy
     }
 
 
-  }
-
-  async getByPath(context, path) {
-    const segments = path.split('/').filter((o) => o)
-    let current = null
-
-    for (const segment of segments) {
-      current = await this.findOne(context, [{
-        $eq: ['$name', segment]
-      }, {
-        $eq: ['$folder', current?.getIndex('id')]
-      }])
-    }
-
-    return current
   }
 }

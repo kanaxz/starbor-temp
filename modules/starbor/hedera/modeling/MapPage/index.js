@@ -6,9 +6,9 @@ require('./style.scss')
 
 module.exports = class MapPage extends Component {
 
-  constructor(mapeable) {
+  constructor(Positionable) {
     super()
-    this.mapeable = mapeable
+    this.Positionable = Positionable
 
   }
 
@@ -26,16 +26,19 @@ module.exports = class MapPage extends Component {
     const scene = new THREE.Scene()
   
     this.appendChild(this.renderer.domElement)
+    
     let camera
 
     function animate() {
       requestAnimationFrame(animate)
       renderer.render(scene, camera)
     }
+    /*
     const type = types[this.mapeable.constructor.definition.name]
     if (type) {
       await type(scene, this.mapeable)
     }
+    */
 
     setTimeout(() => {
       camera = new THREE.PerspectiveCamera(100, this.clientWidth / this.clientHeight, 0.1, 1000);
@@ -43,7 +46,7 @@ module.exports = class MapPage extends Component {
       renderer.setSize(this.clientWidth, this.clientHeight);
       animate()
     })
-
+    
 
 
   }

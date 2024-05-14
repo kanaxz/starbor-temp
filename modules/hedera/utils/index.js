@@ -32,9 +32,10 @@ const attributes = {
   },
 }
 
-const moveAttributes = (from, to) => {
+const moveAttributes = (from, to, exclude = []) => {
   [...from.attributes]
     .forEach((attr) => {
+      if (exclude.indexOf(attr.name) !== -1) { return }
       from.removeAttribute(attr.name)
       const attrType = attributes[attr.name]
       if (attrType) {

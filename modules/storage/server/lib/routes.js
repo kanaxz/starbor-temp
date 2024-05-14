@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { File, Folder } = require('storage')
+const { File } = require('storage')
 const { uploadName, storageName } = require('../utils')
 const { join, basename } = require('path')
 const fileUpload = require('express-fileupload')
@@ -13,49 +13,8 @@ const mmm = require('mmmagic')
 const { validateType } = require('core/utils/file')
 Magic = mmm.Magic
 const magic = new Magic(mmm.MAGIC_MIME_TYPE)
-const sharp = require('sharp')
 const Right = require('ressourcing/Right')
-const maxImageSize = 5000
-
-const types = {
-  image: {
-    readFile: async (req, file, config) => {
-      const filePath = join(config.root, storageName, file._id)
-
-      if (!req.query.width || !req.query.height) {
-        return readFile(filePath)
-      }
-
-      const width = parseInt(req.query.width)
-      const height = parseInt(req.query.height)
-
-      for (const d of [width, height]) {
-        if (!d || isNaN(d)) {
-          throw new Error('Size not recognized')
-        }
-        if (d > maxImageSize) {
-          throw new Error(`Size to big, max is ${maxImageSize}`)
-        }
-      }
-
-
-      const folderPath = join(config.root, 'cache', file._id)
-      if (!fs.existsSync(folderPath)) {
-        await mkdir(folderPath, { recursive: true })
-      }
-
-      const resizedImagePath = join(folderPath, `w${width}-h${height}`)
-
-      if (!fs.existsSync(resizedImagePath)) {
-        await sharp(filePath)
-          .resize(width, height)
-          .toFile(resizedImagePath)
-      }
-
-      return readFile(resizedImagePath)
-    }
-  }
-}
+const types = require('../types')
 
 module.exports = ({ express }, config) => {
   express.get(`/api/${storageName}/:id`, async (req, res) => {
@@ -82,7 +41,7 @@ module.exports = ({ express }, config) => {
       if (type?.readFile) {
         data = await type.readFile(req, file, config)
       } else {
-        const fullPath = join(config.root, path)
+        const fullPath = join(config.root, storageName, file._id)
         data = await readFile(fullPath)
       }
 
@@ -109,12 +68,16 @@ module.exports = ({ express }, config) => {
 
     const type = File.getAllChilds()
       .reverse()
-      .find((t) => validateType(t.accept, mimetype))
-      .definition.name
+      .find((t) => t.accept({mimetype, name: values.name }))
+
+    if (!type) {
+      throw new Error(`File type not found for mimetype ${mimetype}`)
+    }
+    const typeName = type.definition.name
 
     const file = await File.collection.create(req, {
       ...values,
-      '@type': type,
+      '@type': typeName,
       mimetype,
       size: fileStat.size,
       read: new Right({

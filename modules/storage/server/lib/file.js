@@ -13,10 +13,6 @@ module.exports = async ({ modeling }, { root }) => {
       await next()
     },
     async update(req, file, old, next) {
-      if (!file.folder.equals(old.folder)) {
-        await updatePath(req, file)
-      }
-      await fs.rename(join(root, old.path), join(root, file.path))
       await next()
     }
   })

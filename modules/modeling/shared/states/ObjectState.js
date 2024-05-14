@@ -1,7 +1,7 @@
 const State = require('./State')
 const { ArrayAssociation, Model, Primitive } = require('../types')
 const ModelState = require('./ModelState')
-const ignore = ['_id', '@type']
+const ignore = ['_id']
 
 const getState = (context, property) => {
   return (typeof property.state === 'function') ? property.state(context, property) : property.state || {}

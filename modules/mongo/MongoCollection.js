@@ -95,12 +95,13 @@ module.exports = class MongoCollection {
   }
 
   getTypeControllers(type) {
-    const controllers = this.controllers
-      .filter((controller) => {
-        return type === controller.type || mixer.is(type.prototype, controller.type)
-      })
-      .map((c) => c.controller)
-
+    const controllers = this.controllers.filter((c) => c.type === type).map((c) => c.controller)
+    if (type.definition) {
+      const parentsControllers = type.definition.parents
+        .flatMap((parent) => this.getTypeControllers(parent))
+        .filter((c, i, l) => i === l.indexOf(c))
+      controllers.push(...parentsControllers)
+    }
     return controllers
   }
 
@@ -274,23 +275,23 @@ module.exports = class MongoCollection {
     }
   }
 
-  async findOrCreate(context, json){
+  async findOrCreate(context, json) {
     const tempModel = this.type.parse(json)
     const index = tempModel.getFirstUniqueIndex()
-    if(!index){
+    if (!index) {
       throw new Error('Index not found')
     }
 
     let model = await this.findOne(context, objectToFilter(index))
     let created = false
-    if(!model){
+    if (!model) {
       created = true
       model = await this.create(context, json)
     }
     return new FindOrCreateResult({
       created,
       model,
-    })    
+    })
   }
 
   async delete(req, arg) {

@@ -1,7 +1,9 @@
 const GameEntity = require('./GameEntity')
 const Position3D = require('../../objects/Position3D')
+const mixer = require('core/mixer')
+const BackgroundImageable = require('storage/mixins/BackgroundImageable')
 
-module.exports = class System extends GameEntity {
+module.exports = class System extends mixer.extends(GameEntity, [BackgroundImageable]) {
   destroy() {
     super.destroy()
   }

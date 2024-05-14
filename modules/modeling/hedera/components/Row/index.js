@@ -1,3 +1,4 @@
+const { Model } = require('modeling/types')
 const ModelComponent = require('../ModelComponent')
 const template = require('./template.html')
 
@@ -12,3 +13,4 @@ module.exports = class Row extends ModelComponent {
     type: 'row',
     template
   })
+  .register(Model, 'row')

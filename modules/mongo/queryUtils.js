@@ -21,7 +21,6 @@ const map = {
 
       letObject[k] = value.value
     }
-    console.log(initialPaths, scope.root.paths)
     const lookups = await buildLookups(scope, initialPaths, scope.root.paths)
 
     return [

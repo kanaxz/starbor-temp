@@ -47,10 +47,11 @@
         <div 
           class="storage-objects" 
           :v-for="storageObject of this.@storageObjects.sortLink((o1, o2)=> (o1 instanceof Folder ? 0 : 1) - (o2 instanceof Folder ? 0 : 1))">
-          <model-card
+          <model-component
+            :type="'card'"
             :model="storageObject"
             :v-selectable="this.onFileObjectClicked(storageObject)">
-          </model-card>
+          </model-component>
         </div>
       </div>
     </div>

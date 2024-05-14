@@ -15,7 +15,9 @@ module.exports = {
       next()
     })
 
-    expressApp.use(cors())
+    expressApp.use(cors({
+      origin: true,
+    }))
 
     expressApp.use(cookieParser())
     expressApp.use(bodyParser.json())

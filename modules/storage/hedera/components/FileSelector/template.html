@@ -10,11 +10,12 @@
     class="objects"
     :v-for="object of this.@objects">
     <div>
-      <model-card 
+      <model-component 
+        :type="'card'"
         :model="this.template(object)"
         :v-selectable="this.selectFile(object)" 
         :class="`${this.@file === object ? 'selected' : ''}`">
-      </model-card>    
+      </model-component>    
     </div>
   </div>
   <button 

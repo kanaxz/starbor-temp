@@ -1,6 +1,7 @@
 
 const Right = require('ressourcing/Right')
 const StorageObject = require('./StorageObject')
+const setup = require('modeling/setup')
 
 const newName = 'New folder'
 module.exports = class Folder extends StorageObject {
@@ -12,6 +13,24 @@ module.exports = class Folder extends StorageObject {
       newFolderName = `${newName} (${index++})`
     }
     return newFolderName
+  }
+
+  async getByPath(...args) {
+    const [context, path] = setup.getArgs(args)
+    if(path === '/'){
+      return this
+    }
+    await this.children.load(context)
+    const [childName, ...remainingPath] = path.split('/').filter((o) => o)
+    const child = this.children.find((c) => c.name === childName)
+    if(!child){
+      throw new Error(`Could not find child with name ${childName}`)
+    }
+    if (remainingPath.length) {
+      return child.getByPath(context, remainingPath.join('/'))
+    } else {
+      return child
+    }
   }
 }
   .define({

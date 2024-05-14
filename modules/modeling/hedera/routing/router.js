@@ -8,7 +8,7 @@ const types = Model.getAllChilds()
   .filter((t) => mixer.is(t.prototype, Pageable))
   .filter((t) => !t.definition.abstract)
 
-const url = new RegExp(`/(${types.map((t) => t.definition.name).join('|')})/([\\d|\\w]*)`)
+const url = new RegExp(`/(${types.map((t) => t.definition.name).join('|')})/([\\d|\\w|-]*)`)
 
 const router = new LayoutRouter({
   url,
@@ -21,7 +21,8 @@ router.use(async (req, res, next) => {
   const type = types.find((t) => t.definition.name === typeName)
   const { codeField } = type.definitions.find((d) => d.codeField)
   const model = await type.collection.findByUniqueIndex({
-    [codeField]: code
+    [codeField]: code,
+    '@type': typeName,
   }, {
     type: type.definition.name,
   })

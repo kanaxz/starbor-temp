@@ -20,9 +20,13 @@ module.exports = mixer.mixin([Equalable], (base) => {
       return this.constructor.indexes
         .filter((index) => index.unique)
         .some((index) => {
-          const undefinedProperties = index.properties.filter((p) => this[p] === object[p] && this[p] == undefined)
-          if (undefinedProperties.length) { return false }
-          const matchingProperties = index.properties.filter((p) => this[p] === object[p])
+          const hasUndefinedProperties = index.properties.some((p) => [this[p], object[p]].indexOf(undefined) !== -1)
+          if (hasUndefinedProperties) { return false }
+
+          const matchingProperties = index.properties.filter((p) => {
+            const property = this.constructor.properties.find((_p) => _p.name === p)
+            return property.type.equals(this[p], object[p])
+          })
           return matchingProperties.length === index.properties.length
         })
     }

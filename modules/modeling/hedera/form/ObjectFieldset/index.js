@@ -4,7 +4,7 @@ const { TextField, BoolField, DateField, NumberField, MarkdownField } = require(
 const ModelField = require('../ModelField')
 const Field = require('../../fields/Field')
 const Markdown = require('modeling/types/Markdown')
-
+const ignore = ['@type']
 require('./style.scss')
 
 const typesFieldmapping = [
@@ -62,6 +62,7 @@ class ObjectFieldset extends Field {
     const type = this.state.property.type
     const properties = type.properties
     this.fields = Object.entries(this.state.states)
+      .filter(([p]) => ignore.indexOf(p) === -1)
       .reduce((acc, [propertyName, state]) => {
         const property = properties.find((p) => p.name === propertyName)
         const mapping = getMapping(property.type)

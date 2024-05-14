@@ -6,7 +6,6 @@ const Imageable = require('storage/mixins/Imageable')
 const Folderable = require('storage/mixins/Folderable')
 const Wikiable = require('wiki/mixins/Wikiable')
 const ControllerError = require('modeling/controlling/ControllerError')
-const Mapeable = require('../../../mixins/Mapeable')
 
 const isAdmin = async (context) => {
   if (!await context.user?.is(context, 'admin')) {
@@ -20,7 +19,7 @@ const commonLogic = (context, states) => {
   states.image.ration = '2:1'
 }
 
-module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Mapeable, Folderable, Imageable, Wikiable]) {
+module.exports = class GameEntity extends mixer.extends(Entity, [Pageable, Folderable, Imageable, Wikiable]) {
   toString() {
     return this.name
   }

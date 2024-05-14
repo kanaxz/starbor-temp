@@ -1,0 +1,69 @@
+<html>
+  <head> </head>
+  <body>
+    <div
+      tabindex="0"
+      class="container"
+      onblur="onBlur(event)"
+      onfocus="console.log('focus')"
+    >
+      <div onclick="toggle()">some value</div>
+      <div class="list">
+        <span onclick="console.log('a clicked')">a</span>
+        <span onclick="console.log('b clicked')">b</span>
+        <span onclick="console.log('c clicked')">c</span>
+        <span onclick="console.log('d clicked')">d</span>
+        <span onclick="console.log('e clicked')">e</span>
+      </div>
+    </div>
+    <div class="outside">outside</div>
+    <script>
+      const container = document.body.querySelector(".container")
+
+      container.addEventListener('focusout',()=>{
+        console.log('focusout')
+        toggle
+      })
+      toggle = () => {
+        container.classList.toggle("open");
+      };
+
+      onBlur = (e) => {
+        console.log("blur", e.target, e.relatedTarget);
+        if (container.contains(e.relatedTarget)) {
+          console.log('contains')
+          e.stopImmediatePropagation()
+          e.preventDefault()
+          e.stopPropagation()
+          return;
+        }
+        toggle();
+      };
+    </script>
+    <style>
+      .container.open .list {
+        display: block;
+      }
+
+      .list {
+        display: none;
+        z-index: 3;
+        height: 150px;
+        overflow: auto;
+      }
+
+      .list > span {
+        display: block;
+      }
+
+      .outside,
+      .container,
+      .list,
+      .list > span {
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #e1e1e1;
+      }
+    </style>
+  </body>
+</html>

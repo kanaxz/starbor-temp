@@ -8,10 +8,10 @@ starbor-app {
     z-index: -9999;
     top: 0;
     left: 0;
-    background-image: url("./background.jpg");
     filter: blur(10px) brightness(0.5);
     height: 100%;
     width: 100%;
+    transition-duration: 0.2s;
 
     /* Center and scale the image nicely */
     background-position: center;

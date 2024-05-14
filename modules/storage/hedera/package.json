@@ -14,8 +14,8 @@
     "core-client": "file:../../core/client",
     "hedera": "file:../../hedera",
     "modeling": "file:../../modeling/shared",
-    "modeling-hedera": "file:../../modeling/hedera",
     "modeling-client": "file:../../modeling/client",
+    "modeling-hedera": "file:../../modeling/hedera",
     "ressourcing": "file:../../ressourcing",
     "storage": "file:../shared",
     "storage-client": "file:../client"

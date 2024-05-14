@@ -12,8 +12,10 @@ module.exports = async ({ modeling, router }) => {
           try {
             const start = new Date()
             const result = await collection[methodName](req, ...args)
+            const jsonResult = result?.toJSON()
+            //console.log(`${collectionName} ${methodName}`, JSON.stringify(jsonResult, null,' ' ))
             res.send({
-              result: result?.toJSON()
+              result: jsonResult
             })
             //console.log('end', new Date() - start, collectionName, methodName)
           } catch (err) {

@@ -10,6 +10,7 @@
     "core": "file:../../core",
     "core-server": "file:../../core-server",
     "management": "file:../../management/shared",
+    "modeling": "file:../../modeling/shared",
     "ressourcing": "file:../../ressourcing",
     "starbor": "file:../shared",
     "storage": "file:../../storage/shared"

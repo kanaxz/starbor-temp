@@ -14,9 +14,10 @@ module.exports = class Root extends Layout {
     await scope.render(this)
   }
 
-  async loadLayouts(req, layouts) {
+  async loadLayouts(req, layoutsTypes) {
     let current = this
-    for (let layoutType of layouts) {
+    const layouts = []
+    for (let layoutType of layoutsTypes) {
       let args = {}
       if (!(layoutType.prototype instanceof Layout)) {
         layoutType = layoutType(req)
@@ -37,15 +38,18 @@ module.exports = class Root extends Layout {
         Object.assign(current.content, args)
       }
       current = current.content
+      layouts.push(current)
     }
-    return current
+    return layouts
   }
 
-  async setPage(req, layouts, pageImport, args) {
-    const bottomLayout = await this.loadLayouts(req, layouts)
+  async setPage(req, layoutsTypes, pageImport, args) {
+    const layouts = await this.loadLayouts(req, layoutsTypes)
+    const bottomLayout = layouts[layouts.length - 1]
     const pageModule = await pageImport
     const pageType = pageModule.default
     const page = new pageType(...args)
     await bottomLayout.setContent(page)
+    await this.emit('pageLoaded', [layouts, page])
   }
 }.define()

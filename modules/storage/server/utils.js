@@ -1,14 +1,19 @@
 const { Folder } = require('storage')
 const Right = require('ressourcing/Right')
+const { objectToFilter } = require('modeling/processing/utils')
 
 const processUser = async (context, user) => {
-  const usersFolder = await Folder.collection.getByPath(context, '/storage/users')
+  const storageFolder = await Folder.collection.findOne(context, objectToFilter({
+    name: 'storage',
+    folder: null,
+  }))
+  const usersFolder = await storageFolder.getByPath(context, '/users')
   if (!usersFolder) {
     throw new Error('users folder not found')
   }
   const folder = await Folder.collection.create(context, {
     '@type': 'folder',
-    name: user._id,
+    name: user.username,
     folder: usersFolder,
     read: new Right({
       type: 'public',

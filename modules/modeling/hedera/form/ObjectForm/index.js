@@ -5,11 +5,9 @@ const RootObjectState = require('modeling/states/RootObjectState')
 require('./style.scss')
 
 const applyStates = (targetStates, statesPatch) => {
-  console.log({ targetStates, statesPatch })
   Object.entries(statesPatch)
     .forEach(([k, patch]) => {
       const target = targetStates[k]
-      console.log({ target, patch })
       Object.assign(target, patch)
       if (patch.states) {
         applyStates(target.states, patch.states)

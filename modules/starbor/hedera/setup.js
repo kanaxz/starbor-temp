@@ -17,11 +17,8 @@ require('starbor')
 const global = require('./global')
 const Loader = require('./components/Loader')
 const Interface = require('./components/Interface')
-const mixer = require('core/mixer')
-const setup = require('modeling-hedera/setup')
-const Mapeable = require('starbor/mixins/Mapeable')
 const { buildCollections } = require('modeling-client')
-
+require('./modeling/setup')
 buildCollections(STARBOR_CONFIG.server.url)
 
 
@@ -30,25 +27,16 @@ Object.assign(global.components, {
   Interface,
 })
 
-setup.routing.actions.push({
-  name: 'map',
-  content: '<i class="fa-solid fa-globe"></i>',
-  url: '/map',
-  check(model) {
-    if (!mixer.is(model, Mapeable)) {
-      throw new Error()
-    }
-  },
-  async execute(req, res, next) {
-    await res.page(import('./modeling/MapPage'), req.model)
-  }
-})
+
 
 global.menu.links.push({
   label: 'Home',
   class: 'fa-solid fa-house',
   url: '/',
 })
+
+
+
 
 // index
 require('hedera')
