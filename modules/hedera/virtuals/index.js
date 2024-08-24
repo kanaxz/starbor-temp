@@ -1,2 +1,0 @@
-require('./InputDelay')
-require('./Exit')

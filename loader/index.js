@@ -1,9 +1,9 @@
-require('core/setup')
+require('sools-core/setup')
 require('ressourcing/setup')
-require('modeling-client/setup')
-require('modeling/setup')
+require('sools-modeling-client/setup')
+require('sools-modeling/setup')
 require('storage-client/setup')
-require('management-client/setup')
+require('sools-auth-client/setup')
 require('../modules/starbor/shared/types')
 require('jwt')
 

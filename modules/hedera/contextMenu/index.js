@@ -1,2 +1,0 @@
-require('./ContextMenu')
-require('./ContextMenuItem')

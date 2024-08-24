@@ -3,7 +3,7 @@ const { BackgroundImageable, Folder } = require('storage')
 const { basename, join } = require('path')
 const { createReadStream } = require('fs')
 const collada2gltf = require('collada2gltf-nodejs')
-const { makeId } = require('core/utils/string')
+const { makeId } = require('sools-core/utils/string')
 const { rm } = require('fs/promises')
 const { gePositionFromLatLon, loadUrl, tempFolder } = require('./utils')
 

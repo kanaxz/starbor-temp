@@ -1,2 +1,0 @@
-require('./ModalContainer')
-require('./Modal')

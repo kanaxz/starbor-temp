@@ -1,7 +1,7 @@
 const { Organization, Star, System, Entity } = require('starbor/types')
 const { starmapRequest, getSystemPosition } = require('./utils')
 const { codify } = require('../../utils')
-const User = require('management/User')
+const User = require('sools-auth/User')
 const types = require('./types')
 
 module.exports = async (bootup, services) => {

@@ -1,5 +1,5 @@
 require('./setup')
-const CoreModule = require('core-server/CoreModule')
+const CoreModule = require('../../sools/core/server/CoreModule')
 const config = require('./config')
 const { join } = require('path')
 
@@ -8,12 +8,12 @@ const start = async () => {
     config,
     node_modules: join(__dirname, '/node_modules'),
     bundles: [
-      'core-server',
+      'sools-core-server',
       'migrations',
       'mongo',
-      'management-server',
+      'sools-auth-server',
       'storage-server',
-      'modeling-server',
+      'sools-modeling-server',
       'starbor-server',
       'jwt-server',
     ]

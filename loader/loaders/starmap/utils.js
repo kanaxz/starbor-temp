@@ -1,7 +1,7 @@
 const axios = require('axios')
 const fs = require('fs')
 const baseUrl = 'https://robertsspaceindustries.com/api/starmap/'
-const { makeId } = require('core/utils/string')
+const { makeId } = require('sools-core/utils/string')
 const { Readable } = require('stream')
 const { finished } = require('stream/promises')
 const { join } = require('path')

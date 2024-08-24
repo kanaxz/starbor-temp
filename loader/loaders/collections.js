@@ -1,7 +1,8 @@
 const config = require('../config')
-const { buildCollections } = require('modeling-client')
+const { buildCollections } = require('sools-modeling-client')
 const moment = require('moment')
 const https = require('https')
+console.log({ config })
 const httpsAgent = new https.Agent(config.server.agent)
 const axios = require('axios')
 

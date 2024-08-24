@@ -1,2 +1,0 @@
-require('./Card')
-require('./Row')

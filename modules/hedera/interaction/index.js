@@ -1,2 +1,0 @@
-require('./Selectable')
-require('./SelectableRoot')

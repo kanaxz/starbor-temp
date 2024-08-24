@@ -5,7 +5,7 @@ const root = join(__dirname, '..')
 module.exports = {
   root,
   dist: join(root, './.dist'),
-  management: {
+  auth: {
     systemUser: {
       username: 'system',
       password: '123',
